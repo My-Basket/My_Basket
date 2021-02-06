@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/algo.h
+vector
+-
+string
+-
+iostream
+-
+unordered_set
+-
+tuple
+-
+map
+-
+algorithm
+-
+utility
+-
+
+../include/view.h
+algo.h
+../include/algo.h
+
+C:/Users/nikolya/Desktop/git/My_Basket/src/algo.cpp
+algo.h
+C:/Users/nikolya/Desktop/git/My_Basket/src/algo.h
+
+C:/Users/nikolya/Desktop/git/My_Basket/src/main.cpp
+iostream
+-
+
+C:/Users/nikolya/Desktop/git/My_Basket/src/view.cpp
+view.h
+C:/Users/nikolya/Desktop/git/My_Basket/src/view.h
+

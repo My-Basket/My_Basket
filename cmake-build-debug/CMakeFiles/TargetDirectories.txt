@@ -1,0 +1,3 @@
+C:/Users/nikolya/Desktop/git/My_Basket/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/nikolya/Desktop/git/My_Basket/cmake-build-debug/CMakeFiles/BUCKET_PROJECT.dir
+C:/Users/nikolya/Desktop/git/My_Basket/cmake-build-debug/CMakeFiles/edit_cache.dir
