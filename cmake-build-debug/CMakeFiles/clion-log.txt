@@ -1,4 +1,4 @@
-"F:\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\nikolya\Desktop\git\My_Basket
+"F:\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=F:\QT\5.15.2\msvc2015_64\lib\cmake -G "CodeBlocks - NMake Makefiles" C:\Users\nikolya\Desktop\project\My_Basket
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/nikolya/Desktop/git/My_Basket/cmake-build-debug
+-- Build files have been written to: C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug

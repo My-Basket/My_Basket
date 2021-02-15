@@ -1,3 +1,0 @@
-"F:\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\BUCKET_PROJECT.dir/objects.a
-F:\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin\ar.exe cr CMakeFiles\BUCKET_PROJECT.dir/objects.a @CMakeFiles\BUCKET_PROJECT.dir\objects1.rsp
-F:\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin\g++.exe  -Wall -Wextra -Wshadow  -DLOCAL -g   -Wl,--whole-archive CMakeFiles\BUCKET_PROJECT.dir/objects.a -Wl,--no-whole-archive  -o BUCKET_PROJECT.exe -Wl,--out-implib,libBUCKET_PROJECT.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\BUCKET_PROJECT.dir\linklibs.rsp

@@ -1,2 +1,2 @@
-# Empty dependencies file for BUCKET_PROJECT.
+# Empty dependencies file for My_Basket.
 # This may be replaced when dependencies are built.
