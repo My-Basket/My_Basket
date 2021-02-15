@@ -1,6 +1,10 @@
-#include <iostream>
+#include <QApplication>
+#include <QPushButton>
 
-int main() {
-    // main сделаем немного позже :)
-    return 0;
+int main(int argc, char *argv[]) {
+    QApplication a(argc, argv);
+    QPushButton button("Hello world!", nullptr);
+    button.resize(200, 100);
+    button.show();
+    return QApplication::exec();
 }
