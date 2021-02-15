@@ -90,7 +90,7 @@ CMAKE_EXE_LINKER_FLAGS_RELEASE:STRING=/INCREMENTAL:NO
 CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/untitled2
+CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/My_Basket
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/VS/VC/Tools/MSVC/14.28.29333/bin/Hostx64/x64/link.exe
@@ -205,12 +205,6 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
-My_Ba_BINARY_DIR:STATIC=C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug
-
-//Value Computed by CMake
-My_Ba_SOURCE_DIR:STATIC=C:/Users/nikolya/Desktop/project/My_Basket
-
-//Value Computed by CMake
 My_Basket_BINARY_DIR:STATIC=C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug
 
 //Value Computed by CMake
@@ -227,12 +221,6 @@ Qt5Widgets_DIR:PATH=F:/QT/5.15.2/msvc2015_64/lib/cmake/Qt5Widgets
 
 //The directory containing a CMake configuration file for Qt5.
 Qt5_DIR:PATH=F:/QT/5.15.2/msvc2015_64/lib/cmake/Qt5
-
-//Value Computed by CMake
-untitled2_BINARY_DIR:STATIC=C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug
-
-//Value Computed by CMake
-untitled2_SOURCE_DIR:STATIC=C:/Users/nikolya/Desktop/project/My_Basket
 
 
 ########################
