@@ -36,13 +36,21 @@ class ingredients_to_recipe : Data { // сценарий получения ре
 
 public:
     ingredients_to_recipe();
-    void search_ingredient(const std::string &name_of_ingredient)&;
+
+    void search_ingredient(const std::string &name_of_ingredient) &;
+
     [[nodiscard]]vector<string> show_res_of_request() const;
+
     void choose_ingredient_in_menu(int a) &;
+
     void remove_ingredient_from_menu(int a) &;
+
     void choose_bad_ingredients(int a) &;
+
     void search_recipes() &;
+
     void stop_searching_ingredient() &;
+
     void cancel_choice() &;
 };
 
@@ -51,9 +59,14 @@ class recipe_to_ingredients : Data { // сценарий получения ин
     vector<pair<string, vector<pair<int, string>>>> recipes;
 public:
     recipe_to_ingredients();
+
     void search_recipe(const string &name_of_recipe) &;
+
     [[nodiscard]]vector<pair<string, vector<pair<int, string>>>> get_recipes() const;
+
     void stop_searching() &;
+
     [[nodiscard]]vector<pair<int, string>> ingredients_of_recipe(int num) const;
 };
+
 #endif //BUCKET_PROJECT_ALGO_H

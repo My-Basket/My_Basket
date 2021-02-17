@@ -4,9 +4,12 @@
 #include "algo.h"
 
 using std::vector, std::unordered_set, std::tuple, std::string, std::pair, std::tuple;
+
 ///////////////////////////////////////////
-Data:: Data()=default;
-ingredients_to_recipe::ingredients_to_recipe() =default;
+Data::Data() = default;
+
+ingredients_to_recipe::ingredients_to_recipe() = default;
+
 void ingredients_to_recipe::search_ingredient(const std::string &name_of_ingredient) &{
     for (const auto &ingredient: all_ingredients) {
         if (name_of_ingredient == ingredient) {
@@ -76,7 +79,8 @@ void ingredients_to_recipe::cancel_choice() &{
 
 
 /////////////////////////////////////////
-recipe_to_ingredients::recipe_to_ingredients() =default;
+recipe_to_ingredients::recipe_to_ingredients() = default;
+
 void recipe_to_ingredients::search_recipe(const string &name_of_recipe) &{
     for (const auto &recipe_: all_recipes) {
         if (name_of_recipe == recipe_.first) {
@@ -92,6 +96,7 @@ void recipe_to_ingredients::search_recipe(const string &name_of_recipe) &{
 void recipe_to_ingredients::stop_searching() &{
     recipes.clear();
 }
+
 vector<pair<int, string>> recipe_to_ingredients::ingredients_of_recipe(int num) const {
     return recipes[num].second;
 }
