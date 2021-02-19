@@ -1,6 +1,7 @@
-{
-  "name": "data",
-  "version": "1.0.0",
-  "dependencies": {
+[
+  {
+    "Name": "data",
+    "Category": "1.0.0",
+    "Price": 10
   }
-}
+]

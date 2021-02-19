@@ -45,3 +45,4 @@ _deps
 *.out
 *.app
 *.idea
+/cmake-build-debug/

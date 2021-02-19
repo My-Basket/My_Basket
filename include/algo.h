@@ -5,7 +5,6 @@
 #ifndef BUCKET_PROJECT_ALGO_H
 #define BUCKET_PROJECT_ALGO_H
 
-
 #include <vector>
 #include <string>
 #include <iostream>
