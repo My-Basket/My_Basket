@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 project(My_Basket)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -9,7 +10,7 @@ set(QT_VERSION 5)
 set(REQUIRED_LIBS Core Gui Widgets)
 set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/algo.cpp src/view.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/algo.cpp src/view.cpp src/work_with_string.cpp src/search_engine.cpp src/mainwindow.cpp include/mainwindow.h)
 include_directories(include)
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
@@ -46,4 +47,3 @@ if (WIN32)
                 "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
     endforeach (QT_LIB)
 endif ()
-
