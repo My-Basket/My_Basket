@@ -77,18 +77,21 @@ std::string utf8_encode(uint32_t symbol) {
     return static_cast<string>(out);
 }
 
-void from_str_to_codepoint(string &old_s, std::vector<uint32_t> &vec) {
+void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
     if (old_s.empty()) {
         return;
     }
     std::string new_s;
     auto[codepoint, symbol_size] = code_point(old_s);
+    vec.push_back(0);
     vec.push_back(codepoint);
     new_s.resize(old_s.size() - symbol_size);
+
     while (!new_s.empty()) {
         for (int i = symbol_size; i < old_s.size(); i++) {
             new_s[i - symbol_size] = old_s[i];
         }
+
         auto[codepoint, symbol_size] = code_point(new_s);
         vec.push_back(codepoint);
         old_s = new_s;
@@ -96,7 +99,7 @@ void from_str_to_codepoint(string &old_s, std::vector<uint32_t> &vec) {
     }
 }
 
-uint32_t number_of_symbols(string &old_s) {
+uint32_t number_of_symbols(string old_s) {
     if (old_s.empty()) {
         return 0;
     }
