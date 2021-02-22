@@ -6,7 +6,7 @@ uint32_t size_of_top =10;
 ///////////////////////////////////////////
 
 void ingredients_to_recipe::search_ingredient(string &name_of_ingredient)&{
-    ifstream file_("../data/spar.json");
+    ifstream file_("../data/av.json");
     json j = json::parse(file_);
     file_.close();
     get_prod_top_by_name(name_of_ingredient, size_of_top, ingredients_of_request);

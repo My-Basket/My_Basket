@@ -5,6 +5,7 @@
 #include "search_engine.h"
 #include <cassert>
 #include <fstream>
+#include "work_with_string.h"
 
 namespace {
     void relax(uint32_t &a, uint32_t b) {
@@ -13,11 +14,15 @@ namespace {
         }
     }
 
-    uint32_t levenshtein_algo(const std::string &first, const std::string &second) {
-        uint32_t n = first.length();
-        uint32_t m = second.size();
-        auto first_t = ' ' + first;
-        auto second_t = '+' + second;
+    uint32_t levenshtein_algo(std::string &first, std::string &second) {
+        std::string first_ = first;
+        std::string second_ = second;
+        uint32_t n = number_of_symbols(first);
+        uint32_t m = number_of_symbols(second);
+        std::vector<uint32_t> first_str_codepoints;
+        from_str_to_codepoint(first_, first_str_codepoints);
+        std::vector<uint32_t> second_str_codepoints;
+        from_str_to_codepoint(second_, second_str_codepoints);
         std::vector<std::vector<uint32_t>> f(
                 n + 1, std::vector<uint32_t>(m + 1, 0));
 
@@ -29,7 +34,7 @@ namespace {
                     continue;
                 }
 
-                int w = first_t[i - 1] == second_t[j - 1] ? 0 : 1;
+                int w = first_str_codepoints[i - 1] == second_str_codepoints[j - 1] ? 0 : 1;
 
                 relax(f[i][j], f[i - 1][j] + 1);
                 relax(f[i][j], f[i][j - 1] + 1);
@@ -59,16 +64,17 @@ namespace search {
            << "}\n";
         return os;
     }
+
 ///TODO Doesn't work yet.
     void get_prod_top_by_name(std::string &s,
                               uint32_t size,
                               std::vector<product> &ans) {
-        std::ifstream file("../data/spar.json");
+        std::ifstream file("../data/av.json");
         json j = json::parse(file);
         file.close();
 
         struct comp {
-            bool operator() (const std::pair<uint32_t, product> &a, const std::pair<uint32_t, product> &b) const {
+            bool operator()(const std::pair<uint32_t, product> &a, const std::pair<uint32_t, product> &b) const {
                 return a.first > b.first;
             }
         };

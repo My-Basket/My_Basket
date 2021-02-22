@@ -28,6 +28,7 @@ class ingredients_to_recipe  {                          // сценарий по
     list<product> bad_ingredients;                  // нежелательные ингредиенты
     vector<tuple<int, string, vector<product>>> recommended_recipes; /* рецепты, полученные по продуктам
   (количество совпавших продуктов, название рецепта, список продуктов с их количеством */
+    vector<string> popular_ingredients;
 public:
     ingredients_to_recipe() = default;
 

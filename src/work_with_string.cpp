@@ -1,8 +1,7 @@
 #include "work_with_string.h"
-#include "cassert"
 
 pair<int, int> code_point(const string &u) {
-    std::pair<int, int> result;
+    pair<int, int> result;
     result.first = result.second = -1;
     int l = u.length();
     if (l < 1) {
@@ -75,5 +74,46 @@ std::string utf8_encode(uint32_t symbol) {
         out[1] = static_cast<char>( 0xBF);
         out[2] = static_cast<char>( 0xBD);
     }
-    return static_cast<std::string>(out);
+    return static_cast<string>(out);
+}
+
+void from_str_to_codepoint(string &old_s, std::vector<uint32_t> &vec) {
+    if (old_s.empty()) {
+        return;
+    }
+    std::string new_s;
+    auto[codepoint, symbol_size] = code_point(old_s);
+    vec.push_back(codepoint);
+    new_s.resize(old_s.size() - symbol_size);
+    while (!new_s.empty()) {
+        for (int i = symbol_size; i < old_s.size(); i++) {
+            new_s[i - symbol_size] = old_s[i];
+        }
+        auto[codepoint, symbol_size] = code_point(new_s);
+        vec.push_back(codepoint);
+        old_s = new_s;
+        new_s.resize(old_s.size() - symbol_size);
+    }
+}
+
+uint32_t number_of_symbols(string &old_s) {
+    if (old_s.empty()) {
+        return 0;
+    }
+
+    std::string new_s;
+    int x = code_point(old_s).second;
+    new_s.resize(old_s.size() - x);
+    int counter = 1;
+    while (!new_s.empty()) {
+        for (int i = x; i < old_s.size(); i++) {
+            new_s[i - x] = old_s[i];
+        }
+        x = code_point(new_s).second;
+        old_s = new_s;
+        new_s.resize(old_s.size() - x);
+        counter++;
+    }
+    return counter;
+
 }

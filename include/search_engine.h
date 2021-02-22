@@ -17,9 +17,9 @@ namespace search {
         uint32_t price{};
 
     public:
-        product(const json &j);
+        explicit product(const json &j);
         product &operator=(const json &j);
-        product(json &&j);
+        explicit product(json &&j);
         product &operator=(json &&j);
 
         product(const product &d) = default;
