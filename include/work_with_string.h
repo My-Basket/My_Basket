@@ -14,7 +14,6 @@ pair<int, int> code_point(const string &u);
 
 void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec);
 
-uint32_t number_of_symbols(string s);
 
 string utf8_encode(uint32_t symbol);
 

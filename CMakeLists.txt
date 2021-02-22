@@ -10,8 +10,9 @@ set(QT_VERSION 5)
 set(REQUIRED_LIBS Core Gui Widgets)
 set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/algo.cpp src/view.cpp src/work_with_string.cpp src/search_engine.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/algo.cpp src/view.cpp src/work_with_string.cpp src/search_engine.cpp GUI/recipebook.cpp)
 include_directories(include)
+include_directories(GUI)
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
             "(-DCMAKE_PREFIX_PATH=\"path/to/Qt/lib/cmake\" or -DCMAKE_PREFIX_PATH=/usr/include/{host}/qt{version}/ on Ubuntu)")

@@ -35,6 +35,13 @@ namespace search {
     };
 
     void get_prod_top_by_name(std::string &input_string, uint32_t size, std::vector<product> &ans);
+    class recipe{
+        std::vector<search::product> ingredients;
+        std::string name;
+        //TODO кухня, регион приготовления, время приготовления, пошаговая инструкция с приготовлением (после MVP)
+        bool is_ingredient_in_recipe(std::string &input_string, std::vector<product> &ans);
+
+    };
 
 }  // namespace search
 

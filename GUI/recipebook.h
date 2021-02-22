@@ -14,13 +14,13 @@
 #include <QMap>
 
 class RecipeBook : public QWidget{
-    Q_OBJECT
+Q_OBJECT
 
 public:
     RecipeBook(QWidget *parent = 0);
 
 public slots:
-            void add_product_func();
+    void add_product_func();
     void put_in_basket_func();
     void find_recipe_func();
     void check_basket_func();
