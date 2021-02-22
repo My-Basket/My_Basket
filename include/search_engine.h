@@ -18,17 +18,25 @@ namespace search {
 
     public:
         explicit product(const json &j);
+
         product &operator=(const json &j);
+
         explicit product(json &&j);
+
         product &operator=(json &&j);
 
         product(const product &d) = default;
+
         product &operator=(const product &d) = default;
+
         product(product &&d) = default;
+
         product &operator=(product &&d) = default;
 
         friend void from_json(json &j, product &p);
+
         friend void get_prod_top_by_name(std::string &input_string, uint32_t size, std::vector<product> &ans);
+
         friend std::ostream &operator<<(std::ostream &os, const product &p);
 
         ~product() = default;

@@ -1,11 +1,11 @@
+#include <search_engine.h>
 #include <QApplication>
 #include <QPushButton>
-#include "work_with_string.h"
 #include <iostream>
-#include <search_engine.h>
+#include "work_with_string.h"
 
-int min(int a, int b){
-    return (a<b)? a : b;
+int min(int a, int b) {
+    return (a < b) ? a : b;
 }
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
@@ -15,8 +15,7 @@ int main(int argc, char *argv[]) {
 
     std::string s = "Яблоки";
     std::vector<search::product> vec;
-    search::get_prod_top_by_name(s,10, vec);
+    search::get_prod_top_by_name(s, 10, vec);
 
     return QApplication::exec();
-
 }
