@@ -10,7 +10,7 @@ int min(int a, int b){
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     QPushButton button("Hello world!", nullptr);
-    button.resize(2, 1);
+    button.resize(100, 200);
     button.show();
 
     std::string s = "Яблоки";
