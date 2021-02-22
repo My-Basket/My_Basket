@@ -114,7 +114,15 @@
 	[
 		[ "C:/Users/nikolya/Desktop/project/My_Basket/src/algo.cpp", "MU" ],
 		[ "C:/Users/nikolya/Desktop/project/My_Basket/src/main.cpp", "MU" ],
-		[ "C:/Users/nikolya/Desktop/project/My_Basket/src/view.cpp", "MU" ]
+		[
+			"C:/Users/nikolya/Desktop/project/My_Basket/src/search_engine.cpp",
+			"MU"
+		],
+		[ "C:/Users/nikolya/Desktop/project/My_Basket/src/view.cpp", "MU" ],
+		[
+			"C:/Users/nikolya/Desktop/project/My_Basket/src/work_with_string.cpp",
+			"MU"
+		]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

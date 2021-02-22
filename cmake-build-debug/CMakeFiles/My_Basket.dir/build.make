@@ -137,12 +137,52 @@ CMakeFiles\My_Basket.dir\src\view.cpp.s: cmake_force
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\My_Basket.dir\src\view.cpp.s /c C:\Users\nikolya\Desktop\project\My_Basket\src\view.cpp
 <<
 
+CMakeFiles\My_Basket.dir\src\work_with_string.cpp.obj: CMakeFiles\My_Basket.dir\flags.make
+CMakeFiles\My_Basket.dir\src\work_with_string.cpp.obj: ..\src\work_with_string.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\nikolya\Desktop\project\My_Basket\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/My_Basket.dir/src/work_with_string.cpp.obj"
+	C:\PROGRA~2\MICROS~4\VS\VC\Tools\MSVC\1428~1.293\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\My_Basket.dir\src\work_with_string.cpp.obj /FdCMakeFiles\My_Basket.dir\ /FS -c C:\Users\nikolya\Desktop\project\My_Basket\src\work_with_string.cpp
+<<
+
+CMakeFiles\My_Basket.dir\src\work_with_string.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/My_Basket.dir/src/work_with_string.cpp.i"
+	C:\PROGRA~2\MICROS~4\VS\VC\Tools\MSVC\1428~1.293\bin\Hostx64\x64\cl.exe > CMakeFiles\My_Basket.dir\src\work_with_string.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\nikolya\Desktop\project\My_Basket\src\work_with_string.cpp
+<<
+
+CMakeFiles\My_Basket.dir\src\work_with_string.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/My_Basket.dir/src/work_with_string.cpp.s"
+	C:\PROGRA~2\MICROS~4\VS\VC\Tools\MSVC\1428~1.293\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\My_Basket.dir\src\work_with_string.cpp.s /c C:\Users\nikolya\Desktop\project\My_Basket\src\work_with_string.cpp
+<<
+
+CMakeFiles\My_Basket.dir\src\search_engine.cpp.obj: CMakeFiles\My_Basket.dir\flags.make
+CMakeFiles\My_Basket.dir\src\search_engine.cpp.obj: ..\src\search_engine.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\nikolya\Desktop\project\My_Basket\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/My_Basket.dir/src/search_engine.cpp.obj"
+	C:\PROGRA~2\MICROS~4\VS\VC\Tools\MSVC\1428~1.293\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\My_Basket.dir\src\search_engine.cpp.obj /FdCMakeFiles\My_Basket.dir\ /FS -c C:\Users\nikolya\Desktop\project\My_Basket\src\search_engine.cpp
+<<
+
+CMakeFiles\My_Basket.dir\src\search_engine.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/My_Basket.dir/src/search_engine.cpp.i"
+	C:\PROGRA~2\MICROS~4\VS\VC\Tools\MSVC\1428~1.293\bin\Hostx64\x64\cl.exe > CMakeFiles\My_Basket.dir\src\search_engine.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\nikolya\Desktop\project\My_Basket\src\search_engine.cpp
+<<
+
+CMakeFiles\My_Basket.dir\src\search_engine.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/My_Basket.dir/src/search_engine.cpp.s"
+	C:\PROGRA~2\MICROS~4\VS\VC\Tools\MSVC\1428~1.293\bin\Hostx64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\My_Basket.dir\src\search_engine.cpp.s /c C:\Users\nikolya\Desktop\project\My_Basket\src\search_engine.cpp
+<<
+
 # Object files for target My_Basket
 My_Basket_OBJECTS = \
 "CMakeFiles\My_Basket.dir\My_Basket_autogen\mocs_compilation.cpp.obj" \
 "CMakeFiles\My_Basket.dir\src\main.cpp.obj" \
 "CMakeFiles\My_Basket.dir\src\algo.cpp.obj" \
-"CMakeFiles\My_Basket.dir\src\view.cpp.obj"
+"CMakeFiles\My_Basket.dir\src\view.cpp.obj" \
+"CMakeFiles\My_Basket.dir\src\work_with_string.cpp.obj" \
+"CMakeFiles\My_Basket.dir\src\search_engine.cpp.obj"
 
 # External object files for target My_Basket
 My_Basket_EXTERNAL_OBJECTS =
@@ -151,12 +191,14 @@ My_Basket.exe: CMakeFiles\My_Basket.dir\My_Basket_autogen\mocs_compilation.cpp.o
 My_Basket.exe: CMakeFiles\My_Basket.dir\src\main.cpp.obj
 My_Basket.exe: CMakeFiles\My_Basket.dir\src\algo.cpp.obj
 My_Basket.exe: CMakeFiles\My_Basket.dir\src\view.cpp.obj
+My_Basket.exe: CMakeFiles\My_Basket.dir\src\work_with_string.cpp.obj
+My_Basket.exe: CMakeFiles\My_Basket.dir\src\search_engine.cpp.obj
 My_Basket.exe: CMakeFiles\My_Basket.dir\build.make
 My_Basket.exe: F:\QT\5.15.2\msvc2015_64\lib\Qt5Widgetsd.lib
 My_Basket.exe: F:\QT\5.15.2\msvc2015_64\lib\Qt5Guid.lib
 My_Basket.exe: F:\QT\5.15.2\msvc2015_64\lib\Qt5Cored.lib
 My_Basket.exe: CMakeFiles\My_Basket.dir\objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\nikolya\Desktop\project\My_Basket\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable My_Basket.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\nikolya\Desktop\project\My_Basket\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable My_Basket.exe"
 	"F:\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\My_Basket.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\mt.exe --manifests  -- C:\PROGRA~2\MICROS~4\VS\VC\Tools\MSVC\1428~1.293\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\My_Basket.dir\objects1.rsp @<<
  /out:My_Basket.exe /implib:My_Basket.lib /pdb:C:\Users\nikolya\Desktop\project\My_Basket\cmake-build-debug\My_Basket.pdb /version:0.0  /machine:x64 /debug /INCREMENTAL /subsystem:console  F:\QT\5.15.2\msvc2015_64\lib\Qt5Widgetsd.lib F:\QT\5.15.2\msvc2015_64\lib\Qt5Guid.lib F:\QT\5.15.2\msvc2015_64\lib\Qt5Cored.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
 <<

@@ -123,7 +123,13 @@
 		<Unit filename="C:/Users/nikolya/Desktop/project/My_Basket/src/main.cpp">
 			<Option target="My_Basket"/>
 		</Unit>
+		<Unit filename="C:/Users/nikolya/Desktop/project/My_Basket/src/search_engine.cpp">
+			<Option target="My_Basket"/>
+		</Unit>
 		<Unit filename="C:/Users/nikolya/Desktop/project/My_Basket/src/view.cpp">
+			<Option target="My_Basket"/>
+		</Unit>
+		<Unit filename="C:/Users/nikolya/Desktop/project/My_Basket/src/work_with_string.cpp">
 			<Option target="My_Basket"/>
 		</Unit>
 		<Unit filename="C:/Users/nikolya/Desktop/project/My_Basket/CMakeLists.txt">

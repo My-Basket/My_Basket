@@ -221,6 +221,33 @@ src\main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\My_Basket.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\My_Basket.dir\src\main.cpp.s
 .PHONY : src\main.cpp.s
 
+src\search_engine.obj: src\search_engine.cpp.obj
+
+.PHONY : src\search_engine.obj
+
+# target to build an object file
+src\search_engine.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\My_Basket.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\My_Basket.dir\src\search_engine.cpp.obj
+.PHONY : src\search_engine.cpp.obj
+
+src\search_engine.i: src\search_engine.cpp.i
+
+.PHONY : src\search_engine.i
+
+# target to preprocess a source file
+src\search_engine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\My_Basket.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\My_Basket.dir\src\search_engine.cpp.i
+.PHONY : src\search_engine.cpp.i
+
+src\search_engine.s: src\search_engine.cpp.s
+
+.PHONY : src\search_engine.s
+
+# target to generate assembly for a file
+src\search_engine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\My_Basket.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\My_Basket.dir\src\search_engine.cpp.s
+.PHONY : src\search_engine.cpp.s
+
 src\view.obj: src\view.cpp.obj
 
 .PHONY : src\view.obj
@@ -248,6 +275,33 @@ src\view.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\My_Basket.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\My_Basket.dir\src\view.cpp.s
 .PHONY : src\view.cpp.s
 
+src\work_with_string.obj: src\work_with_string.cpp.obj
+
+.PHONY : src\work_with_string.obj
+
+# target to build an object file
+src\work_with_string.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\My_Basket.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\My_Basket.dir\src\work_with_string.cpp.obj
+.PHONY : src\work_with_string.cpp.obj
+
+src\work_with_string.i: src\work_with_string.cpp.i
+
+.PHONY : src\work_with_string.i
+
+# target to preprocess a source file
+src\work_with_string.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\My_Basket.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\My_Basket.dir\src\work_with_string.cpp.i
+.PHONY : src\work_with_string.cpp.i
+
+src\work_with_string.s: src\work_with_string.cpp.s
+
+.PHONY : src\work_with_string.s
+
+# target to generate assembly for a file
+src\work_with_string.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\My_Basket.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\My_Basket.dir\src\work_with_string.cpp.s
+.PHONY : src\work_with_string.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -267,9 +321,15 @@ help:
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
+	@echo ... src/search_engine.obj
+	@echo ... src/search_engine.i
+	@echo ... src/search_engine.s
 	@echo ... src/view.obj
 	@echo ... src/view.i
 	@echo ... src/view.s
+	@echo ... src/work_with_string.obj
+	@echo ... src/work_with_string.i
+	@echo ... src/work_with_string.s
 .PHONY : help
 
 

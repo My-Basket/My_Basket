@@ -7,7 +7,9 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/My_Basket_autogen/mocs_compilation.cpp" "C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/My_Basket.dir/My_Basket_autogen/mocs_compilation.cpp.obj"
   "C:/Users/nikolya/Desktop/project/My_Basket/src/algo.cpp" "C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/My_Basket.dir/src/algo.cpp.obj"
   "C:/Users/nikolya/Desktop/project/My_Basket/src/main.cpp" "C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/My_Basket.dir/src/main.cpp.obj"
+  "C:/Users/nikolya/Desktop/project/My_Basket/src/search_engine.cpp" "C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/My_Basket.dir/src/search_engine.cpp.obj"
   "C:/Users/nikolya/Desktop/project/My_Basket/src/view.cpp" "C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/My_Basket.dir/src/view.cpp.obj"
+  "C:/Users/nikolya/Desktop/project/My_Basket/src/work_with_string.cpp" "C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/My_Basket.dir/src/work_with_string.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "MSVC")
 
