@@ -1,3 +1,4 @@
-C:/Users/nikolya/Desktop/git/My_Basket/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/nikolya/Desktop/git/My_Basket/cmake-build-debug/CMakeFiles/BUCKET_PROJECT.dir
-C:/Users/nikolya/Desktop/git/My_Basket/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/My_Basket.dir
+C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/nikolya/Desktop/project/My_Basket/cmake-build-debug/CMakeFiles/My_Basket_autogen.dir

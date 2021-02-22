@@ -17,9 +17,10 @@ void View::show_recipes() &{
     }
 }
 
-void View::show_ingredients_of_recipe(int number) &{
+/*void View::show_ingredients_of_recipe(int number) &{
     for (const auto &ingredients: scenario_2.ingredients_of_recipe(number)) {
         std::cout << ingredients.first << " " << ingredients.second << std::endl;
     }
 }
 
+*/
