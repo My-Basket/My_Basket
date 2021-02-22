@@ -35,7 +35,18 @@ public:
     ~product() = default;
 };
 
-void get_prod_top_by_name(std::string &s, uint32_t size, std::vector<product> &ans);
+class recipe {
+private:
+public:
+
+
+
+};
+
+void get_prod_top_by_name(std::string &s, uint32_t size, std::vector<product> &ans); //Searching products by name
+
+//space for functions
+
 
 }  // namespace search
 

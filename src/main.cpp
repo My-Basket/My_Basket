@@ -1,21 +1,22 @@
 #include <QApplication>
 #include <QPushButton>
-#include <fstream>
+#include "work_with_string.h"
 #include <iostream>
-#include <Windows.h>
-#include <vector>
-#include "../include/search_engine.h"
+#include <search_engine.h>
 
+int min(int a, int b){
+    return (a<b)? a : b;
+}
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     QPushButton button("Hello world!", nullptr);
     button.resize(200, 100);
     button.show();
 
-    nlohmann::json j;
+    std::string s = "Яблоки";
     std::vector<search::product> vec;
-    std::string s = "Коктейль";
-    search::get_prod_top_by_name(s, 5, vec);
+    search::get_prod_top_by_name(s,10, vec);
 
     return QApplication::exec();
+
 }
