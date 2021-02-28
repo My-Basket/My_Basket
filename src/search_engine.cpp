@@ -9,11 +9,7 @@
 #include "work_with_string.h"
 
 namespace {
-    struct set_unit{
-        search::product p;
-        uint32_t in_amount;
-        uint32_t leven_dist;
-    };
+
 
     void relax(uint32_t &a, uint32_t b) {
         if (a > b) {
@@ -40,7 +36,7 @@ namespace {
                 relax(f[i][j], f[i - 1][j - 1] + w);
             }
         }
-        return  f[first_str.size() - 1][second_str.size() - 1];
+        return f[first_str.size() - 1][second_str.size() - 1];
     }
 
     uint32_t check_in(std::vector<uint32_t> &first_str, std::vector<uint32_t> &second_str) {
@@ -87,28 +83,14 @@ namespace search {
         return os;
     }
 
-///TODO Doesn't work yet.
-    void get_prod_top_by_name(std::string &input_string,
-                              uint32_t size,
-                              std::vector<product> &ans) {
+
+    void get_prod_top_by_name(std::string &input_string, uint32_t size) {
         std::ifstream file("../data/av.json");
         json j = json::parse(file);
         file.close();
 
         std::vector<uint32_t> first_str_codepoints;
         from_str_to_codepoint(input_string, first_str_codepoints);
-
-        struct comp {
-            bool operator()(const set_unit &a, const set_unit &b) const {
-                if (a.in_amount  != b.in_amount) {
-                    return  a.in_amount > b.in_amount;
-                } else {
-                    return a.leven_dist < b.leven_dist;
-                }
-            }
-        };
-
-        std::multiset<set_unit, comp> top;
 
         for (auto const &x : j) {
             product cur_prod(x);
@@ -120,21 +102,16 @@ namespace search {
             uint32_t in_amount = check_in(first_str_codepoints, second_str_codepoints);
             uint32_t leven_dist = levenshtein_algo(first_str_codepoints, second_str_codepoints);
 
-            top.insert({cur_prod, in_amount, leven_dist});
+            ingredients_to_recipe::res_of_request.insert({cur_prod, in_amount, leven_dist});
 
-            if (top.size() > size) {
-                auto it = top.end();
+            if (ingredients_to_recipe::res_of_request.size() > size) {
+                auto it = ingredients_to_recipe::res_of_request.end();
                 it--;
-                top.erase(it);
+                ingredients_to_recipe::res_of_request.erase(it);
             }
 
         }
 
-        ans.reserve(top.size());
-
-        for (const auto &x : top) {
-            ans.emplace_back(x.p);
-        }
     }
 
     product::product(const json &j) {
@@ -159,6 +136,44 @@ namespace search {
     product &product::operator=(json &&j) {
         *this = j;
         return *this;
+    }
+    void Recipe::clear() {
+        ingredients.clear();
+        name ="";
+    }
+
+
+
+    multiset<set_unit, comp> ingredients_to_recipe::show_res_of_request(){
+        return res_of_request;
+    }
+
+    void ingredients_to_recipe::choose_ingredients(uint32_t num) {
+
+        auto it = res_of_request.begin();
+        for (size_t i = 0; i < num; i++) {
+            it++;
+        }
+        chosen_ingredients.push_back(it->product_);
+
+    }
+    void ingredients_to_recipe::discard_basket() {
+        chosen_ingredients.clear();
+    }
+    void ingredients_to_recipe::stop_searching_ingredient() {
+        res_of_request.clear();
+    }
+    vector<Recipe> recipe_to_ingredients::show_recipes() {
+        return recipes_request;
+    }
+    void recipe_to_ingredients::cancel_choice() {
+        chosen_recipe.clear();
+    }
+    void recipe_to_ingredients::stop_searching_recipe() {
+        recipes_request.clear();
+    }
+    void recipe_to_ingredients::choose_recipe(uint32_t num) {
+        chosen_recipe = recipes_request[num];
     }
 
 }  // namespace search
