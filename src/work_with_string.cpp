@@ -99,6 +99,7 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
     }
 }
 
+///TODO DELETE FUNCTION
 uint32_t number_of_symbols(string old_s) {
     if (old_s.empty()) {
         return 0;
