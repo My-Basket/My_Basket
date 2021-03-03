@@ -1,0 +1,34 @@
+#include "algo.h"
+void functions::ingredients_to_recipe::run_search(std::string& s, uint32_t size, std::multiset<search::set_unit, search::comp> &top){
+    search::get_prod_top_by_name(s, size, top);
+    res_of_request = std::move(top);
+}
+std::multiset<search::set_unit, search::comp> functions::ingredients_to_recipe::show_res_of_request() {
+    return res_of_request; // возвращает первые 10 продуктов по введенной строке
+}
+
+void functions::ingredients_to_recipe::choose_ingredients(uint32_t num) {
+    auto it = res_of_request.begin();
+    for (size_t i = 0; i < num; i++) {
+        it++;
+    }
+    chosen_ingredients.push_back(it->product_); //chosen_ingredients - корзина
+}
+void functions::ingredients_to_recipe::discard_basket() {
+    chosen_ingredients.clear();
+}
+void functions::ingredients_to_recipe::stop_searching_ingredient() {
+    res_of_request.clear();
+}
+std::vector<search::Recipe> functions::recipe_to_ingredients::show_recipes() {
+    return recipes_request;  // топ 10 рецептов
+}
+void functions::recipe_to_ingredients::cancel_choice() {
+    chosen_recipe.clear();
+}
+void functions::recipe_to_ingredients::stop_searching_recipe() {
+    recipes_request.clear();
+}
+void functions::recipe_to_ingredients::choose_recipe(uint32_t num) {
+    chosen_recipe = recipes_request[num]; //TODO понять, как получать номер
+}
