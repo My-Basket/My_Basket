@@ -63,11 +63,12 @@ uint32_t check_in(std::vector<uint32_t> &first_str,
 }  // namespace
 
 namespace search {
-
-void from_json(json &j, product &p) {
-    j.at("Name").get_to(p.name);
-    j.at("Category").get_to(p.category);
-    j.at("Price").get_to(p.price);
+bool comp::operator()(const set_unit &a, const set_unit &b) const {
+    if (a.in_amount != b.in_amount) {
+        return a.in_amount > b.in_amount;
+    } else {
+        return a.leven_dist < b.leven_dist;
+    }
 }
 
 std::ostream &operator<<(std::ostream &os, const product &p) {
@@ -82,7 +83,9 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
     return os;
 }
 
-void get_prod_top_by_name(std::string &input_string, uint32_t size) {
+void get_prod_top_by_name(std::string &input_string,
+                          uint32_t size,
+                          std::multiset<set_unit, comp> &top) {
     std::ifstream file("../data/av.json");
     json j = json::parse(file);
     file.close();
@@ -101,14 +104,12 @@ void get_prod_top_by_name(std::string &input_string, uint32_t size) {
             check_in(first_str_codepoints, second_str_codepoints);
         uint32_t leven_dist =
             levenshtein_algo(first_str_codepoints, second_str_codepoints);
+        top.insert({cur_prod, in_amount, leven_dist});
 
-        ingredients_to_recipe::res_of_request.insert(
-            {cur_prod, in_amount, leven_dist});
-
-        if (ingredients_to_recipe::res_of_request.size() > size) {
-            auto it = ingredients_to_recipe::res_of_request.end();
+        if (top.size() > size) {
+            auto it = top.end();
             it--;
-            ingredients_to_recipe::res_of_request.erase(it);
+            top.erase(it);
         }
     }
 }
@@ -139,36 +140,6 @@ product &product::operator=(json &&j) {
 void Recipe::clear() {
     ingredients.clear();
     name = "";
-}
-
-multiset<set_unit, comp> ingredients_to_recipe::show_res_of_request() {
-    return res_of_request;
-}
-
-void ingredients_to_recipe::choose_ingredients(uint32_t num) {
-    auto it = res_of_request.begin();
-    for (size_t i = 0; i < num; i++) {
-        it++;
-    }
-    chosen_ingredients.push_back(it->product_);
-}
-void ingredients_to_recipe::discard_basket() {
-    chosen_ingredients.clear();
-}
-void ingredients_to_recipe::stop_searching_ingredient() {
-    res_of_request.clear();
-}
-vector<Recipe> recipe_to_ingredients::show_recipes() {
-    return recipes_request;
-}
-void recipe_to_ingredients::cancel_choice() {
-    chosen_recipe.clear();
-}
-void recipe_to_ingredients::stop_searching_recipe() {
-    recipes_request.clear();
-}
-void recipe_to_ingredients::choose_recipe(uint32_t num) {
-    chosen_recipe = recipes_request[num];
 }
 
 }  // namespace search
