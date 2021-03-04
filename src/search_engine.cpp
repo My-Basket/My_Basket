@@ -57,11 +57,10 @@ uint32_t check_in(std::vector<uint32_t> &first_str,
         }
 
     }
-    return f[first_str.size() - 1][second_str.size() - 1];
-}
-
     return max_amount;
 }
+
+    
 
 }  // namespace
 
