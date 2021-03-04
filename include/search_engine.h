@@ -73,10 +73,12 @@ public:
     //ingredients_to_recipes топ 10 лучших рецептов
 
     friend void search_recipe(const std::string &input_string, uint32_t size);
+
     //ищет рецепт по введённой строке, сует в recipes_request класса
     //recipes_to_ingredients топ 10 лучших рецептов
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
 };
+
 
 #if 0
     class ingredients_to_recipe {
@@ -90,30 +92,30 @@ public:
     public:
         static void stop_searching_ingredient();
 
-        static void discard_basket();
+    static void discard_basket();
 
-        static void choose_ingredients(uint32_t num);
+    static void choose_ingredients(uint32_t num);
 
-        static multiset<set_unit, comp> show_res_of_request();
+    static multiset<set_unit, comp> show_res_of_request();
 
-        friend void get_prod_top_by_name(std::string &input_string, uint32_t size);
+    friend void get_prod_top_by_name(std::string &input_string, uint32_t size);
 
-        friend void get_recipes(const std::vector<product> &ingredients, uint32_t size);
-    };
+    friend void get_recipes(const std::vector<product> &ingredients,
+                            uint32_t size);
+};
 
-    class recipe_to_ingredients {
-        static vector<Recipe> recipes_request;
-        static Recipe chosen_recipe;
-    public:
-        static vector<Recipe> show_recipes();
+class recipe_to_ingredients {
+    static vector<Recipe> recipes_request;
+    static Recipe chosen_recipe;
 
-        static void choose_recipe(uint32_t num);
+public:
+    static vector<Recipe> show_recipes();
 
-        static void stop_searching_recipe();
+    static void choose_recipe(uint32_t num);
 
-        static void cancel_choice();
+    static void stop_searching_recipe();
 
-        friend void search_recipe(const string &input_string, uint32_t size);
+    static void cancel_choice();
 
     };
 #endif

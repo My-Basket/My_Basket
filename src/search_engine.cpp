@@ -9,6 +9,7 @@
 #include "work_with_string.h"
 
 namespace {
+  
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
         a = b;
@@ -54,7 +55,10 @@ uint32_t check_in(std::vector<uint32_t> &first_str,
         if (count > max_amount) {
             max_amount = count;
         }
+
     }
+    return f[first_str.size() - 1][second_str.size() - 1];
+}
 
     return max_amount;
 }
