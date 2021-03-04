@@ -136,9 +136,6 @@ product::product(const json &j) {
         assert((false, "Invalid cast from json to product"));
     }
 }
-bool product::operator==(const product &p) const {
-    return p.name == name;
-}
 
 product &product::operator=(const json &j) {
     try {
