@@ -3,100 +3,82 @@
 #ifndef MY_BASKET_SEARCH_ENGINE_H
 #define MY_BASKET_SEARCH_ENGINE_H
 
-#include "json.hpp"
+#include <list>
 #include <set>
 #include <string>
-#include <list>
+#include "json.hpp"
 
 namespace search {
 
-    using nlohmann::json, std::vector, std::tuple, std::string, std::pair, std::tuple, std::set, std::list, std::multiset;
+using nlohmann::json;
 
-    class product {
-    private:
-        std::string name;
-        std::string category;
-        uint32_t price{};
+class product {
+private:
+    std::string name;
+    std::string category;
+    uint32_t price{};
 
-    public:
-        explicit product(const json &j);
+public:
+    product(const product &d) = default;
 
-        product &operator=(const json &j);
+    product &operator=(const product &d) = default;
 
-        explicit product(json &&j);
+    product(product &&d) = default;
 
-        product &operator=(json &&j);
+    product &operator=(product &&d) = default;
 
-        product(const product &d) = default;
+    product(const json &j);
 
-        product &operator=(const product &d) = default;
+    product &operator=(const json &j);
 
-        product(product &&d) = default;
+    bool operator==(const product &p) const;
 
-        product &operator=(product &&d) = default;
+    friend void get_prod_top_by_name(std::string &input_string, uint32_t size, std::vector<product> &vec);
 
-        friend void from_json(json &j, product &p); //А нужна ли?
-        friend void get_prod_top_by_name(std::string &input_string, uint32_t size);
+    friend void get_recipes(const std::vector<product> &ingredients,
+                            uint32_t size);
 
-        friend std::ostream &operator<<(std::ostream &os, const product &p);
+    friend std::ostream &operator<<(std::ostream &os, const product &p);
 
-        ~product() = default;
-    };
+    ~product() = default;
+};
 
-    struct set_unit {
-        search::product product_;
-        uint32_t in_amount;
-        uint32_t leven_dist;
-    };
+class Recipe {
+    std::vector<search::product> ingredients;
+    std::string name;
 
-    struct comp {
-        bool operator()(const set_unit &a, const set_unit &b) const {
-            if (a.in_amount != b.in_amount) {
-                return a.in_amount > b.in_amount;
-            } else {
-                return a.leven_dist < b.leven_dist;
-            }
-        }
-    };
+public:
+    Recipe() = default;
 
-    class Recipe {
-        std::vector<search::product> ingredients;
-        std::string name;
-        //TODO кухня, регион приготовления, время приготовления, пошаговая инструкция с приготовлением (после MVP)
-    public:
-//TODO
-        explicit Recipe(const json &j);
+    Recipe(const Recipe &recipe) = default;
 
-        Recipe &operator=(const json &j);
+    Recipe &operator=(const Recipe &recipe) = default;
 
-        explicit Recipe(json &&j);
+    Recipe(Recipe &&recipe) = default;
 
-        Recipe &operator=(json &&j);
+    Recipe &operator=(Recipe &&recipe) = default;
 
-        Recipe() = default;
+    ~Recipe() = default;
 
-        Recipe(const Recipe &recipe) = default;
+    void clear();
 
-        Recipe &operator=(const Recipe &recipe) = default;
+    Recipe(const json &j);
 
-        Recipe(Recipe &&recipe) = default;
+    bool is_ingredient_in_recipe(
+        const product &ingredient);  //проверка на наличие ингредиента в рецепте
 
-        Recipe &operator=(Recipe &&recipe) = default;
+    friend void get_recipes(const std::vector<product> &ingredients,
+                            uint32_t size);
+    //получает на вход продукты, сует в recommended recipes класса
+    //ingredients_to_recipes топ 10 лучших рецептов
 
-        ~Recipe() = default;
+    friend void search_recipe(const std::string &input_string, uint32_t size);
+    //ищет рецепт по введённой строке, сует в recipes_request класса
+    //recipes_to_ingredients топ 10 лучших рецептов
+    friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
+};
 
-        void clear();
-//TODO
-        bool is_ingredient_in_recipe(const product &ingredient); //проверка на наличие ингредиента в рецепте
-
-        friend void get_recipes(const std::vector<product> &ingredients, uint32_t size);
-        //получает на вход продукты, сует в recommended recipes класса ingredients_to_recipes топ 10 лучших рецептов
-
-        friend void search_recipe(const string &input_string, uint32_t size);
-        //ищет рецепт по введённой строке, сует в recipes_request класса recipes_to_ingredients топ 10 лучших рецептов
-        friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
-    };
-
+#if 0
     class ingredients_to_recipe {
     private:
         static multiset<set_unit, comp> res_of_request;
@@ -134,12 +116,7 @@ namespace search {
         friend void search_recipe(const string &input_string, uint32_t size);
 
     };
-
-    void get_prod_top_by_name(std::string &input_string, uint32_t size);
-
-    void search_recipe(const string &input_string, uint32_t size);
-
-    void get_recipes(const std::vector<product> &ingredients, uint32_t size);
+#endif
 
 }  // namespace search
 
