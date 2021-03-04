@@ -9,7 +9,6 @@
 #include "work_with_string.h"
 
 namespace {
-
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
         a = b;
@@ -64,12 +63,6 @@ uint32_t check_in(std::vector<uint32_t> &first_str,
 
 namespace search {
 
-void from_json(json &j, product &p) {
-    j.at("Name").get_to(p.name);
-    j.at("Category").get_to(p.category);
-    j.at("Price").get_to(p.price);
-}
-
 std::ostream &operator<<(std::ostream &os, const product &p) {
     os << "{\n"
        << "   "
@@ -82,7 +75,9 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
     return os;
 }
 
-void get_prod_top_by_name(std::string &input_string, uint32_t size) {
+void get_prod_top_by_name(string &input_string,
+                          uint32_t size,
+                          std::vector<product> &vec) {
     std::ifstream file("../data/av.json");
     json j = json::parse(file);
     file.close();
@@ -90,6 +85,20 @@ void get_prod_top_by_name(std::string &input_string, uint32_t size) {
     std::vector<uint32_t> first_str_codepoints;
     from_str_to_codepoint(input_string, first_str_codepoints);
 
+    struct set_unit {
+        uint32_t in_amount;
+        uint32_t leven_dist;
+        search::product product_;
+        bool operator<(const set_unit &a) const {
+            if (a.in_amount != in_amount) {
+                return a.in_amount < in_amount;
+            } else {
+                return a.leven_dist > leven_dist;
+            }
+        }
+    };
+
+    std::multiset<set_unit> top;
     for (auto const &x : j) {
         product cur_prod(x);
         auto temp_name = cur_prod.name;
@@ -101,20 +110,28 @@ void get_prod_top_by_name(std::string &input_string, uint32_t size) {
             check_in(first_str_codepoints, second_str_codepoints);
         uint32_t leven_dist =
             levenshtein_algo(first_str_codepoints, second_str_codepoints);
+        top.insert({in_amount, leven_dist, cur_prod});
 
-        ingredients_to_recipe::res_of_request.insert(
-            {cur_prod, in_amount, leven_dist});
-
-        if (ingredients_to_recipe::res_of_request.size() > size) {
-            auto it = ingredients_to_recipe::res_of_request.end();
+        if (top.size() > size) {
+            auto it = top.end();
             it--;
-            ingredients_to_recipe::res_of_request.erase(it);
+            top.erase(it);
         }
+    }
+
+    for (const set_unit &su : top) {
+        vec.push_back(su.product_);
     }
 }
 
 product::product(const json &j) {
-    *this = j;
+    try {
+        name = j["Name"];
+        category = j["Category"];
+        price = j["Price"];
+    } catch (...) {
+        assert((false, "Invalid cast from json to product"));
+    }
 }
 
 product &product::operator=(const json &j) {
@@ -127,48 +144,131 @@ product &product::operator=(const json &j) {
         assert((false, "Invalid cast from json to product"));
     }
 }
-
-product::product(json &&j) {
-    *this = j;
+bool product::operator==(const product &p) const {
+    return p.name == name;
 }
 
-product &product::operator=(json &&j) {
-    *this = j;
-    return *this;
+Recipe::Recipe(const json &j) : name(j["name"]) {
+    for (const json &v : j) {
+        ingredients.emplace_back(v);
+    }
 }
+
 void Recipe::clear() {
     ingredients.clear();
-    name = "";
+    name.clear();
 }
 
-multiset<set_unit, comp> ingredients_to_recipe::show_res_of_request() {
-    return res_of_request;
+bool Recipe::is_ingredient_in_recipe(const product &ingredient) {
+    return std::any_of(
+        ingredients.begin(), ingredients.end(),
+        [&ingredient](const product &p) { return (p == ingredient); });
 }
 
-void ingredients_to_recipe::choose_ingredients(uint32_t num) {
-    auto it = res_of_request.begin();
-    for (size_t i = 0; i < num; i++) {
-        it++;
+void get_recipes(const std::vector<product> &ingredients, uint32_t size) {
+    std::ifstream file("../data/recipes.json");
+    json j = json::parse(file);
+    file.close();
+
+    struct set_unit {
+        uint32_t in_amount;
+        uint32_t leven_dist;
+        search::Recipe recipe_;
+        bool operator<(const set_unit &a) const {
+            if (a.in_amount != in_amount) {
+                return a.in_amount < in_amount;
+            } else {
+                return a.leven_dist > leven_dist;
+            }
+        }
+    };
+
+    std::function<bool(const set_unit &a, const set_unit &b)> comp =
+        [](const set_unit &a, const set_unit &b) {
+            if (a.in_amount != b.in_amount) {
+                return a.in_amount > b.in_amount;
+            } else {
+                return a.leven_dist < b.leven_dist;
+            }
+        };
+
+    std::set<set_unit> top;
+    for (const product &p : ingredients) {
+        uint32_t in_amount = 0;
+        uint32_t leven_dist = 0;
+
+        std::vector<uint32_t> first_str_codepoints;
+        from_str_to_codepoint(p.name, first_str_codepoints);
+        set_unit max;
+        for (const json &x : j) {
+            Recipe cur_recipe(x);
+            std::string temp_name = cur_recipe.name;
+
+            std::vector<uint32_t> second_str_codepoints;
+            from_str_to_codepoint(cur_recipe.name, second_str_codepoints);
+
+            in_amount += check_in(first_str_codepoints, second_str_codepoints);
+            leven_dist +=
+                levenshtein_algo(first_str_codepoints, second_str_codepoints);
+
+            if (max < set_unit({in_amount, leven_dist})) {
+                max = {in_amount, leven_dist, cur_recipe};
+            }
+        }
+
+        top.insert({in_amount, leven_dist, max.recipe_});
+
+        if (top.size() > size) {
+            auto it = top.end();
+            it--;
+            top.erase(it);
+        }
     }
-    chosen_ingredients.push_back(it->product_);
 }
-void ingredients_to_recipe::discard_basket() {
-    chosen_ingredients.clear();
-}
-void ingredients_to_recipe::stop_searching_ingredient() {
-    res_of_request.clear();
-}
-vector<Recipe> recipe_to_ingredients::show_recipes() {
-    return recipes_request;
-}
-void recipe_to_ingredients::cancel_choice() {
-    chosen_recipe.clear();
-}
-void recipe_to_ingredients::stop_searching_recipe() {
-    recipes_request.clear();
-}
-void recipe_to_ingredients::choose_recipe(uint32_t num) {
-    chosen_recipe = recipes_request[num];
+
+void search_recipe(const string &input_string, uint32_t size) {
+    std::ifstream file("../data/recipes.json");
+    json j = json::parse(file);
+    file.close();
+
+    std::vector<uint32_t> first_str_codepoints;
+    from_str_to_codepoint(input_string, first_str_codepoints);
+
+    struct set_unit {
+        uint32_t in_amount;
+        uint32_t leven_dist;
+        search::Recipe recipe_;
+        bool operator<(const set_unit &a) const {
+            if (a.in_amount != in_amount) {
+                return a.in_amount < in_amount;
+            } else {
+                return a.leven_dist > leven_dist;
+            }
+        }
+    };
+
+    std::multiset<set_unit> top;
+
+    for (const json &x : j) {
+        Recipe cur_recipe(x);
+        std::string temp_name = cur_recipe.name;
+
+        std::vector<uint32_t> second_str_codepoints;
+        from_str_to_codepoint(cur_recipe.name, second_str_codepoints);
+
+        uint32_t in_amount =
+            check_in(first_str_codepoints, second_str_codepoints);
+        uint32_t leven_dist =
+            levenshtein_algo(first_str_codepoints, second_str_codepoints);
+
+        top.insert({in_amount, leven_dist, cur_recipe});
+
+        if (top.size() > size) {
+            auto it = top.end();
+            it--;
+            top.erase(it);
+        }
+    }
 }
 
 }  // namespace search
