@@ -7,9 +7,7 @@
 
 #include <QWidget>
 #include <QLineEdit>
-#include <QLabel>
 #include <QTextEdit>
-#include <QGridLayout>
 #include <QPushButton>
 #include <QMap>
 
@@ -21,6 +19,7 @@ public:
 
 public slots:
     void add_product_func();
+    void find_product_func();
     void put_in_basket_func();
     void find_recipe_func();
     void check_basket_func();
@@ -35,10 +34,11 @@ private:
 
     //кнопки правой панели
     QPushButton *add_product_button;
+    QPushButton *find_product_button;
     QPushButton *put_in_basket_button;
     QPushButton *find_recipe_button;
     QPushButton *check_basket_button; //отдельным окошком список всех добавленных продуктов
-    QPushButton *cancel_button;
+    //QPushButton *cancel_button; //удалить эту кнопку
 
     //кнопки нижней панели
     QPushButton *next_recipe_button;
