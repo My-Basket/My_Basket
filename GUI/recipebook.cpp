@@ -128,11 +128,6 @@ void RecipeBook::add_product_func() {
 void RecipeBook::find_product_func() {
     if (product_name_line->text() == ""){
         QMessageBox::information(this, tr("Empty input"), tr("Please enter a product"));
-        find_product_button->hide();
-        put_in_basket_button->hide();
-        find_recipe_button->hide();
-        product_name_line->setReadOnly(true);
-        add_product_button->setEnabled(true);
         return;
     }
 
