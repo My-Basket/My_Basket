@@ -1,4 +1,4 @@
-// Created by TurovV on 18.02.2021.
+
 
 #ifndef MY_BASKET_ALGO_H
 #define MY_BASKET_ALGO_H
@@ -6,13 +6,13 @@
 #include <list>
 #include <set>
 #include <string>
-#include "search_engine.h"
 #include <vector>
+#include "search_engine.h"
 namespace functions {
 
 class ingredients_to_recipe {
 private:
-    static std::multiset<search::set_unit, search::comp> res_of_request;
+    static std::vector<search::product> res_of_request;
     static std::vector<search::product> chosen_ingredients;
     static std::vector<search::Recipe> recommended_recipes;
     // TODO static list<product> chosen_bad_ingredients;
@@ -24,14 +24,24 @@ public:
     static void discard_basket();
 
     static void choose_ingredients(uint32_t num);
-    static void run_search(std::string &s, uint32_t size, std::multiset<search::set_unit, search::comp> &top);
+    static void run_product_search(std::string &s,
+                                   uint32_t size,
+                                   std::vector<search::product> &top);
 
-    static std::multiset<search::set_unit, search::comp> show_res_of_request();
+    static std::vector<search::product> show_res_of_request();
+    static void run_recipes_search(
+        const std::vector<search::product> &ingredients,
+        uint32_t size,
+        std::vector<search::Recipe> &vec);
+    static std::vector<search::Recipe> show_recipes();
+    friend void search::get_prod_top_by_name(std::string &input_string,
+                                             uint32_t size,
+                                             std::vector<search::product> &vec);
 
-    friend void get_prod_top_by_name(std::string &input_string, uint32_t size, std::multiset<search::set_unit, search::comp> & top );
-
-    friend void get_recipes(const std::vector<search::product> &ingredients,
-                            uint32_t size);
+    friend void search::get_recipes(
+        const std::vector<search::product> &ingredients,
+        uint32_t size,
+        std::vector<search::Recipe> &vec);
 };
 
 class recipe_to_ingredients {
@@ -39,6 +49,7 @@ class recipe_to_ingredients {
     static search::Recipe chosen_recipe;
 
 public:
+    static void run_recipe_search(const std::string& s, uint32_t size, std::vector<search::Recipe> & vec);
     static std::vector<search::Recipe> show_recipes();
 
     static void choose_recipe(uint32_t num);
@@ -47,7 +58,8 @@ public:
 
     static void cancel_choice();
 
-    friend void search_recipe(const std::string &input_string, uint32_t size);
+    friend void search::search_recipe(const std::string &input_string,
+                                      uint32_t size, std::vector<search::Recipe> & vec);
 };
 
 }  // namespace functions

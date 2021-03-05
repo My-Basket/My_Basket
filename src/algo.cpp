@@ -1,9 +1,17 @@
 #include "algo.h"
-void functions::ingredients_to_recipe::run_search(std::string& s, uint32_t size, std::multiset<search::set_unit, search::comp> &top){
+void functions::ingredients_to_recipe::run_product_search(std::string& s, uint32_t size, std::vector<search::product> &top){
     search::get_prod_top_by_name(s, size, top);
     res_of_request = std::move(top);
 }
-std::multiset<search::set_unit, search::comp> functions::ingredients_to_recipe::show_res_of_request() {
+void functions::ingredients_to_recipe::run_recipes_search(const std::vector<search::product>
+    &ingredients, uint32_t size, std::vector<search::Recipe> & vec) {
+    search::get_recipes(ingredients, size, vec);
+    recommended_recipes = std::move(vec);
+}
+std::vector<search::Recipe> functions::ingredients_to_recipe::show_recipes() {
+    return recommended_recipes;
+}
+std::vector<search::product> functions::ingredients_to_recipe::show_res_of_request() {
     return res_of_request; // возвращает первые 10 продуктов по введенной строке
 }
 
@@ -12,13 +20,17 @@ void functions::ingredients_to_recipe::choose_ingredients(uint32_t num) {
     for (size_t i = 0; i < num; i++) {
         it++;
     }
-    chosen_ingredients.push_back(it->product_); //chosen_ingredients - корзина
+    chosen_ingredients.push_back(*it); //chosen_ingredients - корзина
 }
 void functions::ingredients_to_recipe::discard_basket() {
     chosen_ingredients.clear();
 }
 void functions::ingredients_to_recipe::stop_searching_ingredient() {
     res_of_request.clear();
+}
+void functions::recipe_to_ingredients::run_recipe_search(const std::string& s, uint32_t size, std::vector<search::Recipe> & vec) {
+    search::search_recipe( s,  size,  vec);
+    recipes_request = std::move(vec);
 }
 std::vector<search::Recipe> functions::recipe_to_ingredients::show_recipes() {
     return recipes_request;  // топ 10 рецептов
