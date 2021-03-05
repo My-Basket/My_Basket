@@ -98,3 +98,25 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
         new_s.resize(old_s.size() - symbol_size);
     }
 }
+
+///TODO DELETE FUNCTION
+uint32_t number_of_symbols(string old_s) {
+    if (old_s.empty()) {
+        return 0;
+    }
+
+    std::string new_s;
+    int x = code_point(old_s).second;
+    new_s.resize(old_s.size() - x);
+    int counter = 1;
+    while (!new_s.empty()) {
+        for (int i = x; i < old_s.size(); i++) {
+            new_s[i - x] = old_s[i];
+        }
+        x = code_point(new_s).second;
+        old_s = new_s;
+        new_s.resize(old_s.size() - x);
+        counter++;
+    }
+    return counter;
+}

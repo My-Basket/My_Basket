@@ -10,25 +10,29 @@
 
 namespace search {
 
+template <typename T>
+struct set_unit {
+    uint32_t in_amount = 0;
+    uint32_t leven_dist = 0;
+    T product_;
+    bool operator<(const set_unit &a) const {
+        if (a.in_amount != in_amount) {
+            return a.in_amount < in_amount;
+        } else {
+            return a.leven_dist > leven_dist;
+        }
+    }
+};
+
 using nlohmann::json;
 
-struct set_unit;
-struct comp;
 class product {
 private:
     std::string name;
     std::string category;
-    uint32_t price{};
+    uint32_t price;
 
 public:
-    explicit product(const json &j);
-
-    product &operator=(const json &j);
-
-    explicit product(json &&j);
-
-    product &operator=(json &&j);
-
     product(const product &d) = default;
 
     product &operator=(const product &d) = default;
@@ -37,40 +41,29 @@ public:
 
     product &operator=(product &&d) = default;
 
+    product(const json &j);
+
+    product &operator=(const json &j);
+
+    bool operator==(const product &p) const;
+
     friend void get_prod_top_by_name(std::string &input_string,
                                      uint32_t size,
-                                     std::multiset<set_unit, comp> &top);
+                                     std::vector<product> &vec);
+
+    friend void get_recipes(const std::vector<product> &ingredients,
+                            uint32_t size);
 
     friend std::ostream &operator<<(std::ostream &os, const product &p);
 
     ~product() = default;
 };
 
-struct set_unit {
-    search::product product_;
-    uint32_t in_amount;
-    uint32_t leven_dist;
-};
-
-struct comp {
-    bool operator()(const set_unit &a, const set_unit &b) const;
-};
-
 class Recipe {
     std::vector<search::product> ingredients;
     std::string name;
-    // TODO кухня, регион приготовления, время приготовления, пошаговая
-    // инструкция с приготовлением (после MVP)
+
 public:
-    // TODO
-    explicit Recipe(const json &j);
-
-    Recipe &operator=(const json &j);
-
-    explicit Recipe(json &&j);
-
-    Recipe &operator=(json &&j);
-
     Recipe() = default;
 
     Recipe(const Recipe &recipe) = default;
@@ -84,7 +77,9 @@ public:
     ~Recipe() = default;
 
     void clear();
-    // TODO
+
+    Recipe(const json &j);
+
     bool is_ingredient_in_recipe(
         const product &ingredient);  //проверка на наличие ингредиента в рецепте
 
@@ -94,15 +89,12 @@ public:
     // ingredients_to_recipes топ 10 лучших рецептов
 
     friend void search_recipe(const std::string &input_string, uint32_t size);
+
     //ищет рецепт по введённой строке, сует в recipes_request класса
     // recipes_to_ingredients топ 10 лучших рецептов
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
 };
-void get_prod_top_by_name(std::string &input_string,
-                          uint32_t size,
-                          std::multiset<set_unit, comp> &top);
-void get_recipes(const std::vector<product> &ingredients, uint32_t size);
-void search_recipe(const std::string &input_string, uint32_t size);
+
 }  // namespace search
 
 #endif  // MY_BASKET_SEARCH_ENGINE_H
