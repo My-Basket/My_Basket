@@ -5,11 +5,10 @@
 #include "search_engine.h"
 #include <cassert>
 #include <fstream>
-#include <iostream>
 #include "work_with_string.h"
 
 namespace {
-  
+
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
         a = b;
@@ -55,13 +54,9 @@ uint32_t check_in(std::vector<uint32_t> &first_str,
         if (count > max_amount) {
             max_amount = count;
         }
-
     }
     return max_amount;
 }
-
-    
-
 }  // namespace
 
 namespace search {
@@ -88,20 +83,7 @@ void get_prod_top_by_name(string &input_string,
     std::vector<uint32_t> first_str_codepoints;
     from_str_to_codepoint(input_string, first_str_codepoints);
 
-    struct set_unit {
-        uint32_t in_amount;
-        uint32_t leven_dist;
-        search::product product_;
-        bool operator<(const set_unit &a) const {
-            if (a.in_amount != in_amount) {
-                return a.in_amount < in_amount;
-            } else {
-                return a.leven_dist > leven_dist;
-            }
-        }
-    };
-
-    std::multiset<set_unit> top;
+    std::multiset<set_unit<product>> top;
     for (auto const &x : j) {
         product cur_prod(x);
         auto temp_name = cur_prod.name;
@@ -122,7 +104,7 @@ void get_prod_top_by_name(string &input_string,
         }
     }
 
-    for (const set_unit &su : top) {
+    for (const set_unit<product> &su : top) {
         vec.push_back(su.product_);
     }
 }
@@ -144,7 +126,7 @@ product &product::operator=(const json &j) {
         price = j["Price"];
         return *this;
     } catch (...) {
-        assert((false, "Invalid cast from json to product"));
+        throw;
     }
 }
 bool product::operator==(const product &p) const {
@@ -173,36 +155,14 @@ void get_recipes(const std::vector<product> &ingredients, uint32_t size) {
     json j = json::parse(file);
     file.close();
 
-    struct set_unit {
-        uint32_t in_amount;
-        uint32_t leven_dist;
-        search::Recipe recipe_;
-        bool operator<(const set_unit &a) const {
-            if (a.in_amount != in_amount) {
-                return a.in_amount < in_amount;
-            } else {
-                return a.leven_dist > leven_dist;
-            }
-        }
-    };
-
-    std::function<bool(const set_unit &a, const set_unit &b)> comp =
-        [](const set_unit &a, const set_unit &b) {
-            if (a.in_amount != b.in_amount) {
-                return a.in_amount > b.in_amount;
-            } else {
-                return a.leven_dist < b.leven_dist;
-            }
-        };
-
-    std::set<set_unit> top;
+    std::set<set_unit<Recipe>> top;
     for (const product &p : ingredients) {
         uint32_t in_amount = 0;
         uint32_t leven_dist = 0;
 
         std::vector<uint32_t> first_str_codepoints;
         from_str_to_codepoint(p.name, first_str_codepoints);
-        set_unit max;
+        set_unit<Recipe> max;
         for (const json &x : j) {
             Recipe cur_recipe(x);
             std::string temp_name = cur_recipe.name;
@@ -214,12 +174,12 @@ void get_recipes(const std::vector<product> &ingredients, uint32_t size) {
             leven_dist +=
                 levenshtein_algo(first_str_codepoints, second_str_codepoints);
 
-            if (max < set_unit({in_amount, leven_dist})) {
+            if (max < set_unit<Recipe>({in_amount, leven_dist})) {
                 max = {in_amount, leven_dist, cur_recipe};
             }
         }
 
-        top.insert({in_amount, leven_dist, max.recipe_});
+        top.insert(max);
 
         if (top.size() > size) {
             auto it = top.end();
@@ -237,20 +197,7 @@ void search_recipe(const string &input_string, uint32_t size) {
     std::vector<uint32_t> first_str_codepoints;
     from_str_to_codepoint(input_string, first_str_codepoints);
 
-    struct set_unit {
-        uint32_t in_amount;
-        uint32_t leven_dist;
-        search::Recipe recipe_;
-        bool operator<(const set_unit &a) const {
-            if (a.in_amount != in_amount) {
-                return a.in_amount < in_amount;
-            } else {
-                return a.leven_dist > leven_dist;
-            }
-        }
-    };
-
-    std::multiset<set_unit> top;
+    std::multiset<set_unit<Recipe>> top;
 
     for (const json &x : j) {
         Recipe cur_recipe(x);

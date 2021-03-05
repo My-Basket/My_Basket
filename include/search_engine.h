@@ -10,13 +10,27 @@
 
 namespace search {
 
+template <typename T>
+struct set_unit {
+    uint32_t in_amount = 0;
+    uint32_t leven_dist = 0;
+    T product_;
+    bool operator<(const set_unit &a) const {
+        if (a.in_amount != in_amount) {
+            return a.in_amount < in_amount;
+        } else {
+            return a.leven_dist > leven_dist;
+        }
+    }
+};
+
 using nlohmann::json;
 
 class product {
 private:
     std::string name;
     std::string category;
-    uint32_t price{};
+    uint32_t price;
 
 public:
     product(const product &d) = default;
@@ -33,7 +47,9 @@ public:
 
     bool operator==(const product &p) const;
 
-    friend void get_prod_top_by_name(std::string &input_string, uint32_t size, std::vector<product> &vec);
+    friend void get_prod_top_by_name(std::string &input_string,
+                                     uint32_t size,
+                                     std::vector<product> &vec);
 
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size);
@@ -70,55 +86,14 @@ public:
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size);
     //получает на вход продукты, сует в recommended recipes класса
-    //ingredients_to_recipes топ 10 лучших рецептов
+    // ingredients_to_recipes топ 10 лучших рецептов
 
     friend void search_recipe(const std::string &input_string, uint32_t size);
 
     //ищет рецепт по введённой строке, сует в recipes_request класса
-    //recipes_to_ingredients топ 10 лучших рецептов
+    // recipes_to_ingredients топ 10 лучших рецептов
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
 };
-
-
-#if 0
-    class ingredients_to_recipe {
-    private:
-        static multiset<set_unit, comp> res_of_request;
-        static vector<product> chosen_ingredients;
-        static vector<Recipe> recommended_recipes;
-        // TODO static list<product> chosen_bad_ingredients;
-        //TODO static multiset<set_unit, comp> bad_ingredients;
-        // TODO vector<string> popular_ingredients;
-    public:
-        static void stop_searching_ingredient();
-
-    static void discard_basket();
-
-    static void choose_ingredients(uint32_t num);
-
-    static multiset<set_unit, comp> show_res_of_request();
-
-    friend void get_prod_top_by_name(std::string &input_string, uint32_t size);
-
-    friend void get_recipes(const std::vector<product> &ingredients,
-                            uint32_t size);
-};
-
-class recipe_to_ingredients {
-    static vector<Recipe> recipes_request;
-    static Recipe chosen_recipe;
-
-public:
-    static vector<Recipe> show_recipes();
-
-    static void choose_recipe(uint32_t num);
-
-    static void stop_searching_recipe();
-
-    static void cancel_choice();
-
-    };
-#endif
 
 }  // namespace search
 
