@@ -1,8 +1,0 @@
-//
-// Created by Евгения Федотова
-//
-
-#ifndef BUCKET_PROJECT_ITS_QMAKE_PRO_FILE_H
-#define BUCKET_PROJECT_ITS_QMAKE_PRO_FILE_H
-
-#endif //BUCKET_PROJECT_ITS_QMAKE_PRO_FILE_H

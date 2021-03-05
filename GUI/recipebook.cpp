@@ -1,8 +1,11 @@
 //
-// Created by Евгения Федотова
+// Created by nikolya on 23.02.2021.
 //
 
+// You may need to build the project (run Qt uic code generator) to get "ui_RecipeBook.h" resolved
+
 #include "recipebook.h"
+#include "ui_RecipeBook.h"
 
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent){
     QLabel *product_name_label = new QLabel(tr("product or dish:"));

@@ -25,7 +25,7 @@ struct set_unit {
 };
 
 using nlohmann::json;
-
+class Recipe;
 class product {
 private:
     std::string name;
@@ -52,7 +52,7 @@ public:
                                      std::vector<product> &vec);
 
     friend void get_recipes(const std::vector<product> &ingredients,
-                            uint32_t size);
+                            uint32_t size,  std::vector<Recipe> & vec);
 
     friend std::ostream &operator<<(std::ostream &os, const product &p);
 
@@ -84,16 +84,22 @@ public:
         const product &ingredient);  //проверка на наличие ингредиента в рецепте
 
     friend void get_recipes(const std::vector<product> &ingredients,
-                            uint32_t size);
+                            uint32_t size,  std::vector<Recipe> & vec);
     //получает на вход продукты, сует в recommended recipes класса
     // ingredients_to_recipes топ 10 лучших рецептов
 
-    friend void search_recipe(const std::string &input_string, uint32_t size);
+    friend void search_recipe(const std::string &input_string, uint32_t size, std::vector<Recipe> & vec);
 
     //ищет рецепт по введённой строке, сует в recipes_request класса
     // recipes_to_ingredients топ 10 лучших рецептов
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
 };
+void get_prod_top_by_name(std::string &input_string,
+                          uint32_t size,
+                          std::vector<product> &vec);
+void get_recipes(const std::vector<product> &ingredients,
+                 uint32_t size,  std::vector<Recipe> & vec);
+void search_recipe(const std::string &input_string, uint32_t size, std::vector<Recipe> & vec);
 
 }  // namespace search
 

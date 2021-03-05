@@ -1,29 +1,24 @@
 #include <recipebook.h>
 #include <search_engine.h>
-#include <work_with_string.h>
 #include <QApplication>
-#include <QPushButton>
 #include <QtGui>
 #include <iostream>
-
-// std::multiset<search::set_unit, search::comp>
-//    search::ingredients_to_recipe::res_of_request;
-// std::vector<search::product>
-// search::ingredients_to_recipe::chosen_ingredients; std::vector<search::Recipe>
-// search::ingredients_to_recipe::recommended_recipes;
-// std::vector<search::Recipe> search::recipe_to_ingredients::recipes_request;
-// search::Recipe search::recipe_to_ingredients::chosen_recipe;
-
+#include "algo.h"
+#include "for_static.h"
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     std::string s = "Вода";
     std::vector<search::product> vec;
-    get_prod_top_by_name(s, 10, vec);
-    //    for (auto t : search::ingredients_to_recipe::show_res_of_request()) {
-    //        std::cout << t.product_;
-    //    }
-    for (auto &v : vec) {
-        std::cout << v;
+    functions::ingredients_to_recipe::run_product_search(s, 10, vec);
+    auto top_product = functions::ingredients_to_recipe::show_res_of_request();
+    for (const auto& t : top_product) {
+        std::cout << t;
+    }
+    std::vector<search::Recipe> vec2;
+    functions::ingredients_to_recipe::run_recipes_search(top_product, 10, vec2);
+    auto top_recipes = functions::ingredients_to_recipe::show_recipes();
+    for(const auto& t: top_recipes){
+        //std::cout <<t;
     }
     RecipeBook recipebook;
     recipebook.show();
