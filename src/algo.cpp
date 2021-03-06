@@ -15,6 +15,11 @@ std::vector<search::product> functions::ingredients_to_recipe::show_res_of_reque
     return res_of_request; // возвращает первые 10 продуктов по введенной строке
 }
 
+void functions::put_product_in_basket(search::product &product){
+    ingredients_to_recipe::chosen_ingredients.push_back(product);
+    ///задача: создать продукт по строке и запушить его сюда
+}
+
 void functions::ingredients_to_recipe::choose_ingredients(uint32_t num) {
     auto it = res_of_request.begin();
     for (size_t i = 0; i < num; i++) {

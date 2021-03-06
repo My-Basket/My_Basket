@@ -13,7 +13,7 @@ namespace functions {
 class ingredients_to_recipe {
 private:
     static std::vector<search::product> res_of_request;
-    static std::vector<search::product> chosen_ingredients;
+    static std::vector<search::product> chosen_ingredients; //продукты корзины
     static std::vector<search::Recipe> recommended_recipes;
     // TODO static list<product> chosen_bad_ingredients;
     // TODO static multiset<set_unit, comp> bad_ingredients;
@@ -42,6 +42,8 @@ public:
         const std::vector<search::product> &ingredients,
         uint32_t size,
         std::vector<search::Recipe> &vec);
+
+    friend void put_product_in_basket(search::product &product);
 };
 
 class recipe_to_ingredients {

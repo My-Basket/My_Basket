@@ -109,6 +109,10 @@ void get_prod_top_by_name(std::string &input_string,
     }
 }
 
+std::string get_product_name(search::product const &prod){
+    return prod.name;
+}
+
 product::product(const json &j) {
     try {
         name = j["Name"];

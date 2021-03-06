@@ -1,6 +1,7 @@
 //You may need to build the project (run Qt uic code generator) to get "ui_RecipeBook.h" resolved -- запускается и без этого
 
 #include "recipebook.h"
+#include "algo.h"
 //#include "ui_RecipeBook.h"
 
 #include <QGridLayout>
@@ -36,9 +37,6 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     check_basket_button = new QPushButton(tr("&check basket"));
     check_basket_button->show();
 
-    //    cancel_button = new QPushButton(tr("&cancel last product"));
-    //    cancel_button->hide();
-
     //экземпляры кнопок нижней панели
     next_recipe_button = new QPushButton(tr("&next recipe"));
     next_recipe_button->setEnabled(false);
@@ -60,8 +58,6 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
             SLOT(find_recipe_func()));
     connect(check_basket_button, SIGNAL(clicked()), this,
             SLOT(check_basket_func()));
-    // connect(cancel_button, SIGNAL(clicked()), this, SLOT(cancel_func()));
-
     connect(next_recipe_button, SIGNAL(clicked()), this,
             SLOT(next_recipe_func()));
     connect(previous_recipe_button, SIGNAL(clicked()), this,
@@ -74,7 +70,6 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     button_layout1->addWidget(put_in_basket_button);
     button_layout1->addWidget(find_recipe_button);
     button_layout1->addWidget(check_basket_button);
-    // button_layout1->addWidget(cancel_button);
     button_layout1
         ->addStretch();  //разместить кнопки ближе к верхней части экрана
 
@@ -135,26 +130,37 @@ void RecipeBook::find_product_func() {
     find_product_button->setEnabled(false);
     add_product_button->setEnabled(true);
 
-    //вывести на экран список топ 10 найденных продуктов:
+//    previous_recipe_button->show();
+//    previous_recipe_button->setEnabled(true);
+//    next_recipe_button->show();
+//    previous_recipe_button->setEnabled(true);
+    ///либо делать кнопки, и ходить по продуктам по ним
+    ///либо вывести в поле recipe_text сразу столбец продуктов и в нем научиться щелкать по одному продукту
 
+    //вывести на экран список топ 10 найденных продуктов:
+    //TODO мб менять название поля recipe_text
+    std::vector<search::product> res_of_request = functions::ingredients_to_recipe::show_res_of_request();
+    for (auto & prod : res_of_request) {
+        QString res_product =
+            QString::fromUtf8(get_product_name(prod).c_str());
+        recipe_text->setPlainText(static_cast<const QString>(res_product));
+    }
 }
 
 void RecipeBook::put_in_basket_func() {
-    //добавить продукт в список корзины
-    // TODO: сохранить в БД -- добавить в вектор chosen_ingridients
-
     old_product = product_name_line->text();
     old_recipe = recipe_text->toPlainText();
-    // search::ingredients_to_recipe::chosen_ingredients.push_back(old_product)
-
+    // TODO: сохранить в БД -- добавить в вектор chosen_ingridients
+    //search::product = func_construct_product(old_product.toStdString());
+    //search::ingredients_to_recipe::chosen_ingredients.push_back(product);
     product_name_line->clear();
     recipe_text->clear();
 
     product_name_line->setReadOnly(true);
     recipe_text->setReadOnly(true);
     add_product_button->setEnabled(true);
+    find_product_button->hide();
     put_in_basket_button->hide();
-    // cancel_button->hide();
 }
 
 void RecipeBook::find_recipe_func() {
@@ -174,7 +180,6 @@ void RecipeBook::find_recipe_func() {
     add_product_button->setEnabled(true);  //кнопка нажата
     put_in_basket_button->hide();
     find_recipe_button->hide();
-    // cancel_button->hide();
 
     previous_recipe_button->show();
     next_recipe_button->show();
@@ -189,7 +194,6 @@ void RecipeBook::find_recipe_func() {
 
 void RecipeBook::check_basket_func() {
     product_name_line->clear();
-    // cancel_button->hide();
     put_in_basket_button->hide();
     add_product_button->setEnabled(true);
     //вывести список продуктов корзины на экран -- отдельным окном
@@ -208,7 +212,6 @@ void RecipeBook::cancel_func() {
     add_product_button->setEnabled(true);
     put_in_basket_button->hide();
     find_recipe_button->hide();
-    // cancel_button->hide();
 }
 
 void RecipeBook::previous_recipe_func() {

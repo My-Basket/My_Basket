@@ -54,6 +54,8 @@ public:
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,  std::vector<Recipe> & vec);
 
+    friend std::string get_product_name(product const &prod);
+
     friend std::ostream &operator<<(std::ostream &os, const product &p);
 
     ~product() = default;

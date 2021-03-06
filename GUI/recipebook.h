@@ -38,7 +38,6 @@ private:
     QPushButton *put_in_basket_button;
     QPushButton *find_recipe_button;
     QPushButton *check_basket_button; //отдельным окошком список всех добавленных продуктов
-    //QPushButton *cancel_button; //удалить эту кнопку
 
     //кнопки нижней панели
     QPushButton *next_recipe_button;
