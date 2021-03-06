@@ -1,4 +1,5 @@
-//You may need to build the project (run Qt uic code generator) to get "ui_RecipeBook.h" resolved -- запускается и без этого
+// You may need to build the project (run Qt uic code generator) to get
+// "ui_RecipeBook.h" resolved -- запускается и без этого
 
 #include "recipebook.h"
 #include "algo.h"
@@ -115,8 +116,9 @@ void RecipeBook::add_product_func() {
 }
 
 void RecipeBook::find_product_func() {
-    if (product_name_line->text() == ""){
-        QMessageBox::information(this, tr("Empty input"), tr("Please enter a product"));
+    if (product_name_line->text() == "") {
+        QMessageBox::information(this, tr("Empty input"),
+                                 tr("Please enter a product"));
         return;
     }
 
@@ -124,19 +126,20 @@ void RecipeBook::find_product_func() {
     find_product_button->setEnabled(false);
     add_product_button->setEnabled(true);
 
-//    previous_recipe_button->show();
-//    previous_recipe_button->setEnabled(true);
-//    next_recipe_button->show();
-//    previous_recipe_button->setEnabled(true);
+    //    previous_recipe_button->show();
+    //    previous_recipe_button->setEnabled(true);
+    //    next_recipe_button->show();
+    //    previous_recipe_button->setEnabled(true);
     ///либо делать кнопки, и ходить по продуктам по ним
-    ///либо вывести в поле recipe_text сразу столбец продуктов и в нем научиться щелкать по одному продукту
+    ///либо вывести в поле recipe_text сразу столбец продуктов и в нем научиться
+    ///щелкать по одному продукту
 
     //вывести на экран список топ 10 найденных продуктов:
-    //TODO мб менять название поля recipe_text
-    std::vector<search::product> res_of_request = functions::ingredients_to_recipe::show_res_of_request();
-    for (auto & prod : res_of_request) {
-        QString res_product =
-            QString::fromUtf8(get_product_name(prod).c_str());
+    // TODO мб менять название поля recipe_text
+    std::vector<search::product> res_of_request =
+        functions::ingredients_to_recipe::show_res_of_request();
+    for (auto &prod : res_of_request) {
+        QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
         recipe_text->setPlainText(static_cast<const QString>(res_product));
     }
 }
@@ -145,7 +148,8 @@ void RecipeBook::put_in_basket_func() {
     old_product = product_name_line->text();
     old_recipe = recipe_text->toPlainText();
 
-    search::put_product_in_basket(old_product.toStdString()); //добавление продукта в корзину
+    search::put_product_in_basket(
+        old_product.toStdString());  //добавление продукта в корзину
 
     product_name_line->clear();
     recipe_text->clear();
@@ -178,6 +182,12 @@ void RecipeBook::find_recipe_func() {
     previous_recipe_button->show();
     next_recipe_button->show();
     find_recipe_button->setEnabled(true);
+
+    //run_recipe_search -- но с какими параметрами? мне хочется просто вызывать поиск, а не передавать ему какие-то аргументы
+//    recipe_text->setText(QString::fromUtf8(
+//        (search::get_recipe_name(
+//             functions::recipe_to_ingredients::show_recipes()[0]))
+//            .c_str()));
 }
 
 void RecipeBook::check_basket_func() {
@@ -204,6 +214,8 @@ void RecipeBook::previous_recipe_func() {
 
 void RecipeBook::next_recipe_func() {
     //циклический список рецептов
+    //здесь надо как-то поддерживать указатель на текущий рецепт, чтобы не проходиться по всему массиву заново
+    //how to do it
     QString current_dish = product_name_line->text();
     QMap<QString, QString>::iterator it = map_recipes.find(current_dish);
 

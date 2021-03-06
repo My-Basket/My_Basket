@@ -95,6 +95,8 @@ public:
     //ищет рецепт по введённой строке, сует в recipes_request класса
     // recipes_to_ingredients топ 10 лучших рецептов
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
+
+    friend std::string get_recipe_name(Recipe &recipe);
 };
 void get_prod_top_by_name(std::string &input_string,
                           uint32_t size,
@@ -104,6 +106,8 @@ void get_recipes(const std::vector<product> &ingredients,
 void search_recipe(const std::string &input_string, uint32_t size, std::vector<Recipe> & vec);
 
 void put_product_in_basket(std::string const &product_string);
+
+std::string get_recipe_name(Recipe &recipe);
 
 }  // namespace search
 

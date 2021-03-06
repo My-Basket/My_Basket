@@ -208,6 +208,10 @@ void get_recipes(const std::vector<product> &ingredients, uint32_t size, std::ve
 
 }
 
+std::string get_recipe_name(search::Recipe &recipe){
+    return recipe.name;
+}
+
 void search_recipe(const string &input_string, uint32_t size, std::vector<Recipe> & vec) {
     std::ifstream file("../data/recipes.json");
     json j = json::parse(file);
