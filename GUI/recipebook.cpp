@@ -150,9 +150,9 @@ void RecipeBook::find_product_func() {
 void RecipeBook::put_in_basket_func() {
     old_product = product_name_line->text();
     old_recipe = recipe_text->toPlainText();
-    // TODO: сохранить в БД -- добавить в вектор chosen_ingridients
-    //search::product = func_construct_product(old_product.toStdString());
-    //search::ingredients_to_recipe::chosen_ingredients.push_back(product);
+
+    search::put_product_in_basket(old_product.toStdString()); //добавление продукта в корзину
+
     product_name_line->clear();
     recipe_text->clear();
 
