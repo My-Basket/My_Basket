@@ -23,7 +23,6 @@ public slots:
     void put_in_basket_func();
     void find_recipe_func();
     void check_basket_func();
-    void cancel_func();
 
     void next_recipe_func();
     void previous_recipe_func();

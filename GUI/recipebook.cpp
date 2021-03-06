@@ -39,11 +39,9 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     //экземпляры кнопок нижней панели
     next_recipe_button = new QPushButton(tr("&next recipe"));
-    next_recipe_button->setEnabled(false);
     next_recipe_button->hide();
 
     previous_recipe_button = new QPushButton(tr("&previous recipe"));
-    previous_recipe_button->setEnabled(false);
     previous_recipe_button->hide();
 
     // TODO: можно ли избавиться от копипаста и вынести это в функцию с
@@ -114,10 +112,6 @@ void RecipeBook::add_product_func() {
     find_product_button->setEnabled(true);
     put_in_basket_button->show();
     find_recipe_button->show();
-    // if (!basket.isEmpty())
-    // cancel_button->show();
-    //после добавления нового продукта на экране отображаются кнопки "find
-    //recipe" и "to prev product"
 }
 
 void RecipeBook::find_product_func() {
@@ -184,12 +178,6 @@ void RecipeBook::find_recipe_func() {
     previous_recipe_button->show();
     next_recipe_button->show();
     find_recipe_button->setEnabled(true);
-
-    //вставить: вызов функции "заполнить карту map_recipes"
-    if (map_recipes.size() > 1) {
-        previous_recipe_button->setEnabled(false);
-        next_recipe_button->setEnabled(false);
-    }
 }
 
 void RecipeBook::check_basket_func() {
@@ -197,21 +185,6 @@ void RecipeBook::check_basket_func() {
     put_in_basket_button->hide();
     add_product_button->setEnabled(true);
     //вывести список продуктов корзины на экран -- отдельным окном
-}
-
-void RecipeBook::cancel_func() {
-    //установка старых значений
-    //отмена последнего добавления в корзину
-    product_name_line->setText(old_product);
-    product_name_line->setReadOnly(true);
-
-    recipe_text->setText(old_recipe);
-    recipe_text->setReadOnly(true);
-
-    //спрятать кнопки find и cancel, оставив только add
-    add_product_button->setEnabled(true);
-    put_in_basket_button->hide();
-    find_recipe_button->hide();
 }
 
 void RecipeBook::previous_recipe_func() {

@@ -14,7 +14,7 @@ class ingredients_to_recipe {
 private:
     static std::vector<search::product> res_of_request; //топ 10 продуктов по запросу
     static std::vector<search::product> chosen_ingredients; //продукты корзины
-    static std::vector<search::Recipe> recommended_recipes;
+    static std::vector<search::Recipe> recommended_recipes; //топ рекомендуемых рецептов, выданных по запросу find
     // TODO static list<product> chosen_bad_ingredients;
     // TODO static multiset<set_unit, comp> bad_ingredients;
     // TODO vector<string> popular_ingredients;
