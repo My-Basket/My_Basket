@@ -196,7 +196,8 @@ void RecipeBook::find_recipe_func() {
     recipe_label->setText("possible recipe:");
     recipe_text->clear();
 
-    //run_recipe_search -- но с какими параметрами? мне хочется просто вызывать поиск, а не передавать ему какие-то аргументы
+    functions::ingredients_to_recipe::run_recipes_search(res_of_request_products, 10, res_of_request_recipes);
+    res_of_request_recipes = functions::ingredients_to_recipe::show_recipes();
     std::stringstream ss;
     ss << functions::recipe_to_ingredients::show_recipes()[0];
     std::string s;
@@ -213,12 +214,11 @@ void RecipeBook::check_basket_func() {
     add_product_button->setEnabled(true);
     //вывести список продуктов корзины на экран
     //мб отдельным окном
-    ///нужна функция получения массива выбранных продуктов => get_chosen_ingredients
-//    for (auto &prod : chosen_ingredients) {
-//        QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
-//        recipe_text->insertPlainText(static_cast<const QString>(res_product));
-//        recipe_text->insertPlainText("\n");
-//    }
+    for (auto &prod : basket_of_products) {
+        QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
+        recipe_text->insertPlainText(static_cast<const QString>(res_product));
+        recipe_text->insertPlainText("\n");
+    }
 }
 
 void RecipeBook::previous_func() {
@@ -226,16 +226,17 @@ void RecipeBook::previous_func() {
     if (current_mode == FindProduct_mode) {
         //циклический список продуктов
         if (num_current_object < 0) {
-            num_current_object = functions::ingredients_to_recipe::show_res_of_request().size() - 1;
+            num_current_object = res_of_request_products.size() - 1;
         }
-        search::product prod = functions::ingredients_to_recipe::show_res_of_request()[num_current_object];
+        search::product prod = res_of_request_products[num_current_object];
         recipe_text->setText(QString::fromUtf8(get_product_name(prod).c_str()));
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
         if (num_current_object < 0) {
-            num_current_object = map_recipes.size() - 1;
+            num_current_object = res_of_request_recipes.size() - 1;
         }
-        //recipe_text->setText(map_recipes[num_current_object]);
+        search::Recipe recipe = res_of_request_recipes[num_current_object];
+        recipe_text->setText(QString::fromUtf8(get_recipe_name(recipe).c_str()));
     }
 }
 
@@ -253,6 +254,7 @@ void RecipeBook::next_func() {
         if (num_current_object == functions::ingredients_to_recipe::show_res_of_request().size()) {
             num_current_object = 0;
         }
-        //recipe_text->setText(map_recipes[num_current_object]);
+        search::Recipe recipe = res_of_request_recipes[num_current_object];
+        recipe_text->setText(QString::fromUtf8(get_recipe_name(recipe).c_str()));
     }
 }

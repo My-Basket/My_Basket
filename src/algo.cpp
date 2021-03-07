@@ -9,18 +9,13 @@ void functions::ingredients_to_recipe::run_recipes_search(const std::vector<sear
     recommended_recipes = std::move(vec);
 }
 std::vector<search::Recipe> functions::ingredients_to_recipe::show_recipes() {
-    return recommended_recipes;
+    return recommended_recipes; //возвращает топ 10 рекомендуемых рецептов
 }
 std::vector<search::product> functions::ingredients_to_recipe::show_res_of_request() {
-    return res_of_request; // возвращает первые 10 продуктов по введенной строке
+    return res_of_request; //возвращает первые 10 продуктов по введенной строке
 }
 
 void search::put_product_in_basket(std::vector<search::product> &basket, search::product &prod){
-//    for (auto &prod : functions::ingredients_to_recipe::show_res_of_request()) {
-//        if (get_product_name(prod) == product_string) {
-//            functions::ingredients_to_recipe::chosen_ingredients.push_back(prod);
-//        }
-//    }
     basket.push_back(prod);
 }
 

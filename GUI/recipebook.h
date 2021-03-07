@@ -54,10 +54,10 @@ private:
     //структуры для хранения информации
     std::vector<search::product> basket_of_products;
     std::vector<search::product> res_of_request_products;
-    QMap<QString, QString> map_recipes;
+    std::vector<search::Recipe> res_of_request_recipes;
 
     NextPrevMode current_mode;
-    long long num_current_object = 0;
+    std::size_t num_current_object = 0;
 
     friend void search::put_product_in_basket(std::vector<search::product> &basket, search::product &prod);
 };
