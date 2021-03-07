@@ -6,17 +6,15 @@
 //#include "ui_RecipeBook.h"
 
 #include <QGridLayout>
-#include <QLabel>
 #include <QMessageBox>
 
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
-    QLabel *product_name_label = new QLabel(tr("product or dish:"));
+    product_name_label = new QLabel(tr("product or dish:"));
     product_name_line = new QLineEdit;
     product_name_line->setReadOnly(
-        true);  //установили поле только для чтения, можем только отображать,
-    //но не редактировать детали имеющихся продуктов и рецептов
+        true);
 
-    QLabel *recipe_label = new QLabel(tr("recipe:"));
+    recipe_label = new QLabel(tr("possible to take:"));
     recipe_text = new QTextEdit;
     recipe_text->setReadOnly(true);
 
@@ -31,9 +29,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     put_in_basket_button->hide();
 
     find_recipe_button = new QPushButton(tr("&find recipe"));
-    find_recipe_button->hide();  //кнопка скрыта. будет отображена только после
-    //того, как пользователь
-    //нажмет кнопку "add product"
+    find_recipe_button->hide();
 
     check_basket_button = new QPushButton(tr("&check basket"));
     check_basket_button->show();
@@ -113,6 +109,7 @@ void RecipeBook::add_product_func() {
     find_product_button->setEnabled(true);
     put_in_basket_button->show();
     find_recipe_button->show();
+    recipe_label->setText("possible to take:");
 }
 
 void RecipeBook::find_product_func() {
@@ -135,7 +132,9 @@ void RecipeBook::find_product_func() {
     ///щелкать по одному продукту
 
     //вывести на экран список топ 10 найденных продуктов:
-    // TODO мб менять название поля recipe_text
+    // TODO мб менять название поля recipe_text -- recipe_label
+    recipe_label->setText("possible to take:");
+
     recipe_text->clear();
     ///надо ли здесь запустить какую-то ф-цию для поиска?
     std::vector<search::product> res_of_request =
@@ -153,6 +152,7 @@ void RecipeBook::put_in_basket_func() {
 
     search::put_product_in_basket(
         old_product.toStdString());  //добавление продукта в корзину
+    ///old_recipe, а не old_product
 
     product_name_line->clear();
     recipe_text->clear();
@@ -185,6 +185,9 @@ void RecipeBook::find_recipe_func() {
     previous_recipe_button->show();
     next_recipe_button->show();
     find_recipe_button->setEnabled(true);
+
+    recipe_label->setText("possible recipe:");
+    recipe_text->clear();
 
     //run_recipe_search -- но с какими параметрами? мне хочется просто вызывать поиск, а не передавать ему какие-то аргументы
 //    recipe_text->setText(QString::fromUtf8(

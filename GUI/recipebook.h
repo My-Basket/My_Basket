@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include <QLineEdit>
+#include <QLabel>
 #include <QTextEdit>
 #include <QPushButton>
 #include <QMap>
@@ -29,7 +30,9 @@ public slots:
 
 private:
     QLineEdit *product_name_line;
+    QLabel *product_name_label;
     QTextEdit *recipe_text;
+    QLabel *recipe_label;
 
     //кнопки правой панели
     QPushButton *add_product_button;
