@@ -18,6 +18,11 @@ Q_OBJECT
 public:
     RecipeBook(QWidget *parent = 0);
 
+    enum NextPrevMode {
+        FindProduct_mode,
+        FindRecipe_mode
+    };
+
 public slots:
     void add_product_func();
     void find_product_func();
@@ -49,6 +54,9 @@ private:
     QMap<QString, QString> map_recipes;
     QString old_product;
     QString old_recipe;
+
+    NextPrevMode current_mode;
+    int num_current_object = 0;
 };
 
 #endif // RECIPEBOOK_H

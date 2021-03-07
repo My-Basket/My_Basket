@@ -7,6 +7,7 @@
 
 #include <QGridLayout>
 #include <QMessageBox>
+#include <sstream>
 
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label = new QLabel(tr("product or dish:"));
@@ -123,25 +124,33 @@ void RecipeBook::find_product_func() {
     find_product_button->setEnabled(false);
     add_product_button->setEnabled(true);
 
-    //    previous_recipe_button->show();
-    //    previous_recipe_button->setEnabled(true);
-    //    next_recipe_button->show();
-    //    previous_recipe_button->setEnabled(true);
-    ///либо делать кнопки, и ходить по продуктам по ним
-    ///либо вывести в поле recipe_text сразу столбец продуктов и в нем научиться
-    ///щелкать по одному продукту
+    previous_recipe_button->show();
+    previous_recipe_button->setEnabled(true);
+    next_recipe_button->show();
+    previous_recipe_button->setEnabled(true);
 
-    //вывести на экран список топ 10 найденных продуктов:
-    // TODO мб менять название поля recipe_text -- recipe_label
+    current_mode = FindProduct_mode;
+
     recipe_label->setText("possible to take:");
 
     recipe_text->clear();
     ///надо ли здесь запустить какую-то ф-цию для поиска?
     std::vector<search::product> res_of_request =
         functions::ingredients_to_recipe::show_res_of_request();
-    for (auto &prod : res_of_request) {
-        QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
-        recipe_text->insertPlainText(static_cast<const QString>(res_product));
+//    for (auto &prod : res_of_request) {
+//        QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
+//        recipe_text->insertPlainText(static_cast<const QString>(res_product));
+//        recipe_text->insertPlainText("\n");
+//    }
+//    QString res_product = QString::fromUtf8(get_product_name(res_of_request[0]).c_str());
+//    recipe_text->insertPlainText(static_cast<const QString>(res_product));
+//    num_current_object = 0;
+
+    std::stringstream ss;
+    ss << res_of_request[0];
+    std::string s;
+    while (ss >> s) {
+        recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
         recipe_text->insertPlainText("\n");
     }
 }
@@ -163,6 +172,8 @@ void RecipeBook::put_in_basket_func() {
     find_product_button->hide();
     put_in_basket_button->hide();
 }
+
+void insert_text(){}
 
 void RecipeBook::find_recipe_func() {
     // QString basket_grocery_list = извлечь из корзины строку с продуктами
@@ -186,14 +197,18 @@ void RecipeBook::find_recipe_func() {
     next_recipe_button->show();
     find_recipe_button->setEnabled(true);
 
+    current_mode = FindRecipe_mode;
+
     recipe_label->setText("possible recipe:");
     recipe_text->clear();
 
     //run_recipe_search -- но с какими параметрами? мне хочется просто вызывать поиск, а не передавать ему какие-то аргументы
-//    recipe_text->setText(QString::fromUtf8(
-//        (search::get_recipe_name(
-//             functions::recipe_to_ingredients::show_recipes()[0]))
-//            .c_str()));
+    std::stringstream ss;
+    ss << functions::recipe_to_ingredients::show_recipes()[0];
+    std::string s;
+    while (ss >> s) {
+        recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
+    }
 }
 
 void RecipeBook::check_basket_func() {
