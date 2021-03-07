@@ -24,7 +24,7 @@ public:
     static void discard_basket();
 
     static void choose_ingredients(uint32_t num);
-    static void run_product_search(std::string &s,
+    static void run_product_search(std::string s,
                                    uint32_t size,
                                    std::vector<search::product> &top);
 

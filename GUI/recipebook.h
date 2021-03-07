@@ -30,8 +30,8 @@ public slots:
     void find_recipe_func();
     void check_basket_func();
 
-    void next_recipe_func();
-    void previous_recipe_func();
+    void next_func();
+    void previous_func();
 
 private:
     QLineEdit *product_name_line;
@@ -47,13 +47,11 @@ private:
     QPushButton *check_basket_button; //отдельным окошком список всех добавленных продуктов
 
     //кнопки нижней панели
-    QPushButton *next_recipe_button;
-    QPushButton *previous_recipe_button;
+    QPushButton *next_button;
+    QPushButton *previous_button;
 
-    QMap<QString, QString> map_product_recipes_vector; //TODO: синхронизировать нужную DS
+    QMap<QString, QString> map_products; //TODO: синхронизировать нужную DS
     QMap<QString, QString> map_recipes;
-    QString old_product;
-    QString old_recipe;
 
     NextPrevMode current_mode;
     int num_current_object = 0;

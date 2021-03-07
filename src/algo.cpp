@@ -1,5 +1,5 @@
 #include "algo.h"
-void functions::ingredients_to_recipe::run_product_search(std::string& s, uint32_t size, std::vector<search::product> &top){
+void functions::ingredients_to_recipe::run_product_search(std::string s, uint32_t size, std::vector<search::product> &top){
     search::get_prod_top_by_name(s, size, top);
     res_of_request = std::move(top);
 }

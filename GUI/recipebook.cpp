@@ -36,11 +36,11 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     check_basket_button->show();
 
     //экземпляры кнопок нижней панели
-    next_recipe_button = new QPushButton(tr("&next recipe"));
-    next_recipe_button->hide();
+    next_button = new QPushButton(tr("&next recipe"));
+    next_button->hide();
 
-    previous_recipe_button = new QPushButton(tr("&previous recipe"));
-    previous_recipe_button->hide();
+    previous_button = new QPushButton(tr("&previous recipe"));
+    previous_button->hide();
 
     // TODO: можно ли избавиться от копипаста и вынести это в функцию с
     // параметрами (название кнопки (1), ф-я(4))
@@ -54,10 +54,10 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
             SLOT(find_recipe_func()));
     connect(check_basket_button, SIGNAL(clicked()), this,
             SLOT(check_basket_func()));
-    connect(next_recipe_button, SIGNAL(clicked()), this,
-            SLOT(next_recipe_func()));
-    connect(previous_recipe_button, SIGNAL(clicked()), this,
-            SLOT(previous_recipe_func()));
+    connect(next_button, SIGNAL(clicked()), this,
+            SLOT(next_func()));
+    connect(previous_button, SIGNAL(clicked()), this,
+            SLOT(previous_func()));
 
     //размещение кнопок - правая часть виджета, вертикальный столбец
     QVBoxLayout *button_layout1 = new QVBoxLayout;
@@ -71,8 +71,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     //размещение кнопок - нижняя часть виджета
     QHBoxLayout *button_layout2 = new QHBoxLayout;
-    button_layout2->addWidget(previous_recipe_button);
-    button_layout2->addWidget(next_recipe_button);
+    button_layout2->addWidget(previous_button);
+    button_layout2->addWidget(next_button);
 
     //основной макет с поисковой строкой, полем вывода, названиями полей
     QGridLayout *main_layout = new QGridLayout;
@@ -89,13 +89,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 }
 
 void RecipeBook::add_product_func() {
-    //перед добавлением нового продукта, сохранение информации о старом
-    if (product_name_line->text() != "") {
-        old_product = product_name_line->text();
-        old_recipe = recipe_text->toPlainText();
-    }
-
-    //очищение полей ввода и показа рецепта
+    //очищение полей ввода
     product_name_line->clear();
     recipe_text->clear();
 
@@ -110,6 +104,8 @@ void RecipeBook::add_product_func() {
     find_product_button->setEnabled(true);
     put_in_basket_button->show();
     find_recipe_button->show();
+    next_button->hide();
+    previous_button->hide();
     recipe_label->setText("possible to take:");
 }
 
@@ -124,17 +120,20 @@ void RecipeBook::find_product_func() {
     find_product_button->setEnabled(false);
     add_product_button->setEnabled(true);
 
-    previous_recipe_button->show();
-    previous_recipe_button->setEnabled(true);
-    next_recipe_button->show();
-    previous_recipe_button->setEnabled(true);
+    previous_button->show();
+    previous_button->setEnabled(true);
+    next_button->show();
+    previous_button->setEnabled(true);
 
     current_mode = FindProduct_mode;
 
     recipe_label->setText("possible to take:");
 
     recipe_text->clear();
-    ///надо ли здесь запустить какую-то ф-цию для поиска?
+
+    //запуск поиска
+    std::vector<search::product> vec;
+    functions::ingredients_to_recipe::run_product_search(product_name_line->text().toStdString(), 10, vec);
     std::vector<search::product> res_of_request =
         functions::ingredients_to_recipe::show_res_of_request();
 //    for (auto &prod : res_of_request) {
@@ -153,15 +152,16 @@ void RecipeBook::find_product_func() {
         recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
         recipe_text->insertPlainText("\n");
     }
+    num_current_object = 0;
 }
 
 void RecipeBook::put_in_basket_func() {
-    old_product = product_name_line->text();
-    old_recipe = recipe_text->toPlainText();
+//    search::put_product_in_basket(
+//        old_product.toStdString());  //добавление продукта в корзину -- по названию
+//    ///old_recipe, а не old_product
 
-    search::put_product_in_basket(
-        old_product.toStdString());  //добавление продукта в корзину
-    ///old_recipe, а не old_product
+    //добавление продукта в корзину по его номеру в массиве res_of_request
+    ///todo функцию
 
     product_name_line->clear();
     recipe_text->clear();
@@ -171,20 +171,16 @@ void RecipeBook::put_in_basket_func() {
     add_product_button->setEnabled(true);
     find_product_button->hide();
     put_in_basket_button->hide();
+    next_button->hide();
+    previous_button->hide();
 }
 
 void insert_text(){}
 
 void RecipeBook::find_recipe_func() {
-    // QString basket_grocery_list = извлечь из корзины строку с продуктами
-    // if (basket_grocery_list == ""){
-    //  QMessageBox::information(this,
-    //                  tr("empty grocery list from basket"), tr("please add at
-    //                  least one product"));
-    //} else
     //  вовина ф-я поиска рецептов по продуктам (product_list);
 
-    // TODO: в полной реализации, если пользователь ничего не добавил в корзину,
+    // TODO: в полной реализации: если пользователь ничего не добавил в корзину
     //выводить на экран список топовых рецептов
 
     product_name_line->setReadOnly(true);
@@ -193,8 +189,10 @@ void RecipeBook::find_recipe_func() {
     put_in_basket_button->hide();
     find_recipe_button->hide();
 
-    previous_recipe_button->show();
-    next_recipe_button->show();
+    previous_button->show();
+    previous_button->setEnabled(false);
+    next_button->show();
+    next_button->setEnabled(true);
     find_recipe_button->setEnabled(true);
 
     current_mode = FindRecipe_mode;
@@ -209,43 +207,54 @@ void RecipeBook::find_recipe_func() {
     while (ss >> s) {
         recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
     }
+    num_current_object = 0;
 }
 
 void RecipeBook::check_basket_func() {
     product_name_line->clear();
+    recipe_text->clear();
     put_in_basket_button->hide();
     add_product_button->setEnabled(true);
-    //вывести список продуктов корзины на экран -- отдельным окном
+    //вывести список продуктов корзины на экран
+    //мб отдельным окном
+    ///нужна функция получения массива выбранных продуктов => get_chosen_ingredients
+//    for (auto &prod : chosen_ingredients) {
+//        QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
+//        recipe_text->insertPlainText(static_cast<const QString>(res_product));
+//        recipe_text->insertPlainText("\n");
+//    }
 }
 
-void RecipeBook::previous_recipe_func() {
-    //циклический список рецептов
-    QString current_dish = product_name_line->text();
-    QMap<QString, QString>::iterator it = map_recipes.find(current_dish);
-
-    if (it == map_recipes.begin()) {
-        it = map_recipes.end();
-    } else {
-        it--;
+void RecipeBook::previous_func() {
+    num_current_object--;
+    if (current_mode == FindProduct_mode) {
+        //циклический список продуктов
+        if (num_current_object < 0) {
+            num_current_object = map_products.size() - 1;
+        }
+        recipe_text->setText(map_products[num_current_object]);
+    } else if (current_mode == FindRecipe_mode) {
+        //циклический список рецептов
+        if (num_current_object < 0) {
+            num_current_object = map_recipes.size() - 1;
+        }
+        recipe_text->setText(map_recipes[num_current_object]);
     }
-
-    product_name_line->setText(it.key());  //название предущего блюда
-    recipe_text->setText(it.value());
 }
 
-void RecipeBook::next_recipe_func() {
-    //циклический список рецептов
-    //здесь надо как-то поддерживать указатель на текущий рецепт, чтобы не проходиться по всему массиву заново
-    //how to do it
-    QString current_dish = product_name_line->text();
-    QMap<QString, QString>::iterator it = map_recipes.find(current_dish);
-
-    if (it == map_recipes.end()) {
-        it = map_recipes.begin();
-    } else {
-        it++;
+void RecipeBook::next_func() {
+    num_current_object++;
+    if (current_mode == FindProduct_mode) {
+        //циклический список продуктов
+        if (num_current_object == map_products.size()) {
+            num_current_object = 0;
+        }
+        recipe_text->setText(map_products[num_current_object]);
+    } else if (current_mode == FindRecipe_mode) {
+        //циклический список рецептов
+        if (num_current_object == map_recipes.size()) {
+            num_current_object = 0;
+        }
+        recipe_text->setText(map_recipes[num_current_object]);
     }
-
-    product_name_line->setText(it.key());  //название следующего блюда
-    recipe_text->setText(it.value());
 }
