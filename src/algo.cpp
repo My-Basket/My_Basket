@@ -4,9 +4,11 @@ void functions::ingredients_to_recipe::run_product_search(std::string s, uint32_
     res_of_request = std::move(top);
 }
 void functions::ingredients_to_recipe::run_recipes_search(const std::vector<search::product>
-    &ingredients, uint32_t size, std::vector<search::Recipe> & vec) {
+    &ingredients, uint32_t size, std::vector<search::Recipe> &vec) {
     search::get_recipes(ingredients, size, vec);
-    recommended_recipes = std::move(vec);
+    if (&recommended_recipes != &vec) {
+        recommended_recipes = std::move(vec);
+    }
 }
 std::vector<search::Recipe> functions::ingredients_to_recipe::show_recipes() {
     return recommended_recipes; //возвращает топ 10 рекомендуемых рецептов

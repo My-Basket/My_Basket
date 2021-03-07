@@ -177,9 +177,7 @@ void RecipeBook::put_in_basket_func() {
 
 void insert_text(){}
 
-void RecipeBook::find_recipe_func() {
-    //  вовина ф-я поиска рецептов по продуктам (product_list);
-
+void RecipeBook::find_recipe_func() { ///UB)))
     // TODO: в полной реализации: если пользователь ничего не добавил в корзину
     //выводить на экран список топовых рецептов
 
