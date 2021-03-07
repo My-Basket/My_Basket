@@ -136,11 +136,14 @@ void RecipeBook::find_product_func() {
 
     //вывести на экран список топ 10 найденных продуктов:
     // TODO мб менять название поля recipe_text
+    recipe_text->clear();
+    ///надо ли здесь запустить какую-то ф-цию для поиска?
     std::vector<search::product> res_of_request =
         functions::ingredients_to_recipe::show_res_of_request();
     for (auto &prod : res_of_request) {
         QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
-        recipe_text->setPlainText(static_cast<const QString>(res_product));
+        recipe_text->insertPlainText(static_cast<const QString>(res_product));
+        recipe_text->insertPlainText("\n");
     }
 }
 
