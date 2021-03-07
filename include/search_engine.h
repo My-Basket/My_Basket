@@ -38,6 +38,7 @@ public:
     product &operator=(const product &d) = default;
 
     product(product &&d) = default;
+    product(std::string name_, std::string category_, uint32_t price_);
 
     product &operator=(product &&d) = default;
 
@@ -52,7 +53,8 @@ public:
                                      std::vector<product> &vec);
 
     friend void get_recipes(const std::vector<product> &ingredients,
-                            uint32_t size,  std::vector<Recipe> & vec);
+                            uint32_t size,
+                            std::vector<Recipe> &vec);
 
     friend std::ostream &operator<<(std::ostream &os, const product &p);
 
@@ -84,11 +86,14 @@ public:
         const product &ingredient);  //проверка на наличие ингредиента в рецепте
 
     friend void get_recipes(const std::vector<product> &ingredients,
-                            uint32_t size,  std::vector<Recipe> & vec);
+                            uint32_t size,
+                            std::vector<Recipe> &vec);
     //получает на вход продукты, сует в recommended recipes класса
     // ingredients_to_recipes топ 10 лучших рецептов
 
-    friend void search_recipe(const std::string &input_string, uint32_t size, std::vector<Recipe> & vec);
+    friend void search_recipe(const std::string &input_string,
+                              uint32_t size,
+                              std::vector<Recipe> &vec);
 
     //ищет рецепт по введённой строке, сует в recipes_request класса
     // recipes_to_ingredients топ 10 лучших рецептов
@@ -98,8 +103,11 @@ void get_prod_top_by_name(std::string &input_string,
                           uint32_t size,
                           std::vector<product> &vec);
 void get_recipes(const std::vector<product> &ingredients,
-                 uint32_t size,  std::vector<Recipe> & vec);
-void search_recipe(const std::string &input_string, uint32_t size, std::vector<Recipe> & vec);
+                 uint32_t size,
+                 std::vector<Recipe> &vec);
+void search_recipe(const std::string &input_string,
+                   uint32_t size,
+                   std::vector<Recipe> &vec);
 
 }  // namespace search
 

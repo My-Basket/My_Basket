@@ -49,7 +49,9 @@ class recipe_to_ingredients {
     static search::Recipe chosen_recipe;
 
 public:
-    static void run_recipe_search(const std::string& s, uint32_t size, std::vector<search::Recipe> & vec);
+    static void run_recipe_search(const std::string &s,
+                                  uint32_t size,
+                                  std::vector<search::Recipe> &vec);
     static std::vector<search::Recipe> show_recipes();
 
     static void choose_recipe(uint32_t num);
@@ -59,7 +61,8 @@ public:
     static void cancel_choice();
 
     friend void search::search_recipe(const std::string &input_string,
-                                      uint32_t size, std::vector<search::Recipe> & vec);
+                                      uint32_t size,
+                                      std::vector<search::Recipe> &vec);
 };
 
 }  // namespace functions

@@ -118,7 +118,9 @@ product::product(const json &j) {
         assert((false, "Invalid cast from json to product"));
     }
 }
-
+product::product(std::string name_, std::string category_, uint32_t price_)
+    : name(std::move(name_)), category(std::move(category_)), price(price_) {
+}
 product &product::operator=(const json &j) {
     try {
         name = j["Name"];
@@ -138,11 +140,11 @@ Recipe::Recipe(const json &j) : name(j["Name"]) {
         ingredients.emplace_back(v);
     }
 }
-std::ostream &operator<<(std::ostream &os, const Recipe &p){
-    os<<p.name<<"\n";
-    os<<"Ingredients:\n";
-    for(const auto& t: p.ingredients){
-        os<<t<<"\n";
+std::ostream &operator<<(std::ostream &os, const Recipe &p) {
+    os << p.name << "\n";
+    os << "Ingredients:\n";
+    for (const auto &t : p.ingredients) {
+        os << t << "\n";
     }
     return os;
 }
@@ -157,7 +159,9 @@ bool Recipe::is_ingredient_in_recipe(const product &ingredient) {
         [&ingredient](const product &p) { return (p == ingredient); });
 }
 
-void get_recipes(const std::vector<product> &ingredients, uint32_t size, std::vector<Recipe> & vec) {
+void get_recipes(const std::vector<product> &ingredients,
+                 uint32_t size,
+                 std::vector<Recipe> &vec) {
     std::ifstream file("../data/recipes.json");
     json j = json::parse(file);
     file.close();
@@ -172,40 +176,38 @@ void get_recipes(const std::vector<product> &ingredients, uint32_t size, std::ve
         set_unit<Recipe> max;
 
         for (const json &x : j) {
+            Recipe cur_recipe(x);
 
-                Recipe cur_recipe(x);
+            std::string temp_name = cur_recipe.name;
 
-                std::string temp_name = cur_recipe.name;
+            std::vector<uint32_t> second_str_codepoints;
+            from_str_to_codepoint(cur_recipe.name, second_str_codepoints);
 
-                std::vector<uint32_t> second_str_codepoints;
-                from_str_to_codepoint(cur_recipe.name, second_str_codepoints);
+            in_amount += check_in(first_str_codepoints, second_str_codepoints);
+            leven_dist +=
+                levenshtein_algo(first_str_codepoints, second_str_codepoints);
 
-                in_amount +=
-                    check_in(first_str_codepoints, second_str_codepoints);
-                leven_dist += levenshtein_algo(first_str_codepoints,
-                                               second_str_codepoints);
+            if (max < set_unit<Recipe>({in_amount, leven_dist})) {
+                max = {in_amount, leven_dist, cur_recipe};
+            }
 
-                if (max < set_unit<Recipe>({in_amount, leven_dist})) {
-                    max = {in_amount, leven_dist, cur_recipe};
-                }
+            top.insert(max);
 
-                top.insert(max);
-
-                if (top.size() > size) {
-                    auto it = top.end();
-                    it--;
-                    top.erase(it);
-                }
-
-                for (const auto &su : top) {
-                    vec.push_back(su.product_);
-                }
+            if (top.size() > size) {
+                auto it = top.end();
+                it--;
+                top.erase(it);
             }
         }
-
+    }
+    for (const auto &su : top) {
+        vec.push_back(su.product_);
+    }
 }
 
-void search_recipe(const string &input_string, uint32_t size, std::vector<Recipe> & vec) {
+void search_recipe(const string &input_string,
+                   uint32_t size,
+                   std::vector<Recipe> &vec) {
     std::ifstream file("../data/recipes.json");
     json j = json::parse(file);
     file.close();
