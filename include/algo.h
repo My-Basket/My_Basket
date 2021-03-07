@@ -12,9 +12,12 @@ namespace functions {
 
 class ingredients_to_recipe {
 private:
-    static std::vector<search::product> res_of_request; //топ 10 продуктов по запросу
-    static std::vector<search::product> chosen_ingredients; //продукты корзины
-    static std::vector<search::Recipe> recommended_recipes; //топ рекомендуемых рецептов, выданных по запросу find
+    static std::vector<search::product>
+        res_of_request;  //топ 10 продуктов по запросу
+    static std::vector<search::product> chosen_ingredients;  //продукты корзины
+    static std::vector<search::Recipe>
+        recommended_recipes;  //топ рекомендуемых рецептов, выданных по запросу
+                              //find
     // TODO static list<product> chosen_bad_ingredients;
     // TODO static multiset<set_unit, comp> bad_ingredients;
     // TODO vector<string> popular_ingredients;
@@ -43,7 +46,9 @@ public:
         uint32_t size,
         std::vector<search::Recipe> &vec);
 
-    friend void search::put_product_in_basket(std::vector<search::product> &basket, search::product &prod);
+    friend void search::put_product_in_basket(
+        std::vector<search::product> &basket,
+        search::product &prod);
 };
 
 class recipe_to_ingredients {
@@ -51,7 +56,9 @@ class recipe_to_ingredients {
     static search::Recipe chosen_recipe;
 
 public:
-    static void run_recipe_search(const std::string& s, uint32_t size, std::vector<search::Recipe> & vec);
+    static void run_recipe_search(const std::string &s,
+                                  uint32_t size,
+                                  std::vector<search::Recipe> &vec);
     static std::vector<search::Recipe> show_recipes();
 
     static void choose_recipe(uint32_t num);
@@ -61,7 +68,8 @@ public:
     static void cancel_choice();
 
     friend void search::search_recipe(const std::string &input_string,
-                                      uint32_t size, std::vector<search::Recipe> & vec);
+                                      uint32_t size,
+                                      std::vector<search::Recipe> &vec);
 };
 
 }  // namespace functions

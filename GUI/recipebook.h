@@ -5,24 +5,21 @@
 #ifndef RECIPEBOOK_H
 #define RECIPEBOOK_H
 
-#include <QWidget>
-#include <QLineEdit>
 #include <QLabel>
-#include <QTextEdit>
-#include <QPushButton>
+#include <QLineEdit>
 #include <QMap>
+#include <QPushButton>
+#include <QTextEdit>
+#include <QWidget>
 #include "search_engine.h"
 
-class RecipeBook : public QWidget{
-Q_OBJECT
+class RecipeBook : public QWidget {
+    Q_OBJECT
 
 public:
     RecipeBook(QWidget *parent = 0);
 
-    enum NextPrevMode {
-        FindProduct_mode,
-        FindRecipe_mode
-    };
+    enum NextPrevMode { FindProduct_mode, FindRecipe_mode };
 
 public slots:
     void add_product_func();
@@ -45,7 +42,8 @@ private:
     QPushButton *find_product_button;
     QPushButton *put_in_basket_button;
     QPushButton *find_recipe_button;
-    QPushButton *check_basket_button; //отдельным окошком список всех добавленных продуктов
+    QPushButton *check_basket_button;  //отдельным окошком список всех
+                                       //добавленных продуктов
 
     //кнопки нижней панели
     QPushButton *next_button;
@@ -59,7 +57,9 @@ private:
     NextPrevMode current_mode;
     long long num_current_object = 0;
 
-    friend void search::put_product_in_basket(std::vector<search::product> &basket, search::product &prod);
+    friend void search::put_product_in_basket(
+        std::vector<search::product> &basket,
+        search::product &prod);
 };
 
-#endif // RECIPEBOOK_H
+#endif  // RECIPEBOOK_H

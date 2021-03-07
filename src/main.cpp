@@ -11,14 +11,14 @@ int main(int argc, char *argv[]) {
     std::vector<search::product> vec;
     functions::ingredients_to_recipe::run_product_search(s, 10, vec);
     auto top_product = functions::ingredients_to_recipe::show_res_of_request();
-    for (const auto& t : top_product) {
+    for (const auto &t : top_product) {
         std::cout << t;
     }
     std::vector<search::Recipe> vec2;
     functions::ingredients_to_recipe::run_recipes_search(top_product, 10, vec2);
     auto top_recipes = functions::ingredients_to_recipe::show_recipes();
-    for(const auto& t: top_recipes){
-        //std::cout <<t;
+    for (const auto &t : top_recipes) {
+        // std::cout <<t;
     }
     RecipeBook recipebook;
     recipebook.show();

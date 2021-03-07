@@ -12,8 +12,7 @@
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label = new QLabel(tr("product or dish:"));
     product_name_line = new QLineEdit;
-    product_name_line->setReadOnly(
-        true);
+    product_name_line->setReadOnly(true);
 
     recipe_label = new QLabel(tr("possible to take:"));
     recipe_text = new QTextEdit;
@@ -54,10 +53,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
             SLOT(find_recipe_func()));
     connect(check_basket_button, SIGNAL(clicked()), this,
             SLOT(check_basket_func()));
-    connect(next_button, SIGNAL(clicked()), this,
-            SLOT(next_func()));
-    connect(previous_button, SIGNAL(clicked()), this,
-            SLOT(previous_func()));
+    connect(next_button, SIGNAL(clicked()), this, SLOT(next_func()));
+    connect(previous_button, SIGNAL(clicked()), this, SLOT(previous_func()));
 
     //размещение кнопок - правая часть виджета, вертикальный столбец
     QVBoxLayout *button_layout1 = new QVBoxLayout;
@@ -136,17 +133,21 @@ void RecipeBook::find_product_func() {
 
     //запуск поиска
     res_of_request_products.clear();
-    functions::ingredients_to_recipe::run_product_search(product_name_line->text().toStdString(), 10, res_of_request_products);
-    res_of_request_products = functions::ingredients_to_recipe::show_res_of_request();
+    functions::ingredients_to_recipe::run_product_search(
+        product_name_line->text().toStdString(), 10, res_of_request_products);
+    res_of_request_products =
+        functions::ingredients_to_recipe::show_res_of_request();
 
-//    for (auto &prod : res_of_request) {
-//        QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
-//        recipe_text->insertPlainText(static_cast<const QString>(res_product));
-//        recipe_text->insertPlainText("\n");
-//    }
-//    QString res_product = QString::fromUtf8(get_product_name(res_of_request[0]).c_str());
-//    recipe_text->insertPlainText(static_cast<const QString>(res_product));
-//    num_current_object = 0;
+    //    for (auto &prod : res_of_request) {
+    //        QString res_product =
+    //        QString::fromUtf8(get_product_name(prod).c_str());
+    //        recipe_text->insertPlainText(static_cast<const
+    //        QString>(res_product)); recipe_text->insertPlainText("\n");
+    //    }
+    //    QString res_product =
+    //    QString::fromUtf8(get_product_name(res_of_request[0]).c_str());
+    //    recipe_text->insertPlainText(static_cast<const QString>(res_product));
+    //    num_current_object = 0;
 
     std::stringstream ss;
     ss << res_of_request_products[0];
@@ -156,15 +157,17 @@ void RecipeBook::find_product_func() {
         recipe_text->insertPlainText("\n");
     }
     num_current_object = 0;
-    ///TODO: сделать нормальный вывод в текстовое поле
+    /// TODO: сделать нормальный вывод в текстовое поле
 }
 
 void RecipeBook::put_in_basket_func() {
-    //добавление продукта в корзину по его номеру в массиве res_of_request_products
-    if (res_of_request_products.empty()){
+    //добавление продукта в корзину по его номеру в массиве
+    //res_of_request_products
+    if (res_of_request_products.empty()) {
         return;
     }
-    search::put_product_in_basket(basket_of_products, res_of_request_products[num_current_object]);
+    search::put_product_in_basket(basket_of_products,
+                                  res_of_request_products[num_current_object]);
 
     product_name_line->clear();
     recipe_text->clear();
@@ -184,10 +187,12 @@ void RecipeBook::find_recipe_func() {
     // TODO: в полной реализации: если пользователь ничего не добавил в корзину
     //выводить на экран список топовых рецептов
 
-    if (basket_of_products.empty()){
+    if (basket_of_products.empty()) {
         res_of_request_products.clear();
         res_of_request_recipes.clear();
-        QMessageBox::warning(this, tr("Empty basket"), tr("Please add at least one product in the basket"));
+        QMessageBox::warning(
+            this, tr("Empty basket"),
+            tr("Please add at least one product in the basket"));
         return;
     }
 
@@ -210,7 +215,8 @@ void RecipeBook::find_recipe_func() {
 
     res_of_request_recipes.clear();
     std::vector<search::Recipe> vec2;
-    functions::ingredients_to_recipe::run_recipes_search(basket_of_products, 10, vec2);
+    functions::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
+                                                         vec2);
     res_of_request_recipes = functions::ingredients_to_recipe::show_recipes();
 
     std::stringstream ss;
@@ -255,7 +261,8 @@ void RecipeBook::previous_func() {
             num_current_object = res_of_request_recipes.size() - 1;
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
-        recipe_text->setText(QString::fromUtf8(get_recipe_name(recipe).c_str()));
+        recipe_text->setText(
+            QString::fromUtf8(get_recipe_name(recipe).c_str()));
     }
 }
 
@@ -274,6 +281,7 @@ void RecipeBook::next_func() {
             num_current_object = 0;
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
-        recipe_text->setText(QString::fromUtf8(get_recipe_name(recipe).c_str()));
+        recipe_text->setText(
+            QString::fromUtf8(get_recipe_name(recipe).c_str()));
     }
 }
