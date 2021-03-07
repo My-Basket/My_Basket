@@ -135,6 +135,7 @@ void RecipeBook::find_product_func() {
     recipe_text->clear();
 
     //запуск поиска
+    res_of_request_products.clear();
     functions::ingredients_to_recipe::run_product_search(product_name_line->text().toStdString(), 10, res_of_request_products);
     res_of_request_products = functions::ingredients_to_recipe::show_res_of_request();
 
@@ -175,6 +176,8 @@ void RecipeBook::put_in_basket_func() {
     put_in_basket_button->hide();
     next_button->hide();
     previous_button->hide();
+
+    res_of_request_products.clear();
 }
 
 void RecipeBook::find_recipe_func() {
@@ -182,6 +185,8 @@ void RecipeBook::find_recipe_func() {
     //выводить на экран список топовых рецептов
 
     if (basket_of_products.empty()){
+        res_of_request_products.clear();
+        res_of_request_recipes.clear();
         QMessageBox::warning(this, tr("&Empty basket"), tr("&Please add at least one product in the basket"));
         return;
     }
@@ -203,8 +208,11 @@ void RecipeBook::find_recipe_func() {
     recipe_label->setText("possible recipe:");
     recipe_text->clear();
 
-    functions::ingredients_to_recipe::run_recipes_search(basket_of_products, 1, res_of_request_recipes);
+    res_of_request_recipes.clear();
+    std::vector<search::Recipe> vec2;
+    functions::ingredients_to_recipe::run_recipes_search(basket_of_products, 10, vec2);
     res_of_request_recipes = functions::ingredients_to_recipe::show_recipes();
+
     std::stringstream ss;
     ss << res_of_request_recipes[0];
     std::string s;
@@ -250,25 +258,6 @@ void RecipeBook::previous_func() {
         recipe_text->setText(QString::fromUtf8(get_recipe_name(recipe).c_str()));
     }
 }
-
-//void RecipeBook::next_func() {
-//    num_current_object++;
-//    if (current_mode == FindProduct_mode) {
-//        //циклический список продуктов
-//        if (num_current_object == functions::ingredients_to_recipe::show_res_of_request().size()) {
-//            num_current_object = 0;
-//        }
-//        search::product prod = functions::ingredients_to_recipe::show_res_of_request()[num_current_object];
-//        recipe_text->setText(QString::fromUtf8(get_product_name(prod).c_str()));
-//    } else if (current_mode == FindRecipe_mode) {
-//        //циклический список рецептов
-//        if (num_current_object == functions::ingredients_to_recipe::show_res_of_request().size()) {
-//            num_current_object = 0;
-//        }
-//        search::Recipe recipe = res_of_request_recipes[num_current_object];
-//        recipe_text->setText(QString::fromUtf8(get_recipe_name(recipe).c_str()));
-//    }
-//}
 
 void RecipeBook::next_func() {
     num_current_object++;

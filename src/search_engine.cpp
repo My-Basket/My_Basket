@@ -166,6 +166,8 @@ void get_recipes(const std::vector<product> &ingredients, uint32_t size, std::ve
     json j = json::parse(file);
     file.close();
 
+    vec.clear();
+
     std::set<set_unit<Recipe>> top;
     for (const product &p : ingredients) {
         uint32_t in_amount = 0;
