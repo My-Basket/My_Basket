@@ -225,22 +225,57 @@ void RecipeBook::check_basket_func() {
 //    }
 }
 
+//void RecipeBook::previous_func() {
+//    num_current_object--;
+//    if (current_mode == FindProduct_mode) {
+//        //циклический список продуктов
+//        if (num_current_object < 0) {
+//            num_current_object = map_products.size() - 1;
+//        }
+//        recipe_text->setText(map_products[num_current_object]);
+//    } else if (current_mode == FindRecipe_mode) {
+//        //циклический список рецептов
+//        if (num_current_object < 0) {
+//            num_current_object = map_recipes.size() - 1;
+//        }
+//        recipe_text->setText(map_recipes[num_current_object]);
+//    }
+//}
+
 void RecipeBook::previous_func() {
     num_current_object--;
     if (current_mode == FindProduct_mode) {
         //циклический список продуктов
         if (num_current_object < 0) {
-            num_current_object = map_products.size() - 1;
+            num_current_object = functions::ingredients_to_recipe::show_res_of_request().size() - 1;
         }
-        recipe_text->setText(map_products[num_current_object]);
+        search::product prod = functions::ingredients_to_recipe::show_res_of_request()[num_current_object];
+        recipe_text->setText(QString::fromUtf8(get_product_name(prod).c_str()));
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
         if (num_current_object < 0) {
             num_current_object = map_recipes.size() - 1;
         }
-        recipe_text->setText(map_recipes[num_current_object]);
+        //recipe_text->setText(map_recipes[num_current_object]);
     }
 }
+
+//void RecipeBook::next_func() {
+//    num_current_object++;
+//    if (current_mode == FindProduct_mode) {
+//        //циклический список продуктов
+//        if (num_current_object == map_products.size()) {
+//            num_current_object = 0;
+//        }
+//        recipe_text->setText(map_products[num_current_object]);
+//    } else if (current_mode == FindRecipe_mode) {
+//        //циклический список рецептов
+//        if (num_current_object == map_recipes.size()) {
+//            num_current_object = 0;
+//        }
+//        recipe_text->setText(map_recipes[num_current_object]);
+//    }
+//}
 
 void RecipeBook::next_func() {
     num_current_object++;
@@ -249,12 +284,13 @@ void RecipeBook::next_func() {
         if (num_current_object == map_products.size()) {
             num_current_object = 0;
         }
-        recipe_text->setText(map_products[num_current_object]);
+        search::product prod = functions::ingredients_to_recipe::show_res_of_request()[num_current_object];
+        recipe_text->setText(QString::fromUtf8(get_product_name(prod).c_str()));
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
         if (num_current_object == map_recipes.size()) {
             num_current_object = 0;
         }
-        recipe_text->setText(map_recipes[num_current_object]);
+        //recipe_text->setText(map_recipes[num_current_object]);
     }
 }

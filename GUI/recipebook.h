@@ -54,7 +54,7 @@ private:
     QMap<QString, QString> map_recipes;
 
     NextPrevMode current_mode;
-    int num_current_object = 0;
+    long long num_current_object = 0;
 };
 
 #endif // RECIPEBOOK_H
