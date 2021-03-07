@@ -105,7 +105,7 @@ void get_recipes(const std::vector<product> &ingredients,
                  uint32_t size,  std::vector<Recipe> & vec);
 void search_recipe(const std::string &input_string, uint32_t size, std::vector<Recipe> & vec);
 
-void put_product_in_basket(std::string const &product_string);
+void put_product_in_basket(std::vector<search::product> &basket, search::product &prod);
 
 std::string get_recipe_name(Recipe &recipe);
 

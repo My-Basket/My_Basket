@@ -43,7 +43,7 @@ public:
         uint32_t size,
         std::vector<search::Recipe> &vec);
 
-    friend void search::put_product_in_basket(std::string const &product_string);
+    friend void search::put_product_in_basket(std::vector<search::product> &basket, search::product &prod);
 };
 
 class recipe_to_ingredients {

@@ -11,6 +11,7 @@
 #include <QTextEdit>
 #include <QPushButton>
 #include <QMap>
+#include "search_engine.h"
 
 class RecipeBook : public QWidget{
 Q_OBJECT
@@ -50,11 +51,15 @@ private:
     QPushButton *next_button;
     QPushButton *previous_button;
 
-    QMap<QString, QString> map_products; //TODO: синхронизировать нужную DS
+    //структуры для хранения информации
+    std::vector<search::product> basket_of_products;
+    std::vector<search::product> res_of_request_products;
     QMap<QString, QString> map_recipes;
 
     NextPrevMode current_mode;
     long long num_current_object = 0;
+
+    friend void search::put_product_in_basket(std::vector<search::product> &basket, search::product &prod);
 };
 
 #endif // RECIPEBOOK_H

@@ -132,10 +132,9 @@ void RecipeBook::find_product_func() {
     recipe_text->clear();
 
     //запуск поиска
-    std::vector<search::product> vec;
-    functions::ingredients_to_recipe::run_product_search(product_name_line->text().toStdString(), 10, vec);
-    std::vector<search::product> res_of_request =
-        functions::ingredients_to_recipe::show_res_of_request();
+    functions::ingredients_to_recipe::run_product_search(product_name_line->text().toStdString(), 10, res_of_request_products);
+    res_of_request_products = functions::ingredients_to_recipe::show_res_of_request();
+
 //    for (auto &prod : res_of_request) {
 //        QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
 //        recipe_text->insertPlainText(static_cast<const QString>(res_product));
@@ -146,22 +145,19 @@ void RecipeBook::find_product_func() {
 //    num_current_object = 0;
 
     std::stringstream ss;
-    ss << res_of_request[0];
+    ss << res_of_request_products[0];
     std::string s;
     while (ss >> s) {
         recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
         recipe_text->insertPlainText("\n");
     }
     num_current_object = 0;
+    ///TODO: сделать нормальный вывод в текстовое поле
 }
 
 void RecipeBook::put_in_basket_func() {
-//    search::put_product_in_basket(
-//        old_product.toStdString());  //добавление продукта в корзину -- по названию
-//    ///old_recipe, а не old_product
-
-    //добавление продукта в корзину по его номеру в массиве res_of_request
-    ///todo функцию
+    //добавление продукта в корзину по его номеру в массиве res_of_request_products
+    search::put_product_in_basket(basket_of_products, res_of_request_products[num_current_object]);
 
     product_name_line->clear();
     recipe_text->clear();
@@ -225,23 +221,6 @@ void RecipeBook::check_basket_func() {
 //    }
 }
 
-//void RecipeBook::previous_func() {
-//    num_current_object--;
-//    if (current_mode == FindProduct_mode) {
-//        //циклический список продуктов
-//        if (num_current_object < 0) {
-//            num_current_object = map_products.size() - 1;
-//        }
-//        recipe_text->setText(map_products[num_current_object]);
-//    } else if (current_mode == FindRecipe_mode) {
-//        //циклический список рецептов
-//        if (num_current_object < 0) {
-//            num_current_object = map_recipes.size() - 1;
-//        }
-//        recipe_text->setText(map_recipes[num_current_object]);
-//    }
-//}
-
 void RecipeBook::previous_func() {
     num_current_object--;
     if (current_mode == FindProduct_mode) {
@@ -260,35 +239,18 @@ void RecipeBook::previous_func() {
     }
 }
 
-//void RecipeBook::next_func() {
-//    num_current_object++;
-//    if (current_mode == FindProduct_mode) {
-//        //циклический список продуктов
-//        if (num_current_object == map_products.size()) {
-//            num_current_object = 0;
-//        }
-//        recipe_text->setText(map_products[num_current_object]);
-//    } else if (current_mode == FindRecipe_mode) {
-//        //циклический список рецептов
-//        if (num_current_object == map_recipes.size()) {
-//            num_current_object = 0;
-//        }
-//        recipe_text->setText(map_recipes[num_current_object]);
-//    }
-//}
-
 void RecipeBook::next_func() {
     num_current_object++;
     if (current_mode == FindProduct_mode) {
         //циклический список продуктов
-        if (num_current_object == map_products.size()) {
+        if (num_current_object == functions::ingredients_to_recipe::show_res_of_request().size()) {
             num_current_object = 0;
         }
         search::product prod = functions::ingredients_to_recipe::show_res_of_request()[num_current_object];
         recipe_text->setText(QString::fromUtf8(get_product_name(prod).c_str()));
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
-        if (num_current_object == map_recipes.size()) {
+        if (num_current_object == functions::ingredients_to_recipe::show_res_of_request().size()) {
             num_current_object = 0;
         }
         //recipe_text->setText(map_recipes[num_current_object]);
