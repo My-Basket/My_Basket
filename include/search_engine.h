@@ -40,6 +40,7 @@ public:
     product(product &&d) = default;
 
     product &operator=(product &&d) = default;
+    product(std::string name_, std::string category_, uint32_t price_);
 
     product(const json &j);
 

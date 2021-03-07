@@ -112,7 +112,8 @@ void get_prod_top_by_name(std::string &input_string,
 std::string get_product_name(search::product const &prod) {
     return prod.name;
 }
-
+product::product(std::string name_, std::string category_, uint32_t price_):  name(std::move(name_)), category(std::move(category_)), price(price_) {
+}
 product::product(const json &j) {
     try {
         name = j["Name"];
@@ -138,7 +139,7 @@ bool product::operator==(const product &p) const {
 }
 
 Recipe::Recipe(const json &j) : name(j["Name"]) {
-    for (const json &v : j) {
+    for (const json &v : j["Ingredients"]) {
         ingredients.emplace_back(v);
     }
 }
