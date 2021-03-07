@@ -36,10 +36,10 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     check_basket_button->show();
 
     //экземпляры кнопок нижней панели
-    next_button = new QPushButton(tr("&next recipe"));
+    next_button = new QPushButton(tr("&next"));
     next_button->hide();
 
-    previous_button = new QPushButton(tr("&previous recipe"));
+    previous_button = new QPushButton(tr("&previous"));
     previous_button->hide();
 
     // TODO: можно ли избавиться от копипаста и вынести это в функцию с
@@ -102,7 +102,7 @@ void RecipeBook::add_product_func() {
     add_product_button->setEnabled(false);
     find_product_button->show();
     find_product_button->setEnabled(true);
-    put_in_basket_button->show();
+    put_in_basket_button->hide();
     find_recipe_button->show();
     next_button->hide();
     previous_button->hide();
@@ -120,6 +120,7 @@ void RecipeBook::find_product_func() {
     find_product_button->setEnabled(false);
     add_product_button->setEnabled(true);
 
+    put_in_basket_button->show();
     previous_button->show();
     previous_button->setEnabled(true);
     next_button->show();
@@ -157,6 +158,9 @@ void RecipeBook::find_product_func() {
 
 void RecipeBook::put_in_basket_func() {
     //добавление продукта в корзину по его номеру в массиве res_of_request_products
+    if (res_of_request_products.size() == 0){
+        return;
+    }
     search::put_product_in_basket(basket_of_products, res_of_request_products[num_current_object]);
 
     product_name_line->clear();
@@ -196,7 +200,7 @@ void RecipeBook::find_recipe_func() {
     recipe_label->setText("possible recipe:");
     recipe_text->clear();
 
-    functions::ingredients_to_recipe::run_recipes_search(res_of_request_products, 10, res_of_request_recipes);
+    functions::ingredients_to_recipe::run_recipes_search(basket_of_products, 10, res_of_request_recipes);
     res_of_request_recipes = functions::ingredients_to_recipe::show_recipes();
     std::stringstream ss;
     ss << functions::recipe_to_ingredients::show_recipes()[0];
@@ -212,6 +216,9 @@ void RecipeBook::check_basket_func() {
     recipe_text->clear();
     put_in_basket_button->hide();
     add_product_button->setEnabled(true);
+
+    recipe_label->setText("in basket:");
+
     //вывести список продуктов корзины на экран
     //мб отдельным окном
     for (auto &prod : basket_of_products) {
@@ -240,18 +247,37 @@ void RecipeBook::previous_func() {
     }
 }
 
+//void RecipeBook::next_func() {
+//    num_current_object++;
+//    if (current_mode == FindProduct_mode) {
+//        //циклический список продуктов
+//        if (num_current_object == functions::ingredients_to_recipe::show_res_of_request().size()) {
+//            num_current_object = 0;
+//        }
+//        search::product prod = functions::ingredients_to_recipe::show_res_of_request()[num_current_object];
+//        recipe_text->setText(QString::fromUtf8(get_product_name(prod).c_str()));
+//    } else if (current_mode == FindRecipe_mode) {
+//        //циклический список рецептов
+//        if (num_current_object == functions::ingredients_to_recipe::show_res_of_request().size()) {
+//            num_current_object = 0;
+//        }
+//        search::Recipe recipe = res_of_request_recipes[num_current_object];
+//        recipe_text->setText(QString::fromUtf8(get_recipe_name(recipe).c_str()));
+//    }
+//}
+
 void RecipeBook::next_func() {
     num_current_object++;
     if (current_mode == FindProduct_mode) {
         //циклический список продуктов
-        if (num_current_object == functions::ingredients_to_recipe::show_res_of_request().size()) {
+        if (num_current_object == res_of_request_products.size()) {
             num_current_object = 0;
         }
-        search::product prod = functions::ingredients_to_recipe::show_res_of_request()[num_current_object];
+        search::product prod = res_of_request_products[num_current_object];
         recipe_text->setText(QString::fromUtf8(get_product_name(prod).c_str()));
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
-        if (num_current_object == functions::ingredients_to_recipe::show_res_of_request().size()) {
+        if (num_current_object == res_of_request_recipes.size()) {
             num_current_object = 0;
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
