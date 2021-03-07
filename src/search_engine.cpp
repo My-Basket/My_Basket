@@ -109,6 +109,10 @@ void get_prod_top_by_name(std::string &input_string,
     }
 }
 
+std::string get_product_name(search::product const &prod) {
+    return prod.name;
+}
+
 product::product(const json &j) {
     try {
         name = j["Name"];
@@ -118,9 +122,7 @@ product::product(const json &j) {
         assert((false, "Invalid cast from json to product"));
     }
 }
-product::product(std::string name_, std::string category_, uint32_t price_)
-    : name(std::move(name_)), category(std::move(category_)), price(price_) {
-}
+
 product &product::operator=(const json &j) {
     try {
         name = j["Name"];
@@ -136,7 +138,7 @@ bool product::operator==(const product &p) const {
 }
 
 Recipe::Recipe(const json &j) : name(j["Name"]) {
-    for (const json &v : j["Ingredients"]) {
+    for (const json &v : j) {
         ingredients.emplace_back(v);
     }
 }
@@ -166,6 +168,8 @@ void get_recipes(const std::vector<product> &ingredients,
     json j = json::parse(file);
     file.close();
 
+    vec.clear();
+
     std::set<set_unit<Recipe>> top;
     for (const product &p : ingredients) {
         uint32_t in_amount = 0;
@@ -177,7 +181,6 @@ void get_recipes(const std::vector<product> &ingredients,
 
         for (const json &x : j) {
             Recipe cur_recipe(x);
-
             std::string temp_name = cur_recipe.name;
 
             std::vector<uint32_t> second_str_codepoints;
@@ -198,11 +201,16 @@ void get_recipes(const std::vector<product> &ingredients,
                 it--;
                 top.erase(it);
             }
+
+            for (const auto &su : top) {
+                vec.push_back(su.product_);
+            }
         }
     }
-    for (const auto &su : top) {
-        vec.push_back(su.product_);
-    }
+}
+
+std::string get_recipe_name(search::Recipe &recipe) {
+    return recipe.name;
 }
 
 void search_recipe(const string &input_string,

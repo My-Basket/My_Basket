@@ -38,7 +38,6 @@ public:
     product &operator=(const product &d) = default;
 
     product(product &&d) = default;
-    product(std::string name_, std::string category_, uint32_t price_);
 
     product &operator=(product &&d) = default;
 
@@ -55,6 +54,8 @@ public:
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,
                             std::vector<Recipe> &vec);
+
+    friend std::string get_product_name(product const &prod);
 
     friend std::ostream &operator<<(std::ostream &os, const product &p);
 
@@ -98,6 +99,8 @@ public:
     //ищет рецепт по введённой строке, сует в recipes_request класса
     // recipes_to_ingredients топ 10 лучших рецептов
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
+
+    friend std::string get_recipe_name(Recipe &recipe);
 };
 void get_prod_top_by_name(std::string &input_string,
                           uint32_t size,
@@ -108,6 +111,11 @@ void get_recipes(const std::vector<product> &ingredients,
 void search_recipe(const std::string &input_string,
                    uint32_t size,
                    std::vector<Recipe> &vec);
+
+void put_product_in_basket(std::vector<search::product> &basket,
+                           search::product &prod);
+
+std::string get_recipe_name(Recipe &recipe);
 
 }  // namespace search
 
