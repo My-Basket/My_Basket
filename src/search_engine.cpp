@@ -134,7 +134,7 @@ bool product::operator==(const product &p) const {
 }
 
 Recipe::Recipe(const json &j) : name(j["Name"]) {
-    for (const json &v : j) {
+    for (const json &v : j["Ingredients"]) {
         ingredients.emplace_back(v);
     }
 }
@@ -174,6 +174,7 @@ void get_recipes(const std::vector<product> &ingredients, uint32_t size, std::ve
         for (const json &x : j) {
 
                 Recipe cur_recipe(x);
+
                 std::string temp_name = cur_recipe.name;
 
                 std::vector<uint32_t> second_str_codepoints;

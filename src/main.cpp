@@ -14,12 +14,14 @@ int main(int argc, char *argv[]) {
     for (const auto& t : top_product) {
         std::cout << t;
     }
+    std::cout<<std::endl;
     std::vector<search::Recipe> vec2;
     functions::ingredients_to_recipe::run_recipes_search(top_product, 10, vec2);
     auto top_recipes = functions::ingredients_to_recipe::show_recipes();
     for(const auto& t: top_recipes){
-        //std::cout <<t;
+        std::cout <<t;
     }
+    std::cout<<std::endl;
     RecipeBook recipebook;
     recipebook.show();
     return app.exec();
