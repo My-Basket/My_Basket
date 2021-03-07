@@ -201,7 +201,7 @@ void RecipeBook::find_recipe_func() { ///UB)))
     functions::ingredients_to_recipe::run_recipes_search(basket_of_products, 10, res_of_request_recipes);
     res_of_request_recipes = functions::ingredients_to_recipe::show_recipes();
     std::stringstream ss;
-    ss << functions::recipe_to_ingredients::show_recipes()[0];
+    ss << res_of_request_recipes[0];
     std::string s;
     while (ss >> s) {
         recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
