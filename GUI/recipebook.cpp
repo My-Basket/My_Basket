@@ -92,6 +92,8 @@ void RecipeBook::add_product_func() {
     //очищение полей ввода
     product_name_line->clear();
     recipe_text->clear();
+    res_of_request_products.clear();
+    res_of_request_recipes.clear();
 
     //отключение режима "только для чтения"
     product_name_line->setReadOnly(false);
@@ -111,8 +113,8 @@ void RecipeBook::add_product_func() {
 
 void RecipeBook::find_product_func() {
     if (product_name_line->text() == "") {
-        QMessageBox::information(this, tr("Empty input"),
-                                 tr("Please enter a product"));
+        QMessageBox::information(this, tr("&Empty input"),
+                                 tr("&Please enter a product"));
         return;
     }
 
@@ -158,7 +160,7 @@ void RecipeBook::find_product_func() {
 
 void RecipeBook::put_in_basket_func() {
     //добавление продукта в корзину по его номеру в массиве res_of_request_products
-    if (res_of_request_products.size() == 0){
+    if (res_of_request_products.empty()){
         return;
     }
     search::put_product_in_basket(basket_of_products, res_of_request_products[num_current_object]);
@@ -175,11 +177,14 @@ void RecipeBook::put_in_basket_func() {
     previous_button->hide();
 }
 
-void insert_text(){}
-
-void RecipeBook::find_recipe_func() { ///UB)))
+void RecipeBook::find_recipe_func() {
     // TODO: в полной реализации: если пользователь ничего не добавил в корзину
     //выводить на экран список топовых рецептов
+
+    if (basket_of_products.empty()){
+        QMessageBox::warning(this, tr("&Empty basket"), tr("&Please add at least one product in the basket"));
+        return;
+    }
 
     product_name_line->setReadOnly(true);
     recipe_text->setReadOnly(true);
@@ -188,7 +193,7 @@ void RecipeBook::find_recipe_func() { ///UB)))
     find_recipe_button->hide();
 
     previous_button->show();
-    previous_button->setEnabled(false);
+    previous_button->setEnabled(true);
     next_button->show();
     next_button->setEnabled(true);
     find_recipe_button->setEnabled(true);
@@ -198,13 +203,14 @@ void RecipeBook::find_recipe_func() { ///UB)))
     recipe_label->setText("possible recipe:");
     recipe_text->clear();
 
-    functions::ingredients_to_recipe::run_recipes_search(basket_of_products, 10, res_of_request_recipes);
+    functions::ingredients_to_recipe::run_recipes_search(basket_of_products, 1, res_of_request_recipes);
     res_of_request_recipes = functions::ingredients_to_recipe::show_recipes();
     std::stringstream ss;
     ss << res_of_request_recipes[0];
     std::string s;
     while (ss >> s) {
         recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
+        recipe_text->insertPlainText("\n");
     }
     num_current_object = 0;
 }

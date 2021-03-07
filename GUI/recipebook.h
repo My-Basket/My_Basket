@@ -57,7 +57,7 @@ private:
     std::vector<search::Recipe> res_of_request_recipes;
 
     NextPrevMode current_mode;
-    std::size_t num_current_object = 0;
+    long long num_current_object = 0;
 
     friend void search::put_product_in_basket(std::vector<search::product> &basket, search::product &prod);
 };
