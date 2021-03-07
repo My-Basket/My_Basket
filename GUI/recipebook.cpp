@@ -113,8 +113,8 @@ void RecipeBook::add_product_func() {
 
 void RecipeBook::find_product_func() {
     if (product_name_line->text() == "") {
-        QMessageBox::information(this, tr("&Empty input"),
-                                 tr("&Please enter a product"));
+        QMessageBox::information(this, tr("Empty input"),
+                                 tr("Please enter a product"));
         return;
     }
 
@@ -187,7 +187,7 @@ void RecipeBook::find_recipe_func() {
     if (basket_of_products.empty()){
         res_of_request_products.clear();
         res_of_request_recipes.clear();
-        QMessageBox::warning(this, tr("&Empty basket"), tr("&Please add at least one product in the basket"));
+        QMessageBox::warning(this, tr("Empty basket"), tr("Please add at least one product in the basket"));
         return;
     }
 
