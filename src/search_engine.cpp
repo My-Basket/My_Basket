@@ -112,7 +112,8 @@ void get_prod_top_by_name(std::string &input_string,
 std::string get_product_name(search::product const &prod) {
     return prod.name;
 }
-product::product(std::string name_, std::string category_, uint32_t price_):  name(std::move(name_)), category(std::move(category_)), price(price_) {
+product::product(std::string name_, std::string category_, uint32_t price_)
+    : name(std::move(name_)), category(std::move(category_)), price(price_) {
 }
 product::product(const json &j) {
     try {
@@ -143,6 +144,7 @@ Recipe::Recipe(const json &j) : name(j["Name"]) {
         ingredients.emplace_back(v);
     }
 }
+
 std::ostream &operator<<(std::ostream &os, const Recipe &p) {
     os << p.name << "\n";
     os << "Ingredients:\n";
@@ -151,6 +153,7 @@ std::ostream &operator<<(std::ostream &os, const Recipe &p) {
     }
     return os;
 }
+
 void Recipe::clear() {
     ingredients.clear();
     name.clear();
@@ -171,42 +174,26 @@ void get_recipes(const std::vector<product> &ingredients,
 
     vec.clear();
 
-    std::set<set_unit<Recipe>> top;
-    for (const product &p : ingredients) {
-        uint32_t in_amount = 0;
-        uint32_t leven_dist = 0;
-
-        std::vector<uint32_t> first_str_codepoints;
-        from_str_to_codepoint(p.name, first_str_codepoints);
-        set_unit<Recipe> max;
-
-        for (const json &x : j) {
-            Recipe cur_recipe(x);
-            std::string temp_name = cur_recipe.name;
-
-            std::vector<uint32_t> second_str_codepoints;
-            from_str_to_codepoint(cur_recipe.name, second_str_codepoints);
-
-            in_amount += check_in(first_str_codepoints, second_str_codepoints);
-            leven_dist +=
-                levenshtein_algo(first_str_codepoints, second_str_codepoints);
-
-            if (max < set_unit<Recipe>({in_amount, leven_dist})) {
-                max = {in_amount, leven_dist, cur_recipe};
-            }
-
-            top.insert(max);
-
-            if (top.size() > size) {
-                auto it = top.end();
-                it--;
-                top.erase(it);
-            }
-
-            for (const auto &su : top) {
-                vec.push_back(su.product_);
+    std::multiset<set_unit<Recipe>> top;
+    for (const json &x : j) {
+        uint32_t max = 0;
+        Recipe R(x);
+        for (const product &p : ingredients) {
+            if (R.is_ingredient_in_recipe(p)) {
+                max++;
             }
         }
+        top.insert({max,0, R});
+
+        if (top.size() > size) {
+            auto it = top.end();
+            it--;
+            top.erase(it);
+        }
+    }
+
+    for (const auto &x: top) {
+        vec.push_back(x.product_); /// TODO CHANGE SET UNIT PRODUCT_ TO CONTENT_
     }
 }
 
