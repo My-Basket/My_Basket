@@ -114,7 +114,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    QBrush image_basket_background(QImage("../data/image_basket.jpeg"));
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);

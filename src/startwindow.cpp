@@ -16,7 +16,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     //    image_basket_label->setPixmap(image_basket_pixmap);
     //    image_basket_label->setScaledContents(true);
 
-    QBrush image_basket_background(QImage("../data/image_basket.jpeg"));
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
