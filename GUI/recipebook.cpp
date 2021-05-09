@@ -35,18 +35,33 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     //экземпляры кнопок правой панели
     add_product_button = new QPushButton(tr("&add product"));
+    add_product_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; border-width: "
+        "2px; border-radius: 10px; padding: 6px;}");
     add_product_button->show();
 
     find_product_button = new QPushButton(tr("&find product"));
+    find_product_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; border-width: "
+        "2px; border-radius: 10px; padding: 6px;}");
     find_product_button->hide();
 
     put_in_basket_button = new QPushButton(tr("&put in basket"));
+    put_in_basket_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; border-width: "
+        "2px; border-radius: 10px; padding: 6px;}");
     put_in_basket_button->hide();
 
     find_recipe_button = new QPushButton(tr("&find recipe"));
+    find_recipe_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; border-width: "
+        "2px; border-radius: 10px; padding: 6px;}");
     find_recipe_button->hide();
 
     check_basket_button = new QPushButton(tr("&check basket"));
+    check_basket_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; border-width: "
+        "2px; border-radius: 10px; padding: 6px;}");
     check_basket_button->show();
 
     //экземпляры кнопок нижней панели
