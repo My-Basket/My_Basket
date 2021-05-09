@@ -2,6 +2,7 @@
 // "ui_RecipeBook.h" resolved -- запускается и без этого
 
 #include "recipebook.h"
+#include <QSizePolicy>
 #include "algo.h"
 //#include "ui_RecipeBook.h"
 
@@ -11,10 +12,22 @@
 
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label = new QLabel(tr("product or dish:"));
+    product_name_label->setStyleSheet(
+        "QLabel { background-color : #359530; color : white; border-width: "
+        "2px; border-radius: 10px; padding: 6px;}");
+    product_name_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
+    product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
+                                      QSizePolicy::Expanding);
     product_name_line = new QLineEdit;
     product_name_line->setReadOnly(true);
 
     recipe_label = new QLabel(tr("possible to take:"));
+    recipe_label->setStyleSheet(
+        "QLabel { background-color : #359530; color : white; border-width: "
+        "2px; border-radius: 10px; padding: 6px;}");
+    recipe_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
+    recipe_label->setSizePolicy(QSizePolicy::MinimumExpanding,
+                                QSizePolicy::Expanding);
     recipe_text = new QTextEdit;
     recipe_text->setReadOnly(true);
 
@@ -162,7 +175,7 @@ void RecipeBook::find_product_func() {
 
 void RecipeBook::put_in_basket_func() {
     //добавление продукта в корзину по его номеру в массиве
-    //res_of_request_products
+    // res_of_request_products
     if (res_of_request_products.empty()) {
         return;
     }
