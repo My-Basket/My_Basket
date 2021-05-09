@@ -6,8 +6,10 @@
 #include "algo.h"
 //#include "ui_RecipeBook.h"
 
+#include <QBrush>
 #include <QGridLayout>
 #include <QMessageBox>
+#include <QPalette>
 #include <sstream>
 
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
@@ -96,6 +98,12 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
+
+    QBrush image_basket_background(QImage("../data/image_basket.jpeg"));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
+    this->setFixedSize(1000, 600);
 }
 
 void RecipeBook::add_product_func() {
