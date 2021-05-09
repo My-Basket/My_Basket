@@ -1,7 +1,3 @@
-//
-// Created by Евгения Федотова
-//
-
 #ifndef RECIPEBOOK_H
 #define RECIPEBOOK_H
 
@@ -17,7 +13,7 @@ class RecipeBook : public QWidget {
     Q_OBJECT
 
 public:
-    RecipeBook(QWidget *parent = 0);
+    RecipeBook(QWidget *parent = nullptr);
 
     enum NextPrevMode { FindProduct_mode, FindRecipe_mode };
 

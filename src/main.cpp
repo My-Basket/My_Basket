@@ -1,5 +1,6 @@
-#include <recipebook.h>
-#include <search_engine.h>
+#include "startwindow.h"
+//#include "recipebook.h"
+#include "search_engine.h"
 #include <QApplication>
 #include <QtGui>
 #include <iostream>
@@ -22,7 +23,11 @@ int main(int argc, char *argv[]) {
     //    top_recipes) {
     //        // std::cout <<t;
     //    }
-    RecipeBook recipebook;
-    recipebook.show();
+
+    //RecipeBook recipebook;
+    //recipebook.show();
+
+    StartWindow start_window;
+    start_window.show();
     return app.exec();
 }
