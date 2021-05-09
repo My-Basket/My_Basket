@@ -8,6 +8,14 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     QGridLayout *main_layout = new QGridLayout;
     main_layout->addWidget(start_button);
 
+    recipe_book = new RecipeBook();
+    connect(start_button, SIGNAL(clicked()), this, SLOT(go_to_recipe_book()));
+
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
+}
+
+void StartWindow::go_to_recipe_book() {
+    recipe_book->show();
+    this->close();
 }
