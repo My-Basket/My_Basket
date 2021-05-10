@@ -7,7 +7,10 @@
 
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     start_button = new QPushButton(tr("start shopping!"));
-    start_button->show();
+    start_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; border-width: "
+        "5px; border-radius: 10px; padding: 6px;}");
+    start_button->show(); //522030
 
     //добавление картинки
     //    QLabel *image_basket_label = new QLabel;
