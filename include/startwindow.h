@@ -34,7 +34,10 @@ public:
 
 public slots:
     void go_to_recipe_book();
-    void set_chosen_category(/*std::string &category*/);
+    //void set_chosen_category(/*std::string &category*/);
+    void choose_economy();
+    void choose_base();
+    void choose_premium();
 
 private:
     RecipeBook *recipe_book;

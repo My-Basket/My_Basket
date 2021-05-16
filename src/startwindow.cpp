@@ -18,6 +18,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
         "5px; border-radius: 10px; padding: 6px; font-size: 30px;}");
+    start_button->setEnabled(true);
     start_button->show();  // 522030
 
     my_basket_label = new QLabel(tr("My_Basket"));
@@ -65,6 +66,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void StartWindow::go_to_category_window() {
+    start_button->setEnabled(false);
     category_window->show();
     this->close();
 }
@@ -125,12 +127,17 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 
     //переход к recipe_book
     recipe_book = new RecipeBook();
-    connect(economy_button, SIGNAL(clicked()), this,
-            SLOT(set_chosen_category(/*"economy"*/)));
-    connect(base_button, SIGNAL(clicked()), this,
-            SLOT(set_chosen_category(/*"base"*/)));
-    connect(premium_button, SIGNAL(clicked()), this,
-            SLOT(set_chosen_category(/*"premium"*/)));
+    //    connect(economy_button, SIGNAL(clicked()), this,
+    //            SLOT(set_chosen_category(/*"economy"*/)));
+    //    connect(base_button, SIGNAL(clicked()), this,
+    //            SLOT(set_chosen_category(/*"base"*/)));
+    //    connect(premium_button, SIGNAL(clicked()), this,
+    //            SLOT(set_chosen_category(/*"premium"*/)));
+    //    connect(go_to_searching_button, SIGNAL(clicked()), this,
+    //            SLOT(go_to_recipe_book()));
+    connect(economy_button, SIGNAL(clicked()), this, SLOT(choose_economy()));
+    connect(base_button, SIGNAL(clicked()), this, SLOT(choose_base()));
+    connect(premium_button, SIGNAL(clicked()), this, SLOT(choose_premium()));
     connect(go_to_searching_button, SIGNAL(clicked()), this,
             SLOT(go_to_recipe_book()));
 
@@ -140,10 +147,25 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     this->setFixedSize(1000, 600);
 }
 
-void CategoryWindow::set_chosen_category(/*std::string &category*/) {
-    // recipe_book->set_category(category);
-    // go_to_searching_button->show();
-    std::cout << "set chosen category function" << '\n';
+// void CategoryWindow::set_chosen_category(/*std::string &category*/) {
+//    // recipe_book->set_category(category);
+//    // go_to_searching_button->show();
+//    std::cout << "set chosen category function" << '\n';
+//}
+
+void CategoryWindow::choose_economy() {
+    economy_button->setEnabled(false);
+    go_to_searching_button->setEnabled(true);
+}
+
+void CategoryWindow::choose_base() {
+    base_button->setEnabled(false);
+    go_to_searching_button->setEnabled(true);
+}
+
+void CategoryWindow::choose_premium() {
+    premium_button->setEnabled(false);
+    go_to_searching_button->setEnabled(true);
 }
 
 void CategoryWindow::go_to_recipe_book() {
