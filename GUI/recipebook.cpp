@@ -71,6 +71,13 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
         "2px; border-radius: 10px; padding: 6px;}");
     check_basket_button->show();
 
+    choose_recipe_button = new QPushButton(tr("&choose recipe"));
+    choose_recipe_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; "
+        "border-width: "
+        "2px; border-radius: 10px; padding: 6px;}");
+    choose_recipe_button->hide();
+
     //экземпляры кнопок нижней панели
     next_button = new QPushButton(tr("&next"));
     next_button->setStyleSheet(
@@ -98,6 +105,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
             SLOT(find_recipe_func()));
     connect(check_basket_button, SIGNAL(clicked()), this,
             SLOT(check_basket_func()));
+    connect(choose_recipe_button, SIGNAL(clicked()), this,
+            SLOT(choose_recipe_func()));
     connect(next_button, SIGNAL(clicked()), this, SLOT(next_func()));
     connect(previous_button, SIGNAL(clicked()), this, SLOT(previous_func()));
 
@@ -108,6 +117,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     button_layout1->addWidget(put_in_basket_button);
     button_layout1->addWidget(find_recipe_button);
     button_layout1->addWidget(check_basket_button);
+    button_layout1->addWidget(choose_recipe_button);
     button_layout1
         ->addStretch();  //разместить кнопки ближе к верхней части экрана
 
@@ -258,6 +268,8 @@ void RecipeBook::find_recipe_func() {
     next_button->show();
     next_button->setEnabled(true);
     find_recipe_button->setEnabled(true);
+    choose_recipe_button->show();
+    choose_recipe_button->setEnabled(true);
 
     current_mode = FindRecipe_mode;
 
@@ -295,6 +307,13 @@ void RecipeBook::check_basket_func() {
         recipe_text->insertPlainText(static_cast<const QString>(res_product));
         recipe_text->insertPlainText("\n");
     }
+}
+
+void RecipeBook::choose_recipe_func() {
+    //переход к summary_window
+    summary_window = new SummaryWindow;
+    summary_window->show();
+    this->close();
 }
 
 void RecipeBook::previous_func() {
@@ -340,4 +359,33 @@ void RecipeBook::next_func() {
 void RecipeBook::set_category(std::string &category_) {
     category = category_;
 }
+
+SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
+
+    end_program_button = new QPushButton(tr("end program"));
+    end_program_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px;}");
+    end_program_button->show();  // 522030
+
+    QGridLayout *main_layout = new QGridLayout;
+    main_layout->addWidget(end_program_button);
+
+    connect(end_program_button, SIGNAL(clicked()), this,
+            SLOT(end_program_func()));
+
+    setLayout(main_layout);
+    setWindowTitle(tr("My_Basket"));
+
+    this->setFixedSize(1000, 600);
 }
+
+void SummaryWindow::end_program_func() {
+    std::exit(0);
+}
+}  // namespace Ui
