@@ -43,6 +43,7 @@ private:
     QPushButton *base_button;
     QPushButton *premium_button;
     QPushButton *go_to_searching_button;
+    QLabel *choose_category_label;
 };
 }  // namespace Ui
 

@@ -23,11 +23,13 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     my_basket_label = new QLabel(tr("My_Basket"));
     my_basket_label->setStyleSheet(
         "QLabel { color : black; border-width: "
-        "2px; border-radius: 5px; padding: 2px; font-size: 130px; font: bold;}");
+        "2px; border-radius: 5px; padding: 2px; font-size: 130px; font: "
+        "bold;}");
     my_basket_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     my_basket_label->setMargin(50);
 
-    description_label = new QLabel(tr("your assistant in the selection of recipes"));
+    description_label =
+        new QLabel(tr("your assistant in the selection of recipes"));
     description_label->setStyleSheet(
         "QLabel { color : black; border-width: "
         "2px; border-radius: 5px; padding: 2px; font-size: 27px;}");
@@ -73,6 +75,13 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
 
+    choose_category_label = new QLabel(tr("Choose shops' category:"));
+    choose_category_label->setStyleSheet(
+        "QLabel { color : black; border-width: "
+        "2px; border-radius: 5px; padding: 2px; font-size: 80px;}");
+    choose_category_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    choose_category_label->setMargin(55);
+
     economy_button = new QPushButton(tr("economy"));
     economy_button->setStyleSheet(
         "QPushButton { background-color : #FF7699; color : white; "
@@ -99,16 +108,19 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
         "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
-    go_to_searching_button->hide();  // 522030
+    go_to_searching_button->show();  // 522030
 
     QHBoxLayout *button_layout = new QHBoxLayout;
-    button_layout->addWidget(economy_button);
-    button_layout->addWidget(base_button);
-    button_layout->addWidget(premium_button);
+    button_layout->addWidget(economy_button, Qt::AlignTop, Qt::AlignVCenter);
+    button_layout->addWidget(base_button, Qt::AlignTop, Qt::AlignVCenter);
+    button_layout->addWidget(premium_button, Qt::AlignTop, Qt::AlignVCenter);
 
-    QGridLayout *main_layout = new QGridLayout;
-    main_layout->addLayout(button_layout, 0, 0);
-    main_layout->addWidget(go_to_searching_button, 1, 0);
+    QVBoxLayout *main_layout = new QVBoxLayout;
+    main_layout->addWidget(choose_category_label, Qt::AlignTop);
+    main_layout->addLayout(button_layout);
+    main_layout->addWidget(go_to_searching_button, Qt::AlignTop,
+                           Qt::AlignVCenter);
+    main_layout->setSpacing(10);
     // main_layout->addWidget(image_basket_label);
 
     //переход к recipe_book
@@ -130,7 +142,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 
 void CategoryWindow::set_chosen_category(/*std::string &category*/) {
     // recipe_book->set_category(category);
-    go_to_searching_button->show();
+    // go_to_searching_button->show();
     std::cout << "set chosen category function" << '\n';
 }
 
