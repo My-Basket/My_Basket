@@ -1,11 +1,11 @@
 #include "startwindow.h"
 //#include "recipebook.h"
-#include "search_engine.h"
 #include <QApplication>
 #include <QtGui>
 #include <iostream>
 #include "algo.h"
 #include "for_static.h"
+#include "search_engine.h"
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     //    std::string s = "Вода";
@@ -24,10 +24,10 @@ int main(int argc, char *argv[]) {
     //        // std::cout <<t;
     //    }
 
-    //RecipeBook recipebook;
-    //recipebook.show();
+    // RecipeBook recipebook;
+    // recipebook.show();
 
-    StartWindow start_window;
+    Ui::StartWindow start_window;
     start_window.show();
     return app.exec();
 }
