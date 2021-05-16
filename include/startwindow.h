@@ -41,8 +41,6 @@ private:
     QPushButton *base_button;
     QPushButton *premium_button;
     QPushButton *go_to_searching_button;
-
-    std::string chosen_category;
 };
 }  // namespace Ui
 

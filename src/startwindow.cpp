@@ -105,7 +105,8 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void CategoryWindow::set_chosen_category(std::string &category) {
-    chosen_category = category;
+    //chosen_category = category;
+    recipe_book->set_category(category);
 }
 
 void CategoryWindow::go_to_recipe_book() {

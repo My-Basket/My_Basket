@@ -12,6 +12,8 @@
 #include <QPalette>
 #include <sstream>
 
+namespace Ui {
+
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label = new QLabel(tr("product or dish:"));
     product_name_label->setStyleSheet(
@@ -75,7 +77,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
         "QPushButton { background-color : #00CC66; color : white; "
         "border-width: "
         "2px; border-radius: 10px; padding: 6px;}");
-    next_button->hide(); //FFD700
+    next_button->hide();  // FFD700
 
     previous_button = new QPushButton(tr("&previous"));
     previous_button->setStyleSheet(
@@ -333,4 +335,9 @@ void RecipeBook::next_func() {
         recipe_text->setText(
             QString::fromUtf8(get_recipe_name(recipe).c_str()));
     }
+}
+
+void RecipeBook::set_category(std::string &category_) {
+    category = category_;
+}
 }

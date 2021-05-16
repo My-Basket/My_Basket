@@ -9,11 +9,14 @@
 #include <QWidget>
 #include "search_engine.h"
 
+namespace Ui {
+
 class RecipeBook : public QWidget {
     Q_OBJECT
 
 public:
     RecipeBook(QWidget *parent = nullptr);
+    void set_category(std::string &category);
 
     enum NextPrevMode { FindProduct_mode, FindRecipe_mode };
 
@@ -52,10 +55,12 @@ private:
 
     NextPrevMode current_mode;
     long long num_current_object = 0;
+    std::string category;
 
     friend void search::put_product_in_basket(
         std::vector<search::product> &basket,
         search::product &prod);
 };
+}
 
 #endif  // RECIPEBOOK_H
