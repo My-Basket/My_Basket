@@ -370,7 +370,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     end_program_button->setStyleSheet(
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
-        "5px; border-radius: 10px; padding: 6px;}");
+        "5px; border-radius: 10px; padding: 6px; font-size: 15px;}");
     end_program_button->show();  // 522030
 
     QGridLayout *main_layout = new QGridLayout;

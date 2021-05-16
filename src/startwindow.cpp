@@ -12,7 +12,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     start_button->setStyleSheet(
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
-        "5px; border-radius: 10px; padding: 6px;}");
+        "5px; border-radius: 10px; padding: 6px; font-size: 30px;}");
     start_button->show();  // 522030
 
     //добавление картинки
@@ -57,28 +57,28 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     economy_button->setStyleSheet(
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
-        "5px; border-radius: 10px; padding: 6px;}");
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
     economy_button->show();  // 522030
 
     base_button = new QPushButton(tr("base"));
     base_button->setStyleSheet(
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
-        "5px; border-radius: 10px; padding: 6px;}");
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
     base_button->show();  // 522030
 
     premium_button = new QPushButton(tr("premium"));
     premium_button->setStyleSheet(
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
-        "5px; border-radius: 10px; padding: 6px;}");
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
     premium_button->show();  // 522030
 
     go_to_searching_button = new QPushButton(tr("go to searching!"));
     go_to_searching_button->setStyleSheet(
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
-        "5px; border-radius: 10px; padding: 6px;}");
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
     go_to_searching_button->hide();  // 522030
 
     QGridLayout *main_layout = new QGridLayout;
@@ -106,7 +106,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void CategoryWindow::set_chosen_category(/*std::string &category*/) {
-    //recipe_book->set_category(category);
+    // recipe_book->set_category(category);
     go_to_searching_button->show();
     std::cout << "set chosen category function" << '\n';
 }
