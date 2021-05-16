@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QPalette>
 #include <QSizePolicy>
+#include <iostream>
 
 namespace Ui {
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
@@ -78,25 +79,25 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
         "5px; border-radius: 10px; padding: 6px;}");
-    go_to_searching_button->show();  // 522030
+    go_to_searching_button->hide();  // 522030
 
-    QHBoxLayout *main_layout = new QHBoxLayout;
+    QGridLayout *main_layout = new QGridLayout;
     main_layout->addWidget(economy_button);
     main_layout->addWidget(base_button);
     main_layout->addWidget(premium_button);
-    main_layout->addWidget(go_to_searching_button);
+    main_layout->addWidget(go_to_searching_button, 1, 1);
     // main_layout->addWidget(image_basket_label);
 
     //переход к recipe_book
     recipe_book = new RecipeBook();
+    connect(economy_button, SIGNAL(clicked()), this,
+            SLOT(set_chosen_category(/*"economy"*/)));
+    connect(base_button, SIGNAL(clicked()), this,
+            SLOT(set_chosen_category(/*"base"*/)));
+    connect(premium_button, SIGNAL(clicked()), this,
+            SLOT(set_chosen_category(/*"premium"*/)));
     connect(go_to_searching_button, SIGNAL(clicked()), this,
             SLOT(go_to_recipe_book()));
-    connect(economy_button, SIGNAL(clicked()), this,
-            SLOT(set_chosen_category("economy")));
-    connect(base_button, SIGNAL(clicked()), this,
-            SLOT(set_chosen_category("base")));
-    connect(premium_button, SIGNAL(clicked()), this,
-            SLOT(set_chosen_category("premium")));
 
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
@@ -104,9 +105,10 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     this->setFixedSize(1000, 600);
 }
 
-void CategoryWindow::set_chosen_category(std::string &category) {
-    //chosen_category = category;
-    recipe_book->set_category(category);
+void CategoryWindow::set_chosen_category(/*std::string &category*/) {
+    //recipe_book->set_category(category);
+    go_to_searching_button->show();
+    std::cout << "set chosen category function" << '\n';
 }
 
 void CategoryWindow::go_to_recipe_book() {

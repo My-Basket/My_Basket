@@ -32,7 +32,7 @@ public:
 
 public slots:
     void go_to_recipe_book();
-    void set_chosen_category(std::string &category);
+    void set_chosen_category(/*std::string &category*/);
 
 private:
     RecipeBook *recipe_book;
