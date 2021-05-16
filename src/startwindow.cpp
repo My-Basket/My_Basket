@@ -23,13 +23,14 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     my_basket_label = new QLabel(tr("My_Basket"));
     my_basket_label->setStyleSheet(
         "QLabel { color : black; border-width: "
-        "2px; border-radius: 5px; padding: 2px; font-size: 150px;}");
+        "2px; border-radius: 5px; padding: 2px; font-size: 130px; font: bold;}");
     my_basket_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    my_basket_label->setMargin(50);
 
     description_label = new QLabel(tr("your assistant in the selection of recipes"));
     description_label->setStyleSheet(
         "QLabel { color : black; border-width: "
-        "2px; border-radius: 5px; padding: 2px; font-size: 30px;}");
+        "2px; border-radius: 5px; padding: 2px; font-size: 27px;}");
     description_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
 
     //добавление картинки
@@ -39,10 +40,15 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     //    image_basket_label->setPixmap(image_basket_pixmap);
     //    image_basket_label->setScaledContents(true);
 
+    QVBoxLayout *label_layout = new QVBoxLayout;
+    label_layout->addWidget(my_basket_label, Qt::AlignTop, Qt::AlignVCenter);
+    label_layout->addWidget(description_label, Qt::AlignTop, Qt::AlignVCenter);
+    label_layout->setSpacing(5);
+
     QVBoxLayout *main_layout = new QVBoxLayout;
-    main_layout->addWidget(my_basket_label, Qt::AlignTop, Qt::AlignVCenter);
-    main_layout->addWidget(description_label, Qt::AlignTop, Qt::AlignVCenter);
+    main_layout->addLayout(label_layout);
     main_layout->addWidget(start_button, Qt::AlignTop, Qt::AlignVCenter);
+    main_layout->setSpacing(5);
     // main_layout->addWidget(image_basket_label);
 
     //переход к recipe_book
