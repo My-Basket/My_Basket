@@ -23,6 +23,7 @@ private:
     //кнопки окна
     QPushButton *start_button;
     QLabel *my_basket_label;
+    QLabel *description_label;
 };
 
 class CategoryWindow : public QWidget {
