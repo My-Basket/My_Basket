@@ -29,8 +29,9 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     my_basket_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     my_basket_label->setMargin(50);
 
-    description_label =
-        new QLabel(tr("your assistant in the selection of recipes"));
+    description_label = new QLabel(
+        tr("your assistant in the selection of recipes"));  //ваш помощник в
+                                                            //выборе рецептов
     description_label->setStyleSheet(
         "QLabel { color : black; border-width: "
         "2px; border-radius: 5px; padding: 2px; font-size: 27px;}");

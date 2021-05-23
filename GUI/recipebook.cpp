@@ -1,16 +1,12 @@
 // You may need to build the project (run Qt uic code generator) to get
-// "ui_RecipeBook.h" resolved -- запускается и без этого
-
 #include "recipebook.h"
-#include <QSizePolicy>
-#include "algo.h"
-//#include "ui_RecipeBook.h"
-
 #include <QBrush>
 #include <QGridLayout>
 #include <QMessageBox>
 #include <QPalette>
+#include <QSizePolicy>
 #include <sstream>
+#include "algo.h"
 
 namespace Ui {
 
@@ -370,10 +366,45 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     end_program_button->setStyleSheet(
         "QPushButton { background-color : #FF7699; color : white; "
         "border-width: "
-        "5px; border-radius: 10px; padding: 6px; font-size: 15px;}");
+        "5px; border-radius: 10px; padding: 6px; font-size: 30px;}");
     end_program_button->show();  // 522030
 
+    best_total_cost_label = new QLabel(tr("best total cost:"));
+    best_total_cost_label->setStyleSheet(
+        "QLabel { color : black; border-width: "
+        "2px; border-radius: 5px; padding: 2px; font-size: 100px;}");
+    best_total_cost_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    best_total_cost_label->setMargin(10);
+
+    total_cost_number_label =
+        new QLabel((std::to_string(total_cost) + "₽").c_str());
+    total_cost_number_label->setStyleSheet(
+        "QLabel { color : black; border-width: "
+        "2px; border-radius: 5px; padding: 2px; font-size: 100px; font: "
+        "bold;}");
+    total_cost_number_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    total_cost_number_label->setMargin(10);
+
+    in_shop_label = new QLabel("in shop:");
+    in_shop_label->setStyleSheet(
+        "QLabel { color : black; border-width: "
+        "2px; border-radius: 5px; padding: 2px; font-size: 100px;}");
+    in_shop_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    in_shop_label->setMargin(10);
+
+    shop_name_label = new QLabel(shop_name.c_str());
+    shop_name_label->setStyleSheet(
+        "QLabel { color : black; border-width: "
+        "2px; border-radius: 5px; padding: 2px; font-size: 100px; font: "
+        "bold;}");
+    shop_name_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    shop_name_label->setMargin(10);
+
     QGridLayout *main_layout = new QGridLayout;
+    main_layout->addWidget(best_total_cost_label);
+    main_layout->addWidget(total_cost_number_label);
+    main_layout->addWidget(in_shop_label);
+    main_layout->addWidget(shop_name_label);
     main_layout->addWidget(end_program_button);
 
     connect(end_program_button, SIGNAL(clicked()), this,

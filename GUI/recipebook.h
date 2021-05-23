@@ -22,6 +22,14 @@ public slots:
 
 private:
     QPushButton *end_program_button;
+
+    QLabel *best_total_cost_label;
+    QLabel *total_cost_number_label;
+    QLabel *in_shop_label;
+    QLabel *shop_name_label;
+
+    int total_cost = 1000;
+    std::string shop_name = "EuroSpar";
 };
 
 class RecipeBook : public QWidget {
