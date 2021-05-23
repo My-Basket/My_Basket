@@ -19,7 +19,6 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                       QSizePolicy::Expanding);
     product_name_line = new QLineEdit;
-    // product_name_line->setFixedSize(200, 200);
     product_name_line->setMinimumHeight(30);
     product_name_line->setStyleSheet("QLineEdit { font-size: 20px;}");
     product_name_line->setReadOnly(true);
@@ -160,6 +159,11 @@ void RecipeBook::add_product_func() {
     recipe_text->setReadOnly(false);
 
     add_product_button->setEnabled(false);
+    //    add_product_button->setStyleSheet(
+    //        "QPushButton { background-color : #172030; color : white; "
+    //        "border-width: "
+    //        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+
     find_product_button->show();
     find_product_button->setEnabled(true);
     put_in_basket_button->hide();

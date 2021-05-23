@@ -68,6 +68,10 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 
 void StartWindow::go_to_category_window() {
     start_button->setEnabled(false);
+    start_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 30px;}");
     category_window->show();
     this->close();
 }
