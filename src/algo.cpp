@@ -1,13 +1,11 @@
 #include "algo.h"
 using nlohmann::json, search::product, search::set_unit;
 size_t API::ingredients_to_recipe::choose_category_shop(const std::string &s) {
-    if(s=="Base"){
+    if (s == "Base") {
         return shop_mode = BASE;
-    }
-    else if(s=="Economy"){
+    } else if (s == "Economy") {
         return shop_mode = ECONOMY;
-    }
-    else{
+    } else {
         return shop_mode = PREMIUM;
     }
 }
@@ -47,13 +45,14 @@ void API::ingredients_to_recipe::run_recipes_search(
 std::vector<search::Recipe> API::ingredients_to_recipe::show_recipes() {
     return recommended_recipes;  //возвращает топ 10 рекомендуемых рецептов
 }
-std::vector<search::product>
-API::ingredients_to_recipe::show_res_of_request() {
+std::vector<search::product> API::ingredients_to_recipe::show_res_of_request() {
     return res_of_request;  //возвращает первые 10 продуктов по введенной строке
 }
-void API::ingredients_to_recipe::checking_prod_in_shop(const std::vector<uint32_t> &request,
-                                                       const std::string &file_name,
-                                                       std::vector<search::product> &res, uint32_t size) {
+void API::ingredients_to_recipe::checking_prod_in_shop(
+    const std::vector<uint32_t> &request,
+    const std::string &file_name,
+    std::vector<search::product> &res,
+    uint32_t size) {
     std::ifstream file(file_name);
     json j = json::parse(file);
     file.close();
@@ -66,10 +65,8 @@ void API::ingredients_to_recipe::checking_prod_in_shop(const std::vector<uint32_
         std::vector<uint32_t> second_str_codepoints;
         from_str_to_codepoint(cur_prod.get_name(), second_str_codepoints);
 
-        uint32_t in_amount =
-            check_in(request, second_str_codepoints);
-        uint32_t leven_dist =
-            levenshtein_algo(request, second_str_codepoints);
+        uint32_t in_amount = check_in(request, second_str_codepoints);
+        uint32_t leven_dist = levenshtein_algo(request, second_str_codepoints);
         top.insert({in_amount, leven_dist, cur_prod});
 
         if (top.size() > size) {
@@ -87,7 +84,6 @@ void search::put_product_in_basket(std::vector<search::product> &basket,
                                    search::product &prod) {
     basket.push_back(prod);
 }
-
 
 void API::ingredients_to_recipe::choose_ingredients(uint32_t num) {
     auto it = res_of_request.begin();

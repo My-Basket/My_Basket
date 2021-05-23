@@ -92,6 +92,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
         "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     previous_button->hide();
 
+    //API::ingredients_to_recipe::choose_category_shop(category);
+
     // TODO: можно ли избавиться от копипаста и вынести это в функцию с
     // параметрами (название кнопки (1), ф-я(4))
     connect(add_product_button, SIGNAL(clicked()), this,
@@ -138,10 +140,10 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    //QBrush image_basket_background(QImage(":/data/image_basket2.jpg"));
-    //QPalette plt = this->palette();
-    //plt.setBrush(QPalette::Window, image_basket_background);
-    //this->setPalette(plt);
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
     this->setFixedSize(1000, 600);
 }
 
@@ -314,6 +316,8 @@ void RecipeBook::check_basket_func() {
 }
 
 void RecipeBook::choose_recipe_func() {
+    //вызвать колину функцию рассчета стоимости и выбора магазина
+
     //переход к summary_window
     summary_window = new SummaryWindow;
     summary_window->show();
@@ -365,10 +369,10 @@ void RecipeBook::set_category(std::string &category_) {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-   /* QBrush image_basket_background(QImage(":/data/image_basket2.jpg"));
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);*/
+    this->setPalette(plt);
 
     end_program_button = new QPushButton(tr("end program"));
     end_program_button->setStyleSheet(

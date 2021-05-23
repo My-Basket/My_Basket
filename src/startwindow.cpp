@@ -8,10 +8,10 @@
 
 namespace Ui {
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    //QBrush image_basket_background(QImage(":/data/image_basket2.jpg"));
-    //QPalette plt = this->palette();
-    //plt.setBrush(QPalette::Window, image_basket_background);
-    //this->setPalette(plt);
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
 
     start_button = new QPushButton(tr("start shopping!"));
     start_button->setStyleSheet(
@@ -69,7 +69,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 void StartWindow::go_to_category_window() {
     start_button->setEnabled(false);
     start_button->setStyleSheet(
-        "QPushButton { background-color : #FF7699; color : white; "
+        "QPushButton { background-color : #FF1099; color : white; "
         "border-width: "
         "5px; border-radius: 10px; padding: 6px; font-size: 30px;}");
     category_window->show();
@@ -77,10 +77,10 @@ void StartWindow::go_to_category_window() {
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    /*QBrush image_basket_background(QImage(":/data/image_basket2.jpg"));
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);*/
+    this->setPalette(plt);
 
     choose_category_label = new QLabel(tr("Choose shops' category:"));
     choose_category_label->setStyleSheet(
@@ -112,7 +112,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 
     go_to_searching_button = new QPushButton(tr("go to searching!"));
     go_to_searching_button->setStyleSheet(
-        "QPushButton { background-color : #FF7699; color : white; "
+        "QPushButton { background-color : #FF9899; color : white; "
         "border-width: "
         "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
     go_to_searching_button->show();  // 522030
@@ -160,17 +160,84 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 
 void CategoryWindow::choose_economy() {
     economy_button->setEnabled(false);
+
+    //обновить цвет других
+    base_button->setEnabled(true);
+    base_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+    premium_button->setEnabled(true);
+    premium_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+
+    //установить свой
+    economy_button->setStyleSheet(
+        "QPushButton { background-color : #FF1099; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+
     go_to_searching_button->setEnabled(true);
+    go_to_searching_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
 }
 
 void CategoryWindow::choose_base() {
     base_button->setEnabled(false);
+
+    economy_button->setEnabled(true);
+    economy_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+    premium_button->setEnabled(true);
+    premium_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+
+    //свой
+    base_button->setStyleSheet(
+        "QPushButton { background-color : #FF1099; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+
     go_to_searching_button->setEnabled(true);
+    go_to_searching_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
 }
 
 void CategoryWindow::choose_premium() {
     premium_button->setEnabled(false);
+
+    ///мб функцию обновления от трех параметров -- цвета в нужном порядке
+    economy_button->setEnabled(true);
+    economy_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+    base_button->setEnabled(true);
+    base_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+
+    premium_button->setStyleSheet(
+        "QPushButton { background-color : #FF1099; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+
     go_to_searching_button->setEnabled(true);
+    go_to_searching_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
 }
 
 void CategoryWindow::go_to_recipe_book() {
