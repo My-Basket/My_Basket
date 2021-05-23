@@ -138,10 +138,10 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    QBrush image_basket_background(QImage(":/image_basket2.jpg"));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    //QBrush image_basket_background(QImage(":/data/image_basket2.jpg"));
+    //QPalette plt = this->palette();
+    //plt.setBrush(QPalette::Window, image_basket_background);
+    //this->setPalette(plt);
     this->setFixedSize(1000, 600);
 }
 
@@ -365,10 +365,10 @@ void RecipeBook::set_category(std::string &category_) {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+   /* QBrush image_basket_background(QImage(":/data/image_basket2.jpg"));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    this->setPalette(plt);*/
 
     end_program_button = new QPushButton(tr("end program"));
     end_program_button->setStyleSheet(

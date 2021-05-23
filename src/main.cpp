@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     // RecipeBook recipebook;
     // recipebook.show();
 
-    StartWindow start_window;
+    Ui::StartWindow start_window;
     start_window.show();
 
     return app.exec();

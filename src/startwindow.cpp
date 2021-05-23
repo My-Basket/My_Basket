@@ -8,10 +8,10 @@
 
 namespace Ui {
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    //QBrush image_basket_background(QImage(":/data/image_basket2.jpg"));
+    //QPalette plt = this->palette();
+    //plt.setBrush(QPalette::Window, image_basket_background);
+    //this->setPalette(plt);
 
     start_button = new QPushButton(tr("start shopping!"));
     start_button->setStyleSheet(
@@ -77,10 +77,10 @@ void StartWindow::go_to_category_window() {
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    /*QBrush image_basket_background(QImage(":/data/image_basket2.jpg"));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    this->setPalette(plt);*/
 
     choose_category_label = new QLabel(tr("Choose shops' category:"));
     choose_category_label->setStyleSheet(
