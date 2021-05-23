@@ -14,21 +14,25 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label = new QLabel(tr("product or dish:"));
     product_name_label->setStyleSheet(
         "QLabel { background-color : #359530; color : white; border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 28px;}");
     product_name_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                       QSizePolicy::Expanding);
     product_name_line = new QLineEdit;
+    // product_name_line->setFixedSize(200, 200);
+    product_name_line->setMinimumHeight(30);
+    product_name_line->setStyleSheet("QLineEdit { font-size: 20px;}");
     product_name_line->setReadOnly(true);
 
     recipe_label = new QLabel(tr("possible to take:"));
     recipe_label->setStyleSheet(
         "QLabel { background-color : #359530; color : white; border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 28px;}");
     recipe_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     recipe_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                 QSizePolicy::Expanding);
     recipe_text = new QTextEdit;
+    recipe_text->setFontPointSize(18);
     recipe_text->setReadOnly(true);
 
     //экземпляры кнопок правой панели
@@ -36,42 +40,42 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     add_product_button->setStyleSheet(
         "QPushButton { background-color : #172030; color : white; "
         "border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     add_product_button->show();
 
     find_product_button = new QPushButton(tr("&find product"));
     find_product_button->setStyleSheet(
         "QPushButton { background-color : #172030; color : white; "
         "border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     find_product_button->hide();
 
     put_in_basket_button = new QPushButton(tr("&put in basket"));
     put_in_basket_button->setStyleSheet(
         "QPushButton { background-color : #172030; color : white; "
         "border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     put_in_basket_button->hide();
 
     find_recipe_button = new QPushButton(tr("&find recipe"));
     find_recipe_button->setStyleSheet(
         "QPushButton { background-color : #172030; color : white; "
         "border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     find_recipe_button->hide();
 
     check_basket_button = new QPushButton(tr("&check basket"));
     check_basket_button->setStyleSheet(
         "QPushButton { background-color : #172030; color : white; "
         "border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     check_basket_button->show();
 
     choose_recipe_button = new QPushButton(tr("&choose recipe"));
     choose_recipe_button->setStyleSheet(
         "QPushButton { background-color : #172030; color : white; "
         "border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     choose_recipe_button->hide();
 
     //экземпляры кнопок нижней панели
@@ -79,14 +83,14 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     next_button->setStyleSheet(
         "QPushButton { background-color : #00CC66; color : white; "
         "border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     next_button->hide();  // FFD700
 
     previous_button = new QPushButton(tr("&previous"));
     previous_button->setStyleSheet(
         "QPushButton { background-color : #00CC66; color : white; "
         "border-width: "
-        "2px; border-radius: 10px; padding: 6px;}");
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     previous_button->hide();
 
     // TODO: можно ли избавиться от копипаста и вынести это в функцию с
