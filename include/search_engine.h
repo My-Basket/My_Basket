@@ -1,5 +1,3 @@
-// Created by TurovV on 18.02.2021.
-
 #ifndef MY_BASKET_SEARCH_ENGINE_H
 #define MY_BASKET_SEARCH_ENGINE_H
 
@@ -30,9 +28,11 @@ class product {
 private:
     std::string name;
     std::string category;
-    uint32_t price;
+    uint32_t price = 0;
 
 public:
+
+    product() = default;
     product(const product &d) = default;
 
     product &operator=(const product &d) = default;
@@ -45,6 +45,7 @@ public:
     product(const json &j);
 
     product &operator=(const json &j);
+    ~product() = default;
 
     bool operator==(const product &p) const;
     [[nodiscard]] std::string get_name() const;
@@ -55,10 +56,10 @@ public:
 
     friend std::string get_product_name(product const &prod);
 
+
     friend std::ostream &operator<<(std::ostream &os, const product &p);
 
 
-    ~product() = default;
 };
 
 class Recipe {
@@ -91,9 +92,7 @@ public:
     //получает на вход продукты, сует в recommended recipes класса
     // ingredients_to_recipes топ 10 лучших рецептов
 
-    friend void search_recipe(const std::string &input_string,
-                              uint32_t size,
-                              std::vector<Recipe> &vec);
+
 
     //ищет рецепт по введённой строке, сует в recipes_request класса
     // recipes_to_ingredients топ 10 лучших рецептов
@@ -105,9 +104,7 @@ public:
 void get_recipes(const std::vector<product> &ingredients,
                  uint32_t size,
                  std::vector<Recipe> &vec);
-void search_recipe(const std::string &input_string,
-                   uint32_t size,
-                   std::vector<Recipe> &vec);
+
 
 void put_product_in_basket(std::vector<search::product> &basket,
                            search::product &prod);

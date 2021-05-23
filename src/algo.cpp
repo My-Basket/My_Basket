@@ -1,13 +1,12 @@
 #include "algo.h"
+#include <iostream>
 using nlohmann::json, search::product, search::set_unit;
 size_t API::ingredients_to_recipe::choose_category_shop(const std::string &s) {
-    if(s=="Base"){
+    if (s == "Base") {
         return shop_mode = BASE;
-    }
-    else if(s=="Economy"){
+    } else if (s == "Economy") {
         return shop_mode = ECONOMY;
-    }
-    else{
+    } else {
         return shop_mode = PREMIUM;
     }
 }
@@ -15,19 +14,46 @@ void API::get_prod_top_by_name(std::string &input_string,
                                std::vector<product> &vec,
                                uint32_t size) {
     std::vector<uint32_t> first_str_codepoints;
-    from_str_to_codepoint(input_string, first_str_codepoints);
-    if (API::ingredients_to_recipe::shop_mode == API::Shop_Mode::ECONOMY) {
-        API::ingredients_to_recipe::checking_prod_in_shop(
-            first_str_codepoints, "../data/av.json", vec, size);
-    } else if (API::ingredients_to_recipe::shop_mode == API::Shop_Mode::BASE) {
-        API::ingredients_to_recipe::checking_prod_in_shop(
-            first_str_codepoints, "../data/karusel.json", vec, size);
-    } else {
-        API::ingredients_to_recipe::checking_prod_in_shop(
-            first_str_codepoints, "../data/spar.json", vec, size);
+    try {
+        from_str_to_codepoint(input_string, first_str_codepoints);
+    } catch (const InvalidString &s) {
+        std::cerr << s.what();
+        return;
+    }
+    switch (API::ingredients_to_recipe::shop_mode) {
+        case API::Shop_Mode::ECONOMY:
+            for (const auto &sh : API::Data_files::econom_shops) {
+                API::ingredients_to_recipe::checking_prod_or_rec_in_shop<
+                    search::product>(first_str_codepoints, sh, vec, size);
+            }
+            break;
+        case API::Shop_Mode::BASE:
+            for (const auto &sh : API::Data_files::base_shops) {
+                API::ingredients_to_recipe::checking_prod_or_rec_in_shop<
+                    search::product>(first_str_codepoints, sh, vec, size);
+            }
+            break;
+        case API::Shop_Mode::PREMIUM:
+            for (const auto &sh : API::Data_files::premium_shops) {
+                API::ingredients_to_recipe::checking_prod_or_rec_in_shop<
+                    search::product>(first_str_codepoints, sh, vec, size);
+            }
+            break;
     }
 }
-
+void API::search_recipe(const string &input_string,
+                        uint32_t size,
+                        std::vector<Recipe> &vec) {
+    std::vector<uint32_t> first_str_codepoints;
+    try {
+        from_str_to_codepoint(input_string, first_str_codepoints);
+    } catch (const InvalidString &s) {
+        std::cerr << s.what();
+        return;
+    }
+    API::ingredients_to_recipe::checking_prod_or_rec_in_shop<search::Recipe>(
+        first_str_codepoints, "../data/recipes.json", vec, size);
+}
 void API::ingredients_to_recipe::run_product_search(
     std::string s,
     uint32_t size,
@@ -47,47 +73,14 @@ void API::ingredients_to_recipe::run_recipes_search(
 std::vector<search::Recipe> API::ingredients_to_recipe::show_recipes() {
     return recommended_recipes;  //возвращает топ 10 рекомендуемых рецептов
 }
-std::vector<search::product>
-API::ingredients_to_recipe::show_res_of_request() {
+std::vector<search::product> API::ingredients_to_recipe::show_res_of_request() {
     return res_of_request;  //возвращает первые 10 продуктов по введенной строке
 }
-void API::ingredients_to_recipe::checking_prod_in_shop(const std::vector<uint32_t> &request,
-                                                       const std::string &file_name,
-                                                       std::vector<search::product> &res, uint32_t size) {
-    std::ifstream file(file_name);
-    json j = json::parse(file);
-    file.close();
 
-    std::multiset<set_unit<product>> top;
-    for (auto const &x : j) {
-        product cur_prod(x);
-        auto temp_name = cur_prod.get_name();
-
-        std::vector<uint32_t> second_str_codepoints;
-        from_str_to_codepoint(cur_prod.get_name(), second_str_codepoints);
-
-        uint32_t in_amount =
-            check_in(request, second_str_codepoints);
-        uint32_t leven_dist =
-            levenshtein_algo(request, second_str_codepoints);
-        top.insert({in_amount, leven_dist, cur_prod});
-
-        if (top.size() > size) {
-            auto it = top.end();
-            it--;
-            top.erase(it);
-        }
-    }
-
-    for (const set_unit<product> &su : top) {
-        res.push_back(su.product_);
-    }
-}
 void search::put_product_in_basket(std::vector<search::product> &basket,
                                    search::product &prod) {
     basket.push_back(prod);
 }
-
 
 void API::ingredients_to_recipe::choose_ingredients(uint32_t num) {
     auto it = res_of_request.begin();
@@ -106,11 +99,11 @@ void API::recipe_to_ingredients::run_recipe_search(
     const std::string &s,
     uint32_t size,
     std::vector<search::Recipe> &vec) {
-    search::search_recipe(s, size, vec);
+    search_recipe(s, size, vec);
     recipes_request = std::move(vec);
 }
 std::vector<search::Recipe> API::recipe_to_ingredients::show_recipes() {
-    return recipes_request;  // топ 10 рецептов
+    return recipes_request;
 }
 void API::recipe_to_ingredients::cancel_choice() {
     chosen_recipe.clear();

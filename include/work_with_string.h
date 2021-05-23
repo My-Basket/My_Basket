@@ -7,7 +7,10 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
+struct InvalidString : std::runtime_error {
+    explicit InvalidString(const std::string &s);
+    [[nodiscard]] const char *what() const noexcept override;
+};
 using std::string, std::stringstream, std::hex, std::showbase, std::pair;
 
 pair<int, int> code_point(const string &u);

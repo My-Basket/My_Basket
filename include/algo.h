@@ -11,14 +11,13 @@
 #include "work_with_string.h"
 namespace API {
 
+//enum Request_Mode { RECIPE, PRODUCT};
 enum Shop_Mode { ECONOMY, BASE, PREMIUM };
-struct data_files{
-    std::string econom;
-    std::string base;
-    std::string premium;
-};
-
-const std::vector<std::string > econom_shops = {"../data/av.json"};
+namespace Data_files{
+    const std::vector<std::string > econom_shops = {"../data/av.json"};
+    const std::vector<std::string > base_shops = {"../data/karusel.json"};
+    const std::vector<std::string > premium_shops = {"../data/spar.json"};
+}
 using search::product, search::Recipe;
 class ingredients_to_recipe {
 private:
@@ -26,17 +25,49 @@ private:
         res_of_request;  //топ 10 продуктов по запросу
     static std::vector<search::product> chosen_ingredients;  //продукты корзины
     static std::vector<search::Recipe>
+
         recommended_recipes;  //топ рекомендуемых рецептов, выданных по запросу
     // TODO static list<product>
     // chosen_bad_ingredients;
     // TODO static multiset<set_unit, comp> bad_ingredients;
     // TODO vector<string> popular_ingredients;
+    static size_t shop_mode;
 public:
     static size_t choose_category_shop(const std::string &s);
-    static void checking_prod_in_shop(
+    template <typename T>
+    static void checking_prod_or_rec_in_shop(
         const std::vector<uint32_t> &request,
         const std::string &file_name,
-        std::vector<search::product> &res, uint32_t size);
+        std::vector<T> &res, uint32_t size){
+        std::ifstream file(file_name);
+        json j = json::parse(file);
+        file.close();
+
+        std::multiset<search::set_unit<T>> top;
+        for (auto const &x : j) {
+            T cur_prod_or_rec(x);
+            std::string temp_name = x["Name"];
+            std::vector<uint32_t> second_str_codepoints;
+            try {
+                from_str_to_codepoint(temp_name, second_str_codepoints);
+            } catch (const InvalidString &) {
+                continue;
+            }
+            uint32_t in_amount = check_in(request, second_str_codepoints);
+            uint32_t leven_dist = levenshtein_algo(request, second_str_codepoints);
+            top.insert({in_amount, leven_dist, cur_prod_or_rec});
+
+            if (top.size() > size) {
+                auto it = top.end();
+                it--;
+                top.erase(it);
+            }
+        }
+
+        for (const auto &su : top) {
+            res.push_back(su.product_);
+        }
+    }
 
     static void stop_searching_ingredient();
 
@@ -65,7 +96,7 @@ public:
         std::vector<search::product> &basket,
         search::product &prod);
     // find
-    static size_t shop_mode;
+
 };
 
 class recipe_to_ingredients {
@@ -84,14 +115,16 @@ public:
 
     static void cancel_choice();
 
-    friend void search::search_recipe(const std::string &input_string,
+    friend void search_recipe(const std::string &input_string,
                                       uint32_t size,
                                       std::vector<search::Recipe> &vec);
 };
 void get_prod_top_by_name(std::string &input_string,
                           std::vector<product> &vec,
                           uint32_t size);
-
+void search_recipe(const string &input_string,
+                   uint32_t size,
+                   std::vector<Recipe> &vec);
 
 }  // namespace API
 

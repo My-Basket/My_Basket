@@ -164,45 +164,10 @@ void get_recipes(const std::vector<product> &ingredients,
     }
 }
 
+
 std::string get_recipe_name(search::Recipe &recipe) {
     return recipe.name;
 }
 
-void search_recipe(const string &input_string,
-                   uint32_t size,
-                   std::vector<Recipe> &vec) {
-    std::ifstream file("../data/recipes.json");
-    json j = json::parse(file);
-    file.close();
-
-    std::vector<uint32_t> first_str_codepoints;
-    from_str_to_codepoint(input_string, first_str_codepoints);
-
-    std::multiset<set_unit<Recipe>> top;
-
-    for (const json &x : j) {
-        Recipe cur_recipe(x);
-        std::string temp_name = cur_recipe.name;
-
-        std::vector<uint32_t> second_str_codepoints;
-        from_str_to_codepoint(cur_recipe.name, second_str_codepoints);
-
-        uint32_t in_amount =
-            check_in(first_str_codepoints, second_str_codepoints);
-        uint32_t leven_dist =
-            levenshtein_algo(first_str_codepoints, second_str_codepoints);
-
-        top.insert({in_amount, leven_dist, cur_recipe});
-
-        if (top.size() > size) {
-            auto it = top.end();
-            it--;
-            top.erase(it);
-        }
-    }
-    for (const auto &su : top) {
-        vec.push_back(su.product_);
-    }
-}
 
 }  // namespace search
