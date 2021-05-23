@@ -47,10 +47,7 @@ public:
     product &operator=(const json &j);
 
     bool operator==(const product &p) const;
-
-    friend void get_prod_top_by_name(std::string &input_string,
-                                     uint32_t size,
-                                     std::vector<product> &vec);
+    [[nodiscard]] std::string get_name() const;
 
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,
@@ -59,6 +56,7 @@ public:
     friend std::string get_product_name(product const &prod);
 
     friend std::ostream &operator<<(std::ostream &os, const product &p);
+
 
     ~product() = default;
 };
@@ -103,9 +101,7 @@ public:
 
     friend std::string get_recipe_name(Recipe &recipe);
 };
-void get_prod_top_by_name(std::string &input_string,
-                          uint32_t size,
-                          std::vector<product> &vec);
+
 void get_recipes(const std::vector<product> &ingredients,
                  uint32_t size,
                  std::vector<Recipe> &vec);
@@ -119,5 +115,12 @@ void put_product_in_basket(std::vector<search::product> &basket,
 std::string get_recipe_name(Recipe &recipe);
 
 }  // namespace search
-
+uint32_t levenshtein_algo(const std::vector<uint32_t> &first_str,
+                          const std::vector<uint32_t> &second_str,
+                          int deletion = 10,
+                          int insertion = 10,
+                          int substitution = 30,
+                          int transposition = 30);
+uint32_t check_in(const std::vector<uint32_t> &first_str,
+                  const std::vector<uint32_t> &second_str);
 #endif  // MY_BASKET_SEARCH_ENGINE_H

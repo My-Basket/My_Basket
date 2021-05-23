@@ -114,7 +114,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QBrush image_basket_background(QImage(":/image_basket2.jpg"));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
@@ -169,10 +169,10 @@ void RecipeBook::find_product_func() {
 
     //запуск поиска
     res_of_request_products.clear();
-    functions::ingredients_to_recipe::run_product_search(
+    API::ingredients_to_recipe::run_product_search(
         product_name_line->text().toStdString(), 10, res_of_request_products);
     res_of_request_products =
-        functions::ingredients_to_recipe::show_res_of_request();
+        API::ingredients_to_recipe::show_res_of_request();
 
     //    for (auto &prod : res_of_request) {
     //        QString res_product =
@@ -251,9 +251,9 @@ void RecipeBook::find_recipe_func() {
 
     res_of_request_recipes.clear();
     std::vector<search::Recipe> vec2;
-    functions::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
+    API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
                                                          vec2);
-    res_of_request_recipes = functions::ingredients_to_recipe::show_recipes();
+    res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
 
     std::stringstream ss;
     ss << res_of_request_recipes[0];
