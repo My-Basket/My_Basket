@@ -34,7 +34,7 @@ public:
 
 public slots:
     void go_to_recipe_book();
-    //void set_chosen_category(/*std::string &category*/);
+    // void set_chosen_category(/*std::string &category*/);
     void choose_economy();
     void choose_base();
     void choose_premium();
@@ -47,6 +47,8 @@ private:
     QPushButton *premium_button;
     QPushButton *go_to_searching_button;
     QLabel *choose_category_label;
+
+    std::string chosen_category;
 };
 }  // namespace Ui
 

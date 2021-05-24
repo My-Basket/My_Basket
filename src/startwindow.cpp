@@ -152,14 +152,9 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     this->setFixedSize(1000, 600);
 }
 
-// void CategoryWindow::set_chosen_category(/*std::string &category*/) {
-//    // recipe_book->set_category(category);
-//    // go_to_searching_button->show();
-//    std::cout << "set chosen category function" << '\n';
-//}
-
 void CategoryWindow::choose_economy() {
     economy_button->setEnabled(false);
+    chosen_category = "economy";
 
     //обновить цвет других
     base_button->setEnabled(true);
@@ -188,6 +183,7 @@ void CategoryWindow::choose_economy() {
 
 void CategoryWindow::choose_base() {
     base_button->setEnabled(false);
+    chosen_category = "base";
 
     economy_button->setEnabled(true);
     economy_button->setStyleSheet(
@@ -215,6 +211,7 @@ void CategoryWindow::choose_base() {
 
 void CategoryWindow::choose_premium() {
     premium_button->setEnabled(false);
+    chosen_category = "premium";
 
     ///мб функцию обновления от трех параметров -- цвета в нужном порядке
     economy_button->setEnabled(true);
