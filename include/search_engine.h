@@ -8,6 +8,11 @@
 #include "iostream"
 #include <fstream>
 #include "work_with_string.h"
+uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
+                          std::vector<uint32_t> &second_str);
+
+uint32_t check_in(std::vector<uint32_t> &first_str,
+                  std::vector<uint32_t> &second_str);
 namespace search {
 
 template <typename T>
@@ -50,8 +55,13 @@ public:
     ~product() = default;
 
     bool operator==(const product &p) const;
+  
     [[nodiscard]] std::string get_name() const;
     [[nodiscard]] uint32_t get_price() const;
+
+    friend void get_prod_top_by_name(std::string &input_string,
+                                     uint32_t size,
+                                     std::vector<product> &vec);
 
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,

@@ -2,6 +2,8 @@
 #include <cassert>
 #include <fstream>
 #include "work_with_string.h"
+//namespace {
+
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
         a = b;
@@ -59,7 +61,13 @@ uint32_t check_in(const std::vector<uint32_t> &first_str,
     return max_amount;
 }
 
+//}  // namespace
+
 namespace search {
+
+std::string product::get_name() const {
+    return name;
+}
 
 std::ostream &operator<<(std::ostream &os, const product &p) {
     os<< "Name: " << p.name << '\n'
@@ -68,11 +76,26 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
     return os;
 }
 
+void get_prod_top_by_name(std::string &input_string,
+                          uint32_t size,
+                          std::vector<product> &vec) {
+    std::ifstream file("../data/spar.json");
+    json j = json::parse(file);
+    file.close();
+
+    std::vector<uint32_t> first_str_codepoints;
+    from_str_to_codepoint(input_string, first_str_codepoints);
 
 
 product::product(std::string name_, std::string category_, uint32_t price_)
     : name(std::move(name_)), category(std::move(category_)), price(price_) {
 }
+
+product::product(std::string name_, std::string category_, uint32_t price_)
+    : name(std::move(name_)), category(std::move(category_)), price(price_) {
+}
+
+
 product::product(const json &j) {
     try {
         name = j["Name"];
@@ -82,12 +105,15 @@ product::product(const json &j) {
         assert((false, "Invalid cast from json to product"));
     }
 }
+
 std::string product::get_name() const {
     return name;
 }
+
 uint32_t product::get_price() const {
     return price;
 }
+
 product &product::operator=(const json &j) {
     try {
         name = j["Name"];
@@ -98,9 +124,11 @@ product &product::operator=(const json &j) {
         throw;
     }
 }
+
 bool product::operator==(const product &p) const {
     return p.name == name;
 }
+
 std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>> Recipe::sum_price_of_rec_prod(const std::string &file_name) {
 
     std::vector<std::pair<std::string, uint32_t>> price_of_prod(ingredients.size(), {"", 10000});
@@ -123,6 +151,7 @@ std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>> Recipe::sum_p
     return {sum, price_of_prod};
 
 }
+
 Recipe::Recipe(const json &j) : name(j["Name"]) {
     for (const json &v : j["Ingredients"]) {
         ingredients.emplace_back(v);
@@ -158,6 +187,42 @@ void get_recipes(const std::vector<product> &ingredients,
 
     vec.clear();
 
+    std::multiset<set_unit<Recipe>> top;
+    for (const json &x : j) {
+        uint32_t max = 0;
+        Recipe R(x);
+        for (const product &p : ingredients) {
+            if (R.is_ingredient_in_recipe(p)) {
+                max++;
+            }
+        }
+        top.insert({max,0, R});
+
+        if (top.size() > size) {
+            auto it = top.end();
+            it--;
+            top.erase(it);
+        }
+    }
+
+    for (const auto &x: top) {
+        vec.push_back(x.product_); /// TODO CHANGE SET UNIT PRODUCT_ TO CONTENT_
+    }
+}
+
+std::string get_recipe_name(search::Recipe &recipe) {
+    return recipe.name;
+}
+
+void search_recipe(const string &input_string,
+                   uint32_t size,
+                   std::vector<Recipe> &vec) {
+    std::ifstream file("../data/recipes.json");
+    json j = json::parse(file);
+    file.close();
+
+    std::vector<uint32_t> first_str_codepoints;
+    from_str_to_codepoint(input_string, first_str_codepoints);
 
     std::multiset<set_unit<Recipe>> top;
     for (const json &x : j) {
