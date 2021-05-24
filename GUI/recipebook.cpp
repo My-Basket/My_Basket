@@ -7,6 +7,7 @@
 #include <QSizePolicy>
 #include <sstream>
 #include "algo.h"
+#include "startwindow.h"
 
 namespace Ui {
 
@@ -36,24 +37,15 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     //экземпляры кнопок правой панели
     add_product_button = new QPushButton(tr("&add product"));
-    add_product_button->setStyleSheet(
-        "QPushButton { background-color : #172030; color : white; "
-        "border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    set_font_color_button(add_product_button, "#172030", 18);
     add_product_button->show();
 
     find_product_button = new QPushButton(tr("&find product"));
-    find_product_button->setStyleSheet(
-        "QPushButton { background-color : #172030; color : white; "
-        "border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    set_font_color_button(find_product_button, "#172030", 18);
     find_product_button->hide();
 
     put_in_basket_button = new QPushButton(tr("&put in basket"));
-    put_in_basket_button->setStyleSheet(
-        "QPushButton { background-color : #172030; color : white; "
-        "border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    set_font_color_button(put_in_basket_button, "#172030", 18);
     put_in_basket_button->hide();
 
     find_recipe_button = new QPushButton(tr("&find recipe"));
@@ -92,7 +84,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
         "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     previous_button->hide();
 
-    //API::ingredients_to_recipe::choose_category_shop(category);
+    // API::ingredients_to_recipe::choose_category_shop(category);
 
     // TODO: можно ли избавиться от копипаста и вынести это в функцию с
     // параметрами (название кнопки (1), ф-я(4))
@@ -202,8 +194,7 @@ void RecipeBook::find_product_func() {
     res_of_request_products.clear();
     API::ingredients_to_recipe::run_product_search(
         product_name_line->text().toStdString(), 10, res_of_request_products);
-    res_of_request_products =
-        API::ingredients_to_recipe::show_res_of_request();
+    res_of_request_products = API::ingredients_to_recipe::show_res_of_request();
 
     //    for (auto &prod : res_of_request) {
     //        QString res_product =
@@ -285,7 +276,7 @@ void RecipeBook::find_recipe_func() {
     res_of_request_recipes.clear();
     std::vector<search::Recipe> vec2;
     API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
-                                                         vec2);
+                                                   vec2);
     res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
 
     std::stringstream ss;

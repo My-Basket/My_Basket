@@ -50,6 +50,12 @@ private:
 
     std::string chosen_category;
 };
+
+void set_font_color_button(QPushButton *button,
+                           std::string const &bg_color,
+                           int font_size = 20,
+                           int enabled = -1,
+                           std::string const &font = "");
 }  // namespace Ui
 
 #endif  // MY_BASKET_STARTWINDOW_H

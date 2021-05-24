@@ -10,9 +10,9 @@ namespace Ui {
 
 void set_font_color_button(QPushButton *button,
                            std::string const &bg_color,
-                           int font_size = 20,
-                           int enabled = -1,
-                           std::string const &font = "") {
+                           int font_size,
+                           int enabled,
+                           std::string const &font) {
     std::string s = "QPushButton { background-color : " + bg_color +
                     "; color : white; border-width: 5px; border-radius: 10px; "
                     "padding: 6px; font-size: " +
@@ -134,14 +134,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 
     //переход к recipe_book
     recipe_book = new RecipeBook();
-    //    connect(economy_button, SIGNAL(clicked()), this,
-    //            SLOT(set_chosen_category(/*"economy"*/)));
-    //    connect(base_button, SIGNAL(clicked()), this,
-    //            SLOT(set_chosen_category(/*"base"*/)));
-    //    connect(premium_button, SIGNAL(clicked()), this,
-    //            SLOT(set_chosen_category(/*"premium"*/)));
-    //    connect(go_to_searching_button, SIGNAL(clicked()), this,
-    //            SLOT(go_to_recipe_book()));
+
     connect(economy_button, SIGNAL(clicked()), this, SLOT(choose_economy()));
     connect(base_button, SIGNAL(clicked()), this, SLOT(choose_base()));
     connect(premium_button, SIGNAL(clicked()), this, SLOT(choose_premium()));
@@ -180,7 +173,6 @@ void CategoryWindow::choose_base() {
 }
 
 void CategoryWindow::choose_premium() {
-    premium_button->setEnabled(false);
     chosen_category = "premium";
 
     set_font_color_button(economy_button, "#FF7699", 20, true);
