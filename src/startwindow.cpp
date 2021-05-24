@@ -7,6 +7,27 @@
 #include <iostream>
 
 namespace Ui {
+
+void set_font_color_button(QPushButton *button,
+                           std::string const &bg_color,
+                           int font_size = 20,
+                           int enabled = -1,
+                           std::string const &font = "") {
+    std::string s = "QPushButton { background-color : " + bg_color +
+                    "; color : white; border-width: 5px; border-radius: 10px; "
+                    "padding: 6px; font-size: " +
+                    std::to_string(font_size) + "px;";
+    if (font != "") {
+        s += " font-size: " + font;
+    }
+    s += "}";
+    button->setStyleSheet(s.c_str());
+
+    if (enabled != -1) {
+        button->setEnabled(enabled);
+    }
+}
+
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
     QPalette plt = this->palette();
@@ -14,11 +35,12 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     this->setPalette(plt);
 
     start_button = new QPushButton(tr("start shopping!"));
-    start_button->setStyleSheet(
-        "QPushButton { background-color : #FF7699; color : white; "
-        "border-width: "
-        "5px; border-radius: 10px; padding: 6px; font-size: 30px;}");
-    start_button->setEnabled(true);
+    //    start_button->setStyleSheet(
+    //        "QPushButton { background-color : #FF7699; color : white; "
+    //        "border-width: "
+    //        "5px; border-radius: 10px; padding: 6px; font-size: 30px;}");
+    //    start_button->setEnabled(true);
+    set_font_color_button(start_button, "#FF7699", 30, true);
     start_button->show();  // 522030
 
     my_basket_label = new QLabel(tr("My_Basket"));
@@ -90,31 +112,19 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     choose_category_label->setMargin(55);
 
     economy_button = new QPushButton(tr("economy"));
-    economy_button->setStyleSheet(
-        "QPushButton { background-color : #FF7699; color : white; "
-        "border-width: "
-        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+    set_font_color_button(economy_button, "#FF7699", 20);
     economy_button->show();  // 522030
 
     base_button = new QPushButton(tr("base"));
-    base_button->setStyleSheet(
-        "QPushButton { background-color : #FF7699; color : white; "
-        "border-width: "
-        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+    set_font_color_button(base_button, "#FF7699", 20);
     base_button->show();  // 522030
 
     premium_button = new QPushButton(tr("premium"));
-    premium_button->setStyleSheet(
-        "QPushButton { background-color : #FF7699; color : white; "
-        "border-width: "
-        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+    set_font_color_button(premium_button, "#FF7699", 20);
     premium_button->show();  // 522030
 
     go_to_searching_button = new QPushButton(tr("go to searching!"));
-    go_to_searching_button->setStyleSheet(
-        "QPushButton { background-color : #FF9899; color : white; "
-        "border-width: "
-        "5px; border-radius: 10px; padding: 6px; font-size: 20px;}");
+    set_font_color_button(go_to_searching_button, "#FF9899", 20);
     go_to_searching_button->show();  // 522030
 
     QHBoxLayout *button_layout = new QHBoxLayout;
