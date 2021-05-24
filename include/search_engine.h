@@ -8,6 +8,12 @@
 #include <string>
 #include "json.hpp"
 
+uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
+                          std::vector<uint32_t> &second_str);
+
+uint32_t check_in(std::vector<uint32_t> &first_str,
+                  std::vector<uint32_t> &second_str);
+
 namespace search {
 
 template <typename T>
@@ -46,6 +52,8 @@ public:
     product &operator=(const json &j);
 
     bool operator==(const product &p) const;
+
+    std::string get_name() const;
 
     friend void get_prod_top_by_name(std::string &input_string,
                                      uint32_t size,
