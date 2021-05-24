@@ -49,39 +49,24 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     put_in_basket_button->hide();
 
     find_recipe_button = new QPushButton(tr("&find recipe"));
-    find_recipe_button->setStyleSheet(
-        "QPushButton { background-color : #172030; color : white; "
-        "border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    set_font_color_button(find_recipe_button, "#172030", 18);
     find_recipe_button->hide();
 
     check_basket_button = new QPushButton(tr("&check basket"));
-    check_basket_button->setStyleSheet(
-        "QPushButton { background-color : #172030; color : white; "
-        "border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    set_font_color_button(check_basket_button, "#172030", 18);
     check_basket_button->show();
 
     choose_recipe_button = new QPushButton(tr("&choose recipe"));
-    choose_recipe_button->setStyleSheet(
-        "QPushButton { background-color : #172030; color : white; "
-        "border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    set_font_color_button(choose_recipe_button, "#172030", 18);
     choose_recipe_button->hide();
 
     //экземпляры кнопок нижней панели
     next_button = new QPushButton(tr("&next"));
-    next_button->setStyleSheet(
-        "QPushButton { background-color : #00CC66; color : white; "
-        "border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    set_font_color_button(next_button, "#00CC66", 18);
     next_button->hide();  // FFD700
 
     previous_button = new QPushButton(tr("&previous"));
-    previous_button->setStyleSheet(
-        "QPushButton { background-color : #00CC66; color : white; "
-        "border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    set_font_color_button(previous_button, "#00CC66", 18);
     previous_button->hide();
 
     // API::ingredients_to_recipe::choose_category_shop(category);
@@ -366,10 +351,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     this->setPalette(plt);
 
     end_program_button = new QPushButton(tr("end program"));
-    end_program_button->setStyleSheet(
-        "QPushButton { background-color : #FF7699; color : white; "
-        "border-width: "
-        "5px; border-radius: 10px; padding: 6px; font-size: 30px;}");
+    set_font_color_button(end_program_button, "#FF7699", 30);
     end_program_button->show();  // 522030
 
     best_total_cost_label = new QLabel(tr("best total cost:"));

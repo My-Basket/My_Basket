@@ -17,7 +17,7 @@ void set_font_color_button(QPushButton *button,
                     "; color : white; border-width: 5px; border-radius: 10px; "
                     "padding: 6px; font-size: " +
                     std::to_string(font_size) + "px;";
-    if (font != "") {
+    if (!font.empty()) {
         s += " font-size: " + font;
     }
     s += "}";
@@ -27,6 +27,8 @@ void set_font_color_button(QPushButton *button,
         button->setEnabled(enabled);
     }
 }
+
+// void set_font_color_label(QLabel *label, )
 
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
