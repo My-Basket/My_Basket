@@ -7,7 +7,7 @@
 #include <fstream>
 #include "work_with_string.h"
 
-namespace {
+//namespace {
 
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
@@ -57,9 +57,13 @@ uint32_t check_in(std::vector<uint32_t> &first_str,
     }
     return max_amount;
 }
-}  // namespace
+//}  // namespace
 
 namespace search {
+
+std::string product::get_name() const {
+    return name;
+}
 
 std::ostream &operator<<(std::ostream &os, const product &p) {
     os << "{\n"
@@ -76,7 +80,7 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
 void get_prod_top_by_name(std::string &input_string,
                           uint32_t size,
                           std::vector<product> &vec) {
-    std::ifstream file("../data/av.json");
+    std::ifstream file("../data/spar.json");
     json j = json::parse(file);
     file.close();
 

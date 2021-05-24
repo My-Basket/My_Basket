@@ -1,44 +1,95 @@
 // You may need to build the project (run Qt uic code generator) to get
-// "ui_RecipeBook.h" resolved -- запускается и без этого
-
 #include "recipebook.h"
-#include "algo.h"
-//#include "ui_RecipeBook.h"
-
+#include <QBrush>
 #include <QGridLayout>
 #include <QMessageBox>
+#include <QPalette>
+#include <QSizePolicy>
 #include <sstream>
+#include "algo.h"
+
+namespace Ui {
 
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label = new QLabel(tr("product or dish:"));
+    product_name_label->setStyleSheet(
+        "QLabel { background-color : #359530; color : white; border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 28px;}");
+    product_name_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
+    product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
+                                      QSizePolicy::Expanding);
     product_name_line = new QLineEdit;
+    product_name_line->setMinimumHeight(30);
+    product_name_line->setStyleSheet("QLineEdit { font-size: 20px;}");
     product_name_line->setReadOnly(true);
 
     recipe_label = new QLabel(tr("possible to take:"));
+    recipe_label->setStyleSheet(
+        "QLabel { background-color : #359530; color : white; border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 28px;}");
+    recipe_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
+    recipe_label->setSizePolicy(QSizePolicy::MinimumExpanding,
+                                QSizePolicy::Expanding);
     recipe_text = new QTextEdit;
+    recipe_text->setFontPointSize(18);
     recipe_text->setReadOnly(true);
 
     //экземпляры кнопок правой панели
     add_product_button = new QPushButton(tr("&add product"));
+    add_product_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; "
+        "border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     add_product_button->show();
 
     find_product_button = new QPushButton(tr("&find product"));
+    find_product_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; "
+        "border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     find_product_button->hide();
 
     put_in_basket_button = new QPushButton(tr("&put in basket"));
+    put_in_basket_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; "
+        "border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     put_in_basket_button->hide();
 
     find_recipe_button = new QPushButton(tr("&find recipe"));
+    find_recipe_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; "
+        "border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     find_recipe_button->hide();
 
     check_basket_button = new QPushButton(tr("&check basket"));
+    check_basket_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; "
+        "border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     check_basket_button->show();
+
+    choose_recipe_button = new QPushButton(tr("&choose recipe"));
+    choose_recipe_button->setStyleSheet(
+        "QPushButton { background-color : #172030; color : white; "
+        "border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    choose_recipe_button->hide();
 
     //экземпляры кнопок нижней панели
     next_button = new QPushButton(tr("&next"));
-    next_button->hide();
+    next_button->setStyleSheet(
+        "QPushButton { background-color : #00CC66; color : white; "
+        "border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    next_button->hide();  // FFD700
 
     previous_button = new QPushButton(tr("&previous"));
+    previous_button->setStyleSheet(
+        "QPushButton { background-color : #00CC66; color : white; "
+        "border-width: "
+        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
     previous_button->hide();
 
     // TODO: можно ли избавиться от копипаста и вынести это в функцию с
@@ -53,6 +104,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
             SLOT(find_recipe_func()));
     connect(check_basket_button, SIGNAL(clicked()), this,
             SLOT(check_basket_func()));
+    connect(choose_recipe_button, SIGNAL(clicked()), this,
+            SLOT(choose_recipe_func()));
     connect(next_button, SIGNAL(clicked()), this, SLOT(next_func()));
     connect(previous_button, SIGNAL(clicked()), this, SLOT(previous_func()));
 
@@ -63,6 +116,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     button_layout1->addWidget(put_in_basket_button);
     button_layout1->addWidget(find_recipe_button);
     button_layout1->addWidget(check_basket_button);
+    button_layout1->addWidget(choose_recipe_button);
     button_layout1
         ->addStretch();  //разместить кнопки ближе к верхней части экрана
 
@@ -83,6 +137,12 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
+
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
+    this->setFixedSize(1000, 600);
 }
 
 void RecipeBook::add_product_func() {
@@ -99,6 +159,11 @@ void RecipeBook::add_product_func() {
     recipe_text->setReadOnly(false);
 
     add_product_button->setEnabled(false);
+    //    add_product_button->setStyleSheet(
+    //        "QPushButton { background-color : #172030; color : white; "
+    //        "border-width: "
+    //        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+
     find_product_button->show();
     find_product_button->setEnabled(true);
     put_in_basket_button->hide();
@@ -162,7 +227,7 @@ void RecipeBook::find_product_func() {
 
 void RecipeBook::put_in_basket_func() {
     //добавление продукта в корзину по его номеру в массиве
-    //res_of_request_products
+    // res_of_request_products
     if (res_of_request_products.empty()) {
         return;
     }
@@ -207,6 +272,8 @@ void RecipeBook::find_recipe_func() {
     next_button->show();
     next_button->setEnabled(true);
     find_recipe_button->setEnabled(true);
+    choose_recipe_button->show();
+    choose_recipe_button->setEnabled(true);
 
     current_mode = FindRecipe_mode;
 
@@ -244,6 +311,13 @@ void RecipeBook::check_basket_func() {
         recipe_text->insertPlainText(static_cast<const QString>(res_product));
         recipe_text->insertPlainText("\n");
     }
+}
+
+void RecipeBook::choose_recipe_func() {
+    //переход к summary_window
+    summary_window = new SummaryWindow;
+    summary_window->show();
+    this->close();
 }
 
 void RecipeBook::previous_func() {
@@ -285,3 +359,72 @@ void RecipeBook::next_func() {
             QString::fromUtf8(get_recipe_name(recipe).c_str()));
     }
 }
+
+void RecipeBook::set_category(std::string &category_) {
+    category = category_;
+}
+
+SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
+
+    end_program_button = new QPushButton(tr("end program"));
+    end_program_button->setStyleSheet(
+        "QPushButton { background-color : #FF7699; color : white; "
+        "border-width: "
+        "5px; border-radius: 10px; padding: 6px; font-size: 30px;}");
+    end_program_button->show();  // 522030
+
+    best_total_cost_label = new QLabel(tr("best total cost:"));
+    best_total_cost_label->setStyleSheet(
+        "QLabel { color : black; border-width: "
+        "2px; border-radius: 5px; padding: 2px; font-size: 100px;}");
+    best_total_cost_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    best_total_cost_label->setMargin(10);
+
+    total_cost_number_label =
+        new QLabel((std::to_string(total_cost) + "₽").c_str());
+    total_cost_number_label->setStyleSheet(
+        "QLabel { color : black; border-width: "
+        "2px; border-radius: 5px; padding: 2px; font-size: 100px; font: "
+        "bold;}");
+    total_cost_number_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    total_cost_number_label->setMargin(10);
+
+    in_shop_label = new QLabel("in shop:");
+    in_shop_label->setStyleSheet(
+        "QLabel { color : black; border-width: "
+        "2px; border-radius: 5px; padding: 2px; font-size: 100px;}");
+    in_shop_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    in_shop_label->setMargin(10);
+
+    shop_name_label = new QLabel(shop_name.c_str());
+    shop_name_label->setStyleSheet(
+        "QLabel { color : black; border-width: "
+        "2px; border-radius: 5px; padding: 2px; font-size: 100px; font: "
+        "bold;}");
+    shop_name_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    shop_name_label->setMargin(10);
+
+    QGridLayout *main_layout = new QGridLayout;
+    main_layout->addWidget(best_total_cost_label);
+    main_layout->addWidget(total_cost_number_label);
+    main_layout->addWidget(in_shop_label);
+    main_layout->addWidget(shop_name_label);
+    main_layout->addWidget(end_program_button);
+
+    connect(end_program_button, SIGNAL(clicked()), this,
+            SLOT(end_program_func()));
+
+    setLayout(main_layout);
+    setWindowTitle(tr("My_Basket"));
+
+    this->setFixedSize(1000, 600);
+}
+
+void SummaryWindow::end_program_func() {
+    std::exit(0);
+}
+}  // namespace Ui
