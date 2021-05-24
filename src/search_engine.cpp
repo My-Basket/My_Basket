@@ -1,12 +1,7 @@
-//
-// Created by vladi on 18.02.2021.
-//
-
 #include "search_engine.h"
 #include <cassert>
 #include <fstream>
 #include "work_with_string.h"
-
 //namespace {
 
 void relax(uint32_t &a, uint32_t b) {
@@ -15,8 +10,12 @@ void relax(uint32_t &a, uint32_t b) {
     }
 }
 
-uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
-                          std::vector<uint32_t> &second_str) {
+uint32_t levenshtein_algo(const std::vector<uint32_t> &first_str,
+                          const std::vector<uint32_t> &second_str,
+                          int deletion,
+                          int insertion,
+                          int substitution,
+                          int transposition) {
     std::vector<std::vector<uint32_t>> f(
         first_str.size(), std::vector<uint32_t>(second_str.size(), 0));
 
@@ -27,18 +26,22 @@ uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
                 continue;
             }
 
-            int w = first_str[i] == second_str[j] ? 0 : 1;
+            int w = first_str[i] == second_str[j] ? 0 : substitution;
 
-            f[i][j] = f[i - 1][j] + 1;
-            relax(f[i][j], f[i][j - 1] + 1);
+            f[i][j] = f[i - 1][j] + deletion;
+            relax(f[i][j], f[i][j - 1] + insertion);
             relax(f[i][j], f[i - 1][j - 1] + w);
+            if (i >= 2 && j >= 2 && first_str[i - 1] == second_str[j] &&
+                first_str[i] == second_str[j - 1]) {
+                relax(f[i][j], f[i - 2][j - 2] + transposition);
+            }
         }
     }
     return f[first_str.size() - 1][second_str.size() - 1];
 }
 
-uint32_t check_in(std::vector<uint32_t> &first_str,
-                  std::vector<uint32_t> &second_str) {
+uint32_t check_in(const std::vector<uint32_t> &first_str,
+                  const std::vector<uint32_t> &second_str) {
     if (first_str.size() > second_str.size()) {
         return 0;
     }
@@ -57,6 +60,7 @@ uint32_t check_in(std::vector<uint32_t> &first_str,
     }
     return max_amount;
 }
+
 //}  // namespace
 
 namespace search {
@@ -66,14 +70,9 @@ std::string product::get_name() const {
 }
 
 std::ostream &operator<<(std::ostream &os, const product &p) {
-    os << "{\n"
+    os<< "Name: " << p.name << '\n'
        << "   "
-       << "Name: " << p.name << '\n'
-       << "   "
-       << "Category: " << p.category << '\n'
-       << "   "
-       << "Price: " << p.price << '\n'
-       << "}\n";
+       << "Price: " << p.price << '\n';
     return os;
 }
 
@@ -87,38 +86,16 @@ void get_prod_top_by_name(std::string &input_string,
     std::vector<uint32_t> first_str_codepoints;
     from_str_to_codepoint(input_string, first_str_codepoints);
 
-    std::multiset<set_unit<product>> top;
-    for (auto const &x : j) {
-        product cur_prod(x);
-        auto temp_name = cur_prod.name;
 
-        std::vector<uint32_t> second_str_codepoints;
-        from_str_to_codepoint(cur_prod.name, second_str_codepoints);
-
-        uint32_t in_amount =
-            check_in(first_str_codepoints, second_str_codepoints);
-        uint32_t leven_dist =
-            levenshtein_algo(first_str_codepoints, second_str_codepoints);
-        top.insert({in_amount, leven_dist, cur_prod});
-
-        if (top.size() > size) {
-            auto it = top.end();
-            it--;
-            top.erase(it);
-        }
-    }
-
-    for (const set_unit<product> &su : top) {
-        vec.push_back(su.product_);
-    }
-}
-
-std::string get_product_name(search::product const &prod) {
-    return prod.name;
-}
 product::product(std::string name_, std::string category_, uint32_t price_)
     : name(std::move(name_)), category(std::move(category_)), price(price_) {
 }
+
+product::product(std::string name_, std::string category_, uint32_t price_)
+    : name(std::move(name_)), category(std::move(category_)), price(price_) {
+}
+
+
 product::product(const json &j) {
     try {
         name = j["Name"];
@@ -127,6 +104,14 @@ product::product(const json &j) {
     } catch (...) {
         assert((false, "Invalid cast from json to product"));
     }
+}
+
+std::string product::get_name() const {
+    return name;
+}
+
+uint32_t product::get_price() const {
+    return price;
 }
 
 product &product::operator=(const json &j) {
@@ -139,8 +124,32 @@ product &product::operator=(const json &j) {
         throw;
     }
 }
+
 bool product::operator==(const product &p) const {
     return p.name == name;
+}
+
+std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>> Recipe::sum_price_of_rec_prod(const std::string &file_name) {
+
+    std::vector<std::pair<std::string, uint32_t>> price_of_prod(ingredients.size(), {"", 10000});
+    uint32_t sum = 0;
+    for(size_t i =0; i<ingredients.size(); i++){
+        std::vector<search::product> ingredient(1);
+        auto cur_prod_name = ingredients[i].get_name();
+        std::vector<uint32_t> first_str_codepoints;
+        try {
+            from_str_to_codepoint(cur_prod_name, first_str_codepoints); //TODO понять безопасная ли это операция здесь
+        } catch (const InvalidString &s) {
+            sum+=price_of_prod[i].second;
+            std::cerr << s.what();
+            continue;
+        }
+        search::checking_prod_or_rec_in_shop<search::product>(first_str_codepoints, file_name, ingredient, 1);
+        price_of_prod[i] = {ingredient[0].get_name(), ingredient[0].get_price()};
+        sum+=price_of_prod[i].second;
+    }
+    return {sum, price_of_prod};
+
 }
 
 Recipe::Recipe(const json &j) : name(j["Name"]) {
@@ -216,20 +225,15 @@ void search_recipe(const string &input_string,
     from_str_to_codepoint(input_string, first_str_codepoints);
 
     std::multiset<set_unit<Recipe>> top;
-
     for (const json &x : j) {
-        Recipe cur_recipe(x);
-        std::string temp_name = cur_recipe.name;
-
-        std::vector<uint32_t> second_str_codepoints;
-        from_str_to_codepoint(cur_recipe.name, second_str_codepoints);
-
-        uint32_t in_amount =
-            check_in(first_str_codepoints, second_str_codepoints);
-        uint32_t leven_dist =
-            levenshtein_algo(first_str_codepoints, second_str_codepoints);
-
-        top.insert({in_amount, leven_dist, cur_recipe});
+        uint32_t max = 0;
+        Recipe R(x);
+        for (const product &p : ingredients) {
+            if (R.is_ingredient_in_recipe(p)) {
+                max++;
+            }
+        }
+        top.insert({max, 0, R});
 
         if (top.size() > size) {
             auto it = top.end();
@@ -237,9 +241,17 @@ void search_recipe(const string &input_string,
             top.erase(it);
         }
     }
-    for (const auto &su : top) {
-        vec.push_back(su.product_);
+
+    for (const auto &x : top) {
+        vec.push_back(
+            x.product_);  /// TODO CHANGE SET UNIT PRODUCT_ TO CONTENT_
     }
 }
+
+
+std::string get_recipe_name(search::Recipe &recipe) {
+    return recipe.name;
+}
+
 
 }  // namespace search

@@ -1,3 +1,4 @@
+
 #include "startwindow.h"
 #include <QApplication>
 #include <QtGui>
@@ -10,5 +11,6 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     Ui::StartWindow start_window;
     start_window.show();
+
     return app.exec();
 }
