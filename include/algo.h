@@ -1,23 +1,25 @@
 #ifndef MY_BASKET_ALGO_H
 #define MY_BASKET_ALGO_H
-
 #include <fstream>
 #include <functional>
 #include <list>
 #include <set>
 #include <string>
 #include <vector>
+#include "json.hpp"
 #include "search_engine.h"
 #include "work_with_string.h"
+
 namespace API {
 
-//enum Request_Mode { RECIPE, PRODUCT};
+// enum Request_Mode { RECIPE, PRODUCT};
 enum Shop_Mode { ECONOMY, BASE, PREMIUM };
-namespace Data_files{
-    const std::vector<std::string > econom_shops = {"../data/av.json"};
-    const std::vector<std::string > base_shops = {"../data/karusel.json"};
-    const std::vector<std::string > premium_shops = {"../data/spar.json"};
-}
+class recipe_to_ingredients;
+namespace Data_files {
+const std::vector<std::string> econom_shops = {"../data/av.json"};
+const std::vector<std::string> base_shops = {"../data/karusel.json"};
+const std::vector<std::string> premium_shops = {"../data/spar.json"};
+}  // namespace Data_files
 using search::product, search::Recipe;
 class ingredients_to_recipe {
 private:
@@ -32,43 +34,11 @@ private:
     // TODO static multiset<set_unit, comp> bad_ingredients;
     // TODO vector<string> popular_ingredients;
     static size_t shop_mode;
+
 public:
     static size_t choose_category_shop(const std::string &s);
-    template <typename T>
-    static void checking_prod_or_rec_in_shop(
-        const std::vector<uint32_t> &request,
-        const std::string &file_name,
-        std::vector<T> &res, uint32_t size){
-        std::ifstream file(file_name);
-        json j = json::parse(file);
-        file.close();
 
-        std::multiset<search::set_unit<T>> top;
-        for (auto const &x : j) {
-            T cur_prod_or_rec(x);
-            std::string temp_name = x["Name"];
-            std::vector<uint32_t> second_str_codepoints;
-            try {
-                from_str_to_codepoint(temp_name, second_str_codepoints);
-            } catch (const InvalidString &) {
-                continue;
-            }
-            uint32_t in_amount = check_in(request, second_str_codepoints);
-            uint32_t leven_dist = levenshtein_algo(request, second_str_codepoints);
-            top.insert({in_amount, leven_dist, cur_prod_or_rec});
-
-            if (top.size() > size) {
-                auto it = top.end();
-                it--;
-                top.erase(it);
-            }
-        }
-
-        for (const auto &su : top) {
-            res.push_back(su.product_);
-        }
-    }
-
+    static int get_shop_mode();
     static void stop_searching_ingredient();
 
     static void discard_basket();
@@ -84,7 +54,8 @@ public:
         uint32_t size,
         std::vector<search::Recipe> &vec);
     static std::vector<search::Recipe> show_recipes();
-    friend void get_prod_top_by_name(std::string &input_string, std::vector<product> &vec,
+    friend void get_prod_top_by_name(std::string &input_string,
+                                     std::vector<product> &vec,
                                      uint32_t size);
 
     friend void search::get_recipes(
@@ -95,8 +66,7 @@ public:
     friend void search::put_product_in_basket(
         std::vector<search::product> &basket,
         search::product &prod);
-    // find
-
+    friend void get_recommended_recipes();
 };
 
 class recipe_to_ingredients {
@@ -114,10 +84,14 @@ public:
     static void stop_searching_recipe();
 
     static void cancel_choice();
+    static std::pair<std::pair<std::string, uint32_t>,
+                     std::vector<std::pair<std::string, uint32_t>>>
+    compare_prices_of_ingredients();
 
     friend void search_recipe(const std::string &input_string,
-                                      uint32_t size,
-                                      std::vector<search::Recipe> &vec);
+                              uint32_t size,
+                              std::vector<search::Recipe> &vec);
+    friend void get_recommended_recipes();
 };
 void get_prod_top_by_name(std::string &input_string,
                           std::vector<product> &vec,
@@ -125,6 +99,7 @@ void get_prod_top_by_name(std::string &input_string,
 void search_recipe(const string &input_string,
                    uint32_t size,
                    std::vector<Recipe> &vec);
+void get_recommended_recipes();
 
 }  // namespace API
 

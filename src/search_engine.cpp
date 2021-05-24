@@ -1,10 +1,7 @@
-
-
 #include "search_engine.h"
 #include <cassert>
 #include <fstream>
 #include "work_with_string.h"
-
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
         a = b;
@@ -72,9 +69,7 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
 }
 
 
-std::string get_product_name(search::product const &prod) {
-    return prod.name;
-}
+
 product::product(std::string name_, std::string category_, uint32_t price_)
     : name(std::move(name_)), category(std::move(category_)), price(price_) {
 }
@@ -90,6 +85,9 @@ product::product(const json &j) {
 std::string product::get_name() const {
     return name;
 }
+uint32_t product::get_price() const {
+    return price;
+}
 product &product::operator=(const json &j) {
     try {
         name = j["Name"];
@@ -103,7 +101,28 @@ product &product::operator=(const json &j) {
 bool product::operator==(const product &p) const {
     return p.name == name;
 }
+std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>> Recipe::sum_price_of_rec_prod(const std::string &file_name) {
 
+    std::vector<std::pair<std::string, uint32_t>> price_of_prod(ingredients.size(), {"", 10000});
+    uint32_t sum = 0;
+    for(size_t i =0; i<ingredients.size(); i++){
+        std::vector<search::product> ingredient(1);
+        auto cur_prod_name = ingredients[i].get_name();
+        std::vector<uint32_t> first_str_codepoints;
+        try {
+            from_str_to_codepoint(cur_prod_name, first_str_codepoints); //TODO понять безопасная ли это операция здесь
+        } catch (const InvalidString &s) {
+            sum+=price_of_prod[i].second;
+            std::cerr << s.what();
+            continue;
+        }
+        search::checking_prod_or_rec_in_shop<search::product>(first_str_codepoints, file_name, ingredient, 1);
+        price_of_prod[i] = {ingredient[0].get_name(), ingredient[0].get_price()};
+        sum+=price_of_prod[i].second;
+    }
+    return {sum, price_of_prod};
+
+}
 Recipe::Recipe(const json &j) : name(j["Name"]) {
     for (const json &v : j["Ingredients"]) {
         ingredients.emplace_back(v);

@@ -17,8 +17,14 @@ int main(int argc, char *argv[]) {
     std::vector<search::Recipe> vec2;
     API::ingredients_to_recipe::run_recipes_search(top_product, 10, vec2);
     auto top_recipes = API::ingredients_to_recipe::show_recipes();
-    for (const auto &t : top_recipes) {
-        //std::cout <<t;
+    API::get_recommended_recipes();
+    API::recipe_to_ingredients::choose_recipe(0);
+    auto t = API::recipe_to_ingredients::compare_prices_of_ingredients();
+    std::cout<<"\n----------------------------------------------------------";
+    std::cout<<"\n"<<"The best shop: "<<t.first.first<<"\n";
+    std::cout<<"\n"<<"Result sum: "<<t.first.second<<"\n";
+    for(auto x: t.second){
+        std::cout<<x.first<<": "<<x.second<<"\n";
     }
 
     // RecipeBook recipebook;

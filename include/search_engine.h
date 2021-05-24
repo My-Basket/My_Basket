@@ -5,7 +5,9 @@
 #include <set>
 #include <string>
 #include "json.hpp"
-
+#include "iostream"
+#include <fstream>
+#include "work_with_string.h"
 namespace search {
 
 template <typename T>
@@ -28,7 +30,7 @@ class product {
 private:
     std::string name;
     std::string category;
-    uint32_t price = 0;
+    uint32_t price;
 
 public:
 
@@ -49,12 +51,12 @@ public:
 
     bool operator==(const product &p) const;
     [[nodiscard]] std::string get_name() const;
+    [[nodiscard]] uint32_t get_price() const;
 
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,
                             std::vector<Recipe> &vec);
 
-    friend std::string get_product_name(product const &prod);
 
 
     friend std::ostream &operator<<(std::ostream &os, const product &p);
@@ -85,22 +87,53 @@ public:
 
     bool is_ingredient_in_recipe(
         const product &ingredient);  //проверка на наличие ингредиента в рецепте
+    std::pair<uint32_t , std::vector<std::pair<std::string, uint32_t>>> sum_price_of_rec_prod(const std::string & file_name);
 
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,
                             std::vector<Recipe> &vec);
-    //получает на вход продукты, сует в recommended recipes класса
-    // ingredients_to_recipes топ 10 лучших рецептов
 
-
-
-    //ищет рецепт по введённой строке, сует в recipes_request класса
-    // recipes_to_ingredients топ 10 лучших рецептов
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
 
     friend std::string get_recipe_name(Recipe &recipe);
-};
 
+};
+template <typename T>
+void checking_prod_or_rec_in_shop(
+    const std::vector<uint32_t> &request,
+    const std::string &file_name,
+    std::vector<T> &res,
+    uint32_t size) {
+    std::ifstream file(file_name);
+    json j = json::parse(file);
+    file.close();
+
+    std::multiset<search::set_unit<T>> top;
+    for (auto const &x : j) {
+        T cur_prod_or_rec(x);
+        std::string temp_name = x["Name"];
+        std::vector<uint32_t> second_str_codepoints;
+        try {
+            from_str_to_codepoint(temp_name, second_str_codepoints);
+        } catch (const InvalidString &) {
+            continue;
+        }
+        uint32_t in_amount = check_in(request, second_str_codepoints);
+        uint32_t leven_dist =
+            levenshtein_algo(request, second_str_codepoints);
+        top.insert({in_amount, leven_dist, cur_prod_or_rec});
+
+        if (top.size() > size) {
+            auto it = top.end();
+            it--;
+            top.erase(it);
+        }
+    }
+
+    for (const auto &su : top) {
+        res.push_back(su.product_);
+    }
+}
 void get_recipes(const std::vector<product> &ingredients,
                  uint32_t size,
                  std::vector<Recipe> &vec);

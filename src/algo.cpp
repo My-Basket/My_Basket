@@ -23,20 +23,20 @@ void API::get_prod_top_by_name(std::string &input_string,
     switch (API::ingredients_to_recipe::shop_mode) {
         case API::Shop_Mode::ECONOMY:
             for (const auto &sh : API::Data_files::econom_shops) {
-                API::ingredients_to_recipe::checking_prod_or_rec_in_shop<
-                    search::product>(first_str_codepoints, sh, vec, size);
+                search::checking_prod_or_rec_in_shop<search::product>(
+                    first_str_codepoints, sh, vec, size);
             }
             break;
         case API::Shop_Mode::BASE:
             for (const auto &sh : API::Data_files::base_shops) {
-                API::ingredients_to_recipe::checking_prod_or_rec_in_shop<
-                    search::product>(first_str_codepoints, sh, vec, size);
+                search::checking_prod_or_rec_in_shop<search::product>(
+                    first_str_codepoints, sh, vec, size);
             }
             break;
         case API::Shop_Mode::PREMIUM:
             for (const auto &sh : API::Data_files::premium_shops) {
-                API::ingredients_to_recipe::checking_prod_or_rec_in_shop<
-                    search::product>(first_str_codepoints, sh, vec, size);
+                search::checking_prod_or_rec_in_shop<search::product>(
+                    first_str_codepoints, sh, vec, size);
             }
             break;
     }
@@ -51,7 +51,7 @@ void API::search_recipe(const string &input_string,
         std::cerr << s.what();
         return;
     }
-    API::ingredients_to_recipe::checking_prod_or_rec_in_shop<search::Recipe>(
+    search::checking_prod_or_rec_in_shop<search::Recipe>(
         first_str_codepoints, "../data/recipes.json", vec, size);
 }
 void API::ingredients_to_recipe::run_product_search(
@@ -105,6 +105,9 @@ void API::recipe_to_ingredients::run_recipe_search(
 std::vector<search::Recipe> API::recipe_to_ingredients::show_recipes() {
     return recipes_request;
 }
+int API::ingredients_to_recipe::get_shop_mode() {
+    return shop_mode;
+}
 void API::recipe_to_ingredients::cancel_choice() {
     chosen_recipe.clear();
 }
@@ -113,4 +116,68 @@ void API::recipe_to_ingredients::stop_searching_recipe() {
 }
 void API::recipe_to_ingredients::choose_recipe(uint32_t num) {
     chosen_recipe = recipes_request[num];  // TODO понять, как получать номер
+}
+void API::get_recommended_recipes() {
+    recipe_to_ingredients::recipes_request =
+        ingredients_to_recipe::recommended_recipes;
+}
+std::pair<std::pair<std::string, uint32_t>,
+          std::vector<std::pair<std::string, uint32_t>>>
+API::recipe_to_ingredients::compare_prices_of_ingredients() {
+    int min_sum = 0;
+    bool flag = true;
+    size_t min_ind = 0;
+    switch (ingredients_to_recipe::get_shop_mode()) {
+        case Shop_Mode::ECONOMY:
+            for (size_t i = 0; i < Data_files::econom_shops.size(); i++) {
+                auto cur_sum =
+                    chosen_recipe
+                        .sum_price_of_rec_prod(Data_files::econom_shops[i])
+                        .first;
+                if (cur_sum < min_sum || flag) {
+                    flag = false;
+                    min_sum = cur_sum;
+                    min_ind = i;
+                }
+            }
+            return {
+                {Data_files::econom_shops[min_ind], min_sum},
+                chosen_recipe
+                    .sum_price_of_rec_prod(Data_files::econom_shops[min_ind])
+                    .second};
+        case Shop_Mode::BASE:
+            for (size_t i = 0; i < Data_files::base_shops.size(); i++) {
+                auto cur_sum =
+                    chosen_recipe
+                        .sum_price_of_rec_prod(Data_files::base_shops[i])
+                        .first;
+                if (cur_sum < min_sum || flag) {
+                    flag = false;
+                    min_sum = cur_sum;
+                    min_ind = i;
+                }
+            }
+            return {{Data_files::base_shops[min_ind], min_sum},
+                    chosen_recipe
+                        .sum_price_of_rec_prod(Data_files::base_shops[min_ind])
+                        .second};
+        case Shop_Mode::PREMIUM:
+            for (size_t i = 0; i < Data_files::premium_shops.size(); i++) {
+                auto cur_sum =
+                    chosen_recipe
+                        .sum_price_of_rec_prod(Data_files::premium_shops[i])
+                        .first;
+                if (cur_sum < min_sum || flag) {
+                    flag = false;
+                    min_sum = cur_sum;
+                    min_ind = i;
+                }
+            }
+            return {
+                {Data_files::premium_shops[min_ind], min_sum},
+                chosen_recipe
+                    .sum_price_of_rec_prod(Data_files::premium_shops[min_ind])
+                    .second};
+    }
+    return {{}, {}};
 }
