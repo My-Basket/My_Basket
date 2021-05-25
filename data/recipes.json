@@ -1,165 +1,799 @@
 [
   {
-    "Name": "Бутерброд с икрой",
+    "Name": "Американские блины",
+    "Reference": "https://eda.ru/recepty/zavtraki/amerikanskie-bliny-30600",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120131085624/171210104827/p_O.jpg",
     "Ingredients": [
       {
-        "Category": "Морепродукты",
-        "Name": "Икра",
-        "Price": 200.0
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
       },
       {
-        "Category": "Хлебобулочные изделия",
-        "Name": "Хлеб",
-        "Price": 48.0
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
       },
       {
-        "Category": "Молочные продукты",
-        "Name": "Масло",
-        "Price": 97.0
-      }
-    ]
-  },
-  {
-    "Name": "Спагетти Болоньезе",
-    "Ingredients": [
-      {
-        "Category": "Макаронные изделия",
-        "Name": "Спагетти",
-        "Price": 75.0
-      },
-      {
-        "Category": "Мясо",
-        "Name": "Говяжий фарш",
-        "Price": 254.0
-      },
-      {
-        "Category": "овощи",
-        "Name": "томаты прованса",
-        "Price": 78.0
-      },
-      {
-        "Category": "овощи",
-        "Name": "морковь",
-        "Price": 24.0
-      },
-      {
-        "Category": "специи",
-        "Name": "прованские травы",
-        "Price": 48.0
-      },
-      {
-        "Category": "Вода",
-        "Name": "Вода",
-        "Price": 24.0
-      },
-      {
-        "Category": "Масло",
-        "Name": "Подсолнечное масло",
-        "Price": 62.0
-      }
-    ]
-  },
-  {
-    "Name": "Фермерский блин",
-    "Ingredients": [
-      {
-        "Category": "Хлебобулочные изделия",
-        "Name": "Мука",
-        "Price": 20.0
-      },
-      {
-        "Category": "Молочные изделия",
-        "Name": "Молоко",
-        "Price": 82.2
-      },
-      {
-        "Category": "Яйца",
-        "Name": "яйца",
-        "Price": 50.0
-      },
-      {
-        "Category": "овощи",
-        "Name": "томаты",
-        "Price": 75.0
-      },
-      {
-        "Category": "специи",
-        "Name": "прованские травы",
-        "Price": 48.0
-      },
-      {
-        "Category": "Вода",
-        "Name": "Вода",
-        "Price": 24.0
-      },
-      {
-        "Category": "Масло",
-        "Name": "Подсолнечное масло",
-        "Price": 62.0
-      },
-      {
-        "Category": "Колбачные изделия",
-        "Name": "Ветчина",
-        "Price": 100.0
-      },
-      {
-        "Category": "Овощи",
-        "Name": "Петрушка",
-        "Price": 9.9
-      }
-    ]
-  },
-  {
-    "Name": "Торт 'Наполеон'",
-    "Ingredients": [
-      {
-        "Category": "Молочные изделия",
-        "Name": "Сгущенка",
-        "Price": 64.5
-      },
-      {
-        "Category": "Молочные изделия",
-        "Name": "Молоко",
-        "Price": 84.2
-      },
-      {
-        "Category": "Яйца",
-        "Name": "яйца",
-        "Price": 50.0
-      },
-      {
-        "Category": "Молочные изделия",
-        "Name": "Сливки",
-        "Price": 150.0
-      },
-      {
-        "Category": "Сахар",
         "Name": "Сахар",
-        "Price": 48.0
+        "Category": "RECIPE",
+        "Price": 0
       },
       {
-        "Category": "Вода",
-        "Name": "Вода",
-        "Price": 24.0
+        "Name": "Молоко",
+        "Category": "RECIPE",
+        "Price": 0
       },
       {
-        "Category": "Молочные изделия",
-        "Name": "Шоколад",
-        "Price": 60.0
+        "Name": "Пшеничная мука",
+        "Category": "RECIPE",
+        "Price": 0
       },
       {
-        "Category": "Молочные изделия",
-        "Name": "Сливочное масло",
-        "Price": 97.0
+        "Name": "Гашеная сода",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Растительное масло",
+        "Category": "RECIPE",
+        "Price": 0
       }
     ]
   },
   {
-    "Name" : "Американские блины",
-    "Ingredients" : [
+    "Name": "Сырники из творога",
+    "Reference": "https://eda.ru/recepty/zavtraki/sirniki-iz-tvoroga-18506",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120213175531/180415114517/p_O.jpg",
+    "Ingredients": [
       {
-        "Name" : "Куриное яйцо"
-
+        "Name": "Творог",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Пшеничная мука",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сахар",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Подсолнечное масло",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Классическая шарлотка",
+    "Reference": "https://eda.ru/recepty/vypechka-deserty/klassicheskaja-sharlotka-21916",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s1.eda.ru/StaticContent/Photos/130813174717/151102203457/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сахар",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Пшеничная мука",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Яблоко",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Растительное масло",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сода",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Тонкие блины на молоке",
+    "Reference": "https://eda.ru/recepty/vypechka-deserty/tonkie-blini-na-moloke-16014",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/130212102403/130313131925/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Пшеничная мука",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сахар",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Молоко",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Растительное масло",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Азу по‑татарски",
+    "Reference": "https://eda.ru/recepty/osnovnye-blyuda/azu-po-tatarski-21751",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s1.eda.ru/StaticContent/Photos/140802212008/160519080709/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Соленые огурцы",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Говядина",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Репчатый лук",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Томатная паста",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Картофель",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Мясной бульон",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Чеснок",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Салат из красной фасоли с творожным сыром",
+    "Reference": "https://eda.ru/recepty/salaty/salat-iz-krasnoj-fasoli-s-tvorozhnim-sirom-krasnim-lukom-i-sezonnim-salatom-16922",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/130829212936/130904132758/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Молотый черный перец",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Консервированная фасоль",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Лимон",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Чеснок",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Оливковое масло",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Рукола",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Творожный сыр",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Красный лук",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Макароны, запеченные с помидорами, под сыром",
+    "Reference": "https://eda.ru/recepty/osnovnye-blyuda/makaroni-zapechennie-s-pomidorami-pod-sirom-19696",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120424123536/140707095137/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Макароны",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Чеснок",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Черный перец горошком",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сыр",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Помидоры",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Майонез",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Маффины с шоколадом",
+    "Reference": "https://eda.ru/recepty/vypechka-deserty/maffini-s-shokoladom-29211",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s1.eda.ru/StaticContent/Photos/120131082911/141123135121/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Пшеничная мука",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сахар",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Шоколад",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сливочное масло",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Разрыхлитель",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Омлет с помидорами",
+    "Reference": "https://eda.ru/recepty/zavtraki/omlet-s-pomidorami-21293",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120131090525/120213185012/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Помидоры",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Подсолнечное масло",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Кефирные оладьи с яблоками",
+    "Reference": "https://eda.ru/recepty/vypechka-deserty/kefirnie-oladi-s-jablokami-27718",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/150116162013/161116095828/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Сахар",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Обезжиренный кефир",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Пшеничная мука",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сода",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Яблоко",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Креветки в сливочно-чесночном соусе",
+    "Reference": "https://eda.ru/recepty/osnovnye-blyuda/krevetki-v-slivochno-chesnochnom-souse-18350",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120213180745/120213180900/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Сливочное масло",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Чеснок",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Креветки",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Рубленая петрушка",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Рубленая петрушка",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сливки",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Рататуй ",
+    "Reference": "https://eda.ru/recepty/osnovnye-blyuda/ratatuj-32534",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/150615095301/150618135148/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Баклажаны",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Желтый сладкий перец",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Красный сладкий перец",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Репчатый лук",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Чеснок",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Помидоры",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сахар",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Оливковое масло",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Томатная паста",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Петрушка",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Молотый черный перец",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Солянка мясная",
+    "Reference": "https://eda.ru/recepty/supy/soljanka-mjasnaja-16313",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s1.eda.ru/StaticContent/Photos/120131084941/171018124548/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Говядина",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сосиски",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Вареная колбаса",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соленые огурцы",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Ветчина",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Ветчина",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Петрушка",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Маслины",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Томатная паста",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Оладьи из кабачков классические",
+    "Reference": "https://eda.ru/recepty/vypechka-deserty/oladi-iz-kabachkov-klassicheskie-28540",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s1.eda.ru/StaticContent/Photos/120131112107/161028144108/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Молодые кабачки",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Пшеничная мука",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Молотый черный перец",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сольпо вкусу",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Растительное масло",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Крабово-сырный салат шариками",
+    "Reference": "https://eda.ru/recepty/salaty/krabovo-sirnij-salat-sharikami-35112",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120131090009/180113151820/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Сыр",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Крабовые палочки",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Чеснок",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Майонез",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Картофельная запеканка с соленым огурцом",
+    "Reference": "https://eda.ru/recepty/osnovnye-blyuda/kartofelnaya-zapekanka-s-solenym-ogurcom-16894",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120131082709/120213175636/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Фарш",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Картофель",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Репчатый лук",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сыр",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Майонез",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Молотый черный перец",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соленые огурцы",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Завтрак для ленивых",
+    "Reference": "https://eda.ru/recepty/zavtraki/zavtrak-dlja-lenivih-21975",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/110805134417/130725150732/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Куриное яйцо",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Мягкий творог",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Пшеничная мука",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сахар",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Соль",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Курица, запеченная в хрустящей корочке",
+    "Reference": "https://eda.ru/recepty/osnovnye-blyuda/kurica-zapechennaja-v-hrustjaschej-korochke-s-imbirem-apelsinami-30720",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120131084941/120214160730/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Курица",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Цветочный мед",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Апельсины",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Тертый имбирь",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Растительное масло",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Специи",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Крупная соль",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Молотый красный перец",
+        "Category": "RECIPE",
+        "Price": 0
+      }
+    ]
+  },
+  {
+    "Name": "Борщ с курицей",
+    "Reference": "https://eda.ru/recepty/supy/borsch-s-kuricej-28797",
+    "Picture reference": "https://eda.ru/img/eda/c285x285i/s1.eda.ru/StaticContent/Photos/151002075307/151011085748/p_O.jpg",
+    "Ingredients": [
+      {
+        "Name": "Свекла",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Курица",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Картофель",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Белокочанная капуста",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Репчатый лук",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Морковь",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Чеснок",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Сметана",
+        "Category": "RECIPE",
+        "Price": 0
+      },
+      {
+        "Name": "Томатная паста",
+        "Category": "RECIPE",
+        "Price": 0
       }
     ]
   }

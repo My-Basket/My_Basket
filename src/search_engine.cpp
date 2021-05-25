@@ -61,11 +61,11 @@ namespace search {
 std::ostream &operator<<(std::ostream &os, const product &p) {
     os << "{\n"
        << "\t"
-       << "\"Name\" : \"" << p.name << "\"\n"
+       << "\"Name\" : \"" << p.name << "\",\n"
        << "\t"
-       << "\"Category\" : \"" << p.category << "\"\n"
+       << "\"Category\" : \"" << p.category << "\",\n"
        << "\t"
-       << "\"Price\" : \"" << p.price << "\"\n"
+       << "\"Price\" : " << p.price << "\n"
        << "}";
     return os;
 }
@@ -145,8 +145,16 @@ bool product::operator==(const product &p) const {
 std::ostream &operator<<(std::ostream &os, const Recipe &p) {
     os << "{\n";
     os << "\t"
-       << "\"Name\" :"
-       << "\"" << p.name << "\""
+       << "\"Name\" : "
+       << "\"" << p.name << "\","
+       << "\n";
+    os << "\t"
+       << "\"Reference\" : "
+       << "\"" << p.reference << "\","
+       << "\n";
+    os << "\t"
+       << "\"Picture reference\" : "
+       << "\"" << p.pic_reference << "\","
        << "\n";
     os << "\t"
        << "\"Ingredients\" : [\n";
@@ -329,11 +337,25 @@ void Recipe::add_product(const search::product &prod) {
     ingredients.push_back(prod);
 }
 
-Recipe::Recipe(const std::string &name_) : name(name_) {
+Recipe::Recipe(const std::string &name_) : name(name_) {  // NOLINT
 }
 
-product::product(const string &name_,
-                 const string &category_,
+std::string Recipe::get_reference() {
+    return reference;
+}
+
+std::string Recipe::get_pic_reference() {
+    return pic_reference;
+}
+
+Recipe::Recipe(const std::string &name_,
+               const std::string &ref_,
+               const std::string &pref_)
+    : name(name_), reference(ref_), pic_reference(pref_) {
+}
+
+product::product(const std::string &name_,
+                 const std::string &category_,
                  const uint32_t &price_)
     : name(name_), category(category_), price(price_) {
 }
