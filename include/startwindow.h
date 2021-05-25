@@ -56,6 +56,10 @@ void set_font_color_button(QPushButton *button,
                            int font_size = 20,
                            int enabled = -1,
                            std::string const &font = "");
+
+void set_font_color_label(QLabel *label,
+                          int font_size,
+                          std::string const &font = "");
 }  // namespace Ui
 
 #endif  // MY_BASKET_STARTWINDOW_H
