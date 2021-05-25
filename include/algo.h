@@ -15,11 +15,16 @@ namespace API {
 // enum Request_Mode { RECIPE, PRODUCT};
 enum Shop_Mode { ECONOMY, BASE, PREMIUM };
 class recipe_to_ingredients;
+
 namespace Data_files {
 const std::vector<std::string> econom_shops = {"../data/av.json"};
-const std::vector<std::string> base_shops = {"../data/karusel.json"};
+const std::vector<std::string> base_shops = {"../data/karusel1.json"};
 const std::vector<std::string> premium_shops = {"../data/spar.json"};
 }  // namespace Data_files
+
+void put_product_in_basket(std::vector<search::product> &basket,
+                           search::product &prod);
+
 using search::product, search::Recipe;
 class ingredients_to_recipe {
 private:
@@ -54,14 +59,6 @@ public:
         uint32_t size,
         std::vector<search::Recipe> &vec);
     static std::vector<search::Recipe> show_recipes();
-    friend void get_prod_top_by_name(std::string &input_string,
-                                     std::vector<product> &vec,
-                                     uint32_t size);
-
-    friend void search::get_recipes(
-        const std::vector<search::product> &ingredients,
-        uint32_t size,
-        std::vector<search::Recipe> &vec);
 
     friend void search::put_product_in_basket(
         std::vector<search::product> &basket,
@@ -93,12 +90,7 @@ public:
                               std::vector<search::Recipe> &vec);
     friend void get_recommended_recipes();
 };
-void get_prod_top_by_name(std::string &input_string,
-                          std::vector<product> &vec,
-                          uint32_t size);
-void search_recipe(const string &input_string,
-                   uint32_t size,
-                   std::vector<Recipe> &vec);
+
 void get_recommended_recipes();
 
 }  // namespace API

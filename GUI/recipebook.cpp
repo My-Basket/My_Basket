@@ -231,7 +231,7 @@ void RecipeBook::put_in_basket_func() {
     if (res_of_request_products.empty()) {
         return;
     }
-    search::put_product_in_basket(basket_of_products,
+    API::put_product_in_basket(basket_of_products,
                                   res_of_request_products[num_current_object]);
 
     product_name_line->clear();
@@ -336,7 +336,7 @@ void RecipeBook::previous_func() {
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
         recipe_text->setText(
-            QString::fromUtf8(get_recipe_name(recipe).c_str()));
+            QString::fromUtf8(recipe.get_name().c_str()));
     }
 }
 
@@ -356,7 +356,7 @@ void RecipeBook::next_func() {
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
         recipe_text->setText(
-            QString::fromUtf8(get_recipe_name(recipe).c_str()));
+            QString::fromUtf8(recipe.get_name().c_str()));
     }
 }
 
