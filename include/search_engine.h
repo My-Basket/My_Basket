@@ -1,12 +1,20 @@
-// Created by TurovV on 18.02.2021.
-
 #ifndef MY_BASKET_SEARCH_ENGINE_H
 #define MY_BASKET_SEARCH_ENGINE_H
 
+#include <fstream>
 #include <list>
 #include <set>
 #include <string>
+#include "iostream"
 #include "json.hpp"
+#include "work_with_string.h"
+
+namespace {         /// That's also is weird
+uint32_t check_in(const std::vector<uint32_t> &first_str,
+                  const std::vector<uint32_t> &second_str);
+uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
+                          std::vector<uint32_t> &second_str);
+}
 
 namespace search {
 
@@ -26,6 +34,7 @@ struct set_unit {
 
 using nlohmann::json;
 class Recipe;
+
 class product {
 private:
     std::string name;
@@ -33,6 +42,7 @@ private:
     uint32_t price;
 
 public:
+    product() = default;
     product(const product &d) = default;
 
     product &operator=(const product &d) = default;
@@ -40,29 +50,31 @@ public:
     product(product &&d) = default;
 
     product &operator=(product &&d) = default;
-    product(std::string name_, std::string category_, uint32_t price_);
 
     product(const json &j);
 
     product &operator=(const json &j);
+    ~product() = default;
 
     bool operator==(const product &p) const;
+
     [[nodiscard]] std::string get_name() const;
+    [[nodiscard]] uint32_t get_price() const;
 
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,
                             std::vector<Recipe> &vec);
 
-    friend std::string get_product_name(product const &prod);
-
     friend std::ostream &operator<<(std::ostream &os, const product &p);
-
-
-    ~product() = default;
 };
 
+void get_prod_top_by_name(const std::string &input_string,
+                          std::vector<product> &vec,
+                          const uint32_t &size);
+
 class Recipe {
-    std::vector<search::product> ingredients;
+private:
+    std::vector<search::product> ingredients;  /// TODO: That's not good
     std::string name;
 
 public:
@@ -84,43 +96,28 @@ public:
 
     bool is_ingredient_in_recipe(
         const product &ingredient);  //проверка на наличие ингредиента в рецепте
+    std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>>
+    sum_price_of_rec_prod(const std::string &file_name);
 
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,
                             std::vector<Recipe> &vec);
-    //получает на вход продукты, сует в recommended recipes класса
-    // ingredients_to_recipes топ 10 лучших рецептов
 
-    friend void search_recipe(const std::string &input_string,
-                              uint32_t size,
-                              std::vector<Recipe> &vec);
-
-    //ищет рецепт по введённой строке, сует в recipes_request класса
-    // recipes_to_ingredients топ 10 лучших рецептов
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
 
-    friend std::string get_recipe_name(Recipe &recipe);
+    std::string get_name();
 };
+
+void search_recipe(const string &input_string,
+                   uint32_t size,
+                   std::vector<Recipe> &vec);
 
 void get_recipes(const std::vector<product> &ingredients,
                  uint32_t size,
                  std::vector<Recipe> &vec);
-void search_recipe(const std::string &input_string,
-                   uint32_t size,
-                   std::vector<Recipe> &vec);
 
 void put_product_in_basket(std::vector<search::product> &basket,
                            search::product &prod);
 
-std::string get_recipe_name(Recipe &recipe);
-
 }  // namespace search
-uint32_t levenshtein_algo(const std::vector<uint32_t> &first_str,
-                          const std::vector<uint32_t> &second_str,
-                          int deletion = 10,
-                          int insertion = 10,
-                          int substitution = 30,
-                          int transposition = 30);
-uint32_t check_in(const std::vector<uint32_t> &first_str,
-                  const std::vector<uint32_t> &second_str);
 #endif  // MY_BASKET_SEARCH_ENGINE_H

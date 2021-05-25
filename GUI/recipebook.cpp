@@ -205,7 +205,7 @@ void RecipeBook::put_in_basket_func() {
     if (res_of_request_products.empty()) {
         return;
     }
-    search::put_product_in_basket(basket_of_products,
+    API::put_product_in_basket(basket_of_products,
                                   res_of_request_products[num_current_object]);
 
     product_name_line->clear();
@@ -281,7 +281,7 @@ void RecipeBook::check_basket_func() {
     //вывести список продуктов корзины на экран
     //мб отдельным окном
     for (auto &prod : basket_of_products) {
-        QString res_product = QString::fromUtf8(get_product_name(prod).c_str());
+        QString res_product = QString::fromUtf8(prod.get_name().c_str());
         recipe_text->insertPlainText(static_cast<const QString>(res_product));
         recipe_text->insertPlainText("\n");
     }
@@ -304,7 +304,7 @@ void RecipeBook::previous_func() {
             num_current_object = res_of_request_products.size() - 1;
         }
         search::product prod = res_of_request_products[num_current_object];
-        recipe_text->setText(QString::fromUtf8(get_product_name(prod).c_str()));
+        recipe_text->setText(QString::fromUtf8(prod.get_name().c_str()));
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
         if (num_current_object < 0) {
@@ -312,7 +312,7 @@ void RecipeBook::previous_func() {
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
         recipe_text->setText(
-            QString::fromUtf8(get_recipe_name(recipe).c_str()));
+            QString::fromUtf8(recipe.get_name().c_str()));
     }
 }
 
@@ -324,7 +324,7 @@ void RecipeBook::next_func() {
             num_current_object = 0;
         }
         search::product prod = res_of_request_products[num_current_object];
-        recipe_text->setText(QString::fromUtf8(get_product_name(prod).c_str()));
+        recipe_text->setText(QString::fromUtf8(prod.get_name().c_str()));
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
         if (num_current_object == res_of_request_recipes.size()) {
@@ -332,7 +332,7 @@ void RecipeBook::next_func() {
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
         recipe_text->setText(
-            QString::fromUtf8(get_recipe_name(recipe).c_str()));
+            QString::fromUtf8(recipe.get_name().c_str()));
     }
 }
 
