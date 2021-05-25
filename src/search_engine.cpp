@@ -60,13 +60,13 @@ namespace search {
 
 std::ostream &operator<<(std::ostream &os, const product &p) {
     os << "{\n"
-       << "   "
-       << "Name: " << p.name << '\n'
-       << "   "
-       << "Category: " << p.category << '\n'
-       << "   "
-       << "Price: " << p.price << '\n'
-       << "}\n";
+       << "\t"
+       << "\"Name\" : \"" << p.name << "\"\n"
+       << "\t"
+       << "\"Category\" : \"" << p.category << "\"\n"
+       << "\t"
+       << "\"Price\" : \"" << p.price << "\"\n"
+       << "}";
     return os;
 }
 
@@ -80,7 +80,7 @@ void get_prod_top_by_name(const std::string &input_string,
     std::vector<uint32_t> first_str_codepoints;
     try {
         from_str_to_codepoint(input_string, first_str_codepoints);
-    } catch (...){
+    } catch (...) {
         /// TODO log
     }
     std::multiset<set_unit<product>> top;
@@ -143,11 +143,22 @@ bool product::operator==(const product &p) const {
 }
 
 std::ostream &operator<<(std::ostream &os, const Recipe &p) {
-    os << p.name << "\n";
-    os << "Ingredients:\n";
-    for (const auto &t : p.ingredients) {
-        os << t << "\n";
+    os << "{\n";
+    os << "\t"
+       << "\"Name\" :"
+       << "\"" << p.name << "\""
+       << "\n";
+    os << "\t"
+       << "\"Ingredients\" : [\n";
+    for (auto it = p.ingredients.begin(); it < p.ingredients.end(); it++) {
+        if (it == p.ingredients.end() - 1) {
+            os << *it << "\n";
+        } else {
+            os << *it << ",\n";
+        }
     }
+    os << "]\n";
+    os << "}";
     return os;
 }
 
@@ -301,8 +312,8 @@ Recipe::sum_price_of_rec_prod(const std::string &file_name) {
         try {
             from_str_to_codepoint(cur_prod_name, first_str_codepoints);
         } catch (const InvalidString &s) {
-//            sum += price_of_prod[i].second;
-//            std::cerr << s.what();    /// TODO log
+            //            sum += price_of_prod[i].second;
+            //            std::cerr << s.what();    /// TODO log
             continue;
         }
         search::checking_prod_or_rec_in_shop<search::product>(
@@ -314,4 +325,16 @@ Recipe::sum_price_of_rec_prod(const std::string &file_name) {
     return {sum, price_of_prod};
 }
 
+void Recipe::add_product(const search::product &prod) {
+    ingredients.push_back(prod);
+}
+
+Recipe::Recipe(const std::string &name_) : name(name_) {
+}
+
+product::product(const string &name_,
+                 const string &category_,
+                 const uint32_t &price_)
+    : name(name_), category(category_), price(price_) {
+}
 }  // namespace search

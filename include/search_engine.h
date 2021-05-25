@@ -9,12 +9,12 @@
 #include "json.hpp"
 #include "work_with_string.h"
 
-namespace {         /// That's also is weird
+namespace {  /// That's also is weird
 uint32_t check_in(const std::vector<uint32_t> &first_str,
                   const std::vector<uint32_t> &second_str);
 uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
                           std::vector<uint32_t> &second_str);
-}
+}  // namespace
 
 namespace search {
 
@@ -44,6 +44,9 @@ private:
 public:
     product() = default;
     product(const product &d) = default;
+    product(const std::string &name_,
+            const std::string &category_,
+            const uint32_t &price_);
 
     product &operator=(const product &d) = default;
 
@@ -88,11 +91,15 @@ public:
 
     Recipe &operator=(Recipe &&recipe) = default;
 
+    Recipe(const std::string &name_);
+
     ~Recipe() = default;
 
     void clear();
 
     Recipe(const json &j);
+
+    void add_product(const search::product &prod);
 
     bool is_ingredient_in_recipe(
         const product &ingredient);  //проверка на наличие ингредиента в рецепте
