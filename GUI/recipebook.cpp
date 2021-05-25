@@ -13,9 +13,7 @@ namespace Ui {
 
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label = new QLabel(tr("product or dish:"));
-    product_name_label->setStyleSheet(
-        "QLabel { background-color : #359530; color : white; border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 28px;}");
+    set_font_color_label(product_name_label, "white", 28, "", "#359530");
     product_name_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                       QSizePolicy::Expanding);
@@ -25,9 +23,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_line->setReadOnly(true);
 
     recipe_label = new QLabel(tr("possible to take:"));
-    recipe_label->setStyleSheet(
-        "QLabel { background-color : #359530; color : white; border-width: "
-        "2px; border-radius: 10px; padding: 6px; font-size: 28px;}");
+    set_font_color_label(recipe_label, "white", 28, "", "#359530");
     recipe_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     recipe_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                 QSizePolicy::Expanding);
@@ -355,33 +351,23 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     end_program_button->show();  // 522030
 
     best_total_cost_label = new QLabel(tr("best total cost:"));
-    best_total_cost_label->setStyleSheet(
-        "QLabel { color : black; border-width: "
-        "2px; border-radius: 5px; padding: 2px; font-size: 100px;}");
+    set_font_color_label(best_total_cost_label, "black", 100);
     best_total_cost_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     best_total_cost_label->setMargin(10);
 
     total_cost_number_label =
         new QLabel((std::to_string(total_cost) + "₽").c_str());
-    total_cost_number_label->setStyleSheet(
-        "QLabel { color : black; border-width: "
-        "2px; border-radius: 5px; padding: 2px; font-size: 100px; font: "
-        "bold;}");
+    set_font_color_label(total_cost_number_label, "black", 100, "bold");
     total_cost_number_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     total_cost_number_label->setMargin(10);
 
     in_shop_label = new QLabel("in shop:");
-    in_shop_label->setStyleSheet(
-        "QLabel { color : black; border-width: "
-        "2px; border-radius: 5px; padding: 2px; font-size: 100px;}");
+    set_font_color_label(in_shop_label, "black", 100);
     in_shop_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     in_shop_label->setMargin(10);
 
     shop_name_label = new QLabel(shop_name.c_str());
-    shop_name_label->setStyleSheet(
-        "QLabel { color : black; border-width: "
-        "2px; border-radius: 5px; padding: 2px; font-size: 100px; font: "
-        "bold;}");
+    set_font_color_label(shop_name_label, "black", 100, "bold");
     shop_name_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     shop_name_label->setMargin(10);
 

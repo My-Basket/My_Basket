@@ -58,8 +58,10 @@ void set_font_color_button(QPushButton *button,
                            std::string const &font = "");
 
 void set_font_color_label(QLabel *label,
-                          int font_size,
-                          std::string const &font = "");
+                          std::string const &word_color = "black",
+                          int font_size = 130,
+                          std::string const &font = "",
+                          std::string const &bg_color = "");
 }  // namespace Ui
 
 #endif  // MY_BASKET_STARTWINDOW_H

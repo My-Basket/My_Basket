@@ -28,15 +28,24 @@ void set_font_color_button(QPushButton *button,
     }
 }
 
- void set_font_color_label(QLabel *label, int font_size, std::string const &font){
-     std::string s = "QLabel { color : black; border-width: "
-         "2px; border-radius: 5px; padding: 2px; font-size: " + std::to_string(font_size) +"px;";
-     if (!font.empty()) {
-         s += " font: " + font;
-     }
-     s += "}";
+void set_font_color_label(QLabel *label,
+                          std::string const &word_color,
+                          int font_size,
+                          std::string const &font,
+                          std::string const &bg_color) {
+    std::string s = "QLabel { color : " + word_color +
+                    "; border-width: "
+                    "2px; border-radius: 5px; padding: 2px; font-size: " +
+                    std::to_string(font_size) + "px";
+    if (!font.empty()) {
+        s += "; font: " + font + "; ";
+    }
+    if (!bg_color.empty()) {
+        s += "; background-color : " + bg_color + ";";
+    }
+    s += "}";
     label->setStyleSheet(s.c_str());
- }
+}
 
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
@@ -49,14 +58,14 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     start_button->show();  // 522030
 
     my_basket_label = new QLabel(tr("My_Basket"));
-    set_font_color_label(my_basket_label, 130, "bold");
+    set_font_color_label(my_basket_label, "black", 130, "bold");
     my_basket_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     my_basket_label->setMargin(50);
 
     description_label = new QLabel(
         tr("your assistant in the selection of recipes"));  //ваш помощник в
                                                             //выборе рецептов
-    set_font_color_label(description_label, 27);
+    set_font_color_label(description_label, "black", 27);
     description_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
 
     //добавление картинки
@@ -102,10 +111,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     this->setPalette(plt);
 
     choose_category_label = new QLabel(tr("Choose shops' category:"));
-//    choose_category_label->setStyleSheet(
-//        "QLabel { color : black; border-width: "
-//        "2px; border-radius: 5px; padding: 2px; font-size: 80px;}");
-    set_font_color_label(choose_category_label, 80);
+    set_font_color_label(choose_category_label, "black", 80);
     choose_category_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     choose_category_label->setMargin(55);
 
