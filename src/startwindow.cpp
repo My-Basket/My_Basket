@@ -55,7 +55,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 
     start_button = new QPushButton(tr("start shopping!"));
     set_font_color_button(start_button, "#FF7699", 30, true);
-    start_button->show();  // 522030
+    start_button->show();
 
     my_basket_label = new QLabel(tr("My_Basket"));
     set_font_color_label(my_basket_label, "black", 130, "bold");
@@ -117,19 +117,19 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 
     economy_button = new QPushButton(tr("economy"));
     set_font_color_button(economy_button, "#FF7699", 20);
-    economy_button->show();  // 522030
+    economy_button->show();
 
     base_button = new QPushButton(tr("base"));
     set_font_color_button(base_button, "#FF7699", 20);
-    base_button->show();  // 522030
+    base_button->show();
 
     premium_button = new QPushButton(tr("premium"));
     set_font_color_button(premium_button, "#FF7699", 20);
-    premium_button->show();  // 522030
+    premium_button->show();
 
     go_to_searching_button = new QPushButton(tr("go to searching!"));
     set_font_color_button(go_to_searching_button, "#FF9899", 20);
-    go_to_searching_button->show();  // 522030
+    go_to_searching_button->show();
 
     QHBoxLayout *button_layout = new QHBoxLayout;
     button_layout->addWidget(economy_button, Qt::AlignTop, Qt::AlignVCenter);
@@ -178,7 +178,6 @@ void CategoryWindow::choose_base() {
     set_font_color_button(economy_button, "#FF7699", 20, true);
     set_font_color_button(premium_button, "#FF7699", 20, true);
 
-    //свой
     set_font_color_button(base_button, "#FF1099", 20, false);
 
     set_font_color_button(go_to_searching_button, "#FF7699", 20, true);
@@ -197,6 +196,7 @@ void CategoryWindow::choose_premium() {
 
 void CategoryWindow::go_to_recipe_book() {
     recipe_book->show();
+    set_font_color_button(go_to_searching_button, "#FF1099", 20, false);
     this->close();
 }
 
