@@ -1,6 +1,5 @@
 // You may need to build the project (run Qt uic code generator) to get
 #include "recipebook.h"
-#include "style_settings.h"
 #include <QBrush>
 #include <QGridLayout>
 #include <QMessageBox>
@@ -9,11 +8,13 @@
 #include <sstream>
 #include "algo.h"
 #include "startwindow.h"
+#include "style_settings.h"
 
 namespace Ui {
 
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
-    product_name_label = new QLabel(tr("product or dish:"));
+    product_name_label =
+        new QLabel(StyleSettings::Titles::product_name_label_title.c_str());
     set_font_color_label(product_name_label, "white", 28, "", "#359530");
     product_name_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
@@ -23,7 +24,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_line->setStyleSheet("QLineEdit { font-size: 20px;}");
     product_name_line->setReadOnly(true);
 
-    recipe_label = new QLabel(tr("possible to take:"));
+    recipe_label =
+        new QLabel(StyleSettings::Titles::recipe_label_product_title.c_str());
     set_font_color_label(recipe_label, "white", 28, "", "#359530");
     recipe_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     recipe_label->setSizePolicy(QSizePolicy::MinimumExpanding,
@@ -33,36 +35,44 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     recipe_text->setReadOnly(true);
 
     //экземпляры кнопок правой панели
-    add_product_button = new QPushButton(tr("&add product"));
+    add_product_button = new QPushButton(
+        StyleSettings::Titles::add_product_button_title.c_str());
     set_font_color_button(add_product_button, "#0066CC", 18);
     add_product_button->show();  //нажата -> #000066
 
-    find_product_button = new QPushButton(tr("&find product"));
+    find_product_button = new QPushButton(
+        StyleSettings::Titles::find_product_button_title.c_str());
     set_font_color_button(find_product_button, "#0066CC", 18);
     find_product_button->hide();
 
-    put_in_basket_button = new QPushButton(tr("&put in basket"));
+    put_in_basket_button = new QPushButton(
+        StyleSettings::Titles::put_in_basket_button_title.c_str());
     set_font_color_button(put_in_basket_button, "#0066CC", 18);
     put_in_basket_button->hide();
 
-    find_recipe_button = new QPushButton(tr("&find recipe"));
+    find_recipe_button = new QPushButton(
+        StyleSettings::Titles::find_recipe_button_title.c_str());
     set_font_color_button(find_recipe_button, "#0066CC", 18);
     find_recipe_button->hide();
 
-    check_basket_button = new QPushButton(tr("&check basket"));
+    check_basket_button = new QPushButton(
+        StyleSettings::Titles::check_basket_button_title.c_str());
     set_font_color_button(check_basket_button, "#0066CC", 18);
     check_basket_button->show();
 
-    choose_recipe_button = new QPushButton(tr("&choose recipe"));
+    choose_recipe_button = new QPushButton(
+        StyleSettings::Titles::choose_recipe_button_title.c_str());
     set_font_color_button(choose_recipe_button, "#0066CC", 18);
     choose_recipe_button->hide();
 
     //экземпляры кнопок нижней панели
-    next_button = new QPushButton(tr("&next"));
+    next_button =
+        new QPushButton(StyleSettings::Titles::next_button_title.c_str());
     set_font_color_button(next_button, "#00CC66", 18);
     next_button->hide();  // FFD700
 
-    previous_button = new QPushButton(tr("&previous"));
+    previous_button =
+        new QPushButton(StyleSettings::Titles::previous_button_title.c_str());
     set_font_color_button(previous_button, "#00CC66", 18);
     previous_button->hide();
 
@@ -112,7 +122,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
-    QBrush image_basket_background(QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    QBrush image_basket_background(
+        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
@@ -151,15 +162,17 @@ void RecipeBook::add_product_func() {
     find_recipe_button->show();
     next_button->hide();
     previous_button->hide();
-    recipe_label->setText("possible to take:");
+    recipe_label->setText(
+        StyleSettings::Titles::recipe_label_product_title.c_str());
 }
 
 ///можно ли ее вызвать по нажатию enter? чтобы было логично, как будто в обычном
 ///поисковике
 void RecipeBook::find_product_func() {
     if (product_name_line->text() == "") {
-        QMessageBox::information(this, tr("Empty input"),
-                                 tr("Please enter a product"));
+        QMessageBox::information(
+            this, StyleSettings::Titles::empty_input_window_title.c_str(),
+            StyleSettings::Titles::empty_input_window_text.c_str());
         return;
     }
 
@@ -183,7 +196,8 @@ void RecipeBook::find_product_func() {
 
     current_mode = FindProduct_mode;
 
-    recipe_label->setText("possible to take:");
+    recipe_label->setText(
+        StyleSettings::Titles::recipe_label_product_title.c_str());
 
     recipe_text->clear();
 
@@ -256,8 +270,8 @@ void RecipeBook::find_recipe_func() {
         res_of_request_products.clear();
         res_of_request_recipes.clear();
         QMessageBox::warning(
-            this, tr("Empty basket"),
-            tr("Please add at least one product in the basket"));
+            this, StyleSettings::Titles::empty_basket_window_title.c_str(),
+            StyleSettings::Titles::empty_basket_window_text.c_str());
         return;
     }
 
@@ -283,7 +297,8 @@ void RecipeBook::find_recipe_func() {
 
     current_mode = FindRecipe_mode;
 
-    recipe_label->setText("possible recipe:");
+    recipe_label->setText(
+        StyleSettings::Titles::recipe_label_recipe_title.c_str());
     recipe_text->clear();
 
     res_of_request_recipes.clear();
@@ -317,7 +332,8 @@ void RecipeBook::check_basket_func() {
     set_font_color_button(previous_button, "#00CC66", 18, true);
     set_font_color_button(next_button, "#00CC66", 18, true);
 
-    recipe_label->setText("in basket:");
+    recipe_label->setText(
+        StyleSettings::Titles::recipe_label_in_basket_title.c_str());
 
     //вывести список продуктов корзины на экран
     //мб отдельным окном
@@ -368,7 +384,7 @@ void RecipeBook::next_func() {
 
 void RecipeBook::choose_recipe_func() {
     //переход к summary_window
-    //API::recipe_to_ingredients::choose_recipe(num_current_object);
+    // API::recipe_to_ingredients::choose_recipe(num_current_object);
 
     summary_window = new SummaryWindow;
     summary_window->show();
@@ -380,7 +396,8 @@ void RecipeBook::set_category(std::string &category_) {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    QBrush image_basket_background(
+        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
@@ -392,11 +409,13 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     //    shop_name = calculation_info.first.first;
     //    total_cost = calculation_info.first.second;
 
-    end_program_button = new QPushButton(tr("end program"));
+    end_program_button = new QPushButton(
+        StyleSettings::Titles::end_program_button_title.c_str());
     set_font_color_button(end_program_button, "#FF7699", 30);
     end_program_button->show();
 
-    best_total_cost_label = new QLabel(tr("best total cost:"));
+    best_total_cost_label =
+        new QLabel(StyleSettings::Titles::best_total_cost_label_title.c_str());
     set_font_color_label(best_total_cost_label, "black", 100);
     best_total_cost_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     best_total_cost_label->setMargin(10);
@@ -407,7 +426,8 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     total_cost_number_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     total_cost_number_label->setMargin(10);
 
-    in_shop_label = new QLabel("in shop:");
+    in_shop_label =
+        new QLabel(StyleSettings::Titles::in_shop_label_title.c_str());
     set_font_color_label(in_shop_label, "black", 100);
     in_shop_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     in_shop_label->setMargin(10);
