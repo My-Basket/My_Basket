@@ -101,7 +101,9 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
     // this->setFixedSize(1000, 600);
-    this->setMinimumSize(1000, 600);
+    // this->setMinimumSize(1000, 600);
+    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
+                         StyleSettings::WindowSizes::min_height_window);
 }
 
 void StartWindow::go_to_category_window() {
@@ -170,7 +172,9 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
     // this->setFixedSize(1000, 600);
-    this->setMinimumSize(1000, 600);
+    // this->setMinimumSize(1000, 600);
+    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
+                         StyleSettings::WindowSizes::min_height_window);
 }
 
 void CategoryWindow::choose_economy() {

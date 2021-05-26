@@ -128,7 +128,9 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
     // this->setFixedSize(1000, 600);
-    this->setMinimumSize(1000, 600);
+    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
+                         StyleSettings::WindowSizes::min_height_window);
+    ///вынести в отдельную функцию -- копипаст в 4 местах -- мб наследование?
 }
 
 void RecipeBook::add_product_func() {
@@ -451,7 +453,9 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
     // this->setFixedSize(1000, 600);
-    this->setMinimumSize(1000, 600);
+    // this->setMinimumSize(1000, 600);
+    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
+                         StyleSettings::WindowSizes::min_height_window);
 }
 
 void SummaryWindow::end_program_func() {
