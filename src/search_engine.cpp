@@ -2,6 +2,12 @@
 #include <cassert>
 #include <fstream>
 #include "work_with_string.h"
+#include <logger.h>
+
+error_logger &fl() {
+    static error_logger fl_log;
+    return fl_log;
+}
 
 namespace {
 
@@ -61,8 +67,8 @@ bool compare(const search::product &p1, const search::product &p2) {
     try {
         from_str_to_codepoint(p1.get_name(), codepoint1);
         from_str_to_codepoint(p2.get_name(), codepoint2);
-    } catch (...) {
-        /// TODO log
+    } catch (const MyBasketError &er) {
+        fl().log(er);
         return false;
     }
     uint32_t min_value = std::min(codepoint1.size(), codepoint2.size());
@@ -78,9 +84,9 @@ namespace search {
 std::ostream &operator<<(std::ostream &os, const product &p) {
     os << "{\n"
        << "\t"
-       << "\"Name\" : \"" << p.name << "\",\n"
+       << "\"Name\" : \"" << p.name << "\",\n"  // NOLINT
        << "\t"
-       << "\"Category\" : \"" << p.category << "\",\n"
+       << "\"Category\" : \"" << p.category << "\",\n"  // NOLINT
        << "\t"
        << "\"Price\" : " << p.price << "\n"
        << "}";
