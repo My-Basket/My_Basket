@@ -117,7 +117,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
-    this->setFixedSize(1000, 600);
+    //this->setFixedSize(1000, 600);
+    this->setMinimumSize(1000, 600);
 }
 
 void RecipeBook::add_product_func() {
@@ -257,17 +258,23 @@ void RecipeBook::find_recipe_func() {
 
     product_name_line->setReadOnly(true);
     recipe_text->setReadOnly(true);
-    add_product_button->setEnabled(true);  //кнопка нажата
+
+    set_font_color_button(add_product_button, "#0066CC", 18, true);
+    set_font_color_button(find_product_button, "#0066CC", 18, true);
+    set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
+    set_font_color_button(find_recipe_button, "#172030", 18, false);
+    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
+    set_font_color_button(check_basket_button, "#0066CC", 18, true);
+
     put_in_basket_button->hide();
     find_recipe_button->hide();
 
+    set_font_color_button(previous_button, "#00CC66", 18, true);
+    set_font_color_button(next_button, "##00CC66", 18, true);
+
     previous_button->show();
-    previous_button->setEnabled(true);
     next_button->show();
-    next_button->setEnabled(true);
-    find_recipe_button->setEnabled(true);
     choose_recipe_button->show();
-    choose_recipe_button->setEnabled(true);
 
     current_mode = FindRecipe_mode;
 
@@ -402,7 +409,8 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    this->setFixedSize(1000, 600);
+    //this->setFixedSize(1000, 600);
+    this->setMinimumSize(1000, 600);
 }
 
 void SummaryWindow::end_program_func() {

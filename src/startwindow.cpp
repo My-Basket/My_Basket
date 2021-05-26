@@ -94,7 +94,8 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    this->setFixedSize(1000, 600);
+    //this->setFixedSize(1000, 600);
+    this->setMinimumSize(1000, 600);
 }
 
 void StartWindow::go_to_category_window() {
@@ -156,7 +157,8 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    this->setFixedSize(1000, 600);
+    //this->setFixedSize(1000, 600);
+    this->setMinimumSize(1000, 600);
 }
 
 void CategoryWindow::choose_economy() {
