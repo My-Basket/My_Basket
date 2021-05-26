@@ -21,7 +21,7 @@ private:
     CategoryWindow *category_window;
 
     //кнопки окна
-    QPushButton *start_button;
+    QPushButton *start_shopping_button;
     QLabel *my_basket_label;
     QLabel *description_label;
 };

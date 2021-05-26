@@ -54,9 +54,9 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
 
-    start_button = new QPushButton(tr("start shopping!"));
-    set_font_color_button(start_button, "#FF7699", 30, true);
-    start_button->show();
+    start_shopping_button = new QPushButton(tr("start shopping!"));
+    set_font_color_button(start_shopping_button, "#FF7699", 30, true);
+    start_shopping_button->show();
 
     my_basket_label = new QLabel(tr("My_Basket"));
     set_font_color_label(my_basket_label, "black", 130, "bold");
@@ -83,13 +83,13 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 
     QVBoxLayout *main_layout = new QVBoxLayout;
     main_layout->addLayout(label_layout);
-    main_layout->addWidget(start_button, Qt::AlignTop, Qt::AlignVCenter);
+    main_layout->addWidget(start_shopping_button, Qt::AlignTop, Qt::AlignVCenter);
     main_layout->setSpacing(5);
     // main_layout->addWidget(image_basket_label);
 
     //переход к recipe_book
     category_window = new CategoryWindow();
-    connect(start_button, SIGNAL(clicked()), this,
+    connect(start_shopping_button, SIGNAL(clicked()), this,
             SLOT(go_to_category_window()));
 
     setLayout(main_layout);
@@ -100,7 +100,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void StartWindow::go_to_category_window() {
-    set_font_color_button(start_button, "#FF1099", 30, false);
+    set_font_color_button(start_shopping_button, "#FF1099", 30, false);
 
     category_window->show();
     this->close();
