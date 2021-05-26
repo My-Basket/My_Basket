@@ -9,13 +9,6 @@
 #include "json.hpp"
 #include "work_with_string.h"
 
-namespace {  /// That's also weird
-uint32_t check_in(const std::vector<uint32_t> &first_str,
-                  const std::vector<uint32_t> &second_str);
-uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
-                          std::vector<uint32_t> &second_str);
-}  // namespace
-
 namespace search {
 
 template <typename T>

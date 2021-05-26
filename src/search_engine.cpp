@@ -54,6 +54,23 @@ uint32_t check_in(
     }
     return max_amount;
 }
+
+bool compare(const search::product &p1, const search::product &p2) {
+    std::vector<uint32_t> codepoint1;
+    std::vector<uint32_t> codepoint2;
+    try {
+        from_str_to_codepoint(p1.get_name(), codepoint1);
+        from_str_to_codepoint(p2.get_name(), codepoint2);
+    } catch (...) {
+        /// TODO log
+        return false;
+    }
+    uint32_t min_value = std::min(codepoint1.size(), codepoint2.size());
+    return levenshtein_algo(codepoint1, codepoint2) >
+               0.8 * static_cast<double>(min_value) &&
+           check_in(codepoint1, codepoint2) >
+               0.7 * static_cast<double>(min_value);
+}
 }  // namespace
 
 namespace search {
@@ -73,7 +90,7 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
 void get_prod_top_by_name(const std::string &input_string,
                           std::vector<product> &vec,
                           const uint32_t &size) {
-    std::ifstream file("../data/karusel1.json");
+    std::ifstream file("../data/karusel.json");
     json j = json::parse(file);
     file.close();
 
@@ -190,7 +207,7 @@ void Recipe::clear() {
 bool Recipe::is_ingredient_in_recipe(const product &ingredient) {
     return std::any_of(
         ingredients.begin(), ingredients.end(),
-        [&ingredient](const product &p) { return (p == ingredient); });
+        [&ingredient](const product &p) { return compare(p, ingredient); });
 }
 
 void get_recipes(const std::vector<product> &ingredients,
