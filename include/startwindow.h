@@ -34,7 +34,7 @@ public:
 
 public slots:
     void go_to_recipe_book();
-    //void set_chosen_category(/*std::string &category*/);
+    // void set_chosen_category(/*std::string &category*/);
     void choose_economy();
     void choose_base();
     void choose_premium();
@@ -47,7 +47,21 @@ private:
     QPushButton *premium_button;
     QPushButton *go_to_searching_button;
     QLabel *choose_category_label;
+
+    std::string chosen_category;
 };
+
+void set_font_color_button(QPushButton *button,
+                           std::string const &bg_color,
+                           int font_size = 20,
+                           int enabled = -1,
+                           std::string const &font = "");
+
+void set_font_color_label(QLabel *label,
+                          std::string const &word_color = "black",
+                          int font_size = 130,
+                          std::string const &font = "",
+                          std::string const &bg_color = "");
 }  // namespace Ui
 
 #endif  // MY_BASKET_STARTWINDOW_H
