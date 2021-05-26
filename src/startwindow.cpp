@@ -5,6 +5,7 @@
 #include <QPalette>
 #include <QSizePolicy>
 #include <iostream>
+#include "algo.h"
 
 namespace Ui {
 
@@ -94,13 +95,13 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    //this->setFixedSize(1000, 600);
+    // this->setFixedSize(1000, 600);
     this->setMinimumSize(1000, 600);
 }
 
 void StartWindow::go_to_category_window() {
-    start_button->setEnabled(false);
-    set_font_color_button(start_button, "#FF1099", 30);
+    set_font_color_button(start_button, "#FF1099", 30, false);
+
     category_window->show();
     this->close();
 }
@@ -157,7 +158,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    //this->setFixedSize(1000, 600);
+    // this->setFixedSize(1000, 600);
     this->setMinimumSize(1000, 600);
 }
 
@@ -197,8 +198,10 @@ void CategoryWindow::choose_premium() {
 }
 
 void CategoryWindow::go_to_recipe_book() {
-    recipe_book->show();
     set_font_color_button(go_to_searching_button, "#FF1099", 20, false);
+    API::ingredients_to_recipe::choose_category_shop(chosen_category);
+
+    recipe_book->show();
     this->close();
 }
 

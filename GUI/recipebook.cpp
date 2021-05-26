@@ -65,8 +65,6 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     set_font_color_button(previous_button, "#00CC66", 18);
     previous_button->hide();
 
-    // API::ingredients_to_recipe::choose_category_shop(category);
-
     // TODO: можно ли избавиться от копипаста и вынести это в функцию с
     // параметрами (название кнопки (1), ф-я(4))
     connect(add_product_button, SIGNAL(clicked()), this,
