@@ -87,6 +87,10 @@ private:
         std::vector<search::product> &basket,
         search::product &prod);
 };
+
+void print_product(search::product const &product);
+void print_recipe(search::Recipe const &recipe);
+
 }  // namespace Ui
 
 #endif  // RECIPEBOOK_H

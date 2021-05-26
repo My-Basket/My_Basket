@@ -12,6 +12,15 @@
 
 namespace Ui {
 
+void print_product(QTextEdit *text_field, search::product const &product) {
+    std::string s = "name:\n" + product.get_name() + '\n' + "price:\n" +
+                    std::to_string(product.get_price()) + "₽" + '\n';
+    text_field->insertPlainText(QString::fromUtf8(s.c_str()));
+}
+
+void print_recipe() {
+}
+
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label =
         new QLabel(StyleSettings::Titles::product_name_label_title.c_str());
@@ -201,8 +210,6 @@ void RecipeBook::find_product_func() {
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_product_title.c_str());
 
-    recipe_text->clear();
-
     //запуск поиска
     res_of_request_products.clear();
     API::ingredients_to_recipe::run_product_search(
@@ -220,15 +227,18 @@ void RecipeBook::find_product_func() {
     //    recipe_text->insertPlainText(static_cast<const QString>(res_product));
     //    num_current_object = 0;
 
-    std::stringstream ss;
-    ss << res_of_request_products[0];
-    std::string s;
-    while (ss >> s) {
-        recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
-        recipe_text->insertPlainText("\n");
-    }
+    recipe_text->clear();
+    //вывод продукта в текстовое поле
+    //    std::stringstream ss;
+    //    ss << res_of_request_products[0];
+    //    std::string s;
+    //    while (ss >> s) {
+    //        recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
+    //        recipe_text->insertPlainText("\n");
+    //    }
+    print_product(recipe_text, res_of_request_products[0]);
+
     num_current_object = 0;
-    /// TODO: сделать нормальный вывод в текстовое поле
 }
 
 void RecipeBook::put_in_basket_func() {
@@ -301,7 +311,7 @@ void RecipeBook::find_recipe_func() {
 
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_recipe_title.c_str());
-    recipe_text->clear();
+    recipe_text->clear();  ///перенести пониже, если будет ускорен поиск
 
     res_of_request_recipes.clear();
     std::vector<search::Recipe> vec2;
@@ -340,8 +350,10 @@ void RecipeBook::check_basket_func() {
     //вывести список продуктов корзины на экран
     //мб отдельным окном
     for (auto &prod : basket_of_products) {
-        QString res_product = QString::fromUtf8(prod.get_name().c_str());
-        recipe_text->insertPlainText(static_cast<const QString>(res_product));
+        // QString res_product = QString::fromUtf8(prod.get_name().c_str());
+        // recipe_text->insertPlainText(static_cast<const
+        // QString>(res_product));
+        print_product(recipe_text, prod);
         recipe_text->insertPlainText("\n");
     }
 }
@@ -354,7 +366,9 @@ void RecipeBook::previous_func() {
             num_current_object = res_of_request_products.size() - 1;
         }
         search::product prod = res_of_request_products[num_current_object];
-        recipe_text->setText(QString::fromUtf8(prod.get_name().c_str()));
+        // recipe_text->setText(QString::fromUtf8(prod.get_name().c_str()));
+        recipe_text->clear();
+        print_product(recipe_text, prod);
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
         if (num_current_object < 0) {
@@ -373,7 +387,9 @@ void RecipeBook::next_func() {
             num_current_object = 0;
         }
         search::product prod = res_of_request_products[num_current_object];
-        recipe_text->setText(QString::fromUtf8(prod.get_name().c_str()));
+        // recipe_text->setText(QString::fromUtf8(prod.get_name().c_str()));
+        recipe_text->clear();
+        print_product(recipe_text, prod);
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
         if (num_current_object == res_of_request_recipes.size()) {
