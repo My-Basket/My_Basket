@@ -33,27 +33,27 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     //экземпляры кнопок правой панели
     add_product_button = new QPushButton(tr("&add product"));
-    set_font_color_button(add_product_button, "#172030", 18);
-    add_product_button->show();
+    set_font_color_button(add_product_button, "#0066CC", 18);
+    add_product_button->show();  //нажата -> #000066
 
     find_product_button = new QPushButton(tr("&find product"));
-    set_font_color_button(find_product_button, "#172030", 18);
+    set_font_color_button(find_product_button, "#0066CC", 18);
     find_product_button->hide();
 
     put_in_basket_button = new QPushButton(tr("&put in basket"));
-    set_font_color_button(put_in_basket_button, "#172030", 18);
+    set_font_color_button(put_in_basket_button, "#0066CC", 18);
     put_in_basket_button->hide();
 
     find_recipe_button = new QPushButton(tr("&find recipe"));
-    set_font_color_button(find_recipe_button, "#172030", 18);
+    set_font_color_button(find_recipe_button, "#0066CC", 18);
     find_recipe_button->hide();
 
     check_basket_button = new QPushButton(tr("&check basket"));
-    set_font_color_button(check_basket_button, "#172030", 18);
+    set_font_color_button(check_basket_button, "#0066CC", 18);
     check_basket_button->show();
 
     choose_recipe_button = new QPushButton(tr("&choose recipe"));
-    set_font_color_button(choose_recipe_button, "#172030", 18);
+    set_font_color_button(choose_recipe_button, "#0066CC", 18);
     choose_recipe_button->hide();
 
     //экземпляры кнопок нижней панели
@@ -133,14 +133,17 @@ void RecipeBook::add_product_func() {
         Qt::OtherFocusReason);  //установка фокуса ввода на product_name_line
     recipe_text->setReadOnly(false);
 
-    add_product_button->setEnabled(false);
-    //    add_product_button->setStyleSheet(
-    //        "QPushButton { background-color : #172030; color : white; "
-    //        "border-width: "
-    //        "2px; border-radius: 10px; padding: 6px; font-size: 18px;}");
+    ///обновление состояний всех кнопок -- мб функцию?? от параметров всех
+    ///кнопок -- enabled/ не enabled -- а это вынести в отдельную настройку
+    ///сразу
+    set_font_color_button(add_product_button, "#172030", 18, false);
+    set_font_color_button(find_product_button, "#0066CC", 18, true);
+    set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
+    set_font_color_button(find_recipe_button, "#0066CC", 18, true);
+    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
+    set_font_color_button(check_basket_button, "#0066CC", 18, true);
 
     find_product_button->show();
-    find_product_button->setEnabled(true);
     put_in_basket_button->hide();
     find_recipe_button->show();
     next_button->hide();
@@ -157,6 +160,7 @@ void RecipeBook::find_product_func() {
 
     product_name_line->setReadOnly(true);
     find_product_button->setEnabled(false);
+
     add_product_button->setEnabled(true);
 
     put_in_basket_button->show();
@@ -206,7 +210,7 @@ void RecipeBook::put_in_basket_func() {
         return;
     }
     API::put_product_in_basket(basket_of_products,
-                                  res_of_request_products[num_current_object]);
+                               res_of_request_products[num_current_object]);
 
     product_name_line->clear();
     recipe_text->clear();
@@ -311,8 +315,7 @@ void RecipeBook::previous_func() {
             num_current_object = res_of_request_recipes.size() - 1;
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
-        recipe_text->setText(
-            QString::fromUtf8(recipe.get_name().c_str()));
+        recipe_text->setText(QString::fromUtf8(recipe.get_name().c_str()));
     }
 }
 
@@ -331,8 +334,7 @@ void RecipeBook::next_func() {
             num_current_object = 0;
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
-        recipe_text->setText(
-            QString::fromUtf8(recipe.get_name().c_str()));
+        recipe_text->setText(QString::fromUtf8(recipe.get_name().c_str()));
     }
 }
 

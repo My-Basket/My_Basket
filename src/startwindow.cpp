@@ -128,7 +128,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     premium_button->show();
 
     go_to_searching_button = new QPushButton(tr("go to searching!"));
-    set_font_color_button(go_to_searching_button, "#FF9899", 20);
+    set_font_color_button(go_to_searching_button, "#FF9899", 20, false);
     go_to_searching_button->show();
 
     QHBoxLayout *button_layout = new QHBoxLayout;
