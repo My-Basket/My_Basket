@@ -368,6 +368,8 @@ void RecipeBook::next_func() {
 
 void RecipeBook::choose_recipe_func() {
     //переход к summary_window
+    //API::recipe_to_ingredients::choose_recipe(num_current_object);
+
     summary_window = new SummaryWindow;
     summary_window->show();
     this->close();
