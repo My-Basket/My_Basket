@@ -3,7 +3,9 @@
 
 #include <string>
 
-///поставитьт define на языки -- ифать внутри структур, чему присваивать строки
+namespace StyleSettings {
+
+///поставить define на языки -- ифать внутри структур, чему присваивать строки
 struct Titles {
     inline static const std::string windows_title = "My_Basket";
     inline static const std::string path_to_bg_image =
@@ -49,6 +51,12 @@ struct WindowSizes {
     inline static const int my_basket_label_margin = 50;
 };
 
+struct Enable {
+    bool enabled = true;
+    bool unenabled = false;
+};
+
 struct ButtonsSettings {};
+} //namespace StyleSettings
 
 #endif  // MY_BASKET_STYLE_SETTINGS_H

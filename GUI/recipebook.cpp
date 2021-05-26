@@ -1,5 +1,6 @@
 // You may need to build the project (run Qt uic code generator) to get
 #include "recipebook.h"
+#include "style_settings.h"
 #include <QBrush>
 #include <QGridLayout>
 #include <QMessageBox>
@@ -109,9 +110,9 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     main_layout->addLayout(button_layout2, 3, 1);
 
     setLayout(main_layout);
-    setWindowTitle(tr("My_Basket"));
+    setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
-    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QBrush image_basket_background(QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
@@ -377,7 +378,7 @@ void RecipeBook::set_category(std::string &category_) {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QBrush image_basket_background(QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
@@ -425,7 +426,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
             SLOT(end_program_func()));
 
     setLayout(main_layout);
-    setWindowTitle(tr("My_Basket"));
+    setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
     // this->setFixedSize(1000, 600);
     this->setMinimumSize(1000, 600);

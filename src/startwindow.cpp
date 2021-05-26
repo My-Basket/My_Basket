@@ -1,4 +1,5 @@
 #include "startwindow.h"
+#include "style_settings.h"
 #include <QBrush>
 #include <QGridLayout>
 #include <QLabel>
@@ -49,7 +50,7 @@ void set_font_color_label(QLabel *label,
 }
 
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QBrush image_basket_background(QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
@@ -93,7 +94,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
             SLOT(go_to_category_window()));
 
     setLayout(main_layout);
-    setWindowTitle(tr("My_Basket"));
+    setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
     // this->setFixedSize(1000, 600);
     this->setMinimumSize(1000, 600);
@@ -107,7 +108,7 @@ void StartWindow::go_to_category_window() {
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QBrush image_basket_background(QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
@@ -156,7 +157,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
             SLOT(go_to_recipe_book()));
 
     setLayout(main_layout);
-    setWindowTitle(tr("My_Basket"));
+    setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
     // this->setFixedSize(1000, 600);
     this->setMinimumSize(1000, 600);
