@@ -37,8 +37,14 @@ file_logger::file_logger(size_t size) : logger(size) {
 }
 
 void file_logger::flush() {
-    auto time = std::chrono::system_clock::now();
-    std::string file_name = "../Logs/logs_by_" + std::to_string(std::chrono::system_clock::to_time_t(time));
+    std::time_t time =
+        std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::string str_time_format(std::ctime(&time));
+    std::replace_if(
+        str_time_format.begin(), str_time_format.end(),
+        [](char &c1) { return (c1 == ' ' || c1 == ':'); }, '_');
+    str_time_format.pop_back();
+    std::string file_name = "../Logs/logs_by_" + str_time_format;
     std::ofstream fout(file_name);
 
     fout << text;
