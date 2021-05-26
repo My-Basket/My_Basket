@@ -88,8 +88,13 @@ private:
         search::product &prod);
 };
 
-void print_product(search::product const &product);
-void print_recipe(search::Recipe const &recipe);
+void print_product_by_name(QTextEdit *text_field,
+                           search::product const &product);
+void print_product_by_name_price(QTextEdit *text_field,
+                                 search::product const &product);
+void print_products_vector(QTextEdit *text_field,
+                           std::vector<search::product> const &products_vec);
+void print_recipe(QTextEdit *text_field, search::Recipe const &recipe);
 
 }  // namespace Ui
 
