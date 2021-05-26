@@ -1,11 +1,6 @@
 #include "work_with_string.h"
 #include <exception>
-
-InvalidString::InvalidString(const std::string &s) : std::runtime_error("Invalid String \""+s+"\"\n") {
-}
-[[nodiscard]] const char *InvalidString::what() const noexcept {
-    return runtime_error::what();
-}
+#include <errors.h>
 
 pair<int, int> code_point(const string &u) {
     pair<int, int> result;
@@ -98,7 +93,7 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
     while (!new_s.empty()) {
         for (int i = symbol_size; i < old_s.size(); i++) {
             if (i - symbol_size >= new_s.size()) {
-                throw InvalidString(copy_s);
+                throw err::InvalidString(copy_s);
             }
             new_s[i - symbol_size] = old_s[i];
         }

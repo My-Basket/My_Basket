@@ -4,8 +4,8 @@
 #include "work_with_string.h"
 #include <logger.h>
 
-error_logger &fl() {
-    static error_logger fl_log;
+error_file_logger &err_in_file() {
+    static error_file_logger fl_log;
     return fl_log;
 }
 
@@ -67,8 +67,8 @@ bool compare(const search::product &p1, const search::product &p2) {
     try {
         from_str_to_codepoint(p1.get_name(), codepoint1);
         from_str_to_codepoint(p2.get_name(), codepoint2);
-    } catch (const MyBasketError &er) {
-        fl().log(er);
+    } catch (const err::MyBasketError &er) {
+        err_in_file().log(er);
         return false;
     }
     uint32_t min_value = std::min(codepoint1.size(), codepoint2.size());
@@ -103,8 +103,8 @@ void get_prod_top_by_name(const std::string &input_string,
     std::vector<uint32_t> first_str_codepoints;
     try {
         from_str_to_codepoint(input_string, first_str_codepoints);
-    } catch (...) {
-        /// TODO log
+    } catch (const err::MyBasketError &er) {
+        err_in_file().log(er);
     }
     std::multiset<set_unit<product>> top;
     for (auto const &x : j) {
@@ -114,8 +114,8 @@ void get_prod_top_by_name(const std::string &input_string,
         std::vector<uint32_t> second_str_codepoints;
         try {
             from_str_to_codepoint(cur_prod.get_name(), second_str_codepoints);
-        } catch (...) {
-            /// TODO log
+        } catch (const err::MyBasketError &er) {
+            err_in_file().log(er);
         }
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
@@ -144,8 +144,8 @@ product::product(const json &j) {
         name = j["Name"];
         category = j["Category"];
         price = j["Price"];
-    } catch (...) {
-        /// TODO log
+    } catch (const json::exception &er) {
+        err_in_file().log(er);
     }
 }
 
@@ -155,8 +155,8 @@ product &product::operator=(const json &j) {
         category = j["Category"];
         price = j["Price"];
         return *this;
-    } catch (...) {
-        /// TODO log
+    } catch (const json::exception &er) {
+        err_in_file().log(er);
     }
     return *this;
 }
@@ -263,8 +263,8 @@ void search_recipe(const string &input_string,
     std::vector<uint32_t> first_str_codepoints;
     try {
         from_str_to_codepoint(input_string, first_str_codepoints);
-    } catch (...) {
-        /// TODO log
+    } catch (const err::MyBasketError &er) {
+        err_in_file().log(er);
     }
     std::multiset<set_unit<Recipe>> top;
 
@@ -275,8 +275,8 @@ void search_recipe(const string &input_string,
         std::vector<uint32_t> second_str_codepoints;
         try {
             from_str_to_codepoint(cur_recipe.get_name(), second_str_codepoints);
-        } catch (...) {
-            /// TODO log
+        } catch (const err::MyBasketError &er) {
+            err_in_file().log(er);
         }
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
@@ -312,7 +312,7 @@ void checking_prod_or_rec_in_shop(std::vector<uint32_t> &request,
         std::vector<uint32_t> second_str_codepoints;
         try {
             from_str_to_codepoint(temp_name, second_str_codepoints);
-        } catch (const InvalidString &) {
+        } catch (const err::InvalidString &) {
             continue;
         }
         uint32_t in_amount = check_in(request, second_str_codepoints);
@@ -342,9 +342,9 @@ Recipe::sum_price_of_rec_prod(const std::string &file_name) {
         std::vector<uint32_t> first_str_codepoints;
         try {
             from_str_to_codepoint(cur_prod_name, first_str_codepoints);
-        } catch (const InvalidString &s) {
-            //            sum += price_of_prod[i].second;
-            //            std::cerr << s.what();    /// TODO log
+        } catch (const err::MyBasketError &er) {
+            err_in_file().log(er);
+            sum += price_of_prod[i].second;
             continue;
         }
         search::checking_prod_or_rec_in_shop<search::product>(
