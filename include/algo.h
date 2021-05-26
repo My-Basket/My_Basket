@@ -93,6 +93,9 @@ public:
 
 void get_recommended_recipes();
 
+void get_prod_top_by_name(string &input_string,
+                          std::vector<product> &vec,
+                          uint32_t size);
 }  // namespace API
 
 #endif  // MY_BASKET_SEARCH_ALGO_H

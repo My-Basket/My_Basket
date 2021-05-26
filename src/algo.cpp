@@ -1,6 +1,7 @@
 #include "algo.h"
 #include <iostream>
 #include "search_engine.h"
+#include <errors.h>
 
 using nlohmann::json, search::product, search::set_unit;
 size_t API::ingredients_to_recipe::choose_category_shop(const std::string &s) {
@@ -13,11 +14,36 @@ size_t API::ingredients_to_recipe::choose_category_shop(const std::string &s) {
     }
 }
 
+void API::get_prod_top_by_name(std::string &input_string,
+                               std::vector<product> &vec,
+                               uint32_t size) {
+    switch (API::ingredients_to_recipe::get_shop_mode()) {
+        case API::Shop_Mode::ECONOMY:
+            for (const auto &sh : API::Data_files::econom_shops) {
+                search::get_prod_top_by_name(
+                    input_string, sh, vec, size);
+            }
+            break;
+        case API::Shop_Mode::BASE:
+            for (const auto &sh : API::Data_files::base_shops) {
+                search::get_prod_top_by_name(
+                    input_string, sh, vec, size);
+            }
+            break;
+        case API::Shop_Mode::PREMIUM:
+            for (const auto &sh : API::Data_files::premium_shops) {
+                search::get_prod_top_by_name(
+                    input_string, sh, vec, size);
+            }
+            break;
+    }
+}
+
 void API::ingredients_to_recipe::run_product_search(
     std::string s,
     uint32_t size,
     std::vector<search::product> &top) {
-    search::get_prod_top_by_name(s, top, size);
+    API::get_prod_top_by_name(s, top, size);
     res_of_request = std::move(top);
 }
 void API::ingredients_to_recipe::run_recipes_search(

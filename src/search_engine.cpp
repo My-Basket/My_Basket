@@ -1,8 +1,8 @@
 #include "search_engine.h"
+#include <logger.h>
 #include <cassert>
 #include <fstream>
 #include "work_with_string.h"
-#include <logger.h>
 
 error_file_logger &err_in_file() {
     static error_file_logger fl_log;
@@ -94,9 +94,10 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
 }
 
 void get_prod_top_by_name(const std::string &input_string,
-                          std::vector<product> &vec,
+                          const std::string &file_name,
+                              std::vector<product> &vec,
                           const uint32_t &size) {
-    std::ifstream file("../data/karusel.json");
+    std::ifstream file(file_name);
     json j = json::parse(file);
     file.close();
 
@@ -296,41 +297,6 @@ void search_recipe(const string &input_string,
     }
 }
 
-template <typename T>  /// TODO That's absolutely not normal. Will be deleted.
-void checking_prod_or_rec_in_shop(std::vector<uint32_t> &request,
-                                  const std::string &file_name,
-                                  std::vector<T> &res,
-                                  uint32_t size) {
-    std::ifstream file(file_name);
-    json j = json::parse(file);
-    file.close();
-
-    std::multiset<search::set_unit<T>> top;
-    for (auto const &x : j) {
-        T cur_prod_or_rec(x);
-        std::string temp_name = x["Name"];
-        std::vector<uint32_t> second_str_codepoints;
-        try {
-            from_str_to_codepoint(temp_name, second_str_codepoints);
-        } catch (const err::InvalidString &) {
-            continue;
-        }
-        uint32_t in_amount = check_in(request, second_str_codepoints);
-        uint32_t leven_dist = levenshtein_algo(request, second_str_codepoints);
-        top.insert({in_amount, leven_dist, cur_prod_or_rec});
-
-        if (top.size() > size) {
-            auto it = top.end();
-            it--;
-            top.erase(it);
-        }
-    }
-
-    for (const auto &su : top) {
-        res.push_back(su.product_);
-    }
-}
-
 std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>>
 Recipe::sum_price_of_rec_prod(const std::string &file_name) {
     std::vector<std::pair<std::string, uint32_t>> price_of_prod(
@@ -340,15 +306,14 @@ Recipe::sum_price_of_rec_prod(const std::string &file_name) {
         std::vector<search::product> ingredient(1);
         auto cur_prod_name = ingredients[i].get_name();
         std::vector<uint32_t> first_str_codepoints;
-        try {
-            from_str_to_codepoint(cur_prod_name, first_str_codepoints);
-        } catch (const err::MyBasketError &er) {
-            err_in_file().log(er);
-            sum += price_of_prod[i].second;
-            continue;
-        }
-        search::checking_prod_or_rec_in_shop<search::product>(
-            first_str_codepoints, file_name, ingredient, 1);
+//        try {
+//            from_str_to_codepoint(cur_prod_name, first_str_codepoints);
+//        } catch (const err::MyBasketError &er) {
+//            err_in_file().log(er);
+//            sum += price_of_prod[i].second;
+//            continue;
+//        }
+        search::get_prod_top_by_name(cur_prod_name, file_name, ingredient, 1);
         price_of_prod[i] = {ingredient[0].get_name(),
                             ingredient[0].get_price()};
         sum += price_of_prod[i].second;
