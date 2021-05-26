@@ -151,6 +151,8 @@ void RecipeBook::add_product_func() {
     recipe_label->setText("possible to take:");
 }
 
+///можно ли ее вызвать по нажатию enter? чтобы было логично, как будто в обычном
+///поисковике
 void RecipeBook::find_product_func() {
     if (product_name_line->text() == "") {
         QMessageBox::information(this, tr("Empty input"),
@@ -159,9 +161,16 @@ void RecipeBook::find_product_func() {
     }
 
     product_name_line->setReadOnly(true);
-    find_product_button->setEnabled(false);
 
-    add_product_button->setEnabled(true);
+    // find_product_button->setEnabled(false);
+    // add_product_button->setEnabled(true);
+
+    set_font_color_button(add_product_button, "#0066CC", 18, true);
+    set_font_color_button(find_product_button, "#172030", 18, false);
+    set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
+    set_font_color_button(find_recipe_button, "#0066CC", 18, true);
+    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
+    set_font_color_button(check_basket_button, "#0066CC", 18, true);
 
     put_in_basket_button->show();
     previous_button->show();
@@ -217,7 +226,14 @@ void RecipeBook::put_in_basket_func() {
 
     product_name_line->setReadOnly(true);
     recipe_text->setReadOnly(true);
-    add_product_button->setEnabled(true);
+
+    set_font_color_button(add_product_button, "#0066CC", 18, true);
+    set_font_color_button(find_product_button, "#0066CC", 18, true);
+    set_font_color_button(put_in_basket_button, "#172030", 18, false);
+    set_font_color_button(find_recipe_button, "#0066CC", 18, true);
+    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
+    set_font_color_button(check_basket_button, "#0066CC", 18, true);
+
     find_product_button->hide();
     put_in_basket_button->hide();
     next_button->hide();
