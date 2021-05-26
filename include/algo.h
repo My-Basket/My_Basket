@@ -76,7 +76,7 @@ public:
                                   std::vector<search::Recipe> &vec);
     static std::vector<search::Recipe> show_recipes();
 
-    static void choose_recipe(uint32_t num);
+    static search::Recipe choose_recipe(uint32_t num);
 
     static void stop_searching_recipe();
 
@@ -85,9 +85,7 @@ public:
                      std::vector<std::pair<std::string, uint32_t>>>
     compare_prices_of_ingredients();
 
-    friend void search_recipe(const std::string &input_string,
-                              uint32_t size,
-                              std::vector<search::Recipe> &vec);
+
     friend void get_recommended_recipes();
 };
 

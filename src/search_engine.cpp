@@ -246,7 +246,7 @@ void get_recipes(const std::vector<product> &ingredients,
 
     for (const auto &x : top) {
         vec.push_back(
-            x.product_);  /// TODO CHANGE SET UNIT PRODUCT_ TO CONTENT_
+            x.product_);
     }
 }
 
@@ -300,22 +300,27 @@ void search_recipe(const string &input_string,
 std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>>
 Recipe::sum_price_of_rec_prod(const std::string &file_name) {
     std::vector<std::pair<std::string, uint32_t>> price_of_prod(
-        ingredients.size(), {"", 10000});
+        ingredients.size());
     uint32_t sum = 0;
     for (size_t i = 0; i < ingredients.size(); i++) {
-        std::vector<search::product> ingredient(1);
+        std::vector<search::product> ingredient;
         auto cur_prod_name = ingredients[i].get_name();
         std::vector<uint32_t> first_str_codepoints;
-//        try {
-//            from_str_to_codepoint(cur_prod_name, first_str_codepoints);
-//        } catch (const err::MyBasketError &er) {
-//            err_in_file().log(er);
-//            sum += price_of_prod[i].second;
-//            continue;
-//        }
+        try {
+            from_str_to_codepoint(cur_prod_name, first_str_codepoints);
+        } catch (const err::MyBasketError &er) {
+            err_in_file().log(er);
+            sum += price_of_prod[i].second;
+            continue;
+        }
         search::get_prod_top_by_name(cur_prod_name, file_name, ingredient, 1);
-        price_of_prod[i] = {ingredient[0].get_name(),
-                            ingredient[0].get_price()};
+        if(!ingredient.empty()) {
+            price_of_prod[i] = {ingredient[0].get_name(),
+                                ingredient[0].get_price()};
+        }
+        else{
+            price_of_prod[i] = {"", 1e8};
+        }
         sum += price_of_prod[i].second;
     }
     return {sum, price_of_prod};

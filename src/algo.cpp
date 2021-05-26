@@ -5,9 +5,9 @@
 
 using nlohmann::json, search::product, search::set_unit;
 size_t API::ingredients_to_recipe::choose_category_shop(const std::string &s) {
-    if (s == "Base") {
+    if (s == "base") {
         return shop_mode = BASE;
-    } else if (s == "Economy") {
+    } else if (s == "economy") {
         return shop_mode = ECONOMY;
     } else {
         return shop_mode = PREMIUM;
@@ -107,8 +107,8 @@ void API::recipe_to_ingredients::stop_searching_recipe() {
     recipes_request.clear();
 }
 
-void API::recipe_to_ingredients::choose_recipe(uint32_t num) {
-    chosen_recipe = recipes_request[num];  // TODO понять, как получать номер
+search::Recipe API::recipe_to_ingredients::choose_recipe(uint32_t num) {
+    return chosen_recipe = recipes_request[num];  // TODO понять, как получать номер
 }
 
 void API::get_recommended_recipes() {
