@@ -92,6 +92,7 @@ struct Enable {
     bool unenabled = false;
 };
 
+struct ButtonSetting {};
 struct ButtonsSettings {};
 }  // namespace StyleSettings
 
