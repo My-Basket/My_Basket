@@ -329,17 +329,6 @@ void RecipeBook::check_basket_func() {
     }
 }
 
-void RecipeBook::choose_recipe_func() {
-    //вызвать колину функцию рассчета стоимости и выбора магазина
-    auto calculation_info =
-        API::recipe_to_ingredients::compare_prices_of_ingredients();
-
-    //переход к summary_window
-    summary_window = new SummaryWindow;
-    summary_window->show();
-    this->close();
-}
-
 void RecipeBook::previous_func() {
     num_current_object--;
     if (current_mode == FindProduct_mode) {
@@ -378,6 +367,13 @@ void RecipeBook::next_func() {
     }
 }
 
+void RecipeBook::choose_recipe_func() {
+    //переход к summary_window
+    summary_window = new SummaryWindow;
+    summary_window->show();
+    this->close();
+}
+
 void RecipeBook::set_category(std::string &category_) {
     category = category_;
 }
@@ -388,9 +384,16 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
 
+    //коля это пока переделывает
+    //получение информации о лучшем магазине и лучшей стоимости
+    //    auto calculation_info =
+    //        API::recipe_to_ingredients::compare_prices_of_ingredients();
+    //    shop_name = calculation_info.first.first;
+    //    total_cost = calculation_info.first.second;
+
     end_program_button = new QPushButton(tr("end program"));
     set_font_color_button(end_program_button, "#FF7699", 30);
-    end_program_button->show();  // 522030
+    end_program_button->show();
 
     best_total_cost_label = new QLabel(tr("best total cost:"));
     set_font_color_label(best_total_cost_label, "black", 100);
