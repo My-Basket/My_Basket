@@ -21,7 +21,7 @@ private:
     CategoryWindow *category_window;
 
     //кнопки окна
-    QPushButton *start_button;
+    QPushButton *start_shopping_button;
     QLabel *my_basket_label;
     QLabel *description_label;
 };
@@ -34,7 +34,6 @@ public:
 
 public slots:
     void go_to_recipe_book();
-    // void set_chosen_category(/*std::string &category*/);
     void choose_economy();
     void choose_base();
     void choose_premium();

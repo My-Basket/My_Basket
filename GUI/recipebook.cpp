@@ -65,8 +65,6 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     set_font_color_button(previous_button, "#00CC66", 18);
     previous_button->hide();
 
-    // API::ingredients_to_recipe::choose_category_shop(category);
-
     // TODO: можно ли избавиться от копипаста и вынести это в функцию с
     // параметрами (название кнопки (1), ф-я(4))
     connect(add_product_button, SIGNAL(clicked()), this,
@@ -113,11 +111,11 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    /*QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);*/
-    //this->setFixedSize(1000, 600);
+    this->setPalette(plt);
+    // this->setFixedSize(1000, 600);
     this->setMinimumSize(1000, 600);
 }
 
@@ -144,6 +142,9 @@ void RecipeBook::add_product_func() {
     set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
     set_font_color_button(check_basket_button, "#0066CC", 18, true);
 
+    set_font_color_button(next_button, "#00CC66", 18, true);
+    set_font_color_button(previous_button, "#00CC66", 18, true);
+
     find_product_button->show();
     put_in_basket_button->hide();
     find_recipe_button->show();
@@ -163,15 +164,15 @@ void RecipeBook::find_product_func() {
 
     product_name_line->setReadOnly(true);
 
-    // find_product_button->setEnabled(false);
-    // add_product_button->setEnabled(true);
-
     set_font_color_button(add_product_button, "#0066CC", 18, true);
     set_font_color_button(find_product_button, "#172030", 18, false);
     set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
     set_font_color_button(find_recipe_button, "#0066CC", 18, true);
     set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
     set_font_color_button(check_basket_button, "#0066CC", 18, true);
+
+    set_font_color_button(previous_button, "#00CC66", 18, true);
+    set_font_color_button(next_button, "#00CC66", 18, true);
 
     put_in_basket_button->show();
     previous_button->show();
@@ -235,6 +236,9 @@ void RecipeBook::put_in_basket_func() {
     set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
     set_font_color_button(check_basket_button, "#0066CC", 18, true);
 
+    set_font_color_button(previous_button, "#00CC66", 18, true);
+    set_font_color_button(next_button, "#00CC66", 18, true);
+
     find_product_button->hide();
     put_in_basket_button->hide();
     next_button->hide();
@@ -270,7 +274,7 @@ void RecipeBook::find_recipe_func() {
     find_recipe_button->hide();
 
     set_font_color_button(previous_button, "#00CC66", 18, true);
-    set_font_color_button(next_button, "##00CC66", 18, true);
+    set_font_color_button(next_button, "#00CC66", 18, true);
 
     previous_button->show();
     next_button->show();
@@ -301,7 +305,16 @@ void RecipeBook::check_basket_func() {
     product_name_line->clear();
     recipe_text->clear();
     put_in_basket_button->hide();
-    add_product_button->setEnabled(true);
+
+    set_font_color_button(add_product_button, "#0066CC", 18, true);
+    set_font_color_button(find_product_button, "#0066CC", 18, true);
+    set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
+    set_font_color_button(find_recipe_button, "#0066CC", 18, true);
+    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
+    set_font_color_button(check_basket_button, "#172030", 18, false);
+
+    set_font_color_button(previous_button, "#00CC66", 18, true);
+    set_font_color_button(next_button, "#00CC66", 18, true);
 
     recipe_label->setText("in basket:");
 
@@ -312,15 +325,6 @@ void RecipeBook::check_basket_func() {
         recipe_text->insertPlainText(static_cast<const QString>(res_product));
         recipe_text->insertPlainText("\n");
     }
-}
-
-void RecipeBook::choose_recipe_func() {
-    //вызвать колину функцию рассчета стоимости и выбора магазина
-
-    //переход к summary_window
-    summary_window = new SummaryWindow;
-    summary_window->show();
-    this->close();
 }
 
 void RecipeBook::previous_func() {
@@ -361,19 +365,33 @@ void RecipeBook::next_func() {
     }
 }
 
+void RecipeBook::choose_recipe_func() {
+    //переход к summary_window
+    summary_window = new SummaryWindow;
+    summary_window->show();
+    this->close();
+}
+
 void RecipeBook::set_category(std::string &category_) {
     category = category_;
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    /*QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);*/
+    this->setPalette(plt);
+
+    //коля это пока переделывает
+    //получение информации о лучшем магазине и лучшей стоимости
+    //    auto calculation_info =
+    //        API::recipe_to_ingredients::compare_prices_of_ingredients();
+    //    shop_name = calculation_info.first.first;
+    //    total_cost = calculation_info.first.second;
 
     end_program_button = new QPushButton(tr("end program"));
     set_font_color_button(end_program_button, "#FF7699", 30);
-    end_program_button->show();  // 522030
+    end_program_button->show();
 
     best_total_cost_label = new QLabel(tr("best total cost:"));
     set_font_color_label(best_total_cost_label, "black", 100);
@@ -409,7 +427,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(tr("My_Basket"));
 
-    //this->setFixedSize(1000, 600);
+    // this->setFixedSize(1000, 600);
     this->setMinimumSize(1000, 600);
 }
 
