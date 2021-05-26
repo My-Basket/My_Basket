@@ -18,7 +18,7 @@ class recipe_to_ingredients;
 
 namespace Data_files {
 const std::vector<std::string> econom_shops = {"../data/av.json"};
-const std::vector<std::string> base_shops = {"../data/karusel1.json"};
+const std::vector<std::string> base_shops = {"../data/karusel.json"};
 const std::vector<std::string> premium_shops = {"../data/spar.json"};
 }  // namespace Data_files
 
