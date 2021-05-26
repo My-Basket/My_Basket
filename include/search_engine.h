@@ -9,13 +9,6 @@
 #include "json.hpp"
 #include "work_with_string.h"
 
-namespace {         /// That's also is weird
-uint32_t check_in(const std::vector<uint32_t> &first_str,
-                  const std::vector<uint32_t> &second_str);
-uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
-                          std::vector<uint32_t> &second_str);
-}
-
 namespace search {
 
 template <typename T>
@@ -44,6 +37,9 @@ private:
 public:
     product() = default;
     product(const product &d) = default;
+    product(const std::string &name_,
+            const std::string &category_,
+            const uint32_t &price_);
 
     product &operator=(const product &d) = default;
 
@@ -74,8 +70,10 @@ void get_prod_top_by_name(const std::string &input_string,
 
 class Recipe {
 private:
-    std::vector<search::product> ingredients;  /// TODO: That's not good
     std::string name;
+    std::string reference;
+    std::string pic_reference;
+    std::vector<search::product> ingredients;  /// TODO: That's not good
 
 public:
     Recipe() = default;
@@ -88,11 +86,19 @@ public:
 
     Recipe &operator=(Recipe &&recipe) = default;
 
+    Recipe(const std::string &name_);
+
+    Recipe(const std::string &name_,
+           const std::string &ref_,
+           const std::string &pref_);
+
     ~Recipe() = default;
 
     void clear();
 
     Recipe(const json &j);
+
+    void add_product(const search::product &prod);
 
     bool is_ingredient_in_recipe(
         const product &ingredient);  //проверка на наличие ингредиента в рецепте
@@ -106,6 +112,10 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
 
     std::string get_name();
+
+    std::string get_reference();
+
+    std::string get_pic_reference();
 };
 
 void search_recipe(const string &input_string,

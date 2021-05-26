@@ -2,6 +2,12 @@
 #include <cassert>
 #include <fstream>
 #include "work_with_string.h"
+#include <logger.h>
+
+error_file_logger &err_in_file() {
+    static error_file_logger fl_log;
+    return fl_log;
+}
 
 namespace {
 
@@ -54,34 +60,51 @@ uint32_t check_in(
     }
     return max_amount;
 }
+
+bool compare(const search::product &p1, const search::product &p2) {
+    std::vector<uint32_t> codepoint1;
+    std::vector<uint32_t> codepoint2;
+    try {
+        from_str_to_codepoint(p1.get_name(), codepoint1);
+        from_str_to_codepoint(p2.get_name(), codepoint2);
+    } catch (const err::MyBasketError &er) {
+        err_in_file().log(er);
+        return false;
+    }
+    uint32_t min_value = std::min(codepoint1.size(), codepoint2.size());
+    return levenshtein_algo(codepoint1, codepoint2) >
+               0.8 * static_cast<double>(min_value) &&
+           check_in(codepoint1, codepoint2) >
+               0.7 * static_cast<double>(min_value);
+}
 }  // namespace
 
 namespace search {
 
 std::ostream &operator<<(std::ostream &os, const product &p) {
     os << "{\n"
-       << "   "
-       << "Name: " << p.name << '\n'
-       << "   "
-       << "Category: " << p.category << '\n'
-       << "   "
-       << "Price: " << p.price << '\n'
-       << "}\n";
+       << "\t"
+       << "\"Name\" : \"" << p.name << "\",\n"  // NOLINT
+       << "\t"
+       << "\"Category\" : \"" << p.category << "\",\n"  // NOLINT
+       << "\t"
+       << "\"Price\" : " << p.price << "\n"
+       << "}";
     return os;
 }
 
 void get_prod_top_by_name(const std::string &input_string,
                           std::vector<product> &vec,
                           const uint32_t &size) {
-    std::ifstream file("../data/karusel1.json");
+    std::ifstream file("../data/karusel.json");
     json j = json::parse(file);
     file.close();
 
     std::vector<uint32_t> first_str_codepoints;
     try {
         from_str_to_codepoint(input_string, first_str_codepoints);
-    } catch (...){
-        /// TODO log
+    } catch (const err::MyBasketError &er) {
+        err_in_file().log(er);
     }
     std::multiset<set_unit<product>> top;
     for (auto const &x : j) {
@@ -91,8 +114,8 @@ void get_prod_top_by_name(const std::string &input_string,
         std::vector<uint32_t> second_str_codepoints;
         try {
             from_str_to_codepoint(cur_prod.get_name(), second_str_codepoints);
-        } catch (...) {
-            /// TODO log
+        } catch (const err::MyBasketError &er) {
+            err_in_file().log(er);
         }
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
@@ -121,8 +144,8 @@ product::product(const json &j) {
         name = j["Name"];
         category = j["Category"];
         price = j["Price"];
-    } catch (...) {
-        /// TODO log
+    } catch (const json::exception &er) {
+        err_in_file().log(er);
     }
 }
 
@@ -132,8 +155,8 @@ product &product::operator=(const json &j) {
         category = j["Category"];
         price = j["Price"];
         return *this;
-    } catch (...) {
-        /// TODO log
+    } catch (const json::exception &er) {
+        err_in_file().log(er);
     }
     return *this;
 }
@@ -143,11 +166,30 @@ bool product::operator==(const product &p) const {
 }
 
 std::ostream &operator<<(std::ostream &os, const Recipe &p) {
-    os << p.name << "\n";
-    os << "Ingredients:\n";
-    for (const auto &t : p.ingredients) {
-        os << t << "\n";
+    os << "{\n";
+    os << "\t"
+       << "\"Name\" : "
+       << "\"" << p.name << "\","
+       << "\n";
+    os << "\t"
+       << "\"Reference\" : "
+       << "\"" << p.reference << "\","
+       << "\n";
+    os << "\t"
+       << "\"Picture reference\" : "
+       << "\"" << p.pic_reference << "\","
+       << "\n";
+    os << "\t"
+       << "\"Ingredients\" : [\n";
+    for (auto it = p.ingredients.begin(); it < p.ingredients.end(); it++) {
+        if (it == p.ingredients.end() - 1) {
+            os << *it << "\n";
+        } else {
+            os << *it << ",\n";
+        }
     }
+    os << "]\n";
+    os << "}";
     return os;
 }
 
@@ -171,7 +213,7 @@ void Recipe::clear() {
 bool Recipe::is_ingredient_in_recipe(const product &ingredient) {
     return std::any_of(
         ingredients.begin(), ingredients.end(),
-        [&ingredient](const product &p) { return (p == ingredient); });
+        [&ingredient](const product &p) { return compare(p, ingredient); });
 }
 
 void get_recipes(const std::vector<product> &ingredients,
@@ -221,8 +263,8 @@ void search_recipe(const string &input_string,
     std::vector<uint32_t> first_str_codepoints;
     try {
         from_str_to_codepoint(input_string, first_str_codepoints);
-    } catch (...) {
-        /// TODO log
+    } catch (const err::MyBasketError &er) {
+        err_in_file().log(er);
     }
     std::multiset<set_unit<Recipe>> top;
 
@@ -233,8 +275,8 @@ void search_recipe(const string &input_string,
         std::vector<uint32_t> second_str_codepoints;
         try {
             from_str_to_codepoint(cur_recipe.get_name(), second_str_codepoints);
-        } catch (...) {
-            /// TODO log
+        } catch (const err::MyBasketError &er) {
+            err_in_file().log(er);
         }
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
@@ -270,7 +312,7 @@ void checking_prod_or_rec_in_shop(std::vector<uint32_t> &request,
         std::vector<uint32_t> second_str_codepoints;
         try {
             from_str_to_codepoint(temp_name, second_str_codepoints);
-        } catch (const InvalidString &) {
+        } catch (const err::InvalidString &) {
             continue;
         }
         uint32_t in_amount = check_in(request, second_str_codepoints);
@@ -300,9 +342,9 @@ Recipe::sum_price_of_rec_prod(const std::string &file_name) {
         std::vector<uint32_t> first_str_codepoints;
         try {
             from_str_to_codepoint(cur_prod_name, first_str_codepoints);
-        } catch (const InvalidString &s) {
-//            sum += price_of_prod[i].second;
-//            std::cerr << s.what();    /// TODO log
+        } catch (const err::MyBasketError &er) {
+            err_in_file().log(er);
+            sum += price_of_prod[i].second;
             continue;
         }
         search::checking_prod_or_rec_in_shop<search::product>(
@@ -314,4 +356,30 @@ Recipe::sum_price_of_rec_prod(const std::string &file_name) {
     return {sum, price_of_prod};
 }
 
+void Recipe::add_product(const search::product &prod) {
+    ingredients.push_back(prod);
+}
+
+Recipe::Recipe(const std::string &name_) : name(name_) {  // NOLINT
+}
+
+std::string Recipe::get_reference() {
+    return reference;
+}
+
+std::string Recipe::get_pic_reference() {
+    return pic_reference;
+}
+
+Recipe::Recipe(const std::string &name_,
+               const std::string &ref_,
+               const std::string &pref_)
+    : name(name_), reference(ref_), pic_reference(pref_) {
+}
+
+product::product(const std::string &name_,
+                 const std::string &category_,
+                 const uint32_t &price_)
+    : name(name_), category(category_), price(price_) {
+}
 }  // namespace search
