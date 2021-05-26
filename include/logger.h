@@ -22,7 +22,7 @@ public:
     virtual ~logger();
 };
 
-class error_logger : virtual logger {
+class error_logger : public virtual logger {
 protected:
     void flush() override;
 
@@ -34,7 +34,7 @@ public:
     ~error_logger() override;
 };
 
-class file_logger : virtual logger {
+class file_logger : public virtual logger {
 protected:
     void flush() override;
 
