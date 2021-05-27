@@ -8,7 +8,6 @@
 #include <QTextEdit>
 #include <QWidget>
 #include "search_engine.h"
-#include "startwindow.h"
 
 namespace Ui {
 
