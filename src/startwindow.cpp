@@ -178,7 +178,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void CategoryWindow::choose_economy() {
-    chosen_category = "ecomomy";
+    chosen_category = "economy";
 
     //обновить цвет других
     set_font_color_button(base_button, "#FF7699", 20, true);
