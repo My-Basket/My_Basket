@@ -8,11 +8,47 @@
 #include <sstream>
 #include "algo.h"
 #include "startwindow.h"
+#include "style_settings.h"
 
 namespace Ui {
 
+void print_product_by_name(QTextEdit *text_field,
+                           search::product const &product) {
+    std::string s = /*"product name:\n" + */ product.get_name() + '\n';
+    text_field->insertPlainText(QString::fromUtf8(s.c_str()));
+}
+
+void print_product_by_name_price(QTextEdit *text_field,
+                                 search::product const &product) {
+    print_product_by_name(text_field, product);
+    std::string s =
+        "----price:----\n" + std::to_string(product.get_price()) + "₽" + '\n';
+    text_field->insertPlainText(QString::fromUtf8(s.c_str()));
+}
+
+void print_recipe(QTextEdit *text_field, search::Recipe const &recipe) {
+    std::string s = /*"recipe name:\n" + */ recipe.get_name() + '\n' + '\n' +
+                    "----ingredients:----\n";
+    for (auto const &prod : recipe.get_ingredients()) {
+        s += prod.get_name() + '\n';
+    }
+    text_field->insertPlainText(QString::fromUtf8(s.c_str()));
+}
+
+void print_products_vector(QTextEdit *text_field,
+                           std::vector<search::product> const &products_vec) {
+    int vec_sz = products_vec.size();
+    for (int i = 0; i < vec_sz; i++) {
+        std::string s = std::to_string(i + 1) + ") ";
+        text_field->insertPlainText(s.c_str());
+        print_product_by_name(text_field, products_vec[i]);
+        text_field->insertPlainText("\n");
+    }
+}
+
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
-    product_name_label = new QLabel(tr("product or dish:"));
+    product_name_label =
+        new QLabel(StyleSettings::Titles::product_name_label_title.c_str());
     set_font_color_label(product_name_label, "white", 28, "", "#359530");
     product_name_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
@@ -22,7 +58,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_line->setStyleSheet("QLineEdit { font-size: 20px;}");
     product_name_line->setReadOnly(true);
 
-    recipe_label = new QLabel(tr("possible to take:"));
+    recipe_label =
+        new QLabel(StyleSettings::Titles::recipe_label_product_title.c_str());
     set_font_color_label(recipe_label, "white", 28, "", "#359530");
     recipe_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     recipe_label->setSizePolicy(QSizePolicy::MinimumExpanding,
@@ -32,36 +69,44 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     recipe_text->setReadOnly(true);
 
     //экземпляры кнопок правой панели
-    add_product_button = new QPushButton(tr("&add product"));
+    add_product_button = new QPushButton(
+        StyleSettings::Titles::add_product_button_title.c_str());
     set_font_color_button(add_product_button, "#0066CC", 18);
     add_product_button->show();  //нажата -> #000066
 
-    find_product_button = new QPushButton(tr("&find product"));
+    find_product_button = new QPushButton(
+        StyleSettings::Titles::find_product_button_title.c_str());
     set_font_color_button(find_product_button, "#0066CC", 18);
     find_product_button->hide();
 
-    put_in_basket_button = new QPushButton(tr("&put in basket"));
+    put_in_basket_button = new QPushButton(
+        StyleSettings::Titles::put_in_basket_button_title.c_str());
     set_font_color_button(put_in_basket_button, "#0066CC", 18);
     put_in_basket_button->hide();
 
-    find_recipe_button = new QPushButton(tr("&find recipe"));
+    find_recipe_button = new QPushButton(
+        StyleSettings::Titles::find_recipe_button_title.c_str());
     set_font_color_button(find_recipe_button, "#0066CC", 18);
     find_recipe_button->hide();
 
-    check_basket_button = new QPushButton(tr("&check basket"));
+    check_basket_button = new QPushButton(
+        StyleSettings::Titles::check_basket_button_title.c_str());
     set_font_color_button(check_basket_button, "#0066CC", 18);
     check_basket_button->show();
 
-    choose_recipe_button = new QPushButton(tr("&choose recipe"));
+    choose_recipe_button = new QPushButton(
+        StyleSettings::Titles::choose_recipe_button_title.c_str());
     set_font_color_button(choose_recipe_button, "#0066CC", 18);
     choose_recipe_button->hide();
 
     //экземпляры кнопок нижней панели
-    next_button = new QPushButton(tr("&next"));
+    next_button =
+        new QPushButton(StyleSettings::Titles::next_button_title.c_str());
     set_font_color_button(next_button, "#00CC66", 18);
     next_button->hide();  // FFD700
 
-    previous_button = new QPushButton(tr("&previous"));
+    previous_button =
+        new QPushButton(StyleSettings::Titles::previous_button_title.c_str());
     set_font_color_button(previous_button, "#00CC66", 18);
     previous_button->hide();
 
@@ -109,14 +154,17 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     main_layout->addLayout(button_layout2, 3, 1);
 
     setLayout(main_layout);
-    setWindowTitle(tr("My_Basket"));
+    setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
-   /* QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
+    QBrush image_basket_background(
+        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);*/
-    // this->setFixedSize(1000, 600);
-    this->setMinimumSize(1000, 600);
+    this->setPalette(plt);
+
+    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
+                         StyleSettings::WindowSizes::min_height_window);
+    ///вынести в отдельную функцию -- копипаст в 4 местах -- мб наследование?
 }
 
 void RecipeBook::add_product_func() {
@@ -150,15 +198,17 @@ void RecipeBook::add_product_func() {
     find_recipe_button->show();
     next_button->hide();
     previous_button->hide();
-    recipe_label->setText("possible to take:");
+    recipe_label->setText(
+        StyleSettings::Titles::recipe_label_product_title.c_str());
 }
 
 ///можно ли ее вызвать по нажатию enter? чтобы было логично, как будто в обычном
 ///поисковике
 void RecipeBook::find_product_func() {
     if (product_name_line->text() == "") {
-        QMessageBox::information(this, tr("Empty input"),
-                                 tr("Please enter a product"));
+        QMessageBox::information(
+            this, StyleSettings::Titles::empty_input_window_title.c_str(),
+            StyleSettings::Titles::empty_input_window_text.c_str());
         return;
     }
 
@@ -182,9 +232,8 @@ void RecipeBook::find_product_func() {
 
     current_mode = FindProduct_mode;
 
-    recipe_label->setText("possible to take:");
-
-    recipe_text->clear();
+    recipe_label->setText(
+        StyleSettings::Titles::recipe_label_product_title.c_str());
 
     //запуск поиска
     res_of_request_products.clear();
@@ -203,15 +252,10 @@ void RecipeBook::find_product_func() {
     //    recipe_text->insertPlainText(static_cast<const QString>(res_product));
     //    num_current_object = 0;
 
-    std::stringstream ss;
-    ss << res_of_request_products[0];
-    std::string s;
-    while (ss >> s) {
-        recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
-        recipe_text->insertPlainText("\n");
-    }
+    recipe_text->clear();
+    print_product_by_name_price(recipe_text, res_of_request_products[0]);
+
     num_current_object = 0;
-    /// TODO: сделать нормальный вывод в текстовое поле
 }
 
 void RecipeBook::put_in_basket_func() {
@@ -255,8 +299,8 @@ void RecipeBook::find_recipe_func() {
         res_of_request_products.clear();
         res_of_request_recipes.clear();
         QMessageBox::warning(
-            this, tr("Empty basket"),
-            tr("Please add at least one product in the basket"));
+            this, StyleSettings::Titles::empty_basket_window_title.c_str(),
+            StyleSettings::Titles::empty_basket_window_text.c_str());
         return;
     }
 
@@ -282,8 +326,9 @@ void RecipeBook::find_recipe_func() {
 
     current_mode = FindRecipe_mode;
 
-    recipe_label->setText("possible recipe:");
-    recipe_text->clear();
+    recipe_label->setText(
+        StyleSettings::Titles::recipe_label_recipe_title.c_str());
+    recipe_text->clear();  ///перенести пониже, если будет ускорен поиск
 
     res_of_request_recipes.clear();
     std::vector<search::Recipe> vec2;
@@ -291,13 +336,7 @@ void RecipeBook::find_recipe_func() {
                                                    vec2);
     res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
 
-    std::stringstream ss;
-    ss << res_of_request_recipes[0];
-    std::string s;
-    while (ss >> s) {
-        recipe_text->insertPlainText(QString::fromUtf8(s.c_str()));
-        recipe_text->insertPlainText("\n");
-    }
+    print_recipe(recipe_text, res_of_request_recipes[0]);
     num_current_object = 0;
 }
 
@@ -316,15 +355,11 @@ void RecipeBook::check_basket_func() {
     set_font_color_button(previous_button, "#00CC66", 18, true);
     set_font_color_button(next_button, "#00CC66", 18, true);
 
-    recipe_label->setText("in basket:");
+    recipe_label->setText(
+        StyleSettings::Titles::recipe_label_in_basket_title.c_str());
 
-    //вывести список продуктов корзины на экран
-    //мб отдельным окном
-    for (auto &prod : basket_of_products) {
-        QString res_product = QString::fromUtf8(prod.get_name().c_str());
-        recipe_text->insertPlainText(static_cast<const QString>(res_product));
-        recipe_text->insertPlainText("\n");
-    }
+    //вывод корзины на экран
+    print_products_vector(recipe_text, basket_of_products);
 }
 
 void RecipeBook::previous_func() {
@@ -335,14 +370,16 @@ void RecipeBook::previous_func() {
             num_current_object = res_of_request_products.size() - 1;
         }
         search::product prod = res_of_request_products[num_current_object];
-        recipe_text->setText(QString::fromUtf8(prod.get_name().c_str()));
+        recipe_text->clear();
+        print_product_by_name_price(recipe_text, prod);
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
         if (num_current_object < 0) {
             num_current_object = res_of_request_recipes.size() - 1;
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
-        recipe_text->setText(QString::fromUtf8(recipe.get_name().c_str()));
+        recipe_text->clear();
+        print_recipe(recipe_text, recipe);
     }
 }
 
@@ -354,20 +391,23 @@ void RecipeBook::next_func() {
             num_current_object = 0;
         }
         search::product prod = res_of_request_products[num_current_object];
-        recipe_text->setText(QString::fromUtf8(prod.get_name().c_str()));
+        recipe_text->clear();
+        print_product_by_name_price(recipe_text, prod);
     } else if (current_mode == FindRecipe_mode) {
         //циклический список рецептов
         if (num_current_object == res_of_request_recipes.size()) {
             num_current_object = 0;
         }
         search::Recipe recipe = res_of_request_recipes[num_current_object];
-        recipe_text->setText(QString::fromUtf8(recipe.get_name().c_str()));
+        recipe_text->clear();
+        print_recipe(recipe_text, recipe);
     }
 }
 
 void RecipeBook::choose_recipe_func() {
     //переход к summary_window
-    API::recipe_to_ingredients::choose_recipe(num_current_object);
+    // API::recipe_to_ingredients::choose_recipe(num_current_object);
+
     summary_window = new SummaryWindow;
     summary_window->show();
     this->close();
@@ -378,23 +418,26 @@ void RecipeBook::set_category(std::string &category_) {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    //QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
-    //QPalette plt = this->palette();
-    //plt.setBrush(QPalette::Window, image_basket_background);
-    //this->setPalette(plt);
+    QBrush image_basket_background(
+        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
 
     //коля это пока переделывает
     //получение информации о лучшем магазине и лучшей стоимости
-       auto calculation_info =
-            API::recipe_to_ingredients::compare_prices_of_ingredients();
-        shop_name = calculation_info.first.first;
-        total_cost = calculation_info.first.second;
+    //    auto calculation_info =
+    //        API::recipe_to_ingredients::compare_prices_of_ingredients();
+    //    shop_name = calculation_info.first.first;
+    //    total_cost = calculation_info.first.second;
 
-    end_program_button = new QPushButton(tr("end program"));
+    end_program_button = new QPushButton(
+        StyleSettings::Titles::end_program_button_title.c_str());
     set_font_color_button(end_program_button, "#FF7699", 30);
     end_program_button->show();
 
-    best_total_cost_label = new QLabel(tr("best total cost:"));
+    best_total_cost_label =
+        new QLabel(StyleSettings::Titles::best_total_cost_label_title.c_str());
     set_font_color_label(best_total_cost_label, "black", 100);
     best_total_cost_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     best_total_cost_label->setMargin(10);
@@ -405,7 +448,8 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     total_cost_number_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     total_cost_number_label->setMargin(10);
 
-    in_shop_label = new QLabel("in shop:");
+    in_shop_label =
+        new QLabel(StyleSettings::Titles::in_shop_label_title.c_str());
     set_font_color_label(in_shop_label, "black", 100);
     in_shop_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     in_shop_label->setMargin(10);
@@ -426,10 +470,12 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
             SLOT(end_program_func()));
 
     setLayout(main_layout);
-    setWindowTitle(tr("My_Basket"));
+    setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
     // this->setFixedSize(1000, 600);
-    this->setMinimumSize(1000, 600);
+    // this->setMinimumSize(1000, 600);
+    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
+                         StyleSettings::WindowSizes::min_height_window);
 }
 
 void SummaryWindow::end_program_func() {

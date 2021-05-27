@@ -252,7 +252,7 @@ void get_recipes(const std::vector<product> &ingredients,
     }
 }
 
-std::string Recipe::get_name() {
+std::string Recipe::get_name() const {
     return name;
 }
 
@@ -329,12 +329,16 @@ void Recipe::add_product(const search::product &prod) {
 Recipe::Recipe(const std::string &name_) : name(name_) {  // NOLINT
 }
 
-std::string Recipe::get_reference() {
+std::string Recipe::get_reference() const {
     return reference;
 }
 
-std::string Recipe::get_pic_reference() {
+std::string Recipe::get_pic_reference() const {
     return pic_reference;
+}
+
+std::vector<search::product> const &Recipe::get_ingredients() const {
+    return ingredients;
 }
 
 Recipe::Recipe(const std::string &name_,
