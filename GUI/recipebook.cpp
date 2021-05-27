@@ -553,6 +553,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 // void SummaryWindow::start_again_func() {
 //    set_font_color_button(start_again_button, "#FF1099", 30, false);
 //
+//    //вызвать колину функцию очистки векторов
 //    CategoryWindow *category_window = new CategoryWindow();
 //    category_window->show();
 //    this->close();
