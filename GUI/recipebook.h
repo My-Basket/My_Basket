@@ -40,6 +40,7 @@ private:
 
     int total_cost = 1000;
     std::string shop_name = "EuroSpar";
+    std::vector<std::pair<std::string, uint32_t>> products_vec;
 };
 
 class RecipeBook : public QWidget {
@@ -89,7 +90,7 @@ private:
     std::vector<search::Recipe> res_of_request_recipes;
 
     //завершающее окно
-    SummaryWindow *summary_window;
+    SummaryWindow *summary_window;  ///мб не надо хранить его в качестве поля??
 
     NextPrevMode current_mode;
     FindRecipeMode find_recipe_mode;
@@ -101,6 +102,7 @@ private:
     void activate_search_bar();
     void text_field_find_regime(std::string const &s);
 
+    ///что это за функция? она вроде нигде не используется
     friend void search::put_product_in_basket(
         std::vector<search::product> &basket,
         search::product &prod);

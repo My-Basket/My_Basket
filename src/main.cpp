@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     //    API::ingredients_to_recipe::run_product_search(s, 5, vec);
     //    auto top_product = API::ingredients_to_recipe::show_res_of_request();
     //    for (const auto &t : top_product) {
-    //       std::cout << t;
+    //        std::cout << t;
     //    }
     //    std::vector<search::Recipe> vec2;
     //    API::ingredients_to_recipe::run_recipes_search(top_product, 5, vec2);
@@ -30,9 +30,6 @@ int main(int argc, char *argv[]) {
     //    for (auto x : t.second) {
     //        std::cout << x.first << ": " << x.second << "\n";
     //    }
-
-    // RecipeBook recipebook;
-    // recipebook.show();
 
     Ui::StartWindow start_window;
     start_window.show();

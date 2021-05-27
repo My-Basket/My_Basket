@@ -47,6 +47,24 @@ static void print_products_vector(
     }
 }
 
+static void print_products_vector_with_costs(
+    QTextEdit *text_field,
+    std::vector<std::pair<std::string, uint32_t>> const &products_vec) {
+    // setReadOnly
+    text_field->insertPlainText(
+        (StyleSettings::Titles::shop_list_title + "\n\n").c_str());
+    int vec_sz = products_vec.size();
+    for (int i = 0; i < vec_sz; i++) {
+        std::string s = std::to_string(i + 1) + ") ";
+        text_field->insertPlainText(s.c_str());
+
+        s = products_vec[i].first + "\n<--> " +
+            std::to_string(products_vec[i].second) + "₽\n\n";
+        text_field->insertPlainText(s.c_str());
+    }
+    ///выглядит, как копипаст предыдущей функции, пофиксить
+}
+
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label =
         new QLabel(StyleSettings::Titles::product_name_label_title.c_str());
@@ -508,6 +526,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
         API::recipe_to_ingredients::compare_prices_of_ingredients();
     shop_name = calculation_info.first.first;
     total_cost = calculation_info.first.second;
+    products_vec = calculation_info.second;
 
     best_total_cost_label =
         new QLabel(StyleSettings::Titles::best_total_cost_label_title.c_str());
@@ -608,7 +627,7 @@ void SummaryWindow::show_final_products_func() {
     shop_name_label->hide();
 
     products_text->show();
-    // print_final_products(products_text);
+    print_products_vector_with_costs(products_text, products_vec);
 }
 
 void SummaryWindow::show_check_func() {

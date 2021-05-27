@@ -117,6 +117,7 @@ struct Titles {
         "завершить программу";
     inline static const std::string best_total_cost_label_title = "Лучший чек:";
     inline static const std::string in_shop_label_title = "в магазине:";
+    inline static const std::string shop_list_title = "Список покупок:";
 };
 
 struct Colors {
