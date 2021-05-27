@@ -45,6 +45,7 @@ public:
     RecipeBook(QWidget *parent = nullptr);
 
     enum NextPrevMode { FindProduct_mode, FindRecipe_mode };
+    enum FindRecipeMode { BasketSearchingMode, NameSearchingMode };
 
 public slots:
     void add_product_func();
@@ -87,6 +88,7 @@ private:
     SummaryWindow *summary_window;
 
     NextPrevMode current_mode;
+    FindRecipeMode find_recipe_mode;
     long long num_current_object = 0;
     std::string category;
 
