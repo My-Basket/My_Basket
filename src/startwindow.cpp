@@ -178,7 +178,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void CategoryWindow::choose_economy() {
-    chosen_category = "economy";
+    chosen_category = StyleSettings::Titles::category_economy;
 
     //обновить цвет других
     set_font_color_button(base_button, "#FF7699", 20, true);
@@ -191,7 +191,7 @@ void CategoryWindow::choose_economy() {
 }
 
 void CategoryWindow::choose_base() {
-    chosen_category = "base";
+    chosen_category = StyleSettings::Titles::category_base;
 
     set_font_color_button(economy_button, "#FF7699", 20, true);
     set_font_color_button(premium_button, "#FF7699", 20, true);
@@ -202,7 +202,7 @@ void CategoryWindow::choose_base() {
 }
 
 void CategoryWindow::choose_premium() {
-    chosen_category = "premium";
+    chosen_category = StyleSettings::Titles::category_premium;
 
     set_font_color_button(economy_button, "#FF7699", 20, true);
     set_font_color_button(base_button, "#FF7699", 20, true);
