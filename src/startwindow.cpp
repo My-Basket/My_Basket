@@ -50,11 +50,11 @@ void set_font_color_label(QLabel *label,
 }
 
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    //QBrush image_basket_background(
-       // QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    //QPalette plt = this->palette();
-    //plt.setBrush(QPalette::Window, image_basket_background);
-    //this->setPalette(plt);
+    QBrush image_basket_background(
+        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
 
     start_shopping_button = new QPushButton(
         StyleSettings::Titles::start_shopping_button_title.c_str());
@@ -114,11 +114,11 @@ void StartWindow::go_to_category_window() {
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    //QBrush image_basket_background(
-      //  QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    //QPalette plt = this->palette();
-    //plt.setBrush(QPalette::Window, image_basket_background);
-    //this->setPalette(plt);
+    QBrush image_basket_background(
+        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
 
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
@@ -178,7 +178,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void CategoryWindow::choose_economy() {
-    chosen_category = StyleSettings::Titles::economy_button_title;
+    chosen_category = "ecomomy";
 
     //обновить цвет других
     set_font_color_button(base_button, "#FF7699", 20, true);
@@ -191,7 +191,7 @@ void CategoryWindow::choose_economy() {
 }
 
 void CategoryWindow::choose_base() {
-    chosen_category = StyleSettings::Titles::base_button_title;
+    chosen_category = "base";
 
     set_font_color_button(economy_button, "#FF7699", 20, true);
     set_font_color_button(premium_button, "#FF7699", 20, true);
@@ -202,7 +202,7 @@ void CategoryWindow::choose_base() {
 }
 
 void CategoryWindow::choose_premium() {
-    chosen_category = StyleSettings::Titles::premium_button_title;
+    chosen_category = "premium";
 
     set_font_color_button(economy_button, "#FF7699", 20, true);
     set_font_color_button(base_button, "#FF7699", 20, true);

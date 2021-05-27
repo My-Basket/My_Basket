@@ -165,11 +165,11 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
-    //QBrush image_basket_background(
-        //QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    //QPalette plt = this->palette();
-    //plt.setBrush(QPalette::Window, image_basket_background);
-    //this->setPalette(plt);
+    QBrush image_basket_background(
+        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
 
     this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
                          StyleSettings::WindowSizes::min_height_window);
@@ -482,11 +482,11 @@ void RecipeBook::choose_recipe_func() {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    //QBrush image_basket_background(
-        //QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    //QPalette plt = this->palette();
-    //plt.setBrush(QPalette::Window, image_basket_background);
-    //this->setPalette(plt);
+    QBrush image_basket_background(
+        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
 
     //коля это пока переделывает
     //получение информации о лучшем магазине и лучшей стоимости
