@@ -11,6 +11,8 @@
 
 namespace Ui {
 
+// class CategoryWindow;
+
 class SummaryWindow : public QWidget {
     Q_OBJECT
 
@@ -18,9 +20,13 @@ public:
     SummaryWindow(QWidget *parent = nullptr);
 
 public slots:
-    void end_program_func();
+    static void end_program_func();
+    // void start_again_func();
 
 private:
+    // CategoryWindow *category_window_; //начать с начала
+
+    // QPushButton *start_again_button;
     QPushButton *end_program_button;
 
     QLabel *best_total_cost_label;
@@ -37,12 +43,12 @@ class RecipeBook : public QWidget {
 
 public:
     RecipeBook(QWidget *parent = nullptr);
-    void set_category(std::string &category);
 
     enum NextPrevMode { FindProduct_mode, FindRecipe_mode };
 
 public slots:
     void add_product_func();
+    void add_recipe_func();
     void find_product_func();
     void put_in_basket_func();
     void find_recipe_func();
@@ -60,6 +66,7 @@ private:
 
     //кнопки правой панели
     QPushButton *add_product_button;
+    QPushButton *add_recipe_button;
     QPushButton *find_product_button;
     QPushButton *put_in_basket_button;
     QPushButton *find_recipe_button;
@@ -83,10 +90,24 @@ private:
     long long num_current_object = 0;
     std::string category;
 
+    void clear_fields();
+    void clear_fields_and_requests();
+    void activate_search_bar();
+    void text_field_find_regime(std::string const &s);
+
     friend void search::put_product_in_basket(
         std::vector<search::product> &basket,
         search::product &prod);
 };
+
+// void print_product_by_name(QTextEdit *text_field,
+//                           search::product const &product);
+// void print_product_by_name_price(QTextEdit *text_field,
+//                                 search::product const &product);
+// void print_products_vector(QTextEdit *text_field,
+//                           std::vector<search::product> const &products_vec);
+// void print_recipe(QTextEdit *text_field, search::Recipe const &recipe);
+
 }  // namespace Ui
 
 #endif  // RECIPEBOOK_H

@@ -17,9 +17,9 @@ enum Shop_Mode { ECONOMY, BASE, PREMIUM };
 class recipe_to_ingredients;
 
 namespace Data_files {
-const std::vector<std::string> econom_shops = {"../data/av.json"};
-const std::vector<std::string> base_shops = {"../data/karusel.json"};
-const std::vector<std::string> premium_shops = {"../data/spar.json"};
+const std::vector<std::string> econom_shops = {"../data/karusel.json"};
+const std::vector<std::string> base_shops = {"../data/spar.json"};
+const std::vector<std::string> premium_shops = {"../data/av.json"};
 }  // namespace Data_files
 
 void put_product_in_basket(std::vector<search::product> &basket,
@@ -46,10 +46,12 @@ public:
     static int get_shop_mode();
     static void stop_searching_ingredient();
 
+    static void discard_all();
+
     static void discard_basket();
 
     static void choose_ingredients(uint32_t num);
-    static void run_product_search(std::string s,
+    static bool run_product_search(std::string s,
                                    uint32_t size,
                                    std::vector<search::product> &top);
 
@@ -76,7 +78,7 @@ public:
                                   std::vector<search::Recipe> &vec);
     static std::vector<search::Recipe> show_recipes();
 
-    static void choose_recipe(uint32_t num);
+    static search::Recipe choose_recipe(uint32_t num);
 
     static void stop_searching_recipe();
 
@@ -85,15 +87,12 @@ public:
                      std::vector<std::pair<std::string, uint32_t>>>
     compare_prices_of_ingredients();
 
-    friend void search_recipe(const std::string &input_string,
-                              uint32_t size,
-                              std::vector<search::Recipe> &vec);
     friend void get_recommended_recipes();
 };
 
 void get_recommended_recipes();
 
-void get_prod_top_by_name(string &input_string,
+bool get_prod_top_by_name(string &input_string,
                           std::vector<product> &vec,
                           uint32_t size);
 }  // namespace API

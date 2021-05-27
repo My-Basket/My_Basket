@@ -5,6 +5,8 @@
 #include <QPalette>
 #include <QSizePolicy>
 #include <iostream>
+#include "algo.h"
+#include "style_settings.h"
 
 namespace Ui {
 
@@ -48,23 +50,26 @@ void set_font_color_label(QLabel *label,
 }
 
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    /*QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);*/
+    //QBrush image_basket_background(
+       // QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    //QPalette plt = this->palette();
+    //plt.setBrush(QPalette::Window, image_basket_background);
+    //this->setPalette(plt);
 
-    start_button = new QPushButton(tr("start shopping!"));
-    set_font_color_button(start_button, "#FF7699", 30, true);
-    start_button->show();
+    start_shopping_button = new QPushButton(
+        StyleSettings::Titles::start_shopping_button_title.c_str());
+    set_font_color_button(start_shopping_button, "#FF7699", 30, true);
+    start_shopping_button->show();
 
-    my_basket_label = new QLabel(tr("My_Basket"));
+    my_basket_label = new QLabel(StyleSettings::Titles::windows_title.c_str());
     set_font_color_label(my_basket_label, "black", 130, "bold");
     my_basket_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     my_basket_label->setMargin(50);
 
-    description_label = new QLabel(
-        tr("your assistant in the selection of recipes"));  //ваш помощник в
-                                                            //выборе рецептов
+    description_label =
+        new QLabel(StyleSettings::Titles::description_label_title
+                       .c_str());  //ваш помощник в
+                                   //выборе рецептов
     set_font_color_label(description_label, "black", 27);
     description_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
 
@@ -82,53 +87,62 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 
     QVBoxLayout *main_layout = new QVBoxLayout;
     main_layout->addLayout(label_layout);
-    main_layout->addWidget(start_button, Qt::AlignTop, Qt::AlignVCenter);
+    main_layout->addWidget(start_shopping_button, Qt::AlignTop,
+                           Qt::AlignVCenter);
     main_layout->setSpacing(5);
     // main_layout->addWidget(image_basket_label);
 
     //переход к recipe_book
     category_window = new CategoryWindow();
-    connect(start_button, SIGNAL(clicked()), this,
+    connect(start_shopping_button, SIGNAL(clicked()), this,
             SLOT(go_to_category_window()));
 
     setLayout(main_layout);
-    setWindowTitle(tr("My_Basket"));
+    setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
-    //this->setFixedSize(1000, 600);
-    this->setMinimumSize(1000, 600);
+    // this->setFixedSize(1000, 600);
+    // this->setMinimumSize(1000, 600);
+    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
+                         StyleSettings::WindowSizes::min_height_window);
 }
 
 void StartWindow::go_to_category_window() {
-    start_button->setEnabled(false);
-    set_font_color_button(start_button, "#FF1099", 30);
+    set_font_color_button(start_shopping_button, "#FF1099", 30, false);
+
     category_window->show();
     this->close();
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    /*QBrush image_basket_background(QImage("../data/image_basket2.jpg"));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);*/
+    //QBrush image_basket_background(
+      //  QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    //QPalette plt = this->palette();
+    //plt.setBrush(QPalette::Window, image_basket_background);
+    //this->setPalette(plt);
 
-    choose_category_label = new QLabel(tr("Choose shops' category:"));
+    choose_category_label =
+        new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
     set_font_color_label(choose_category_label, "black", 80);
     choose_category_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     choose_category_label->setMargin(55);
 
-    economy_button = new QPushButton(tr("economy"));
+    economy_button =
+        new QPushButton(StyleSettings::Titles::economy_button_title.c_str());
     set_font_color_button(economy_button, "#FF7699", 20);
     economy_button->show();
 
-    base_button = new QPushButton(tr("base"));
+    base_button =
+        new QPushButton(StyleSettings::Titles::base_button_title.c_str());
     set_font_color_button(base_button, "#FF7699", 20);
     base_button->show();
 
-    premium_button = new QPushButton(tr("premium"));
+    premium_button =
+        new QPushButton(StyleSettings::Titles::premium_button_title.c_str());
     set_font_color_button(premium_button, "#FF7699", 20);
     premium_button->show();
 
-    go_to_searching_button = new QPushButton(tr("go to searching!"));
+    go_to_searching_button =
+        new QPushButton(StyleSettings::Titles::go_to_searching_button.c_str());
     set_font_color_button(go_to_searching_button, "#FF9899", 20, false);
     go_to_searching_button->show();
 
@@ -155,14 +169,16 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
             SLOT(go_to_recipe_book()));
 
     setLayout(main_layout);
-    setWindowTitle(tr("My_Basket"));
+    setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
-    //this->setFixedSize(1000, 600);
-    this->setMinimumSize(1000, 600);
+    // this->setFixedSize(1000, 600);
+    // this->setMinimumSize(1000, 600);
+    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
+                         StyleSettings::WindowSizes::min_height_window);
 }
 
 void CategoryWindow::choose_economy() {
-    chosen_category = "economy";
+    chosen_category = StyleSettings::Titles::economy_button_title;
 
     //обновить цвет других
     set_font_color_button(base_button, "#FF7699", 20, true);
@@ -175,7 +191,7 @@ void CategoryWindow::choose_economy() {
 }
 
 void CategoryWindow::choose_base() {
-    chosen_category = "base";
+    chosen_category = StyleSettings::Titles::base_button_title;
 
     set_font_color_button(economy_button, "#FF7699", 20, true);
     set_font_color_button(premium_button, "#FF7699", 20, true);
@@ -186,7 +202,7 @@ void CategoryWindow::choose_base() {
 }
 
 void CategoryWindow::choose_premium() {
-    chosen_category = "premium";
+    chosen_category = StyleSettings::Titles::premium_button_title;
 
     set_font_color_button(economy_button, "#FF7699", 20, true);
     set_font_color_button(base_button, "#FF7699", 20, true);
@@ -197,8 +213,10 @@ void CategoryWindow::choose_premium() {
 }
 
 void CategoryWindow::go_to_recipe_book() {
-    recipe_book->show();
     set_font_color_button(go_to_searching_button, "#FF1099", 20, false);
+    API::ingredients_to_recipe::choose_category_shop(chosen_category);
+
+    recipe_book->show();
     this->close();
 }
 

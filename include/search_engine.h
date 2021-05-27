@@ -64,7 +64,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const product &p);
 };
 
-void get_prod_top_by_name(const std::string &input_string,
+bool get_prod_top_by_name(const std::string &input_string,
                           const std::string &file_name,
                           std::vector<product> &vec,
                           const uint32_t &size);
@@ -74,7 +74,7 @@ private:
     std::string name;
     std::string reference;
     std::string pic_reference;
-    std::vector<search::product> ingredients;  /// TODO: That's not good
+    std::vector<search::product> ingredients;
 
 public:
     Recipe() = default;
@@ -112,11 +112,13 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Recipe &p);
 
-    std::string get_name();
+    std::string get_name() const;
 
-    std::string get_reference();
+    std::string get_reference() const;
 
-    std::string get_pic_reference();
+    std::string get_pic_reference() const;
+
+    std::vector<search::product> const &get_ingredients() const;
 };
 
 void search_recipe(const string &input_string,
