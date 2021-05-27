@@ -479,10 +479,6 @@ void RecipeBook::choose_recipe_func() {
     this->close();
 }
 
-void RecipeBook::set_category(std::string &category_) {
-    category = category_;
-}
-
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     QBrush image_basket_background(
         QImage(StyleSettings::Titles::path_to_bg_image.c_str()));

@@ -37,7 +37,6 @@ class RecipeBook : public QWidget {
 
 public:
     RecipeBook(QWidget *parent = nullptr);
-    void set_category(std::string &category);
 
     enum NextPrevMode { FindProduct_mode, FindRecipe_mode };
 
