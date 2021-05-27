@@ -4,6 +4,10 @@
 #include <errors.h>
 
 using nlohmann::json, search::product, search::set_unit;
+std::map<std::string, std::string> shop_names = {
+    {"../data/av.json", "Азбука вкуса"},
+    {"../data/karusel.json", "Карусель"},
+    {"../data/spar.json", "SPAR"}};
 size_t API::ingredients_to_recipe::choose_category_shop(const std::string &s) {
     if (s == "base") {
         return shop_mode = BASE;
@@ -14,37 +18,40 @@ size_t API::ingredients_to_recipe::choose_category_shop(const std::string &s) {
     }
 }
 
-void API::get_prod_top_by_name(std::string &input_string,
+bool API::get_prod_top_by_name(std::string &input_string,
                                std::vector<product> &vec,
                                uint32_t size) {
+    bool flag = false;
     switch (API::ingredients_to_recipe::get_shop_mode()) {
         case API::Shop_Mode::ECONOMY:
             for (const auto &sh : API::Data_files::econom_shops) {
-                search::get_prod_top_by_name(
+                 flag = search::get_prod_top_by_name(
                     input_string, sh, vec, size);
             }
-            break;
+            return flag;
         case API::Shop_Mode::BASE:
             for (const auto &sh : API::Data_files::base_shops) {
-                search::get_prod_top_by_name(
+                flag = search::get_prod_top_by_name(
                     input_string, sh, vec, size);
             }
-            break;
+            return flag;
         case API::Shop_Mode::PREMIUM:
             for (const auto &sh : API::Data_files::premium_shops) {
-                search::get_prod_top_by_name(
+                flag = search::get_prod_top_by_name(
                     input_string, sh, vec, size);
             }
-            break;
+            return flag;
     }
+    return false;
 }
 
-void API::ingredients_to_recipe::run_product_search(
+bool API::ingredients_to_recipe::run_product_search(
     std::string s,
     uint32_t size,
     std::vector<search::product> &top) {
-    API::get_prod_top_by_name(s, top, size);
+    bool flag = API::get_prod_top_by_name(s, top, size);
     res_of_request = std::move(top);
+    return flag;
 }
 void API::ingredients_to_recipe::run_recipes_search(
     const std::vector<search::product> &ingredients,
@@ -136,7 +143,7 @@ API::recipe_to_ingredients::compare_prices_of_ingredients() {
                 }
             }
             return {
-                {Data_files::econom_shops[min_ind], min_sum},
+                {shop_names[Data_files::econom_shops[min_ind]], min_sum},
                 chosen_recipe
                     .sum_price_of_rec_prod(Data_files::econom_shops[min_ind])
                     .second};
@@ -152,7 +159,7 @@ API::recipe_to_ingredients::compare_prices_of_ingredients() {
                     min_ind = i;
                 }
             }
-            return {{Data_files::base_shops[min_ind], min_sum},
+            return {{shop_names[Data_files::base_shops[min_ind]], min_sum},
                     chosen_recipe
                         .sum_price_of_rec_prod(Data_files::base_shops[min_ind])
                         .second};
@@ -169,7 +176,7 @@ API::recipe_to_ingredients::compare_prices_of_ingredients() {
                 }
             }
             return {
-                {Data_files::premium_shops[min_ind], min_sum},
+                {shop_names[Data_files::premium_shops[min_ind]], min_sum},
                 chosen_recipe
                     .sum_price_of_rec_prod(Data_files::premium_shops[min_ind])
                     .second};

@@ -93,7 +93,7 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
     return os;
 }
 
-void get_prod_top_by_name(const std::string &input_string,
+bool get_prod_top_by_name(const std::string &input_string,
                           const std::string &file_name,
                               std::vector<product> &vec,
                           const uint32_t &size) {
@@ -106,6 +106,7 @@ void get_prod_top_by_name(const std::string &input_string,
         from_str_to_codepoint(input_string, first_str_codepoints);
     } catch (const err::MyBasketError &er) {
         err_in_file().log(er);
+        return false;
     }
     std::multiset<set_unit<product>> top;
     for (auto const &x : j) {
@@ -134,6 +135,7 @@ void get_prod_top_by_name(const std::string &input_string,
     for (const set_unit<product> &su : top) {
         vec.push_back(su.product_);
     }
+    return true;
 }
 
 std::string product::get_name() const {
@@ -295,6 +297,7 @@ void search_recipe(const string &input_string,
     for (const auto &su : top) {
         vec.push_back(su.product_);
     }
+
 }
 
 std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>>
@@ -306,20 +309,13 @@ Recipe::sum_price_of_rec_prod(const std::string &file_name) {
         std::vector<search::product> ingredient;
         auto cur_prod_name = ingredients[i].get_name();
         std::vector<uint32_t> first_str_codepoints;
-        try {
-            from_str_to_codepoint(cur_prod_name, first_str_codepoints);
-        } catch (const err::MyBasketError &er) {
-            err_in_file().log(er);
-            sum += price_of_prod[i].second;
-            continue;
-        }
-        search::get_prod_top_by_name(cur_prod_name, file_name, ingredient, 1);
-        if(!ingredient.empty()) {
+        bool flag = search::get_prod_top_by_name(cur_prod_name, file_name, ingredient, 1);
+        if(!ingredient.empty() && flag) {
             price_of_prod[i] = {ingredient[0].get_name(),
                                 ingredient[0].get_price()};
         }
         else{
-            price_of_prod[i] = {"", 1e8};
+            price_of_prod[i] = {cur_prod_name, 1e8};
         }
         sum += price_of_prod[i].second;
     }

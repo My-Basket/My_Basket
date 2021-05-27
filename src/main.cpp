@@ -6,13 +6,15 @@
 #include "search_engine.h"
 #include "startwindow.h"
 int main(int argc, char *argv[]) {
+
     QApplication app(argc, argv);
-    std::string s = "AHM.Чай CITRUS PASS.тр.20х2г";
+
+    std::string s = "Вода";
     std::vector<search::product> vec;
     API::ingredients_to_recipe::run_product_search(s, 5, vec);
     auto top_product = API::ingredients_to_recipe::show_res_of_request();
     for (const auto &t : top_product) {
-        std::cout << t;
+       std::cout << t;
     }
     std::vector<search::Recipe> vec2;
     API::ingredients_to_recipe::run_recipes_search(top_product, 10, vec2);
