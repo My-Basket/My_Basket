@@ -532,6 +532,14 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     in_shop_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     in_shop_label->setMargin(10);
 
+    products_text = new QTextEdit;
+    products_text->setFontPointSize(18);
+    products_text->setFixedSize(
+        StyleSettings::WindowSizes::product_text_width,
+        StyleSettings::WindowSizes::product_text_height);
+    products_text->setReadOnly(true);
+    products_text->hide();
+
     //кнопки
     show_final_products_button = new QPushButton(
         StyleSettings::Titles::show_final_products_button_title.c_str());
@@ -558,6 +566,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     label_layout->addWidget(total_cost_number_label);
     label_layout->addWidget(in_shop_label);
     label_layout->addWidget(shop_name_label);
+    label_layout->addWidget(products_text);
     label_layout->setSpacing(10);
 
     QHBoxLayout *button_layout = new QHBoxLayout;
@@ -592,11 +601,26 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 void SummaryWindow::show_final_products_func() {
     show_final_products_button->hide();
     show_check_button->show();
+
+    best_total_cost_label->hide();
+    total_cost_number_label->hide();
+    in_shop_label->hide();
+    shop_name_label->hide();
+
+    products_text->show();
+    // print_final_products(products_text);
 }
 
 void SummaryWindow::show_check_func() {
     show_final_products_button->show();
     show_check_button->hide();
+
+    best_total_cost_label->show();
+    total_cost_number_label->show();
+    in_shop_label->show();
+    shop_name_label->show();
+
+    products_text->hide();
 }
 
 void SummaryWindow::start_again_func() {

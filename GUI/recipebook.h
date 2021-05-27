@@ -36,6 +36,8 @@ private:
     QLabel *in_shop_label;
     QLabel *shop_name_label;
 
+    QTextEdit *products_text;
+
     int total_cost = 1000;
     std::string shop_name = "EuroSpar";
 };
