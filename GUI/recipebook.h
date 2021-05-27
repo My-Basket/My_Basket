@@ -86,6 +86,7 @@ private:
     std::string category;
 
     void clear_fields();
+    void clear_fields_and_requests();
     void activate_search_bar();
     void text_field_find_regime(std::string const &s);
 

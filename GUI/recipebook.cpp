@@ -180,6 +180,10 @@ void RecipeBook::clear_fields() {
     //очищение полей ввода
     product_name_line->clear();
     recipe_text->clear();
+}
+
+void RecipeBook::clear_fields_and_requests() {
+    clear_fields();
     product_name_line->setReadOnly(true);
     recipe_text->setReadOnly(true);
 
@@ -202,7 +206,7 @@ void RecipeBook::text_field_find_regime(std::string const &s) {
 }
 
 void RecipeBook::add_product_func() {
-    clear_fields();
+    clear_fields_and_requests();
     activate_search_bar();
 
     recipe_label->setText(
@@ -234,7 +238,7 @@ void RecipeBook::add_product_func() {
 }
 
 void RecipeBook::add_recipe_func() {
-    clear_fields();
+    clear_fields_and_requests();
     activate_search_bar();
 
     set_font_color_button(add_product_button, "#0066CC", 18, true);
@@ -319,7 +323,7 @@ void RecipeBook::put_in_basket_func() {
     API::put_product_in_basket(basket_of_products,
                                res_of_request_products[num_current_object]);
 
-    clear_fields();
+    clear_fields_and_requests();
 
     set_font_color_button(add_product_button, "#0066CC", 18, true);
     set_font_color_button(find_product_button, "#0066CC", 18, true);
@@ -363,23 +367,27 @@ void RecipeBook::find_recipe_func() {
     set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
     set_font_color_button(check_basket_button, "#0066CC", 18, true);
 
-    put_in_basket_button->hide();
-    find_recipe_button->hide();
-
     set_font_color_button(previous_button, "#00CC66", 18, true);
     set_font_color_button(next_button, "#00CC66", 18, true);
 
-    previous_button->show();
-    next_button->show();
+    add_product_button->show();
+    add_recipe_button->hide();
+    find_product_button->hide();
+    put_in_basket_button->hide();
+    find_recipe_button->hide();
     choose_recipe_button->show();
+    check_basket_button->show();
+
+    next_button->show();
+    previous_button->show();
 
     current_mode = FindRecipe_mode;
-
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_recipe_title.c_str());
-    recipe_text->clear();  ///перенести пониже, если будет ускорен поиск
 
+    recipe_text->clear();  ///перенести пониже, если будет ускорен поиск
     res_of_request_recipes.clear();
+
     std::vector<search::Recipe> vec2;
     API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
                                                    vec2);
@@ -390,9 +398,7 @@ void RecipeBook::find_recipe_func() {
 }
 
 void RecipeBook::check_basket_func() {
-    product_name_line->clear();
-    recipe_text->clear();
-    put_in_basket_button->hide();
+    clear_fields();
 
     set_font_color_button(add_product_button, "#0066CC", 18, true);
     set_font_color_button(find_product_button, "#0066CC", 18, true);
@@ -403,6 +409,17 @@ void RecipeBook::check_basket_func() {
 
     set_font_color_button(previous_button, "#00CC66", 18, true);
     set_font_color_button(next_button, "#00CC66", 18, true);
+
+    add_product_button->show();
+    add_recipe_button->hide();
+    find_product_button->hide();
+    put_in_basket_button->hide();
+    find_recipe_button->show();
+    choose_recipe_button->hide();
+    check_basket_button->show();
+
+    next_button->hide();
+    previous_button->hide();
 
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_in_basket_title.c_str());
