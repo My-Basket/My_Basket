@@ -82,7 +82,10 @@ void API::ingredients_to_recipe::choose_ingredients(uint32_t num) {
     chosen_ingredients.push_back(*it);  // chosen_ingredients - корзина
 }
 
-void API::ingredients_to_recipe::discard_basket() {
+void API::ingredients_to_recipe::discard_all() {
+    recommended_recipes.clear();
+    shop_mode = 2;
+    res_of_request.clear();
     chosen_ingredients.clear();
 }
 

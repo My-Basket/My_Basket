@@ -46,6 +46,8 @@ public:
     static int get_shop_mode();
     static void stop_searching_ingredient();
 
+    static void discard_all();
+
     static void discard_basket();
 
     static void choose_ingredients(uint32_t num);

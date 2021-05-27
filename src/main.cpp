@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
        std::cout << t;
     }
     std::vector<search::Recipe> vec2;
-    API::ingredients_to_recipe::run_recipes_search(top_product, 10, vec2);
+    API::ingredients_to_recipe::run_recipes_search(top_product, 5, vec2);
     auto top_recipes = API::ingredients_to_recipe::show_recipes();
     API::get_recommended_recipes();
     auto q = API::recipe_to_ingredients::choose_recipe(0);

@@ -50,11 +50,11 @@ void set_font_color_label(QLabel *label,
 }
 
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    //QBrush image_basket_background(
+       // QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    //QPalette plt = this->palette();
+    //plt.setBrush(QPalette::Window, image_basket_background);
+    //this->setPalette(plt);
 
     start_shopping_button = new QPushButton(
         StyleSettings::Titles::start_shopping_button_title.c_str());
@@ -114,11 +114,11 @@ void StartWindow::go_to_category_window() {
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    //QBrush image_basket_background(
+      //  QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    //QPalette plt = this->palette();
+    //plt.setBrush(QPalette::Window, image_basket_background);
+    //this->setPalette(plt);
 
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
