@@ -21,12 +21,12 @@ public:
 
 public slots:
     static void end_program_func();
-    // void start_again_func();
+    void show_final_products_func();
 
 private:
     // CategoryWindow *category_window_; //начать с начала
 
-    // QPushButton *start_again_button;
+    QPushButton *show_final_products_button;
     QPushButton *end_program_button;
 
     QLabel *best_total_cost_label;

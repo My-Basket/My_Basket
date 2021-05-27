@@ -400,13 +400,14 @@ void RecipeBook::find_recipe_func() {
     if (find_recipe_mode == BasketSearchingMode) {
         API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
                                                        vec2);
+        res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
     } else if (find_recipe_mode == NameSearchingMode) {
         // std::cout << "\n NameSearchMode -- product-name: " <<
         // product_name_line->text().toStdString() << '\n';
-        search::search_recipe(product_name_line->text().toStdString(), 10,
-                              vec2);
+        API::recipe_to_ingredients::run_recipe_search(
+            product_name_line->text().toStdString(), 10, vec2);
+        res_of_request_recipes = API::recipe_to_ingredients::show_recipes();
     }
-    res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
 
     print_recipe(recipe_text, res_of_request_recipes[0]);
     num_current_object = 0;
@@ -487,6 +488,7 @@ void RecipeBook::next_func() {
 
 void RecipeBook::choose_recipe_func() {
     //переход к summary_window
+    API::get_recommended_recipes();
     API::recipe_to_ingredients::choose_recipe(num_current_object);
 
     summary_window = new SummaryWindow;
@@ -501,17 +503,16 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     plt.setBrush(QPalette::Window, image_basket_background);
     this->setPalette(plt);
 
-    //коля это пока переделывает
     //получение информации о лучшем магазине и лучшей стоимости
     auto calculation_info =
         API::recipe_to_ingredients::compare_prices_of_ingredients();
     shop_name = calculation_info.first.first;
     total_cost = calculation_info.first.second;
 
-    //    start_again_button = new QPushButton(
-    //        StyleSettings::Titles::start_again_button_title.c_str());
-    //    set_font_color_button(start_again_button, "#FF7699", 30);
-    //    start_again_button->show();
+    show_final_products_button = new QPushButton(
+        StyleSettings::Titles::show_final_products_button_title.c_str());
+    set_font_color_button(show_final_products_button, "#FF7699", 30);
+    show_final_products_button->show();
 
     end_program_button = new QPushButton(
         StyleSettings::Titles::end_program_button_title.c_str());
@@ -546,11 +547,11 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     main_layout->addWidget(total_cost_number_label);
     main_layout->addWidget(in_shop_label);
     main_layout->addWidget(shop_name_label);
-    // main_layout->addWidget(start_again_button);
+    main_layout->addWidget(show_final_products_button);
     main_layout->addWidget(end_program_button);
 
-    //    connect(start_again_button, SIGNAL(clicked()), this,
-    //            SLOT(start_again_func()));
+    connect(show_final_products_button, SIGNAL(clicked()), this,
+            SLOT(show_final_products_func()));
     connect(end_program_button, SIGNAL(clicked()), this,
             SLOT(end_program_func()));
 
@@ -563,14 +564,14 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
                          StyleSettings::WindowSizes::min_height_window);
 }
 
-// void SummaryWindow::start_again_func() {
-//    set_font_color_button(start_again_button, "#FF1099", 30, false);
-//
-//    //вызвать колину функцию очистки векторов
-//    CategoryWindow *category_window = new CategoryWindow();
-//    category_window->show();
-//    this->close();
-//}
+void SummaryWindow::show_final_products_func() {
+    set_font_color_button(show_final_products_button, "#FF1099", 30, false);
+
+    //вызвать колину функцию очистки векторов
+    //    CategoryWindow *category_window = new CategoryWindow();
+    //    category_window->show();
+    //    this->close();
+}
 
 void SummaryWindow::end_program_func() {
     std::exit(0);

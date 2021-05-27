@@ -74,7 +74,7 @@ struct Titles {
         "Категория магазина:";
     inline static const std::string economy_button_title = "эконом";
     inline static const std::string base_button_title = "стандарт";
-    inline static const std::string premium_button_title = "преимиум";
+    inline static const std::string premium_button_title = "премиум";
     inline static const std::string go_to_searching_button =
         "приступить к поиску!";
 
@@ -108,8 +108,10 @@ struct Titles {
         "Пожалуйста, добавьте хотя бы один товар в корзину";
 
     // SummaryWindow
-    inline static const std::string start_again_button_title =
-        "начать с начала";
+    //    inline static const std::string start_again_button_title =
+    //        "начать с начала";
+    inline static const std::string show_final_products_button_title =
+        "просмотр товаров";
     inline static const std::string end_program_button_title =
         "завершить программу";
     inline static const std::string best_total_cost_label_title = "Лучший чек:";
