@@ -166,11 +166,11 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    //QBrush image_basket_background(
+        //QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    //QPalette plt = this->palette();
+    //plt.setBrush(QPalette::Window, image_basket_background);
+    //this->setPalette(plt);
 
     this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
                          StyleSettings::WindowSizes::min_height_window);
@@ -400,13 +400,15 @@ void RecipeBook::find_recipe_func() {
     if (find_recipe_mode == BasketSearchingMode) {
         API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
                                                        vec2);
+        res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
     } else if (find_recipe_mode == NameSearchingMode) {
         // std::cout << "\n NameSearchMode -- product-name: " <<
         // product_name_line->text().toStdString() << '\n';
-        search::search_recipe(product_name_line->text().toStdString(), 10,
+
+        API::recipe_to_ingredients::run_recipe_search(product_name_line->text().toStdString(), 10,
                               vec2);
+        res_of_request_recipes = API::recipe_to_ingredients::show_recipes();
     }
-    res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
 
     print_recipe(recipe_text, res_of_request_recipes[0]);
     num_current_object = 0;
@@ -486,7 +488,8 @@ void RecipeBook::next_func() {
 }
 
 void RecipeBook::choose_recipe_func() {
-    //переход к summary_window
+    //переход к summary_windowФ
+    API::get_recommended_recipes();
     API::recipe_to_ingredients::choose_recipe(num_current_object);
 
     summary_window = new SummaryWindow;
@@ -495,11 +498,11 @@ void RecipeBook::choose_recipe_func() {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    //QBrush image_basket_background(
+        //QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    //QPalette plt = this->palette();
+    //plt.setBrush(QPalette::Window, image_basket_background);
+    //this->setPalette(plt);
 
     //коля это пока переделывает
     //получение информации о лучшем магазине и лучшей стоимости

@@ -17,9 +17,9 @@ enum Shop_Mode { ECONOMY, BASE, PREMIUM };
 class recipe_to_ingredients;
 
 namespace Data_files {
-const std::vector<std::string> econom_shops = {"../data/karusel.json"};
-const std::vector<std::string> base_shops = {"../data/spar.json"};
-const std::vector<std::string> premium_shops = {"../data/av.json"};
+const std::vector<std::string> econom_shops = {"../data/av.json"};
+const std::vector<std::string> base_shops = {"../data/av.json", "../data/spar.json"};
+const std::vector<std::string> premium_shops = {"../data/av.json", "../data/spar.json", "../data/karusel.json"};
 }  // namespace Data_files
 
 void put_product_in_basket(std::vector<search::product> &basket,

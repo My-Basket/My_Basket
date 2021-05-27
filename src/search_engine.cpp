@@ -9,7 +9,7 @@ error_file_logger &err_in_file() {
     return fl_log;
 }
 
-namespace {
+//namespace {
 
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
@@ -47,10 +47,10 @@ uint32_t check_in(
     }
 
     uint32_t max_amount = 0;
-    for (int i = 1; i < second_str.size() - first_str.size(); i++) {
+    for (int i = 0; i < second_str.size() - first_str.size() + 1; i++) {
         uint32_t count = 0;
-        for (int j = i; j < i + first_str.size() - 1; j++) {
-            if (first_str[j - i + 1] == second_str[j]) {
+        for (int j = 0; j < first_str.size() && j + i < second_str.size(); j++) {
+            if (first_str[j] == second_str[j + i]) {
                 count++;
             }
         }
@@ -77,7 +77,7 @@ bool compare(const search::product &p1, const search::product &p2) {
            check_in(codepoint1, codepoint2) >
                0.7 * static_cast<double>(min_value);
 }
-}  // namespace
+//}  // namespace
 
 namespace search {
 
@@ -95,12 +95,15 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
 
 bool get_prod_top_by_name(const std::string &input_string,
                           const std::string &file_name,
-                              std::vector<product> &vec,
+                          std::vector<product> &vec,
                           const uint32_t &size) {
     std::ifstream file(file_name);
     json j = json::parse(file);
     file.close();
 
+    if (file_name == "../data/karusel.json") {
+        int flag = 2;
+    }
     std::vector<uint32_t> first_str_codepoints;
     try {
         from_str_to_codepoint(input_string, first_str_codepoints);
@@ -121,6 +124,9 @@ bool get_prod_top_by_name(const std::string &input_string,
         }
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
+        if (in_amount == 7) {
+            int flag = true;
+        }
         uint32_t leven_dist =
             levenshtein_algo(first_str_codepoints, second_str_codepoints);
         top.insert({in_amount, leven_dist, cur_prod});
@@ -294,8 +300,10 @@ void search_recipe(const string &input_string,
             top.erase(it);
         }
     }
-    for (const auto &su : top) {
-        vec.push_back(su.product_);
+    vec.resize(size);
+    for (int i = 0; i < size && !top.empty(); i++) {
+        vec[i] = top.begin()->product_;
+        top.erase(top.begin());
     }
 
 }
