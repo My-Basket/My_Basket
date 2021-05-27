@@ -509,16 +509,6 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     shop_name = calculation_info.first.first;
     total_cost = calculation_info.first.second;
 
-    show_final_products_button = new QPushButton(
-        StyleSettings::Titles::show_final_products_button_title.c_str());
-    set_font_color_button(show_final_products_button, "#FF7699", 30);
-    show_final_products_button->show();
-
-    end_program_button = new QPushButton(
-        StyleSettings::Titles::end_program_button_title.c_str());
-    set_font_color_button(end_program_button, "#FF7699", 30);
-    end_program_button->show();
-
     best_total_cost_label =
         new QLabel(StyleSettings::Titles::best_total_cost_label_title.c_str());
     set_font_color_label(best_total_cost_label, "black", 100);
@@ -531,27 +521,53 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     total_cost_number_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     total_cost_number_label->setMargin(10);
 
+    shop_name_label = new QLabel(shop_name.c_str());
+    set_font_color_label(shop_name_label, "black", 100, "bold");
+    shop_name_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    shop_name_label->setMargin(10);
+
     in_shop_label =
         new QLabel(StyleSettings::Titles::in_shop_label_title.c_str());
     set_font_color_label(in_shop_label, "black", 100);
     in_shop_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     in_shop_label->setMargin(10);
 
-    shop_name_label = new QLabel(shop_name.c_str());
-    set_font_color_label(shop_name_label, "black", 100, "bold");
-    shop_name_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
-    shop_name_label->setMargin(10);
+    show_final_products_button = new QPushButton(
+        StyleSettings::Titles::show_final_products_button_title.c_str());
+    set_font_color_button(show_final_products_button, "#FF7699", 30);
+    show_final_products_button->show();
+
+    start_again_button = new QPushButton(
+        StyleSettings::Titles::start_again_button_title.c_str());
+    set_font_color_button(start_again_button, "#FF7699", 30);
+    start_again_button->show();
+
+    end_program_button = new QPushButton(
+        StyleSettings::Titles::end_program_button_title.c_str());
+    set_font_color_button(end_program_button, "#FF7699", 30);
+    end_program_button->show();
+
+    QGridLayout *label_layout = new QGridLayout;
+    label_layout->addWidget(best_total_cost_label);
+    label_layout->addWidget(total_cost_number_label);
+    label_layout->addWidget(in_shop_label);
+    label_layout->addWidget(shop_name_label);
+    label_layout->setSpacing(10);
+
+    QHBoxLayout *button_layout = new QHBoxLayout;
+    button_layout->addWidget(show_final_products_button);
+    button_layout->addWidget(start_again_button);
+    button_layout->addWidget(end_program_button);
 
     QGridLayout *main_layout = new QGridLayout;
-    main_layout->addWidget(best_total_cost_label);
-    main_layout->addWidget(total_cost_number_label);
-    main_layout->addWidget(in_shop_label);
-    main_layout->addWidget(shop_name_label);
-    main_layout->addWidget(show_final_products_button);
-    main_layout->addWidget(end_program_button);
+    main_layout->addLayout(label_layout, 0, 0);
+    main_layout->addLayout(button_layout, 1, 0);
+    main_layout->setSpacing(15);
 
     connect(show_final_products_button, SIGNAL(clicked()), this,
             SLOT(show_final_products_func()));
+    connect(start_again_button, SIGNAL(clicked()), this,
+            SLOT(start_again_func()));
     connect(end_program_button, SIGNAL(clicked()), this,
             SLOT(end_program_func()));
 
@@ -568,9 +584,18 @@ void SummaryWindow::show_final_products_func() {
     set_font_color_button(show_final_products_button, "#FF1099", 30, false);
 
     //вызвать колину функцию очистки векторов
-    //    CategoryWindow *category_window = new CategoryWindow();
-    //    category_window->show();
-    //    this->close();
+    CategoryWindow *category_window = new CategoryWindow();
+    category_window->show();
+    this->close();
+}
+
+void SummaryWindow::start_again_func() {
+    set_font_color_button(start_again_button, "#FF1099", 30, false);
+
+    //вызвать колину функцию очистки векторов
+    CategoryWindow *category_window = new CategoryWindow();
+    category_window->show();
+    this->close();
 }
 
 void SummaryWindow::end_program_func() {

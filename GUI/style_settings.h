@@ -108,8 +108,8 @@ struct Titles {
         "Пожалуйста, добавьте хотя бы один товар в корзину";
 
     // SummaryWindow
-    //    inline static const std::string start_again_button_title =
-    //        "начать с начала";
+    inline static const std::string start_again_button_title =
+        "начать с начала";
     inline static const std::string show_final_products_button_title =
         "просмотр товаров";
     inline static const std::string end_program_button_title =
@@ -143,7 +143,7 @@ struct FontStyles {
 
 struct WindowSizes {
     inline static const int min_width_window = 1000;
-    inline static const int min_height_window = 600;
+    inline static const int min_height_window = 650;
     inline static const int start_window_layout_spacing = 5;
     inline static const int my_basket_label_margin = 50;
 };
