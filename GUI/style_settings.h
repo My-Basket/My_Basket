@@ -74,7 +74,7 @@ struct Titles {
         "Категория магазина:";
     inline static const std::string economy_button_title = "эконом";
     inline static const std::string base_button_title = "стандарт";
-    inline static const std::string premium_button_title = "преимиум";
+    inline static const std::string premium_button_title = "премиум";
     inline static const std::string go_to_searching_button =
         "приступить к поиску!";
 
@@ -110,10 +110,14 @@ struct Titles {
     // SummaryWindow
     inline static const std::string start_again_button_title =
         "начать с начала";
+    inline static const std::string show_final_products_button_title =
+        "просмотр товаров";
+    inline static const std::string show_check_button_title = "показ чека";
     inline static const std::string end_program_button_title =
         "завершить программу";
     inline static const std::string best_total_cost_label_title = "Лучший чек:";
     inline static const std::string in_shop_label_title = "в магазине:";
+    inline static const std::string shop_list_title = "Список покупок:";
 };
 
 struct Colors {
@@ -141,9 +145,11 @@ struct FontStyles {
 
 struct WindowSizes {
     inline static const int min_width_window = 1000;
-    inline static const int min_height_window = 600;
+    inline static const int min_height_window = 650;
     inline static const int start_window_layout_spacing = 5;
     inline static const int my_basket_label_margin = 50;
+    inline static const int product_text_width = 600;
+    inline static const int product_text_height = 400;
 };
 
 struct Enable {
