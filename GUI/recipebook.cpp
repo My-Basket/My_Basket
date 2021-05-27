@@ -532,6 +532,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     in_shop_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
     in_shop_label->setMargin(10);
 
+    //кнопки
     show_final_products_button = new QPushButton(
         StyleSettings::Titles::show_final_products_button_title.c_str());
     set_font_color_button(show_final_products_button, "#FF7699", 30);
@@ -541,6 +542,11 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
         StyleSettings::Titles::start_again_button_title.c_str());
     set_font_color_button(start_again_button, "#FF7699", 30);
     start_again_button->show();
+
+    show_check_button =
+        new QPushButton(StyleSettings::Titles::show_check_button_title.c_str());
+    set_font_color_button(show_check_button, "#FF7699", 30);
+    show_check_button->hide();
 
     end_program_button = new QPushButton(
         StyleSettings::Titles::end_program_button_title.c_str());
@@ -556,6 +562,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 
     QHBoxLayout *button_layout = new QHBoxLayout;
     button_layout->addWidget(show_final_products_button);
+    button_layout->addWidget(show_check_button);
     button_layout->addWidget(start_again_button);
     button_layout->addWidget(end_program_button);
 
@@ -566,6 +573,8 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 
     connect(show_final_products_button, SIGNAL(clicked()), this,
             SLOT(show_final_products_func()));
+    connect(show_check_button, SIGNAL(clicked()), this,
+            SLOT(show_check_func()));
     connect(start_again_button, SIGNAL(clicked()), this,
             SLOT(start_again_func()));
     connect(end_program_button, SIGNAL(clicked()), this,
@@ -581,12 +590,13 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void SummaryWindow::show_final_products_func() {
-    set_font_color_button(show_final_products_button, "#FF1099", 30, false);
+    show_final_products_button->hide();
+    show_check_button->show();
+}
 
-    //вызвать колину функцию очистки векторов
-    CategoryWindow *category_window = new CategoryWindow();
-    category_window->show();
-    this->close();
+void SummaryWindow::show_check_func() {
+    show_final_products_button->show();
+    show_check_button->hide();
 }
 
 void SummaryWindow::start_again_func() {

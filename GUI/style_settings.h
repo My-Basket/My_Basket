@@ -112,6 +112,7 @@ struct Titles {
         "начать с начала";
     inline static const std::string show_final_products_button_title =
         "просмотр товаров";
+    inline static const std::string show_check_button_title = "показ чека";
     inline static const std::string end_program_button_title =
         "завершить программу";
     inline static const std::string best_total_cost_label_title = "Лучший чек:";

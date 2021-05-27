@@ -21,11 +21,13 @@ public:
 
 public slots:
     void show_final_products_func();
+    void show_check_func();
     void start_again_func();
     static void end_program_func();
 
 private:
     QPushButton *show_final_products_button;
+    QPushButton *show_check_button;
     QPushButton *start_again_button;
     QPushButton *end_program_button;
 
