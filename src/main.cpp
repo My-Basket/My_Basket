@@ -1,3 +1,4 @@
+#include <work_with_string.h>
 #include <QApplication>
 #include <QtGui>
 #include <iostream>
@@ -5,35 +6,29 @@
 #include "for_static.h"
 #include "search_engine.h"
 #include "startwindow.h"
+uint32_t check_in(
+    std::vector<uint32_t> &first_str,  /// TODO change all to const
+    std::vector<uint32_t> &second_str);
+
 int main(int argc, char *argv[]) {
-
     QApplication app(argc, argv);
+    std::vector<uint32_t> first_str;
+    from_str_to_codepoint(
+        "Горошек Bonduellе Зеленый с морковкой в кубиках, 400г", first_str);
+    std::vector<uint32_t> second_str;
+    from_str_to_codepoint(
+        "Горошек Stollenwerk зеленый молодой, 330г", second_str);
 
-    std::string s = "Вода";
-    std::vector<search::product> vec;
-    API::ingredients_to_recipe::run_product_search(s, 5, vec);
-    auto top_product = API::ingredients_to_recipe::show_res_of_request();
-    for (const auto &t : top_product) {
-       std::cout << t;
+    std::vector<uint32_t> input_str;
+    from_str_to_codepoint(
+        "Горошек", input_str);
+    auto f_amount = check_in(input_str, first_str);
+    auto s_amount = check_in(input_str, second_str);
+
+    auto t = API::recipe_to_ingredients::show_recipes();
+    for (auto x : t) {
+        std::cout << x.get_name() << "\n";
     }
-    std::vector<search::Recipe> vec2;
-    API::ingredients_to_recipe::run_recipes_search(top_product, 5, vec2);
-    auto top_recipes = API::ingredients_to_recipe::show_recipes();
-    API::get_recommended_recipes();
-    auto q = API::recipe_to_ingredients::choose_recipe(0);
-    auto t = API::recipe_to_ingredients::compare_prices_of_ingredients();
-    std::cout << "\n----------------------------------------------------------";
-    std::cout << "\n"
-              << "The best shop: " << t.first.first << "\n";
-    std::cout << "\n"
-              << "Result sum: " << t.first.second << "\n";
-    for (auto x : t.second) {
-        std::cout << x.first << ": " << x.second << "\n";
-    }
-
-    // RecipeBook recipebook;
-    // recipebook.show();
-
     Ui::StartWindow start_window;
     start_window.show();
 

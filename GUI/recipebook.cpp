@@ -94,6 +94,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
         StyleSettings::Titles::find_recipe_button_title.c_str());
     set_font_color_button(find_recipe_button, "#0066CC", 18);
     find_recipe_button->hide();
+    find_recipe_mode = BasketSearchingMode;  //поиск по набранной корзине
 
     check_basket_button = new QPushButton(
         StyleSettings::Titles::check_basket_button_title.c_str());
@@ -208,6 +209,7 @@ void RecipeBook::text_field_find_regime(std::string const &s) {
 void RecipeBook::add_product_func() {
     clear_fields_and_requests();
     activate_search_bar();
+    find_recipe_mode = BasketSearchingMode;
 
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_product_title.c_str());
@@ -240,6 +242,7 @@ void RecipeBook::add_product_func() {
 void RecipeBook::add_recipe_func() {
     clear_fields_and_requests();
     activate_search_bar();
+    find_recipe_mode = NameSearchingMode;  //режим поиска по совпадению названий
 
     set_font_color_button(add_product_button, "#0066CC", 18, true);
     set_font_color_button(add_recipe_button, "#172030", 18, false);
@@ -349,18 +352,21 @@ void RecipeBook::put_in_basket_func() {
 }
 
 void RecipeBook::find_recipe_func() {
-    //не пуста ли корзина
-    //    if (basket_of_products.empty()) {
-    //        res_of_request_products.clear();
-    //        res_of_request_recipes.clear();
-    //        QMessageBox::warning(
-    //            this,
-    //            StyleSettings::Titles::empty_basket_window_title.c_str(),
-    //            StyleSettings::Titles::empty_basket_window_text.c_str());
-    //        return;
-    //    }
-    ///поставить два режима поиска -- по названию рецепта и по нашей корзине
-    text_field_find_regime("было найдено:");
+    if (find_recipe_mode == BasketSearchingMode) {
+        //не пуста ли корзина
+        if (basket_of_products.empty()) {
+            res_of_request_products.clear();
+            res_of_request_recipes.clear();
+            QMessageBox::warning(
+                this, StyleSettings::Titles::empty_basket_window_title.c_str(),
+                StyleSettings::Titles::empty_basket_window_text.c_str());
+            return;
+        }
+        text_field_find_regime("было найдено:");
+    } else if (find_recipe_mode == NameSearchingMode) {
+        product_name_line->setReadOnly(true);
+        recipe_text->setReadOnly(false);
+    }
 
     set_font_color_button(add_product_button, "#0066CC", 18, true);
     set_font_color_button(find_product_button, "#0066CC", 18, true);
@@ -387,13 +393,22 @@ void RecipeBook::find_recipe_func() {
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_recipe_title.c_str());
 
-    recipe_text->clear();  ///перенести пониже, если будет ускорен поиск
+    recipe_text->clear();
     res_of_request_recipes.clear();
 
     std::vector<search::Recipe> vec2;
-    API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
-                                                   vec2);
-    res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
+    if (find_recipe_mode == BasketSearchingMode) {
+        API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
+                                                       vec2);
+        res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
+    } else if (find_recipe_mode == NameSearchingMode) {
+        // std::cout << "\n NameSearchMode -- product-name: " <<
+        // product_name_line->text().toStdString() << '\n';
+
+        API::recipe_to_ingredients::run_recipe_search(product_name_line->text().toStdString(), 10,
+                              vec2);
+        res_of_request_recipes = API::recipe_to_ingredients::show_recipes();
+    }
 
     print_recipe(recipe_text, res_of_request_recipes[0]);
     num_current_object = 0;
@@ -473,7 +488,8 @@ void RecipeBook::next_func() {
 }
 
 void RecipeBook::choose_recipe_func() {
-    //переход к summary_window
+    //переход к summary_windowФ
+    API::get_recommended_recipes();
     API::recipe_to_ingredients::choose_recipe(num_current_object);
 
     summary_window = new SummaryWindow;
@@ -490,10 +506,10 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 
     //коля это пока переделывает
     //получение информации о лучшем магазине и лучшей стоимости
-        auto calculation_info =
-            API::recipe_to_ingredients::compare_prices_of_ingredients();
-        shop_name = calculation_info.first.first;
-        total_cost = calculation_info.first.second;
+    auto calculation_info =
+        API::recipe_to_ingredients::compare_prices_of_ingredients();
+    shop_name = calculation_info.first.first;
+    total_cost = calculation_info.first.second;
 
     //    start_again_button = new QPushButton(
     //        StyleSettings::Titles::start_again_button_title.c_str());

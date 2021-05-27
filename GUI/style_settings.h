@@ -11,6 +11,9 @@ struct Titles {
     inline static const std::string path_to_bg_image =
         "../data/image_basket2.jpg";
 
+    inline static const std::string category_economy = "economy";
+    inline static const std::string category_base = "base";
+    inline static const std::string category_premium = "premium";
     //    // StartWindow
     //    inline static const std::string start_shopping_button_title =
     //        "start shopping!";

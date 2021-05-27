@@ -69,7 +69,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     description_label =
         new QLabel(StyleSettings::Titles::description_label_title
                        .c_str());  //ваш помощник в
-    //выборе рецептов
+                                   //выборе рецептов
     set_font_color_label(description_label, "black", 27);
     description_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
 
@@ -107,8 +107,6 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void StartWindow::go_to_category_window() {
-
-
     set_font_color_button(start_shopping_button, "#FF1099", 30, false);
 
     category_window->show();
@@ -180,7 +178,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void CategoryWindow::choose_economy() {
-    chosen_category = "ecomomy";
+    chosen_category = StyleSettings::Titles::category_economy;
 
     //обновить цвет других
     set_font_color_button(base_button, "#FF7699", 20, true);
@@ -193,7 +191,7 @@ void CategoryWindow::choose_economy() {
 }
 
 void CategoryWindow::choose_base() {
-    chosen_category = "base";
+    chosen_category = StyleSettings::Titles::category_base;
 
     set_font_color_button(economy_button, "#FF7699", 20, true);
     set_font_color_button(premium_button, "#FF7699", 20, true);
@@ -204,7 +202,7 @@ void CategoryWindow::choose_base() {
 }
 
 void CategoryWindow::choose_premium() {
-    chosen_category = "premium";
+    chosen_category = StyleSettings::Titles::category_premium;
 
     set_font_color_button(economy_button, "#FF7699", 20, true);
     set_font_color_button(base_button, "#FF7699", 20, true);
