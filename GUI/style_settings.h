@@ -70,7 +70,7 @@ struct Titles {
     inline static const std::string choose_category_label_title =
         "Категория магазина:";
     inline static const std::string economy_button_title = "эконом";
-    inline static const std::string base_button_title = "базовая";
+    inline static const std::string base_button_title = "стандарт";
     inline static const std::string premium_button_title = "преимиум";
     inline static const std::string go_to_searching_button =
         "приступить к поиску!";
