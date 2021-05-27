@@ -32,6 +32,7 @@ struct Titles {
         "possible recipe:";
     inline static const std::string recipe_label_in_basket_title = "in basket:";
     inline static const std::string add_product_button_title = "add product";
+    inline static const std::string add_recipe_button_title = "add recipe";
     inline static const std::string find_product_button_title = "find product";
     inline static const std::string put_in_basket_button_title =
         "put in basket";
@@ -51,6 +52,7 @@ struct Titles {
         "Please add at least one product in the basket";
 
     // SummaryWindow
+    inline static const std::string start_again_button_title = "start again";
     inline static const std::string end_program_button_title = "end program";
     inline static const std::string best_total_cost_label_title =
         "best total cost:";
