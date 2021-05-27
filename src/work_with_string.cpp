@@ -91,6 +91,7 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
         return;
     }
     std::string copy_s = old_s;
+    std::transform(old_s.begin(), old_s.end(), old_s.begin(), ::tolower);
     std::vector<char> unexpected_chars =
         {' ', ',', '\n', '\t', '\b', '\\', '\"', '-', '+', '/', '#', '=', '(', ')',  '.', '%', '@'};
     for(auto t: unexpected_chars){

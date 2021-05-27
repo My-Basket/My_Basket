@@ -22,23 +22,33 @@ bool API::get_prod_top_by_name(std::string &input_string,
                                std::vector<product> &vec,
                                uint32_t size) {
     bool flag = false;
+    std::multiset<search::set_unit<search::product>> prods;
     switch (API::ingredients_to_recipe::get_shop_mode()) {
         case API::Shop_Mode::ECONOMY:
             for (const auto &sh : API::Data_files::econom_shops) {
                  flag = search::get_prod_top_by_name(
-                    input_string, sh, vec, size);
+                    input_string, sh,  size, prods);
+            }
+            for(const auto& t: prods){
+                vec.push_back(t.product_);
             }
             return flag;
         case API::Shop_Mode::BASE:
             for (const auto &sh : API::Data_files::base_shops) {
                 flag = search::get_prod_top_by_name(
-                    input_string, sh, vec, size);
+                    input_string, sh,  size, prods);
+            }
+            for(const auto& t: prods){
+                vec.push_back(t.product_);
             }
             return flag;
         case API::Shop_Mode::PREMIUM:
             for (const auto &sh : API::Data_files::premium_shops) {
                 flag = search::get_prod_top_by_name(
-                    input_string, sh, vec, size);
+                    input_string, sh,  size, prods);
+            }
+            for(const auto& t: prods){
+                vec.push_back(t.product_);
             }
             return flag;
     }

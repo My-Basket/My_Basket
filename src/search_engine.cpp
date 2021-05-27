@@ -95,8 +95,7 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
 
 bool get_prod_top_by_name(const std::string &input_string,
                           const std::string &file_name,
-                          std::vector<product> &vec,
-                          const uint32_t &size) {
+                          const uint32_t &size, std::multiset<set_unit<product>> & prods) {
     std::ifstream file(file_name);
     json j = json::parse(file);
     file.close();
@@ -137,9 +136,8 @@ bool get_prod_top_by_name(const std::string &input_string,
             top.erase(it);
         }
     }
-
-    for (const set_unit<product> &su : top) {
-        vec.push_back(su.product_);
+    for(const auto & t: top){
+        prods.insert(t);
     }
     return true;
 }
@@ -314,13 +312,13 @@ Recipe::sum_price_of_rec_prod(const std::string &file_name) {
         ingredients.size());
     uint32_t sum = 0;
     for (size_t i = 0; i < ingredients.size(); i++) {
-        std::vector<search::product> ingredient;
+        std::multiset<set_unit<search::product>> ingredient;
         auto cur_prod_name = ingredients[i].get_name();
         std::vector<uint32_t> first_str_codepoints;
-        bool flag = search::get_prod_top_by_name(cur_prod_name, file_name, ingredient, 1);
+        bool flag = search::get_prod_top_by_name(cur_prod_name, file_name,  1, ingredient);
         if(!ingredient.empty() && flag) {
-            price_of_prod[i] = {ingredient[0].get_name(),
-                                ingredient[0].get_price()};
+            price_of_prod[i] = {(*ingredient.begin()).product_.get_name(),
+                                (*ingredient.begin()).product_.get_price()};
         }
         else{
             price_of_prod[i] = {cur_prod_name, 1e8};
