@@ -73,7 +73,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     add_product_button = new QPushButton(
         StyleSettings::Titles::add_product_button_title.c_str());
     set_font_color_button(add_product_button, "#0066CC", 18);
-    add_product_button->show();  //нажата -> #000066
+    add_product_button->show();
 
     add_recipe_button =
         new QPushButton(StyleSettings::Titles::add_recipe_button_title.c_str());
@@ -109,7 +109,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     next_button =
         new QPushButton(StyleSettings::Titles::next_button_title.c_str());
     set_font_color_button(next_button, "#00CC66", 18);
-    next_button->hide();  // FFD700
+    next_button->hide();
 
     previous_button =
         new QPushButton(StyleSettings::Titles::previous_button_title.c_str());
@@ -350,14 +350,16 @@ void RecipeBook::put_in_basket_func() {
 
 void RecipeBook::find_recipe_func() {
     //не пуста ли корзина
-    if (basket_of_products.empty()) {
-        res_of_request_products.clear();
-        res_of_request_recipes.clear();
-        QMessageBox::warning(
-            this, StyleSettings::Titles::empty_basket_window_title.c_str(),
-            StyleSettings::Titles::empty_basket_window_text.c_str());
-        return;
-    }
+    //    if (basket_of_products.empty()) {
+    //        res_of_request_products.clear();
+    //        res_of_request_recipes.clear();
+    //        QMessageBox::warning(
+    //            this,
+    //            StyleSettings::Titles::empty_basket_window_title.c_str(),
+    //            StyleSettings::Titles::empty_basket_window_text.c_str());
+    //        return;
+    //    }
+    ///поставить два режима поиска -- по названию рецепта и по нашей корзине
     text_field_find_regime("было найдено:");
 
     set_font_color_button(add_product_button, "#0066CC", 18, true);
@@ -493,6 +495,11 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     //    shop_name = calculation_info.first.first;
     //    total_cost = calculation_info.first.second;
 
+    //    start_again_button = new QPushButton(
+    //        StyleSettings::Titles::start_again_button_title.c_str());
+    //    set_font_color_button(start_again_button, "#FF7699", 30);
+    //    start_again_button->show();
+
     end_program_button = new QPushButton(
         StyleSettings::Titles::end_program_button_title.c_str());
     set_font_color_button(end_program_button, "#FF7699", 30);
@@ -526,8 +533,11 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     main_layout->addWidget(total_cost_number_label);
     main_layout->addWidget(in_shop_label);
     main_layout->addWidget(shop_name_label);
+    // main_layout->addWidget(start_again_button);
     main_layout->addWidget(end_program_button);
 
+    //    connect(start_again_button, SIGNAL(clicked()), this,
+    //            SLOT(start_again_func()));
     connect(end_program_button, SIGNAL(clicked()), this,
             SLOT(end_program_func()));
 
@@ -539,6 +549,14 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
                          StyleSettings::WindowSizes::min_height_window);
 }
+
+// void SummaryWindow::start_again_func() {
+//    set_font_color_button(start_again_button, "#FF1099", 30, false);
+//
+//    CategoryWindow *category_window = new CategoryWindow();
+//    category_window->show();
+//    this->close();
+//}
 
 void SummaryWindow::end_program_func() {
     std::exit(0);

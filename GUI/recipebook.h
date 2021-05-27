@@ -8,8 +8,11 @@
 #include <QTextEdit>
 #include <QWidget>
 #include "search_engine.h"
+#include "startwindow.h"
 
 namespace Ui {
+
+// class CategoryWindow;
 
 class SummaryWindow : public QWidget {
     Q_OBJECT
@@ -18,9 +21,13 @@ public:
     SummaryWindow(QWidget *parent = nullptr);
 
 public slots:
-    void end_program_func();
+    static void end_program_func();
+    // void start_again_func();
 
 private:
+    // CategoryWindow *category_window_; //начать с начала
+
+    // QPushButton *start_again_button;
     QPushButton *end_program_button;
 
     QLabel *best_total_cost_label;

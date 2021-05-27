@@ -52,6 +52,7 @@ struct Titles {
         "Please add at least one product in the basket";
 
     // SummaryWindow
+    inline static const std::string start_again_button_title = "start again";
     inline static const std::string end_program_button_title = "end program";
     inline static const std::string best_total_cost_label_title =
         "best total cost:";
