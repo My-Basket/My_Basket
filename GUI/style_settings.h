@@ -11,52 +11,106 @@ struct Titles {
     inline static const std::string path_to_bg_image =
         "../data/image_basket2.jpg";
 
+    //    // StartWindow
+    //    inline static const std::string start_shopping_button_title =
+    //        "start shopping!";
+    //    inline static const std::string description_label_title =
+    //        "your assistant in the selection of recipes";
+    //    inline static const std::string choose_category_label_title =
+    //        "Choose shops' category:";
+    //    inline static const std::string economy_button_title = "economy";
+    //    inline static const std::string base_button_title = "base";
+    //    inline static const std::string premium_button_title = "premium";
+    //    inline static const std::string go_to_searching_button = "go to
+    //    searching!";
+    //
+    //    // RecipeBook
+    //    inline static const std::string product_name_label_title =
+    //        "product or dish:";
+    //    inline static const std::string recipe_label_product_title =
+    //        "possible to take:";
+    //    inline static const std::string recipe_label_recipe_title =
+    //        "possible recipe:";
+    //    inline static const std::string recipe_label_in_basket_title = "in
+    //    basket:"; inline static const std::string add_product_button_title =
+    //    "add product"; inline static const std::string add_recipe_button_title
+    //    = "add recipe"; inline static const std::string
+    //    find_product_button_title = "find product"; inline static const
+    //    std::string put_in_basket_button_title =
+    //        "put in basket";
+    //    inline static const std::string find_recipe_button_title = "find
+    //    recipe"; inline static const std::string check_basket_button_title =
+    //    "check basket"; inline static const std::string
+    //    choose_recipe_button_title =
+    //        "choose recipe";
+    //    inline static const std::string next_button_title = "next";
+    //    inline static const std::string previous_button_title = "previous";
+    //
+    //    //окна предупреждений
+    //    inline static const std::string empty_input_window_title = "Empty
+    //    input"; inline static const std::string empty_input_window_text =
+    //        "Please enter a product";
+    //    inline static const std::string empty_basket_window_title = "Empty
+    //    basket"; inline static const std::string empty_basket_window_text =
+    //        "Please add at least one product in the basket";
+    //
+    //    // SummaryWindow
+    //    inline static const std::string start_again_button_title = "start
+    //    again"; inline static const std::string end_program_button_title =
+    //    "end program"; inline static const std::string
+    //    best_total_cost_label_title =
+    //        "best total cost:";
+    //    inline static const std::string in_shop_label_title = "in shop:";
+
     // StartWindow
     inline static const std::string start_shopping_button_title =
-        "start shopping!";
+        "начать заполнять корзину!";
     inline static const std::string description_label_title =
-        "your assistant in the selection of recipes";
+        "ваш помощник в выборе рецептов";
     inline static const std::string choose_category_label_title =
-        "Choose shops' category:";
-    inline static const std::string economy_button_title = "economy";
-    inline static const std::string base_button_title = "base";
-    inline static const std::string premium_button_title = "premium";
-    inline static const std::string go_to_searching_button = "go to searching!";
+        "Категория магазина:";
+    inline static const std::string economy_button_title = "эконом";
+    inline static const std::string base_button_title = "стандарт";
+    inline static const std::string premium_button_title = "преимиум";
+    inline static const std::string go_to_searching_button =
+        "приступить к поиску!";
 
     // RecipeBook
     inline static const std::string product_name_label_title =
-        "product or dish:";
-    inline static const std::string recipe_label_product_title =
-        "possible to take:";
+        "продукт или блюдо:";
+    inline static const std::string recipe_label_product_title = "можно взять:";
     inline static const std::string recipe_label_recipe_title =
-        "possible recipe:";
-    inline static const std::string recipe_label_in_basket_title = "in basket:";
-    inline static const std::string add_product_button_title = "add product";
-    inline static const std::string add_recipe_button_title = "add recipe";
-    inline static const std::string find_product_button_title = "find product";
+        "предлагаемый рецепт:";
+    inline static const std::string recipe_label_in_basket_title = "в корзине:";
+    inline static const std::string add_product_button_title =
+        "добавить продукт";
+    inline static const std::string add_recipe_button_title = "добавить рецепт";
+    inline static const std::string find_product_button_title = "найти продукт";
     inline static const std::string put_in_basket_button_title =
-        "put in basket";
-    inline static const std::string find_recipe_button_title = "find recipe";
-    inline static const std::string check_basket_button_title = "check basket";
+        "положить в корзину";
+    inline static const std::string find_recipe_button_title = "найти рецепт";
+    inline static const std::string check_basket_button_title =
+        "просмотр корзины";
     inline static const std::string choose_recipe_button_title =
-        "choose recipe";
-    inline static const std::string next_button_title = "next";
-    inline static const std::string previous_button_title = "previous";
+        "выбрать рецепт";
+    inline static const std::string next_button_title = "вперед";
+    inline static const std::string previous_button_title = "назад";
 
     //окна предупреждений
     inline static const std::string empty_input_window_title = "Empty input";
     inline static const std::string empty_input_window_text =
-        "Please enter a product";
+        "Пожалуйста, введите название продукта";
     inline static const std::string empty_basket_window_title = "Empty basket";
     inline static const std::string empty_basket_window_text =
-        "Please add at least one product in the basket";
+        "Пожалуйста, добавьте хотя бы один товар в корзину";
 
     // SummaryWindow
-    inline static const std::string start_again_button_title = "start again";
-    inline static const std::string end_program_button_title = "end program";
-    inline static const std::string best_total_cost_label_title =
-        "best total cost:";
-    inline static const std::string in_shop_label_title = "in shop:";
+    inline static const std::string start_again_button_title =
+        "начать с начала";
+    inline static const std::string end_program_button_title =
+        "завершить программу";
+    inline static const std::string best_total_cost_label_title = "Лучший чек:";
+    inline static const std::string in_shop_label_title = "в магазине:";
 };
 
 struct Colors {
