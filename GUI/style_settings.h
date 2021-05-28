@@ -155,6 +155,7 @@ struct FontSizes {
     // SummaryWindow
     inline static const int summary_window_products_text_sz = 18;
     inline static const int summary_window_labels_text_sz = 100;
+    inline static const int summary_window_medium_buttons_sz = 30;
 
     // RecipeBook
     inline static const int rb_label_sz = 28;

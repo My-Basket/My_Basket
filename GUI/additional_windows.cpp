@@ -317,22 +317,30 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     //кнопки
     show_final_products_button = new QPushButton(
         StyleSettings::Titles::show_final_products_button_title.c_str());
-    set_font_color_button(show_final_products_button, "#FF7699", 30);
+    set_font_color_button(
+        show_final_products_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz);
     show_final_products_button->show();
 
     start_again_button = new QPushButton(
         StyleSettings::Titles::start_again_button_title.c_str());
-    set_font_color_button(start_again_button, "#FF7699", 30);
+    set_font_color_button(
+        start_again_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz);
     start_again_button->show();
 
     show_check_button =
         new QPushButton(StyleSettings::Titles::show_check_button_title.c_str());
-    set_font_color_button(show_check_button, "#FF7699", 30);
+    set_font_color_button(
+        show_check_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz);
     show_check_button->hide();
 
     end_program_button = new QPushButton(
         StyleSettings::Titles::end_program_button_title.c_str());
-    set_font_color_button(end_program_button, "#FF7699", 30);
+    set_font_color_button(
+        end_program_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz);
     end_program_button->show();
 
     QGridLayout *label_layout = new QGridLayout;
@@ -397,7 +405,9 @@ void SummaryWindow::show_check_func() {
 }
 
 void SummaryWindow::start_again_func() {
-    set_font_color_button(start_again_button, "#FF1099", 30, false);
+    set_font_color_button(
+        start_again_button, StyleSettings::Colors::pink_hard_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz, false);
 
     //очистка векторов
     API::ingredients_to_recipe::discard_all();
