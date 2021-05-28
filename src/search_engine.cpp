@@ -9,7 +9,7 @@ error_file_logger &err_in_file() {
     return fl_log;
 }
 
-// namespace {
+namespace {
 
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
@@ -75,12 +75,10 @@ bool compare(const search::product &p1, const search::product &p2) {
         return false;
     }
     uint32_t min_value = std::min(codepoint1.size(), codepoint2.size());
-    return levenshtein_algo(codepoint1, codepoint2) >
-               0.8 * static_cast<double>(min_value) &&
-           check_in(codepoint1, codepoint2) >
-               0.7 * static_cast<double>(min_value);
+    return check_in(codepoint1, codepoint2) >
+           0.7 * static_cast<double>(min_value);
 }
-//}  // namespace
+}  // namespace
 
 namespace search {
 
