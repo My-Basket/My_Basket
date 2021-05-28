@@ -53,7 +53,8 @@ void RecipeBook::update_buttons_enabled(bool add_product_button_enabled,
                                         bool find_recipe_button_enabled,
                                         bool choose_recipe_button_enabled,
                                         bool check_basket_button_enabled) {
-    // idk, лучше ли такая функция явного прописывания, но по строкам вышло
+    // idk, лучше ли такая функция явного прописывания, ибо здесь нужно всегда
+    // быть аккуратным с порядком поставляемых параметров, но по строкам вышло
     // выгоднее!)
     if (add_product_button_enabled) {
         set_font_color_button(add_product_button, "#0066CC", 18, true);
@@ -98,7 +99,7 @@ void RecipeBook::update_buttons_enabled(bool add_product_button_enabled,
     }
     //обновление состояний кнопок
 
-    //в нашей программе всегда не нажаты
+    //в нашей программе всегда доступны
     set_font_color_button(next_button, "#00CC66", 18, true);
     set_font_color_button(previous_button, "#00CC66", 18, true);
 }
@@ -222,11 +223,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
-
-    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
-
-    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
-                         StyleSettings::WindowSizes::min_height_window);
+    set_background_image(this);
+    set_minimum_window_sizes(this);
     ///вынести в отдельную функцию -- копипаст в 4 местах -- мб наследование?
 }
 
