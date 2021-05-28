@@ -154,6 +154,12 @@ struct WindowSizes {
     inline static const int min_height_window = 650;
     inline static const int start_window_layout_spacing = 5;
     inline static const int my_basket_label_margin = 50;
+    inline static const int choose_category_label_margin = 55;
+    inline static const int cw_main_layout_spacing = 10;
+    inline static const int summary_window_margin = 10;
+    inline static const int summary_window_products_text_sz = 18;
+    inline static const int sw_main_layout_spacing = 15;
+    inline static const int sw_label_layout_spacing = 10;
     inline static const int product_text_width = 600;
     inline static const int product_text_height = 400;
 };
