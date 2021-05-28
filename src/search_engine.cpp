@@ -104,9 +104,6 @@ bool get_prod_top_by_name(const std::string &input_string,
     json j = json::parse(file);
     file.close();
 
-    if (file_name == "../data/karusel.json") {
-        int flag = 2;
-    }
     std::vector<uint32_t> first_str_codepoints;
     try {
         from_str_to_codepoint(input_string, first_str_codepoints);
@@ -127,11 +124,6 @@ bool get_prod_top_by_name(const std::string &input_string,
         }
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
-        if (in_amount == 4) {
-            int flag = true;
-            flag = false;
-            check_in(first_str_codepoints, second_str_codepoints);
-        }
         uint32_t leven_dist =
             levenshtein_algo(first_str_codepoints, second_str_codepoints);
         top.insert({in_amount, leven_dist, cur_prod});
@@ -168,7 +160,7 @@ product &product::operator=(const json &j) {
         category = j["Category"];
         price = j["Price"];
         return *this;
-    } catch (const json::exception &er) {
+    } catch (const nlohmann::detail::parse_error &er) {
         err_in_file().log(er);
     }
     return *this;
