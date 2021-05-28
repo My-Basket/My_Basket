@@ -57,6 +57,8 @@ public:
     [[nodiscard]] std::string get_name() const;
     [[nodiscard]] uint32_t get_price() const;
 
+    friend product get_the_cheapest(const std::string &file_name, const std::string &s);
+
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,
                             std::vector<Recipe> &vec);
@@ -66,7 +68,8 @@ public:
 
 bool get_prod_top_by_name(const std::string &input_string,
                           const std::string &file_name,
-                          const uint32_t &size, std::multiset<set_unit<product>> & prods);
+                          const uint32_t &size,
+                          std::multiset<set_unit<product>> &prods);
 
 class Recipe {
 private:

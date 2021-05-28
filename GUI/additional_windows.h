@@ -2,6 +2,7 @@
 #define MY_BASKET_ADDITIONAL_WINDOWS_H
 
 #include "recipe_book.h"
+#include "style_settings.h"
 
 namespace Ui {
 
@@ -75,6 +76,13 @@ private:
     std::vector<std::pair<std::string, uint32_t>> products_vec;
 };
 
+void set_background_image(QWidget *window,
+                          std::string const &path_to_bg_image =
+                              StyleSettings::Titles::path_to_bg_image);
+void set_minimum_window_sizes(
+    QWidget *window,
+    int width = StyleSettings::WindowSizes::min_width_window,
+    int height = StyleSettings::WindowSizes::min_height_window);
 void set_font_color_button(QPushButton *button,
                            std::string const &bg_color,
                            int font_size = 20,

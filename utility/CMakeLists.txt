@@ -4,4 +4,4 @@ project(json_utility)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(../include)
-add_executable(json_utility ../src/search_engine.cpp ../src/work_with_string.cpp json_utility.cpp)
+add_executable(json_utility ../src/search_engine.cpp ../src/work_with_string.cpp ../src/logger.cpp ../src/errors.cpp json_utility.cpp)
