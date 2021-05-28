@@ -68,11 +68,11 @@ static void print_products_vector_with_costs(
 }
 
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    //QBrush image_basket_background(
+      //  QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    //QPalette plt = this->palette();
+    //plt.setBrush(QPalette::Window, image_basket_background);
+    //this->setPalette(plt);
 
     start_shopping_button = new QPushButton(
         StyleSettings::Titles::start_shopping_button_title.c_str());
@@ -120,11 +120,11 @@ void StartWindow::go_to_category_window() {
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
+    /*QBrush image_basket_background(
         QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    this->setPalette(plt);*/
 
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
@@ -223,15 +223,15 @@ void CategoryWindow::go_to_recipe_book() {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
+    /*QBrush image_basket_background(
         QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
     QPalette plt = this->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    this->setPalette(plt);*/
 
     //получение информации о лучшем магазине и лучшей стоимости
     auto calculation_info =
-        API::recipe_to_ingredients::compare_prices_of_ingredients();
+        API::ingredients_to_recipe::compare_prices_of_ingredients();
     shop_name = calculation_info.first.first;
     total_cost = calculation_info.first.second;
     products_vec = calculation_info.second;
@@ -353,7 +353,6 @@ void SummaryWindow::start_again_func() {
 
     //очистка векторов
     API::ingredients_to_recipe::discard_all();
-    API::recipe_to_ingredients::discard_all();
     CategoryWindow *category_window = new CategoryWindow();
     category_window->show();
     this->close();

@@ -5,7 +5,7 @@
 #include "algo.h"
 #include "for_static.h"
 #include "search_engine.h"
-#include "startwindow.h"
+#include "additional_windows.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
