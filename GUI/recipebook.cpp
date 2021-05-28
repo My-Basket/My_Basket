@@ -422,9 +422,9 @@ void RecipeBook::find_recipe_func() {
     } else if (find_recipe_mode == NameSearchingMode) {
         // std::cout << "\n NameSearchMode -- product-name: " <<
         // product_name_line->text().toStdString() << '\n';
-        API::recipe_to_ingredients::run_recipe_search(
+        API::ingredients_to_recipe::run_recipe_search(
             product_name_line->text().toStdString(), 10, vec2);
-        res_of_request_recipes = API::recipe_to_ingredients::show_recipes();
+        res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
     }
 
     print_recipe(recipe_text, res_of_request_recipes[0]);
@@ -506,8 +506,8 @@ void RecipeBook::next_func() {
 
 void RecipeBook::choose_recipe_func() {
     //переход к summary_window
-    API::get_recommended_recipes();
-    API::recipe_to_ingredients::choose_recipe(num_current_object);
+
+    API::ingredients_to_recipe::choose_recipe(num_current_object);
 
     summary_window = new SummaryWindow;
     summary_window->show();
@@ -523,7 +523,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 
     //получение информации о лучшем магазине и лучшей стоимости
     auto calculation_info =
-        API::recipe_to_ingredients::compare_prices_of_ingredients();
+        API::ingredients_to_recipe::compare_prices_of_ingredients();
     shop_name = calculation_info.first.first;
     total_cost = calculation_info.first.second;
     products_vec = calculation_info.second;
@@ -647,7 +647,6 @@ void SummaryWindow::start_again_func() {
 
     //вызвать колину функцию очистки векторов
     API::ingredients_to_recipe::discard_all();
-    API::recipe_to_ingredients::discard_all();
     CategoryWindow *category_window = new CategoryWindow();
     category_window->show();
     this->close();

@@ -24,9 +24,8 @@ int main(int argc, char *argv[]) {
     for(auto& z: top_recipes){
         std::cout<<z.get_name()<<"\n";
     }
-    API::get_recommended_recipes();
-    auto q = API::recipe_to_ingredients::choose_recipe(0);
-    auto t = API::recipe_to_ingredients::compare_prices_of_ingredients();
+    auto q = API::ingredients_to_recipe::choose_recipe(0);
+    auto t = API::ingredients_to_recipe::compare_prices_of_ingredients();
     std::cout << "\n----------------------------------------------------------";
     std::cout << "\n"
               << "The best shop: " << t.first.first << "\n";
