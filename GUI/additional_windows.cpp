@@ -189,7 +189,9 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 
     go_to_searching_button =
         new QPushButton(StyleSettings::Titles::go_to_searching_button.c_str());
-    set_font_color_button(go_to_searching_button, "#FF9899", 20, false);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_light_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, false);
     go_to_searching_button->show();
 
     auto *button_layout = new QHBoxLayout;
@@ -220,40 +222,37 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 void CategoryWindow::choose_economy() {
     chosen_category = StyleSettings::Titles::category_economy;
 
-    //обновить цвет других
-    set_font_color_button(base_button, "#FF7699", 20, true);
-    set_font_color_button(premium_button, "#FF7699", 20, true);
+    update_buttons_enabled(false, true, true);
 
-    //установить свой
-    set_font_color_button(economy_button, "#FF1099", 20, false);
-
-    set_font_color_button(go_to_searching_button, "#FF7699", 20, true);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, true);
 }
 
 void CategoryWindow::choose_base() {
     chosen_category = StyleSettings::Titles::category_base;
 
-    set_font_color_button(economy_button, "#FF7699", 20, true);
-    set_font_color_button(premium_button, "#FF7699", 20, true);
+    update_buttons_enabled(true, false, true);
 
-    set_font_color_button(base_button, "#FF1099", 20, false);
-
-    set_font_color_button(go_to_searching_button, "#FF7699", 20, true);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, true);
 }
 
 void CategoryWindow::choose_premium() {
     chosen_category = StyleSettings::Titles::category_premium;
 
-    set_font_color_button(economy_button, "#FF7699", 20, true);
-    set_font_color_button(base_button, "#FF7699", 20, true);
+    update_buttons_enabled(true, true, false);
 
-    set_font_color_button(premium_button, "#FF1099", 20, false);
-
-    set_font_color_button(go_to_searching_button, "#FF7699", 20, true);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, true);
 }
 
 void CategoryWindow::go_to_recipe_book() {
-    set_font_color_button(go_to_searching_button, "#FF1099", 20, false);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_hard_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, false);
     API::ingredients_to_recipe::choose_category_shop(chosen_category);
 
     //переход к recipe_book
