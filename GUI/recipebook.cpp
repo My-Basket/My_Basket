@@ -14,7 +14,7 @@ namespace Ui {
 
 static void print_product_by_name(QTextEdit *text_field,
                                   search::product const &product) {
-    std::string s = /*"product name:\n" + */ product.get_name() + '\n';
+    std::string s = product.get_name() + '\n';
     text_field->insertPlainText(QString::fromUtf8(s.c_str()));
 }
 
@@ -27,8 +27,7 @@ static void print_product_by_name_price(QTextEdit *text_field,
 }
 
 static void print_recipe(QTextEdit *text_field, search::Recipe const &recipe) {
-    std::string s = /*"recipe name:\n" + */ recipe.get_name() + '\n' + '\n' +
-                    "----ingredients:----\n";
+    std::string s = recipe.get_name() + '\n' + '\n' + "----ingredients:----\n";
     for (auto const &prod : recipe.get_ingredients()) {
         s += prod.get_name() + '\n';
     }
@@ -50,7 +49,6 @@ static void print_products_vector(
 static void print_products_vector_with_costs(
     QTextEdit *text_field,
     std::vector<std::pair<std::string, uint32_t>> const &products_vec) {
-    // setReadOnly
     text_field->insertPlainText(
         (StyleSettings::Titles::shop_list_title + "\n\n").c_str());
     int vec_sz = products_vec.size();
@@ -611,8 +609,6 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
-    // this->setFixedSize(1000, 600);
-    // this->setMinimumSize(1000, 600);
     this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
                          StyleSettings::WindowSizes::min_height_window);
 }
