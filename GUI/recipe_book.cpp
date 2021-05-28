@@ -48,11 +48,13 @@ static void print_products_vector(
 
 void RecipeBook::button_enabled(QPushButton *button, bool is_enabled) {
     if (is_enabled) {
-        set_font_color_button(button, StyleSettings::Colors::blue_light_button,
-                              18, true);
+        set_font_color_button(
+            button, StyleSettings::Colors::blue_light_button,
+            StyleSettings::FontSizes::standard_medium_button_sz, true);
     } else {
-        set_font_color_button(button, StyleSettings::Colors::blue_hard_button,
-                              18, false);
+        set_font_color_button(
+            button, StyleSettings::Colors::blue_hard_button,
+            StyleSettings::FontSizes::standard_medium_button_sz, false);
     }
 }
 
@@ -76,10 +78,12 @@ void RecipeBook::update_buttons_enabled(bool add_product_button_enabled,
     //обновление состояний кнопок
 
     //в нашей программе всегда доступны
-    set_font_color_button(next_button, StyleSettings::Colors::green_button, 18,
+    set_font_color_button(next_button, StyleSettings::Colors::green_button,
+                          StyleSettings::FontSizes::standard_medium_button_sz,
                           true);
     set_font_color_button(previous_button, StyleSettings::Colors::green_button,
-                          18, true);
+                          StyleSettings::FontSizes::standard_medium_button_sz,
+                          true);
 }
 
 void RecipeBook::update_buttons_showed(bool add_product_button_showed,
@@ -105,8 +109,9 @@ void RecipeBook::update_buttons_showed(bool add_product_button_showed,
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label =
         new QLabel(StyleSettings::Titles::product_name_label_title.c_str());
-    set_font_color_label(product_name_label, StyleSettings::Colors::white, 28,
-                         "", StyleSettings::Colors::green_label);
+    set_font_color_label(product_name_label, StyleSettings::Colors::white,
+                         StyleSettings::FontSizes::rb_label_sz, "",
+                         StyleSettings::Colors::green_label);
     product_name_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                       QSizePolicy::Expanding);
@@ -118,7 +123,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     recipe_label =
         new QLabel(StyleSettings::Titles::recipe_label_product_title.c_str());
-    set_font_color_label(recipe_label, StyleSettings::Colors::white, 28, "",
+    set_font_color_label(recipe_label, StyleSettings::Colors::white,
+                         StyleSettings::FontSizes::rb_label_sz, "",
                          StyleSettings::Colors::green_label);
     recipe_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     recipe_label->setSizePolicy(QSizePolicy::MinimumExpanding,
@@ -328,7 +334,7 @@ void RecipeBook::find_recipe_func() {
                 StyleSettings::Titles::empty_basket_window_text.c_str());
             return;
         }
-        text_field_find_regime("было найдено:");
+        text_field_find_regime(StyleSettings::Titles::was_found_title);
     } else if (find_recipe_mode == NameSearchingMode) {
         product_name_line->setReadOnly(true);
         recipe_text->setReadOnly(false);

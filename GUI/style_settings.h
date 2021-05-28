@@ -49,6 +49,7 @@ struct Titles {
         "choose recipe";
     inline static const std::string next_button_title = "next";
     inline static const std::string previous_button_title = "previous";
+    inline static const std::string was_found_title = "was found:";
 
     //окна предупреждений
     inline static const std::string empty_input_window_title = "Empty input";
@@ -103,6 +104,7 @@ struct Titles {
         "выбрать рецепт";
     inline static const std::string next_button_title = "вперед";
     inline static const std::string previous_button_title = "назад";
+    inline static const std::string was_found_title = "было найдено:";
 
     //окна предупреждений
     inline static const std::string empty_input_window_title = "Empty input";
@@ -141,6 +143,7 @@ struct Colors {
 struct FontSizes {
     inline static const int my_basket_label_fz = 130;
     inline static const int description_label_fz = 27;
+    inline static const int standard_medium_button_sz = 18;
 
     // StartWindow
     inline static const int start_shopping_button_fz = 30;
@@ -152,6 +155,7 @@ struct FontSizes {
     inline static const int summary_window_products_text_sz = 18;
 
     // RecipeBook
+    inline static const int rb_label_sz = 28;
     inline static const int recipe_text_sz = 18;
     inline static const int top_products_count = 10;
 };
