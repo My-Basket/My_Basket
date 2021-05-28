@@ -289,11 +289,8 @@ void RecipeBook::find_product_func() {
     current_mode = FindProduct_mode;
     //запуск поиска
     res_of_request_products.clear();
-    res_of_request_products = API::ingredients_to_recipe::run_product_search(
-                                  product_name_line->text().toStdString(),
-                                  StyleSettings::FontSizes::top_products_count,
-                                  res_of_request_products)
-                                  .first;
+    res_of_request_products = API::ingredients_and_recipes::run_product_search(
+        product_name_line->text().toStdString(), 10, res_of_request_products).first;
     //установка полей и вывод первого продукта
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_product_title.c_str());
@@ -349,15 +346,15 @@ void RecipeBook::find_recipe_func() {
 
     std::vector<search::Recipe> vec;
     if (find_recipe_mode == BasketSearchingMode) {
-        res_of_request_recipes = API::ingredients_to_recipe::run_recipes_search(
-            basket_of_products, StyleSettings::FontSizes::top_products_count,
-            vec);
+
+        res_of_request_recipes = API::ingredients_and_recipes::run_recipes_search(basket_of_products, 10,
+                                                       vec2);
     } else if (find_recipe_mode == NameSearchingMode) {
-        res_of_request_recipes =
-            API::ingredients_to_recipe::run_recipe_search_by_str(
-                product_name_line->text().toStdString(),
-                StyleSettings::FontSizes::top_products_count, vec)
-                .first;
+        // std::cout << "\n NameSearchMode -- product-name: " <<
+        // product_name_line->text().toStdString() << '\n';
+        res_of_request_recipes = API::ingredients_and_recipes::run_recipe_search_by_str(
+            product_name_line->text().toStdString(), 10, vec2).first;
+
     }
 
     print_recipe(recipe_text, res_of_request_recipes[0]);
@@ -422,7 +419,7 @@ void RecipeBook::next_func() {
 
 void RecipeBook::choose_recipe_func() {
     //переход к summary_window
-    API::ingredients_to_recipe::choose_recipe(num_current_object);
+    API::ingredients_and_recipes::choose_recipe(num_current_object);
 
     auto summary_window = new SummaryWindow;
     summary_window->show();
