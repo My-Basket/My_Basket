@@ -2,15 +2,16 @@
 #include <errors.h>
 #include <algorithm>
 #include <exception>
-
-void to_lower_rus(int &codepoint){
-    if(codepoint>=1040 && codepoint<=1071){
-        codepoint+=32;
+namespace {
+void to_lower_rus(int &codepoint) {
+    if (codepoint >= 1040 && codepoint <= 1071) {
+        codepoint += 32;
     }
-    if(codepoint == 1025){
+    if (codepoint == 1025) {
         codepoint = 1105;
     }
 }
+}  // namespace
 pair<int, int> code_point(const string &u) {
     pair<int, int> result = {-1, -1};
     int l = u.length();
@@ -32,7 +33,7 @@ pair<int, int> code_point(const string &u) {
         result.second = 2;
         return result;
     }
-    if (u[0] == 0xed && (u[1] & 0xa0) == 0xa0) {
+    if ((u[0] & 0xed) == 0xed && (u[1] & 0xa0) == 0xa0) {
         return result;  // code points, 0xd800 to 0xdfff
     }
     if (l < 3) {
@@ -95,13 +96,14 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
     std::transform(old_s.begin(), old_s.end(), old_s.begin(), ::tolower);
     std::string bad_str = "№";
     size_t index = old_s.find(bad_str);
-    if(index!=std::string::npos){
+    if (index != std::string::npos) {
         old_s.erase(index, bad_str.length());
     }
 
-    std::vector<char> unexpected_chars =
-        {' ', ',', '\n', '\t', '\b', '\\', '\"', '-', '+', '/', ';', '#', '&', '`', '=', '(', ')',  '.', '%', '@'};
-    for(auto t: unexpected_chars){
+    std::vector<char> unexpected_chars = {
+        ' ', ',', '\n', '\t', '\b', '\\', '\"', '-', '+', '/',
+        ';', '#', '&',  '`',  '=',  '(',  ')',  '.', '%', '@'};
+    for (auto t : unexpected_chars) {
         old_s.erase(std::remove(old_s.begin(), old_s.end(), t), old_s.end());
     }
 
@@ -128,7 +130,6 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
     }
 }
 
-/// TODO DELETE FUNCTION
 uint32_t number_of_symbols(string old_s) {
     if (old_s.empty()) {
         return 0;

@@ -6,7 +6,7 @@
 #include <QPalette>
 #include <QSizePolicy>
 #include <sstream>
-#include "algo.h"
+#include "API.h"
 #include "additional_windows.h"
 #include "style_settings.h"
 

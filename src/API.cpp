@@ -1,4 +1,4 @@
-#include "algo.h"
+#include "API.h"
 #include <errors.h>
 #include "search_engine.h"
 

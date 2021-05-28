@@ -66,7 +66,8 @@ public:
 
 bool get_prod_top_by_name(const std::string &input_string,
                           const std::string &file_name,
-                          const uint32_t &size, std::multiset<set_unit<product>> & prods);
+                          const uint32_t &size,
+                          std::multiset<set_unit<product>> &prods);
 
 class Recipe {
 private:

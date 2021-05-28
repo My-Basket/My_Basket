@@ -10,10 +10,9 @@ set(QT_VERSION 5)
 set(REQUIRED_LIBS Core Gui Widgets)
 set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/work_with_string.cpp src/search_engine.cpp GUI/recipe_book.cpp src/algo.cpp GUI/additional_windows.cpp GUI/additional_windows.h src/logger.cpp src/errors.cpp GUI/style_settings.h)
+add_executable(${PROJECT_NAME} src/main.cpp src/work_with_string.cpp src/search_engine.cpp GUI/recipe_book.cpp src/API.cpp GUI/additional_windows.cpp GUI/additional_windows.h src/logger.cpp src/errors.cpp GUI/style_settings.h)
 add_executable(console_finder src/console_finder.cpp src/work_with_string.cpp src/search_engine.cpp)
 add_executable(search_engine-test tests/doctest_main.cpp src/search_engine.cpp tests/test_search_engine.cpp src/logger.cpp src/errors.cpp src/work_with_string.cpp)
-add_executable(algo-test tests/test_algo.cpp tests/doctest_main.cpp src/algo.cpp)
 add_executable(work_with_string-test tests/doctest_main.cpp tests/test_work_with_string.cpp  src/errors.cpp src/work_with_string.cpp)
 
 include_directories(include)
