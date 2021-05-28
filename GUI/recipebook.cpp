@@ -647,6 +647,7 @@ void SummaryWindow::start_again_func() {
 
     //вызвать колину функцию очистки векторов
     API::ingredients_to_recipe::discard_all();
+    API::recipe_to_ingredients::discard_all();
     CategoryWindow *category_window = new CategoryWindow();
     category_window->show();
     this->close();

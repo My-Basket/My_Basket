@@ -4,7 +4,7 @@
 #include <errors.h>
 
 using nlohmann::json, search::product, search::set_unit;
-std::map<std::string, std::string> shop_names = {
+std::map<const std::string, const std::string> shop_names = {
     {"../data/av.json", "Азбука вкуса"},
     {"../data/karusel.json", "Карусель"},
     {"../data/spar.json", "SPAR"}};
@@ -91,7 +91,10 @@ void API::ingredients_to_recipe::choose_ingredients(uint32_t num) {
     }
     chosen_ingredients.push_back(*it);  // chosen_ingredients - корзина
 }
-
+void API::recipe_to_ingredients::discard_all() {
+    chosen_recipe.clear();
+    recipes_request.clear();
+}
 void API::ingredients_to_recipe::discard_all() {
     recommended_recipes.clear();
     shop_mode = 2;
@@ -136,10 +139,10 @@ void API::get_recommended_recipes() {
         ingredients_to_recipe::recommended_recipes;
 }
 
-std::pair<std::pair<std::string, uint32_t>,
+std::pair<std::pair<std::string, long long>,
           std::vector<std::pair<std::string, uint32_t>>>
 API::recipe_to_ingredients::compare_prices_of_ingredients() {
-    int min_sum = 0;
+    long long min_sum = 0;
     bool flag = true;
     size_t min_ind = 0;
     switch (ingredients_to_recipe::get_shop_mode()) {

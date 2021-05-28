@@ -48,7 +48,6 @@ public:
 
     static void discard_all();
 
-    static void discard_basket();
 
     static void choose_ingredients(uint32_t num);
     static bool run_product_search(std::string s,
@@ -79,11 +78,11 @@ public:
     static std::vector<search::Recipe> show_recipes();
 
     static search::Recipe choose_recipe(uint32_t num);
-
+    static void discard_all();
     static void stop_searching_recipe();
 
     static void cancel_choice();
-    static std::pair<std::pair<std::string, uint32_t>,
+    static std::pair<std::pair<std::string, long long>,
                      std::vector<std::pair<std::string, uint32_t>>>
     compare_prices_of_ingredients();
 

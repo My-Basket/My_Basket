@@ -53,6 +53,9 @@ uint32_t check_in(
             if (first_str[j] == second_str[j + i]) {
                 count++;
             }
+            else{
+                count = 0;
+            }
         }
         if (count > max_amount) {
             max_amount = count;
@@ -60,7 +63,6 @@ uint32_t check_in(
     }
     return max_amount;
 }
-
 bool compare(const search::product &p1, const search::product &p2) {
     std::vector<uint32_t> codepoint1;
     std::vector<uint32_t> codepoint2;
@@ -123,8 +125,10 @@ bool get_prod_top_by_name(const std::string &input_string,
         }
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
-        if (in_amount == 7) {
+        if (in_amount == 4) {
             int flag = true;
+            flag = false;
+            check_in(first_str_codepoints, second_str_codepoints);
         }
         uint32_t leven_dist =
             levenshtein_algo(first_str_codepoints, second_str_codepoints);
@@ -288,6 +292,7 @@ void search_recipe(const string &input_string,
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
         uint32_t leven_dist =
+
             levenshtein_algo(first_str_codepoints, second_str_codepoints);
 
         top.insert({in_amount, leven_dist, cur_recipe});
@@ -306,11 +311,11 @@ void search_recipe(const string &input_string,
 
 }
 
-std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>>
+std::pair<long long, std::vector<std::pair<std::string, uint32_t>>>
 Recipe::sum_price_of_rec_prod(const std::string &file_name) {
     std::vector<std::pair<std::string, uint32_t>> price_of_prod(
         ingredients.size());
-    uint32_t sum = 0;
+    long long sum = 0;
     for (size_t i = 0; i < ingredients.size(); i++) {
         std::multiset<set_unit<search::product>> ingredient;
         auto cur_prod_name = ingredients[i].get_name();
@@ -321,7 +326,7 @@ Recipe::sum_price_of_rec_prod(const std::string &file_name) {
                                 (*ingredient.begin()).product_.get_price()};
         }
         else{
-            price_of_prod[i] = {cur_prod_name, 1e8};
+            price_of_prod[i] = {cur_prod_name, 100000000};
         }
         sum += price_of_prod[i].second;
     }
