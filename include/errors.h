@@ -16,5 +16,5 @@ struct InvalidString : MyBasketError {
     explicit InvalidString(const std::string &s);
     [[nodiscard]] std::string what() const noexcept override;
 };
-}
+}  // namespace err
 #endif  // MY_BASKET_ERRORS_H

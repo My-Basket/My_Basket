@@ -2,6 +2,7 @@
 #define MY_BASKET_ADDITIONAL_WINDOWS_H
 
 #include "recipe_book.h"
+#include "style_settings.h"
 
 namespace Ui {
 
@@ -43,6 +44,11 @@ private:
     QLabel *choose_category_label;
 
     std::string chosen_category;
+
+    void button_enabled(QPushButton *button, bool is_enabled);
+    void update_buttons_enabled(bool economy_button_enabled = true,
+                                bool base_button_enabled = true,
+                                bool premium_button_enabled = true);
 };
 
 class SummaryWindow : public QWidget {
@@ -75,17 +81,27 @@ private:
     std::vector<std::pair<std::string, uint32_t>> products_vec;
 };
 
+void set_background_image(QWidget *window,
+                          std::string const &path_to_bg_image =
+                              StyleSettings::Titles::path_to_bg_image);
+void set_minimum_window_sizes(
+    QWidget *window,
+    int width = StyleSettings::WindowSizes::min_width_window,
+    int height = StyleSettings::WindowSizes::min_height_window);
 void set_font_color_button(QPushButton *button,
                            std::string const &bg_color,
                            int font_size = 20,
                            int enabled = -1,
                            std::string const &font = "");
 
-void set_font_color_label(QLabel *label,
-                          std::string const &word_color = "black",
-                          int font_size = 130,
-                          std::string const &font = "",
-                          std::string const &bg_color = "");
+void set_font_color_label(
+    QLabel *label,
+    std::string const &word_color = StyleSettings::Colors::black,
+    int font_size = 130,
+    std::string const &font = "",
+    std::string const &bg_color = "");
+
+void button_showed(QPushButton *button, bool is_showed);
 }  // namespace Ui
 
 #endif  // MY_BASKET_ADDITIONAL_WINDOWS_H

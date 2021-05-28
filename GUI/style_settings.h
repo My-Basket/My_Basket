@@ -7,7 +7,6 @@
 
 namespace StyleSettings {
 
-///поставить define на языки -- ифать внутри структур, чему присваивать строки
 struct Titles {
     inline static const std::string windows_title = "My_Basket";
     inline static const std::string path_to_bg_image =
@@ -49,6 +48,7 @@ struct Titles {
         "choose recipe";
     inline static const std::string next_button_title = "next";
     inline static const std::string previous_button_title = "previous";
+    inline static const std::string was_found_title = "was found:";
 
     //окна предупреждений
     inline static const std::string empty_input_window_title = "Empty input";
@@ -103,6 +103,7 @@ struct Titles {
         "выбрать рецепт";
     inline static const std::string next_button_title = "вперед";
     inline static const std::string previous_button_title = "назад";
+    inline static const std::string was_found_title = "было найдено:";
 
     //окна предупреждений
     inline static const std::string empty_input_window_title = "Empty input";
@@ -139,10 +140,26 @@ struct Colors {
 };
 
 struct FontSizes {
+    inline static const int standard_medium_button_sz = 18;
+
+    // StartWindow
+    inline static const int start_shopping_button_fz = 30;
     inline static const int my_basket_label_fz = 130;
     inline static const int description_label_fz = 27;
-    inline static const int start_shopping_button_fz = 30;
-    inline static const int category_window_buttons_fz = 20;
+
+    // CategoryWindow
+    inline static const int choose_category_label_sz = 80;
+    inline static const int category_window_buttons_sz = 20;
+
+    // SummaryWindow
+    inline static const int summary_window_products_text_sz = 18;
+    inline static const int summary_window_labels_text_sz = 100;
+    inline static const int summary_window_medium_buttons_sz = 30;
+
+    // RecipeBook
+    inline static const int rb_label_sz = 28;
+    inline static const int recipe_text_sz = 18;
+    inline static const int top_products_count = 10;
 };
 
 struct FontStyles {
@@ -152,19 +169,30 @@ struct FontStyles {
 struct WindowSizes {
     inline static const int min_width_window = 1000;
     inline static const int min_height_window = 650;
+
+    // StartWindow
     inline static const int start_window_layout_spacing = 5;
     inline static const int my_basket_label_margin = 50;
+    inline static const int choose_category_label_margin = 55;
+
+    // CategoryWindow
+    inline static const int cw_main_layout_spacing = 10;
+
+    // SummaryWindow
+    inline static const int summary_window_margin = 10;
+    inline static const int sw_main_layout_spacing = 15;
+    inline static const int sw_label_layout_spacing = 10;
     inline static const int product_text_width = 600;
     inline static const int product_text_height = 400;
+
+    // RecipeBook
+    inline static const int product_name_line_min_height = 30;
 };
 
 struct Enable {
     bool enabled = true;
     bool unenabled = false;
 };
-
-struct ButtonSetting {};
-struct ButtonsSettings {};
 }  // namespace StyleSettings
 
 #endif  // MY_BASKET_STYLE_SETTINGS_H

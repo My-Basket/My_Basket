@@ -5,7 +5,7 @@
     "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120131085624/171210104827/p_O.jpg",
     "Ingredients": [
       {
-        "Name": "Куриное яйцо",
+        "Name": "Яйца куриные",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -25,17 +25,17 @@
         "Price": 0
       },
       {
-        "Name": "Пшеничная мука",
+        "Name": "Мука",
         "Category": "RECIPE",
         "Price": 0
       },
       {
-        "Name": "Гашеная сода",
+        "Name": "Cода",
         "Category": "RECIPE",
         "Price": 0
       },
       {
-        "Name": "масло Растительное ",
+        "Name": "Растительное масло",
         "Category": "RECIPE",
         "Price": 0
       }
@@ -52,7 +52,7 @@
         "Price": 0
       },
       {
-        "Name": "Куриное яйцо",
+        "Name": "Яйца куриные",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -79,7 +79,7 @@
     "Picture reference": "https://eda.ru/img/eda/c285x285i/s1.eda.ru/StaticContent/Photos/130813174717/151102203457/p_O.jpg",
     "Ingredients": [
       {
-        "Name": "Куриное яйцо",
+        "Name": "Яйца куриные",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -89,7 +89,7 @@
         "Price": 0
       },
       {
-        "Name": "Пшеничная мука",
+        "Name": "Мука",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -99,7 +99,7 @@
         "Price": 0
       },
       {
-        "Name": "масло Растительное ",
+        "Name": "Растительное масло",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -163,7 +163,7 @@
         "Price": 0
       },
       {
-        "Name": "Репчатый лук",
+        "Name": "Лук",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -200,7 +200,7 @@
         "Price": 0
       },
       {
-        "Name": "Консервированная фасоль",
+        "Name": "Фасоль консервированная",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -235,7 +235,7 @@
         "Price": 0
       },
       {
-        "Name": "Красный лук",
+        "Name": "Лук",
         "Category": "RECIPE",
         "Price": 0
       }
@@ -284,12 +284,12 @@
     "Picture reference": "https://eda.ru/img/eda/c285x285i/s1.eda.ru/StaticContent/Photos/120131082911/141123135121/p_O.jpg",
     "Ingredients": [
       {
-        "Name": "Куриное яйцо",
+        "Name": "Яйца куриные",
         "Category": "RECIPE",
         "Price": 0
       },
       {
-        "Name": "Пшеничная мука",
+        "Name": "Мука",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -321,7 +321,7 @@
     "Picture reference": "https://eda.ru/img/eda/c285x285i/s2.eda.ru/StaticContent/Photos/120131090525/120213185012/p_O.jpg",
     "Ingredients": [
       {
-        "Name": "Куриное яйцо",
+        "Name": "Яйца куриные",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -353,7 +353,7 @@
         "Price": 0
       },
       {
-        "Name": "Куриное яйцо",
+        "Name": "Яйца куриные",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -363,12 +363,12 @@
         "Price": 0
       },
       {
-        "Name": "Обезжиренный кефир",
+        "Name": "Кефир",
         "Category": "RECIPE",
         "Price": 0
       },
       {
-        "Name": "Пшеничная мука",
+        "Name": "Мука",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -405,12 +405,7 @@
         "Price": 0
       },
       {
-        "Name": "Рубленая петрушка",
-        "Category": "RECIPE",
-        "Price": 0
-      },
-      {
-        "Name": "Рубленая петрушка",
+        "Name": "Петрушка",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -437,12 +432,12 @@
         "Price": 0
       },
       {
-        "Name": "Желтый сладкий перец",
+        "Name": "Желтый перец",
         "Category": "RECIPE",
         "Price": 0
       },
       {
-        "Name": "Красный сладкий перец",
+        "Name": "Красный перец",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -551,12 +546,12 @@
     "Picture reference": "https://eda.ru/img/eda/c285x285i/s1.eda.ru/StaticContent/Photos/120131112107/161028144108/p_O.jpg",
     "Ingredients": [
       {
-        "Name": "Молодые кабачки",
+        "Name": "Кабачки",
         "Category": "RECIPE",
         "Price": 0
       },
       {
-        "Name": "Пшеничная мука",
+        "Name": "Мука",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -576,12 +571,7 @@
         "Price": 0
       },
       {
-        "Name": "Сольпо вкусу",
-        "Category": "RECIPE",
-        "Price": 0
-      },
-      {
-        "Name": "масло Растительное ",
+        "Name": "Растительное масло",
         "Category": "RECIPE",
         "Price": 0
       }
@@ -603,7 +593,7 @@
         "Price": 0
       },
       {
-        "Name": "Куриное яйцо",
+        "Name": "Яйца куриные",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -635,7 +625,7 @@
         "Price": 0
       },
       {
-        "Name": "Репчатый лук",
+        "Name": "Лук",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -655,7 +645,7 @@
         "Price": 0
       },
       {
-        "Name": "Молотый черный перец",
+        "Name": "Черный перец",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -677,12 +667,12 @@
         "Price": 0
       },
       {
-        "Name": "Мягкий творог",
+        "Name": "Творог",
         "Category": "RECIPE",
         "Price": 0
       },
       {
-        "Name": "Пшеничная мука",
+        "Name": "Мука",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -709,7 +699,7 @@
         "Price": 0
       },
       {
-        "Name": "Цветочный мед",
+        "Name": "Мед",
         "Category": "RECIPE",
         "Price": 0
       },
@@ -719,12 +709,12 @@
         "Price": 0
       },
       {
-        "Name": "Тертый имбирь",
+        "Name": "Имбирь",
         "Category": "RECIPE",
         "Price": 0
       },
       {
-        "Name": "масло Растительное",
+        "Name": "Растительное масло",
         "Category": "RECIPE",
         "Price": 0
       },
