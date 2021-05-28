@@ -141,8 +141,18 @@ struct Colors {
 struct FontSizes {
     inline static const int my_basket_label_fz = 130;
     inline static const int description_label_fz = 27;
+
+    // StartWindow
     inline static const int start_shopping_button_fz = 30;
+
+    // CategoryWindow
     inline static const int category_window_buttons_fz = 20;
+
+    // SummaryWindow
+    inline static const int summary_window_products_text_sz = 18;
+
+    // RecipeBook
+    inline static const int recipe_text_sz = 18;
 };
 
 struct FontStyles {
@@ -152,10 +162,24 @@ struct FontStyles {
 struct WindowSizes {
     inline static const int min_width_window = 1000;
     inline static const int min_height_window = 650;
+
+    // StartWindow
     inline static const int start_window_layout_spacing = 5;
     inline static const int my_basket_label_margin = 50;
+    inline static const int choose_category_label_margin = 55;
+
+    // CategoryWindow
+    inline static const int cw_main_layout_spacing = 10;
+
+    // SummaryWindow
+    inline static const int summary_window_margin = 10;
+    inline static const int sw_main_layout_spacing = 15;
+    inline static const int sw_label_layout_spacing = 10;
     inline static const int product_text_width = 600;
     inline static const int product_text_height = 400;
+
+    // RecipeBook
+    inline static const int product_name_line_min_height = 30;
 };
 
 struct Enable {

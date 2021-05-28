@@ -67,12 +67,16 @@ static void print_products_vector_with_costs(
     ///выглядит, как копипаст предыдущей функции, пофиксить
 }
 
-StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
+void set_background_image(QWidget *window,
+                          std::string const &path_to_bg_image) {
+    QBrush image_basket_background(QImage(path_to_bg_image.c_str()));
+    QPalette plt = window->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    window->setPalette(plt);
+}
+
+StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
+    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
 
     start_shopping_button = new QPushButton(
         StyleSettings::Titles::start_shopping_button_title.c_str());
@@ -82,7 +86,8 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     my_basket_label = new QLabel(StyleSettings::Titles::windows_title.c_str());
     set_font_color_label(my_basket_label, "black", 130, "bold");
     my_basket_label->setAlignment(Qt::AlignCenter);
-    my_basket_label->setMargin(50);
+    my_basket_label->setMargin(
+        StyleSettings::WindowSizes::my_basket_label_margin);
 
     description_label =
         new QLabel(StyleSettings::Titles::description_label_title.c_str());
@@ -92,13 +97,15 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     auto *label_layout = new QVBoxLayout;
     label_layout->addWidget(my_basket_label, Qt::AlignTop, Qt::AlignVCenter);
     label_layout->addWidget(description_label, Qt::AlignTop, Qt::AlignVCenter);
-    label_layout->setSpacing(5);
+    label_layout->setSpacing(
+        StyleSettings::WindowSizes::start_window_layout_spacing);
 
     auto *main_layout = new QVBoxLayout;
     main_layout->addLayout(label_layout);
     main_layout->addWidget(start_shopping_button, Qt::AlignTop,
                            Qt::AlignVCenter);
-    main_layout->setSpacing(5);
+    main_layout->setSpacing(
+        StyleSettings::WindowSizes::start_window_layout_spacing);
 
     connect(start_shopping_button, SIGNAL(clicked()), this,
             SLOT(go_to_category_window()));
@@ -120,17 +127,14 @@ void StartWindow::go_to_category_window() {
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
 
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
     set_font_color_label(choose_category_label, "black", 80);
     choose_category_label->setAlignment(Qt::AlignCenter);
-    choose_category_label->setMargin(55);
+    choose_category_label->setMargin(
+        StyleSettings::WindowSizes::choose_category_label_margin);
 
     economy_button =
         new QPushButton(StyleSettings::Titles::economy_button_title.c_str());
@@ -162,7 +166,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     main_layout->addLayout(button_layout);
     main_layout->addWidget(go_to_searching_button, Qt::AlignTop,
                            Qt::AlignVCenter);
-    main_layout->setSpacing(10);
+    main_layout->setSpacing(StyleSettings::WindowSizes::cw_main_layout_spacing);
 
     connect(economy_button, SIGNAL(clicked()), this, SLOT(choose_economy()));
     connect(base_button, SIGNAL(clicked()), this, SLOT(choose_base()));
@@ -223,11 +227,7 @@ void CategoryWindow::go_to_recipe_book() {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
 
     //получение информации о лучшем магазине и лучшей стоимости
     auto calculation_info =
@@ -240,27 +240,31 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
         new QLabel(StyleSettings::Titles::best_total_cost_label_title.c_str());
     set_font_color_label(best_total_cost_label, "black", 100);
     best_total_cost_label->setAlignment(Qt::AlignCenter);
-    best_total_cost_label->setMargin(10);
+    best_total_cost_label->setMargin(
+        StyleSettings::WindowSizes::summary_window_margin);
 
     total_cost_number_label =
         new QLabel((std::to_string(total_cost) + "₽").c_str());
     set_font_color_label(total_cost_number_label, "black", 100, "bold");
     total_cost_number_label->setAlignment(Qt::AlignCenter);
-    total_cost_number_label->setMargin(10);
+    total_cost_number_label->setMargin(
+        StyleSettings::WindowSizes::summary_window_margin);
 
     shop_name_label = new QLabel(shop_name.c_str());
     set_font_color_label(shop_name_label, "black", 100, "bold");
     shop_name_label->setAlignment(Qt::AlignCenter);
-    shop_name_label->setMargin(10);
+    shop_name_label->setMargin(
+        StyleSettings::WindowSizes::summary_window_margin);
 
     in_shop_label =
         new QLabel(StyleSettings::Titles::in_shop_label_title.c_str());
     set_font_color_label(in_shop_label, "black", 100);
     in_shop_label->setAlignment(Qt::AlignCenter);
-    in_shop_label->setMargin(10);
+    in_shop_label->setMargin(StyleSettings::WindowSizes::summary_window_margin);
 
     products_text = new QTextEdit;
-    products_text->setFontPointSize(18);
+    products_text->setFontPointSize(
+        StyleSettings::FontSizes::summary_window_products_text_sz);
     products_text->setFixedSize(
         StyleSettings::WindowSizes::product_text_width,
         StyleSettings::WindowSizes::product_text_height);
@@ -294,7 +298,8 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     label_layout->addWidget(in_shop_label);
     label_layout->addWidget(shop_name_label);
     label_layout->addWidget(products_text);
-    label_layout->setSpacing(10);
+    label_layout->setSpacing(
+        StyleSettings::WindowSizes::sw_label_layout_spacing);
 
     QHBoxLayout *button_layout = new QHBoxLayout;
     button_layout->addWidget(show_final_products_button);
@@ -305,7 +310,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     QGridLayout *main_layout = new QGridLayout;
     main_layout->addLayout(label_layout, 0, 0);
     main_layout->addLayout(button_layout, 1, 0);
-    main_layout->setSpacing(15);
+    main_layout->setSpacing(StyleSettings::WindowSizes::sw_main_layout_spacing);
 
     connect(show_final_products_button, SIGNAL(clicked()), this,
             SLOT(show_final_products_func()));
