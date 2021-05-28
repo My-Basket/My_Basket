@@ -89,11 +89,14 @@ void set_font_color_button(QPushButton *button,
                            int enabled = -1,
                            std::string const &font = "");
 
-void set_font_color_label(QLabel *label,
-                          std::string const &word_color = "black",
-                          int font_size = 130,
-                          std::string const &font = "",
-                          std::string const &bg_color = "");
+void set_font_color_label(
+    QLabel *label,
+    std::string const &word_color = StyleSettings::Colors::black,
+    int font_size = 130,
+    std::string const &font = "",
+    std::string const &bg_color = "");
+
+void button_showed(QPushButton *button, bool is_showed);
 }  // namespace Ui
 
 #endif  // MY_BASKET_ADDITIONAL_WINDOWS_H

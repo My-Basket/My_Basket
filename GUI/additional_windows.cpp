@@ -79,21 +79,31 @@ static void print_products_vector_with_costs(
     ///выглядит, как копипаст предыдущей функции, пофиксить
 }
 
+void button_showed(QPushButton *button, bool is_showed) {
+    if (is_showed) {
+        button->show();
+    } else {
+        button->hide();
+    }
+}
+
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     start_shopping_button = new QPushButton(
         StyleSettings::Titles::start_shopping_button_title.c_str());
-    set_font_color_button(start_shopping_button, "#FF7699", 30, true);
+    set_font_color_button(start_shopping_button,
+                          StyleSettings::Colors::pink_medium_button, 30, true);
     start_shopping_button->show();
 
     my_basket_label = new QLabel(StyleSettings::Titles::windows_title.c_str());
-    set_font_color_label(my_basket_label, "black", 130, "bold");
+    set_font_color_label(my_basket_label, StyleSettings::Colors::black, 130,
+                         StyleSettings::FontStyles::bold);
     my_basket_label->setAlignment(Qt::AlignCenter);
     my_basket_label->setMargin(
         StyleSettings::WindowSizes::my_basket_label_margin);
 
     description_label =
         new QLabel(StyleSettings::Titles::description_label_title.c_str());
-    set_font_color_label(description_label, "black", 27);
+    set_font_color_label(description_label, StyleSettings::Colors::black, 27);
     description_label->setAlignment(Qt::AlignCenter);
 
     auto *label_layout = new QVBoxLayout;
@@ -120,7 +130,8 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void StartWindow::go_to_category_window() {
-    set_font_color_button(start_shopping_button, "#FF1099", 30, false);
+    set_font_color_button(start_shopping_button,
+                          StyleSettings::Colors::pink_hard_button, 30, false);
 
     //переход к recipe_book
     auto category_window = new CategoryWindow();
@@ -131,7 +142,8 @@ void StartWindow::go_to_category_window() {
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
-    set_font_color_label(choose_category_label, "black", 80);
+    set_font_color_label(choose_category_label, StyleSettings::Colors::black,
+                         80);
     choose_category_label->setAlignment(Qt::AlignCenter);
     choose_category_label->setMargin(
         StyleSettings::WindowSizes::choose_category_label_margin);
