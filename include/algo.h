@@ -18,8 +18,10 @@ class recipe_to_ingredients;
 
 namespace Data_files {
 const std::vector<std::string> econom_shops = {"../data/spar.json"};
-const std::vector<std::string> base_shops = {"../data/karusel.json", "../data/spar.json"};
-const std::vector<std::string> premium_shops = {"../data/av.json", "../data/spar.json", "../data/karusel.json"};
+const std::vector<std::string> base_shops = {"../data/karusel.json",
+                                             "../data/spar.json"};
+const std::vector<std::string> premium_shops = {
+    "../data/av.json", "../data/spar.json", "../data/karusel.json"};
 }  // namespace Data_files
 
 void put_product_in_basket(std::vector<search::product> &basket,
@@ -33,7 +35,8 @@ private:
     static std::vector<search::product> chosen_ingredients;  //продукты корзины
     static std::vector<search::Recipe>
 
-        recommended_recipes;  //топ рекомендуемых рецептов, выданных по запросу
+        recommended_recipes;
+    static search::Recipe chosen_recipe;
     // TODO static list<product>
     // chosen_bad_ingredients;
     // TODO static multiset<set_unit, comp> bad_ingredients;
@@ -48,9 +51,8 @@ public:
 
     static void discard_all();
 
-    static void discard_basket();
-
     static void choose_ingredients(uint32_t num);
+    static Recipe choose_recipe(uint32_t num);
     static bool run_product_search(std::string s,
                                    uint32_t size,
                                    std::vector<search::product> &top);
@@ -61,36 +63,17 @@ public:
         uint32_t size,
         std::vector<search::Recipe> &vec);
     static std::vector<search::Recipe> show_recipes();
+    static void run_recipe_search(const std::string &s,
+                                  uint32_t size,
+                                  std::vector<search::Recipe> &vec);
+    static std::pair<std::pair<std::string, long long>,
+                     std::vector<std::pair<std::string, uint32_t>>>
+    compare_prices_of_ingredients();
 
     friend void search::put_product_in_basket(
         std::vector<search::product> &basket,
         search::product &prod);
-    friend void get_recommended_recipes();
 };
-
-class recipe_to_ingredients {
-    static std::vector<search::Recipe> recipes_request;
-    static search::Recipe chosen_recipe;
-
-public:
-    static void run_recipe_search(const std::string &s,
-                                  uint32_t size,
-                                  std::vector<search::Recipe> &vec);
-    static std::vector<search::Recipe> show_recipes();
-
-    static search::Recipe choose_recipe(uint32_t num);
-
-    static void stop_searching_recipe();
-
-    static void cancel_choice();
-    static std::pair<std::pair<std::string, uint32_t>,
-                     std::vector<std::pair<std::string, uint32_t>>>
-    compare_prices_of_ingredients();
-
-    friend void get_recommended_recipes();
-};
-
-void get_recommended_recipes();
 
 bool get_prod_top_by_name(string &input_string,
                           std::vector<product> &vec,

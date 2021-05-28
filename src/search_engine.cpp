@@ -9,7 +9,7 @@ error_file_logger &err_in_file() {
     return fl_log;
 }
 
-//namespace {
+// namespace {
 
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
@@ -49,9 +49,13 @@ uint32_t check_in(
     uint32_t max_amount = 0;
     for (int i = 0; i < second_str.size() - first_str.size() + 1; i++) {
         uint32_t count = 0;
-        for (int j = 0; j < first_str.size() && j + i < second_str.size(); j++) {
+        for (int j = 0; j < first_str.size() && j + i < second_str.size();
+             j++) {
             if (first_str[j] == second_str[j + i]) {
                 count++;
+            } else {
+                max_amount = std::max(max_amount, count);
+                count = 0;
             }
         }
         if (count > max_amount) {
@@ -60,7 +64,6 @@ uint32_t check_in(
     }
     return max_amount;
 }
-
 bool compare(const search::product &p1, const search::product &p2) {
     std::vector<uint32_t> codepoint1;
     std::vector<uint32_t> codepoint2;
@@ -95,7 +98,8 @@ std::ostream &operator<<(std::ostream &os, const product &p) {
 
 bool get_prod_top_by_name(const std::string &input_string,
                           const std::string &file_name,
-                          const uint32_t &size, std::multiset<set_unit<product>> & prods) {
+                          const uint32_t &size,
+                          std::multiset<set_unit<product>> &prods) {
     std::ifstream file(file_name);
     json j = json::parse(file);
     file.close();
@@ -123,8 +127,10 @@ bool get_prod_top_by_name(const std::string &input_string,
         }
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
-        if (in_amount == 7) {
+        if (in_amount == 4) {
             int flag = true;
+            flag = false;
+            check_in(first_str_codepoints, second_str_codepoints);
         }
         uint32_t leven_dist =
             levenshtein_algo(first_str_codepoints, second_str_codepoints);
@@ -136,7 +142,7 @@ bool get_prod_top_by_name(const std::string &input_string,
             top.erase(it);
         }
     }
-    for(const auto & t: top){
+    for (const auto &t : top) {
         prods.insert(t);
     }
     return true;
@@ -251,8 +257,7 @@ void get_recipes(const std::vector<product> &ingredients,
     }
 
     for (const auto &x : top) {
-        vec.push_back(
-            x.product_);
+        vec.push_back(x.product_);
     }
 }
 
@@ -288,6 +293,7 @@ void search_recipe(const string &input_string,
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
         uint32_t leven_dist =
+
             levenshtein_algo(first_str_codepoints, second_str_codepoints);
 
         top.insert({in_amount, leven_dist, cur_recipe});
@@ -303,25 +309,24 @@ void search_recipe(const string &input_string,
         vec[i] = top.begin()->product_;
         top.erase(top.begin());
     }
-
 }
 
-std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>>
+std::pair<long long, std::vector<std::pair<std::string, uint32_t>>>
 Recipe::sum_price_of_rec_prod(const std::string &file_name) {
     std::vector<std::pair<std::string, uint32_t>> price_of_prod(
         ingredients.size());
-    uint32_t sum = 0;
+    long long sum = 0;
     for (size_t i = 0; i < ingredients.size(); i++) {
         std::multiset<set_unit<search::product>> ingredient;
         auto cur_prod_name = ingredients[i].get_name();
         std::vector<uint32_t> first_str_codepoints;
-        bool flag = search::get_prod_top_by_name(cur_prod_name, file_name,  1, ingredient);
-        if(!ingredient.empty() && flag) {
+        bool flag = search::get_prod_top_by_name(cur_prod_name, file_name, 1,
+                                                 ingredient);
+        if (!ingredient.empty() && flag) {
             price_of_prod[i] = {(*ingredient.begin()).product_.get_name(),
                                 (*ingredient.begin()).product_.get_price()};
-        }
-        else{
-            price_of_prod[i] = {cur_prod_name, 1e8};
+        } else {
+            price_of_prod[i] = {cur_prod_name, 100000000};
         }
         sum += price_of_prod[i].second;
     }

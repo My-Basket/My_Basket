@@ -3,15 +3,16 @@
 #include <algorithm>
 #include <exception>
 
-namespace {
-bool my_isalpha(char ch)
-{
-    return std::isalpha(static_cast<unsigned char>(ch));
-}
+void to_lower_rus(int &codepoint){
+    if(codepoint>=1040 && codepoint<=1071){
+        codepoint+=32;
+    }
+    if(codepoint == 1025){
+        codepoint = 1105;
+    }
 }
 pair<int, int> code_point(const string &u) {
-    pair<int, int> result;
-    result.first = result.second = -1;
+    pair<int, int> result = {-1, -1};
     int l = u.length();
     if (l < 1) {
         return result;
@@ -92,14 +93,21 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
     }
     std::string copy_s = old_s;
     std::transform(old_s.begin(), old_s.end(), old_s.begin(), ::tolower);
+    std::string bad_str = "№";
+    size_t index = old_s.find(bad_str);
+    if(index!=std::string::npos){
+        old_s.erase(index, bad_str.length());
+    }
+
     std::vector<char> unexpected_chars =
-        {' ', ',', '\n', '\t', '\b', '\\', '\"', '-', '+', '/', '#', '=', '(', ')',  '.', '%', '@'};
+        {' ', ',', '\n', '\t', '\b', '\\', '\"', '-', '+', '/', ';', '#', '&', '`', '=', '(', ')',  '.', '%', '@'};
     for(auto t: unexpected_chars){
         old_s.erase(std::remove(old_s.begin(), old_s.end(), t), old_s.end());
     }
-    old_s.erase(std::remove_if(old_s.begin(), old_s.end(), [](char t){return my_isalpha(t);}), old_s.end());
+
     std::string new_s;
     auto [codepoint, symbol_size] = code_point(old_s);
+    to_lower_rus(codepoint);
     vec.push_back(0);
     vec.push_back(codepoint);
     new_s.resize(old_s.size() - symbol_size);
@@ -113,6 +121,7 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
         }
 
         auto [codepoint, symbol_size] = code_point(new_s);
+        to_lower_rus(codepoint);
         vec.push_back(codepoint);
         old_s = new_s;
         new_s.resize(old_s.size() - symbol_size);

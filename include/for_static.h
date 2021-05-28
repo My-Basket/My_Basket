@@ -8,8 +8,7 @@ std::vector<search::product>
     API::ingredients_to_recipe::chosen_ingredients;
 std::vector<search::Recipe>
     API::ingredients_to_recipe::recommended_recipes;
-std::vector<search::Recipe> API::recipe_to_ingredients::recipes_request;
-search::Recipe API::recipe_to_ingredients::chosen_recipe;
+search::Recipe API::ingredients_to_recipe::chosen_recipe;
 
 
 

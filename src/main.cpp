@@ -5,14 +5,11 @@
 #include "algo.h"
 #include "for_static.h"
 #include "search_engine.h"
-#include "startwindow.h"
-uint32_t check_in(
-    std::vector<uint32_t> &first_str,  /// TODO change all to const
-    std::vector<uint32_t> &second_str);
+#include "additional_windows.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    std::string s = "Cода";
+    std::string s = "Сода";
     std::vector<search::product> vec;
     API::ingredients_to_recipe::run_product_search(s, 5, vec);
     auto top_product = API::ingredients_to_recipe::show_res_of_request();
@@ -20,11 +17,15 @@ int main(int argc, char *argv[]) {
         std::cout << t;
     }
     std::vector<search::Recipe> vec2;
-    API::ingredients_to_recipe::run_recipes_search(top_product, 5, vec2);
+    std::vector<search::product> ingr(1);
+    ingr[0] = top_product[0];
+    API::ingredients_to_recipe::run_recipes_search(ingr, 5, vec2);
     auto top_recipes = API::ingredients_to_recipe::show_recipes();
-    API::get_recommended_recipes();
-    auto q = API::recipe_to_ingredients::choose_recipe(0);
-    auto t = API::recipe_to_ingredients::compare_prices_of_ingredients();
+    for(auto& z: top_recipes){
+        std::cout<<z.get_name()<<"\n";
+    }
+    auto q = API::ingredients_to_recipe::choose_recipe(0);
+    auto t = API::ingredients_to_recipe::compare_prices_of_ingredients();
     std::cout << "\n----------------------------------------------------------";
     std::cout << "\n"
               << "The best shop: " << t.first.first << "\n";
