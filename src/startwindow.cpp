@@ -29,6 +29,7 @@ void set_font_color_button(QPushButton *button,
         button->setEnabled(enabled);
     }
 }
+////в качестве параметра поставлять структуру настройки
 
 void set_font_color_label(QLabel *label,
                           std::string const &word_color,
