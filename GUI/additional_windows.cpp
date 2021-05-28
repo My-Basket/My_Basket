@@ -79,21 +79,34 @@ static void print_products_vector_with_costs(
     ///выглядит, как копипаст предыдущей функции, пофиксить
 }
 
+void button_showed(QPushButton *button, bool is_showed) {
+    if (is_showed) {
+        button->show();
+    } else {
+        button->hide();
+    }
+}
+
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     start_shopping_button = new QPushButton(
         StyleSettings::Titles::start_shopping_button_title.c_str());
-    set_font_color_button(start_shopping_button, "#FF7699", 30, true);
+    set_font_color_button(
+        start_shopping_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::start_shopping_button_fz, true);
     start_shopping_button->show();
 
     my_basket_label = new QLabel(StyleSettings::Titles::windows_title.c_str());
-    set_font_color_label(my_basket_label, "black", 130, "bold");
+    set_font_color_label(my_basket_label, StyleSettings::Colors::black,
+                         StyleSettings::FontSizes::my_basket_label_fz,
+                         StyleSettings::FontStyles::bold);
     my_basket_label->setAlignment(Qt::AlignCenter);
     my_basket_label->setMargin(
         StyleSettings::WindowSizes::my_basket_label_margin);
 
     description_label =
         new QLabel(StyleSettings::Titles::description_label_title.c_str());
-    set_font_color_label(description_label, "black", 27);
+    set_font_color_label(description_label, StyleSettings::Colors::black,
+                         StyleSettings::FontSizes::description_label_fz);
     description_label->setAlignment(Qt::AlignCenter);
 
     auto *label_layout = new QVBoxLayout;
@@ -120,7 +133,9 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void StartWindow::go_to_category_window() {
-    set_font_color_button(start_shopping_button, "#FF1099", 30, false);
+    set_font_color_button(
+        start_shopping_button, StyleSettings::Colors::pink_hard_button,
+        StyleSettings::FontSizes::start_shopping_button_fz, false);
 
     //переход к recipe_book
     auto category_window = new CategoryWindow();
@@ -128,32 +143,55 @@ void StartWindow::go_to_category_window() {
     this->close();
 }
 
+void CategoryWindow::button_enabled(QPushButton *button, bool is_enabled) {
+    if (is_enabled) {
+        set_font_color_button(
+            button, StyleSettings::Colors::pink_medium_button,
+            StyleSettings::FontSizes::category_window_buttons_sz, true);
+    } else {
+        set_font_color_button(
+            button, StyleSettings::Colors::pink_hard_button,
+            StyleSettings::FontSizes::category_window_buttons_sz, false);
+    }
+}
+
+void CategoryWindow::update_buttons_enabled(bool economy_button_enabled,
+                                            bool base_button_enabled,
+                                            bool premium_button_enabled) {
+    button_enabled(economy_button, economy_button_enabled);
+    button_enabled(base_button, base_button_enabled);
+    button_enabled(premium_button, premium_button_enabled);
+}
+
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
-    set_font_color_label(choose_category_label, "black", 80);
+    set_font_color_label(choose_category_label, StyleSettings::Colors::black,
+                         StyleSettings::FontSizes::choose_category_label_sz);
     choose_category_label->setAlignment(Qt::AlignCenter);
     choose_category_label->setMargin(
         StyleSettings::WindowSizes::choose_category_label_margin);
 
     economy_button =
         new QPushButton(StyleSettings::Titles::economy_button_title.c_str());
-    set_font_color_button(economy_button, "#FF7699", 20);
     economy_button->show();
 
     base_button =
         new QPushButton(StyleSettings::Titles::base_button_title.c_str());
-    set_font_color_button(base_button, "#FF7699", 20);
     base_button->show();
 
     premium_button =
         new QPushButton(StyleSettings::Titles::premium_button_title.c_str());
-    set_font_color_button(premium_button, "#FF7699", 20);
     premium_button->show();
+
+    //установка настроек кнопок категорий
+    update_buttons_enabled();
 
     go_to_searching_button =
         new QPushButton(StyleSettings::Titles::go_to_searching_button.c_str());
-    set_font_color_button(go_to_searching_button, "#FF9899", 20, false);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_light_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, false);
     go_to_searching_button->show();
 
     auto *button_layout = new QHBoxLayout;
@@ -184,40 +222,37 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
 void CategoryWindow::choose_economy() {
     chosen_category = StyleSettings::Titles::category_economy;
 
-    //обновить цвет других
-    set_font_color_button(base_button, "#FF7699", 20, true);
-    set_font_color_button(premium_button, "#FF7699", 20, true);
+    update_buttons_enabled(false, true, true);
 
-    //установить свой
-    set_font_color_button(economy_button, "#FF1099", 20, false);
-
-    set_font_color_button(go_to_searching_button, "#FF7699", 20, true);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, true);
 }
 
 void CategoryWindow::choose_base() {
     chosen_category = StyleSettings::Titles::category_base;
 
-    set_font_color_button(economy_button, "#FF7699", 20, true);
-    set_font_color_button(premium_button, "#FF7699", 20, true);
+    update_buttons_enabled(true, false, true);
 
-    set_font_color_button(base_button, "#FF1099", 20, false);
-
-    set_font_color_button(go_to_searching_button, "#FF7699", 20, true);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, true);
 }
 
 void CategoryWindow::choose_premium() {
     chosen_category = StyleSettings::Titles::category_premium;
 
-    set_font_color_button(economy_button, "#FF7699", 20, true);
-    set_font_color_button(base_button, "#FF7699", 20, true);
+    update_buttons_enabled(true, true, false);
 
-    set_font_color_button(premium_button, "#FF1099", 20, false);
-
-    set_font_color_button(go_to_searching_button, "#FF7699", 20, true);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, true);
 }
 
 void CategoryWindow::go_to_recipe_book() {
-    set_font_color_button(go_to_searching_button, "#FF1099", 20, false);
+    set_font_color_button(
+        go_to_searching_button, StyleSettings::Colors::pink_hard_button,
+        StyleSettings::FontSizes::category_window_buttons_sz, false);
     API::ingredients_and_recipes::choose_category_shop(chosen_category);
 
     //переход к recipe_book
@@ -236,27 +271,37 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 
     best_total_cost_label =
         new QLabel(StyleSettings::Titles::best_total_cost_label_title.c_str());
-    set_font_color_label(best_total_cost_label, "black", 100);
+    set_font_color_label(
+        best_total_cost_label, StyleSettings::Colors::black,
+        StyleSettings::FontSizes::summary_window_labels_text_sz);
     best_total_cost_label->setAlignment(Qt::AlignCenter);
     best_total_cost_label->setMargin(
         StyleSettings::WindowSizes::summary_window_margin);
 
     total_cost_number_label =
         new QLabel((std::to_string(total_cost) + "₽").c_str());
-    set_font_color_label(total_cost_number_label, "black", 100, "bold");
+    set_font_color_label(
+        total_cost_number_label, StyleSettings::Colors::black,
+        StyleSettings::FontSizes::summary_window_labels_text_sz,
+        StyleSettings::FontStyles::bold);
     total_cost_number_label->setAlignment(Qt::AlignCenter);
     total_cost_number_label->setMargin(
         StyleSettings::WindowSizes::summary_window_margin);
 
     shop_name_label = new QLabel(shop_name.c_str());
-    set_font_color_label(shop_name_label, "black", 100, "bold");
+    set_font_color_label(
+        shop_name_label, StyleSettings::Colors::black,
+        StyleSettings::FontSizes::summary_window_labels_text_sz,
+        StyleSettings::FontStyles::bold);
     shop_name_label->setAlignment(Qt::AlignCenter);
     shop_name_label->setMargin(
         StyleSettings::WindowSizes::summary_window_margin);
 
     in_shop_label =
         new QLabel(StyleSettings::Titles::in_shop_label_title.c_str());
-    set_font_color_label(in_shop_label, "black", 100);
+    set_font_color_label(
+        in_shop_label, StyleSettings::Colors::black,
+        StyleSettings::FontSizes::summary_window_labels_text_sz);
     in_shop_label->setAlignment(Qt::AlignCenter);
     in_shop_label->setMargin(StyleSettings::WindowSizes::summary_window_margin);
 
@@ -272,22 +317,30 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     //кнопки
     show_final_products_button = new QPushButton(
         StyleSettings::Titles::show_final_products_button_title.c_str());
-    set_font_color_button(show_final_products_button, "#FF7699", 30);
+    set_font_color_button(
+        show_final_products_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz);
     show_final_products_button->show();
 
     start_again_button = new QPushButton(
         StyleSettings::Titles::start_again_button_title.c_str());
-    set_font_color_button(start_again_button, "#FF7699", 30);
+    set_font_color_button(
+        start_again_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz);
     start_again_button->show();
 
     show_check_button =
         new QPushButton(StyleSettings::Titles::show_check_button_title.c_str());
-    set_font_color_button(show_check_button, "#FF7699", 30);
+    set_font_color_button(
+        show_check_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz);
     show_check_button->hide();
 
     end_program_button = new QPushButton(
         StyleSettings::Titles::end_program_button_title.c_str());
-    set_font_color_button(end_program_button, "#FF7699", 30);
+    set_font_color_button(
+        end_program_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz);
     end_program_button->show();
 
     QGridLayout *label_layout = new QGridLayout;
@@ -352,7 +405,9 @@ void SummaryWindow::show_check_func() {
 }
 
 void SummaryWindow::start_again_func() {
-    set_font_color_button(start_again_button, "#FF1099", 30, false);
+    set_font_color_button(
+        start_again_button, StyleSettings::Colors::pink_hard_button,
+        StyleSettings::FontSizes::summary_window_medium_buttons_sz, false);
 
     //очистка векторов
     API::ingredients_and_recipes::discard_all();

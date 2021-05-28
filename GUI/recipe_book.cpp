@@ -48,9 +48,13 @@ static void print_products_vector(
 
 void RecipeBook::button_enabled(QPushButton *button, bool is_enabled) {
     if (is_enabled) {
-        set_font_color_button(button, "#0066CC", 18, true);
+        set_font_color_button(
+            button, StyleSettings::Colors::blue_light_button,
+            StyleSettings::FontSizes::standard_medium_button_sz, true);
     } else {
-        set_font_color_button(button, "#172030", 18, false);
+        set_font_color_button(
+            button, StyleSettings::Colors::blue_hard_button,
+            StyleSettings::FontSizes::standard_medium_button_sz, false);
     }
 }
 
@@ -74,16 +78,12 @@ void RecipeBook::update_buttons_enabled(bool add_product_button_enabled,
     //обновление состояний кнопок
 
     //в нашей программе всегда доступны
-    set_font_color_button(next_button, "#00CC66", 18, true);
-    set_font_color_button(previous_button, "#00CC66", 18, true);
-}
-
-void button_showed(QPushButton *button, bool is_showed) {
-    if (is_showed) {
-        button->show();
-    } else {
-        button->hide();
-    }
+    set_font_color_button(next_button, StyleSettings::Colors::green_button,
+                          StyleSettings::FontSizes::standard_medium_button_sz,
+                          true);
+    set_font_color_button(previous_button, StyleSettings::Colors::green_button,
+                          StyleSettings::FontSizes::standard_medium_button_sz,
+                          true);
 }
 
 void RecipeBook::update_buttons_showed(bool add_product_button_showed,
@@ -109,7 +109,9 @@ void RecipeBook::update_buttons_showed(bool add_product_button_showed,
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label =
         new QLabel(StyleSettings::Titles::product_name_label_title.c_str());
-    set_font_color_label(product_name_label, "white", 28, "", "#359530");
+    set_font_color_label(product_name_label, StyleSettings::Colors::white,
+                         StyleSettings::FontSizes::rb_label_sz, "",
+                         StyleSettings::Colors::green_label);
     product_name_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                       QSizePolicy::Expanding);
@@ -121,7 +123,9 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     recipe_label =
         new QLabel(StyleSettings::Titles::recipe_label_product_title.c_str());
-    set_font_color_label(recipe_label, "white", 28, "", "#359530");
+    set_font_color_label(recipe_label, StyleSettings::Colors::white,
+                         StyleSettings::FontSizes::rb_label_sz, "",
+                         StyleSettings::Colors::green_label);
     recipe_label->setAlignment(Qt::AlignCenter | Qt::AlignRight);
     recipe_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                 QSizePolicy::Expanding);
@@ -290,7 +294,10 @@ void RecipeBook::find_product_func() {
     //запуск поиска
     res_of_request_products.clear();
     res_of_request_products = API::ingredients_and_recipes::run_product_search(
-        product_name_line->text().toStdString(), 10, res_of_request_products).first;
+                                  product_name_line->text().toStdString(),
+                                  StyleSettings::FontSizes::top_products_count,
+                                  res_of_request_products)
+                                  .first;
     //установка полей и вывод первого продукта
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_product_title.c_str());
@@ -327,7 +334,7 @@ void RecipeBook::find_recipe_func() {
                 StyleSettings::Titles::empty_basket_window_text.c_str());
             return;
         }
-        text_field_find_regime("было найдено:");
+        text_field_find_regime(StyleSettings::Titles::was_found_title);
     } else if (find_recipe_mode == NameSearchingMode) {
         product_name_line->setReadOnly(true);
         recipe_text->setReadOnly(false);
@@ -346,15 +353,18 @@ void RecipeBook::find_recipe_func() {
 
     std::vector<search::Recipe> vec;
     if (find_recipe_mode == BasketSearchingMode) {
-
-        res_of_request_recipes = API::ingredients_and_recipes::run_recipes_search(basket_of_products, 10,
-                                                       vec2);
+        res_of_request_recipes =
+            API::ingredients_and_recipes::run_recipes_search(
+                basket_of_products,
+                StyleSettings::FontSizes::top_products_count, vec);
     } else if (find_recipe_mode == NameSearchingMode) {
         // std::cout << "\n NameSearchMode -- product-name: " <<
         // product_name_line->text().toStdString() << '\n';
-        res_of_request_recipes = API::ingredients_and_recipes::run_recipe_search_by_str(
-            product_name_line->text().toStdString(), 10, vec2).first;
-
+        res_of_request_recipes =
+            API::ingredients_and_recipes::run_recipe_search_by_str(
+                product_name_line->text().toStdString(),
+                StyleSettings::FontSizes::top_products_count, vec)
+                .first;
     }
 
     print_recipe(recipe_text, res_of_request_recipes[0]);
