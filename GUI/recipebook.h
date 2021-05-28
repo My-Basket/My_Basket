@@ -92,17 +92,11 @@ private:
     NextPrevMode current_mode;
     FindRecipeMode find_recipe_mode;
     long long num_current_object = 0;
-    std::string category;
 
     void clear_fields();
     void clear_fields_and_requests();
     void activate_search_bar();
     void text_field_find_regime(std::string const &s);
-
-    ///что это за функция? она вроде нигде не используется
-    friend void search::put_product_in_basket(
-        std::vector<search::product> &basket,
-        search::product &prod);
 };
 }  // namespace Ui
 
