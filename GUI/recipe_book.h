@@ -72,6 +72,16 @@ private:
                                 bool find_recipe_button_enabled,
                                 bool choose_recipe_button_enabled,
                                 bool check_basket_button_enabled);
+
+    void update_buttons_showed(bool add_product_button_showed,
+                               bool add_recipe_button_showed,
+                               bool find_product_button_showed,
+                               bool put_in_basket_button_showed,
+                               bool find_recipe_button_showed,
+                               bool choose_recipe_button_showed,
+                               bool check_basket_button_showed,
+                               bool next_button_showed,
+                               bool previous_button_showed);
 };
 }  // namespace Ui
 
