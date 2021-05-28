@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <exception>
 
+
 void to_lower_rus(int &codepoint){
     if(codepoint>=1040 && codepoint<=1071){
         codepoint+=32;
@@ -11,6 +12,7 @@ void to_lower_rus(int &codepoint){
         codepoint = 1105;
     }
 }
+
 pair<int, int> code_point(const string &u) {
     pair<int, int> result = {-1, -1};
     int l = u.length();

@@ -9,7 +9,7 @@ error_file_logger &err_in_file() {
     return fl_log;
 }
 
-// namespace {
+namespace {
 
 void relax(uint32_t &a, uint32_t b) {
     if (a > b) {
@@ -75,12 +75,10 @@ bool compare(const search::product &p1, const search::product &p2) {
         return false;
     }
     uint32_t min_value = std::min(codepoint1.size(), codepoint2.size());
-    return levenshtein_algo(codepoint1, codepoint2) >
-               0.8 * static_cast<double>(min_value) &&
-           check_in(codepoint1, codepoint2) >
-               0.7 * static_cast<double>(min_value);
+    return check_in(codepoint1, codepoint2) >
+           0.7 * static_cast<double>(min_value);
 }
-//}  // namespace
+}  // namespace
 
 namespace search {
 
@@ -104,9 +102,6 @@ bool get_prod_top_by_name(const std::string &input_string,
     json j = json::parse(file);
     file.close();
 
-    if (file_name == "../data/karusel.json") {
-        int flag = 2;
-    }
     std::vector<uint32_t> first_str_codepoints;
     try {
         from_str_to_codepoint(input_string, first_str_codepoints);
@@ -127,11 +122,6 @@ bool get_prod_top_by_name(const std::string &input_string,
         }
         uint32_t in_amount =
             check_in(first_str_codepoints, second_str_codepoints);
-        if (in_amount == 4) {
-            int flag = true;
-            flag = false;
-            check_in(first_str_codepoints, second_str_codepoints);
-        }
         uint32_t leven_dist =
             levenshtein_algo(first_str_codepoints, second_str_codepoints);
         top.insert({in_amount, leven_dist, cur_prod});
@@ -168,7 +158,7 @@ product &product::operator=(const json &j) {
         category = j["Category"];
         price = j["Price"];
         return *this;
-    } catch (const json::exception &er) {
+    } catch (const nlohmann::detail::parse_error &er) {
         err_in_file().log(er);
     }
     return *this;
@@ -265,7 +255,7 @@ std::string Recipe::get_name() const {
     return name;
 }
 
-void search_recipe(const string &input_string,
+bool search_recipe(const string &input_string,
                    uint32_t size,
                    std::vector<Recipe> &vec) {
     std::ifstream file("../data/recipes.json");
@@ -277,6 +267,7 @@ void search_recipe(const string &input_string,
         from_str_to_codepoint(input_string, first_str_codepoints);
     } catch (const err::MyBasketError &er) {
         err_in_file().log(er);
+        return false;
     }
     std::multiset<set_unit<Recipe>> top;
 
@@ -303,12 +294,14 @@ void search_recipe(const string &input_string,
             it--;
             top.erase(it);
         }
+
     }
     vec.resize(size);
     for (int i = 0; i < size && !top.empty(); i++) {
         vec[i] = top.begin()->product_;
         top.erase(top.begin());
     }
+    return true;
 }
 
 std::pair<long long, std::vector<std::pair<std::string, uint32_t>>>

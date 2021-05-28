@@ -14,7 +14,7 @@ namespace API {
 
 // enum Request_Mode { RECIPE, PRODUCT};
 enum Shop_Mode { ECONOMY, BASE, PREMIUM };
-class recipe_to_ingredients;
+
 
 namespace Data_files {
 const std::vector<std::string> econom_shops = {"../data/spar.json"};
@@ -53,17 +53,17 @@ public:
 
     static void choose_ingredients(uint32_t num);
     static Recipe choose_recipe(uint32_t num);
-    static bool run_product_search(std::string s,
+    static std::pair<std::vector<product>, bool> run_product_search(std::string s,
                                    uint32_t size,
                                    std::vector<search::product> &top);
 
     static std::vector<search::product> show_res_of_request();
-    static void run_recipes_search(
+    static std::vector<search::Recipe> run_recipes_search(
         const std::vector<search::product> &ingredients,
         uint32_t size,
         std::vector<search::Recipe> &vec);
     static std::vector<search::Recipe> show_recipes();
-    static void run_recipe_search(const std::string &s,
+    static std::pair<std::vector<search::Recipe>, bool> run_recipe_search_by_str(const std::string &s,
                                   uint32_t size,
                                   std::vector<search::Recipe> &vec);
     static std::pair<std::pair<std::string, long long>,
