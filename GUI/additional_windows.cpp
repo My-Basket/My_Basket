@@ -271,27 +271,37 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 
     best_total_cost_label =
         new QLabel(StyleSettings::Titles::best_total_cost_label_title.c_str());
-    set_font_color_label(best_total_cost_label, "black", 100);
+    set_font_color_label(
+        best_total_cost_label, StyleSettings::Colors::black,
+        StyleSettings::FontSizes::summary_window_labels_text_sz);
     best_total_cost_label->setAlignment(Qt::AlignCenter);
     best_total_cost_label->setMargin(
         StyleSettings::WindowSizes::summary_window_margin);
 
     total_cost_number_label =
         new QLabel((std::to_string(total_cost) + "₽").c_str());
-    set_font_color_label(total_cost_number_label, "black", 100, "bold");
+    set_font_color_label(
+        total_cost_number_label, StyleSettings::Colors::black,
+        StyleSettings::FontSizes::summary_window_labels_text_sz,
+        StyleSettings::FontStyles::bold);
     total_cost_number_label->setAlignment(Qt::AlignCenter);
     total_cost_number_label->setMargin(
         StyleSettings::WindowSizes::summary_window_margin);
 
     shop_name_label = new QLabel(shop_name.c_str());
-    set_font_color_label(shop_name_label, "black", 100, "bold");
+    set_font_color_label(
+        shop_name_label, StyleSettings::Colors::black,
+        StyleSettings::FontSizes::summary_window_labels_text_sz,
+        StyleSettings::FontStyles::bold);
     shop_name_label->setAlignment(Qt::AlignCenter);
     shop_name_label->setMargin(
         StyleSettings::WindowSizes::summary_window_margin);
 
     in_shop_label =
         new QLabel(StyleSettings::Titles::in_shop_label_title.c_str());
-    set_font_color_label(in_shop_label, "black", 100);
+    set_font_color_label(
+        in_shop_label, StyleSettings::Colors::black,
+        StyleSettings::FontSizes::summary_window_labels_text_sz);
     in_shop_label->setAlignment(Qt::AlignCenter);
     in_shop_label->setMargin(StyleSettings::WindowSizes::summary_window_margin);
 
