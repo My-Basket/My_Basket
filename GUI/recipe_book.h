@@ -64,6 +64,14 @@ private:
     void clear_fields_and_requests();
     void activate_search_bar();
     void text_field_find_regime(std::string const &s);
+
+    void update_buttons_enabled(bool add_product_button_enabled,
+                                bool add_recipe_button_enabled,
+                                bool find_product_button_enabled,
+                                bool put_in_basket_button_enabled,
+                                bool find_recipe_button_enabled,
+                                bool choose_recipe_button_enabled,
+                                bool check_basket_button_enabled);
 };
 }  // namespace Ui
 
