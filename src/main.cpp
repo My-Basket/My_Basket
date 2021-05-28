@@ -6,13 +6,11 @@
 #include "for_static.h"
 #include "search_engine.h"
 #include "startwindow.h"
-uint32_t check_in(
-    std::vector<uint32_t> &first_str,  /// TODO change all to const
-    std::vector<uint32_t> &second_str);
+
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    std::string s = "Cода";
+    std::string s = "Сода";
     std::vector<search::product> vec;
     API::ingredients_to_recipe::run_product_search(s, 5, vec);
     auto top_product = API::ingredients_to_recipe::show_res_of_request();

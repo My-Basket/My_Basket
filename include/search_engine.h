@@ -102,7 +102,7 @@ public:
 
     bool is_ingredient_in_recipe(
         const product &ingredient);  //проверка на наличие ингредиента в рецепте
-    std::pair<uint32_t, std::vector<std::pair<std::string, uint32_t>>>
+    std::pair<long long, std::vector<std::pair<std::string, uint32_t>>>
     sum_price_of_rec_prod(const std::string &file_name);
 
     friend void get_recipes(const std::vector<product> &ingredients,
