@@ -4,16 +4,15 @@
 #include <exception>
 
 namespace {
-bool my_isalpha(char ch)
-{
+bool my_isalpha(char ch) {
     return std::isalpha(static_cast<unsigned char>(ch));
 }
-}
-void to_lower_rus(int &codepoint){
-    if(codepoint>=1040 && codepoint<=1071){
-        codepoint+=32;
+}  // namespace
+void to_lower_rus(int &codepoint) {
+    if (codepoint >= 1040 && codepoint <= 1071) {
+        codepoint += 32;
     }
-    if(codepoint == 1025){
+    if (codepoint == 1025) {
         codepoint = 1105;
     }
 }
@@ -38,7 +37,7 @@ pair<int, int> code_point(const string &u) {
         result.second = 2;
         return result;
     }
-    if (u[0] == 0xed && (u[1] & 0xa0) == 0xa0) {
+    if ((u[0] & 0xed) == 0xed && (u[1] & 0xa0) == 0xa0) {
         return result;  // code points, 0xd800 to 0xdfff
     }
     if (l < 3) {
@@ -97,20 +96,23 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
     if (old_s.empty()) {
         return;
     }
+    std::string &to_watch = old_s;
     std::string copy_s = old_s;
     std::transform(old_s.begin(), old_s.end(), old_s.begin(), ::tolower);
     std::string bad_str = "№";
     size_t index = old_s.find(bad_str);
-    if(index!=std::string::npos){
+    if (index != std::string::npos) {
         old_s.erase(index, bad_str.length());
     }
 
-    std::vector<char> unexpected_chars =
-        {' ', ',', '\n', '\t', '\b', '\\', '\"', '-', '+', '/', ';', '#', '&', '`', '=', '(', ')',  '.', '%', '@'};
-    for(auto t: unexpected_chars){
+    std::vector<char> unexpected_chars = {
+        ' ', ',', '\n', '\t', '\b', '\\', '\"', '-', '+', '/',
+        ';', '#', '&',  '`',  '=',  '(',  ')',  '.', '%', '@'};
+    for (auto t : unexpected_chars) {
         old_s.erase(std::remove(old_s.begin(), old_s.end(), t), old_s.end());
     }
-    old_s.erase(std::remove_if(old_s.begin(), old_s.end(), [](char t){return my_isalpha(t);}), old_s.end());
+    //    old_s.erase(std::remove_if(old_s.begin(), old_s.end(), [](char
+    //    t){return my_isalpha(t);}), old_s.end());
     std::string new_s;
     auto [codepoint, symbol_size] = code_point(old_s);
     to_lower_rus(codepoint);
