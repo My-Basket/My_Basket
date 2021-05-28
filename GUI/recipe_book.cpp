@@ -54,7 +54,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                       QSizePolicy::Expanding);
     product_name_line = new QLineEdit;
-    product_name_line->setMinimumHeight(30);
+    product_name_line->setMinimumHeight(
+        StyleSettings::WindowSizes::product_name_line_min_height);
     product_name_line->setStyleSheet("QLineEdit { font-size: 20px;}");
     product_name_line->setReadOnly(true);
 
@@ -65,7 +66,7 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     recipe_label->setSizePolicy(QSizePolicy::MinimumExpanding,
                                 QSizePolicy::Expanding);
     recipe_text = new QTextEdit;
-    recipe_text->setFontPointSize(18);
+    recipe_text->setFontPointSize(StyleSettings::FontSizes::recipe_text_sz);
     recipe_text->setReadOnly(true);
 
     //экземпляры кнопок правой панели
@@ -300,7 +301,9 @@ void RecipeBook::find_product_func() {
     //запуск поиска
     res_of_request_products.clear();
     res_of_request_products = API::ingredients_to_recipe::run_product_search(
-        product_name_line->text().toStdString(), 10, res_of_request_products).first;
+                                  product_name_line->text().toStdString(), 10,
+                                  res_of_request_products)
+                                  .first;
     //установка полей и вывод первого продукта
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_product_title.c_str());
@@ -391,13 +394,13 @@ void RecipeBook::find_recipe_func() {
 
     std::vector<search::Recipe> vec2;
     if (find_recipe_mode == BasketSearchingMode) {
-        res_of_request_recipes = API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
-                                                       vec2);
+        res_of_request_recipes = API::ingredients_to_recipe::run_recipes_search(
+            basket_of_products, 10, vec2);
     } else if (find_recipe_mode == NameSearchingMode) {
-        // std::cout << "\n NameSearchMode -- product-name: " <<
-        // product_name_line->text().toStdString() << '\n';
-        res_of_request_recipes = API::ingredients_to_recipe::run_recipe_search_by_str(
-            product_name_line->text().toStdString(), 10, vec2).first;
+        res_of_request_recipes =
+            API::ingredients_to_recipe::run_recipe_search_by_str(
+                product_name_line->text().toStdString(), 10, vec2)
+                .first;
     }
 
     print_recipe(recipe_text, res_of_request_recipes[0]);

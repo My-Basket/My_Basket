@@ -264,7 +264,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 
     products_text = new QTextEdit;
     products_text->setFontPointSize(
-        StyleSettings::WindowSizes::summary_window_products_text_sz);
+        StyleSettings::FontSizes::summary_window_products_text_sz);
     products_text->setFixedSize(
         StyleSettings::WindowSizes::product_text_width,
         StyleSettings::WindowSizes::product_text_height);
