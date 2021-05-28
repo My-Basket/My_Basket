@@ -6,15 +6,15 @@
 #include <QPalette>
 #include <QSizePolicy>
 #include <sstream>
-#include "algo.h"
 #include "additional_windows.h"
+#include "algo.h"
 #include "style_settings.h"
 
 namespace Ui {
 
 static void print_product_by_name(QTextEdit *text_field,
                                   search::product const &product) {
-    std::string s = /*"product name:\n" + */ product.get_name() + '\n';
+    std::string s = product.get_name() + '\n';
     text_field->insertPlainText(QString::fromUtf8(s.c_str()));
 }
 
@@ -27,8 +27,7 @@ static void print_product_by_name_price(QTextEdit *text_field,
 }
 
 static void print_recipe(QTextEdit *text_field, search::Recipe const &recipe) {
-    std::string s = /*"recipe name:\n" + */ recipe.get_name() + '\n' + '\n' +
-                    "----ingredients:----\n";
+    std::string s = recipe.get_name() + '\n' + '\n' + "----ingredients:----\n";
     for (auto const &prod : recipe.get_ingredients()) {
         s += prod.get_name() + '\n';
     }
@@ -166,11 +165,11 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
 
-    //QBrush image_basket_background(
-      //  QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-   // QPalette plt = this->palette();
-    //plt.setBrush(QPalette::Window, image_basket_background);
-    //this->setPalette(plt);
+    QBrush image_basket_background(
+        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
+    QPalette plt = this->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    this->setPalette(plt);
 
     this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
                          StyleSettings::WindowSizes::min_height_window);
@@ -402,8 +401,6 @@ void RecipeBook::find_recipe_func() {
                                                        vec2);
         res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
     } else if (find_recipe_mode == NameSearchingMode) {
-        // std::cout << "\n NameSearchMode -- product-name: " <<
-        // product_name_line->text().toStdString() << '\n';
         API::ingredients_to_recipe::run_recipe_search(
             product_name_line->text().toStdString(), 10, vec2);
         res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
@@ -488,7 +485,6 @@ void RecipeBook::next_func() {
 
 void RecipeBook::choose_recipe_func() {
     //переход к summary_window
-
     API::ingredients_to_recipe::choose_recipe(num_current_object);
 
     auto summary_window = new SummaryWindow;
