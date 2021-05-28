@@ -11,36 +11,6 @@
 
 namespace Ui {
 
-class SummaryWindow : public QWidget {
-    Q_OBJECT
-
-public:
-    SummaryWindow(QWidget *parent = nullptr);
-
-public slots:
-    void show_final_products_func();
-    void show_check_func();
-    void start_again_func();
-    static void end_program_func();
-
-private:
-    QPushButton *show_final_products_button;
-    QPushButton *show_check_button;
-    QPushButton *start_again_button;
-    QPushButton *end_program_button;
-
-    QLabel *best_total_cost_label;
-    QLabel *total_cost_number_label;
-    QLabel *in_shop_label;
-    QLabel *shop_name_label;
-
-    QTextEdit *products_text;
-
-    int total_cost = 1000;
-    std::string shop_name = "EuroSpar";
-    std::vector<std::pair<std::string, uint32_t>> products_vec;
-};
-
 class RecipeBook : public QWidget {
     Q_OBJECT
 
@@ -85,9 +55,6 @@ private:
     std::vector<search::product> basket_of_products;
     std::vector<search::product> res_of_request_products;
     std::vector<search::Recipe> res_of_request_recipes;
-
-    //завершающее окно
-    SummaryWindow *summary_window;  ///мб не надо хранить его в качестве поля??
 
     NextPrevMode current_mode;
     FindRecipeMode find_recipe_mode;

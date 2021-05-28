@@ -1,7 +1,7 @@
-#ifndef MY_BASKET_STARTWINDOW_H
-#define MY_BASKET_STARTWINDOW_H
+#ifndef MY_BASKET_ADDITIONAL_WINDOWS_H
+#define MY_BASKET_ADDITIONAL_WINDOWS_H
 
-#include "recipebook.h"
+#include "recipe_book.h"
 
 namespace Ui {
 
@@ -17,9 +17,6 @@ public slots:
     void go_to_category_window();
 
 private:
-    //окна для перехода на следующий этап
-    CategoryWindow *category_window;
-
     //кнопки окна
     QPushButton *start_shopping_button;
     QLabel *my_basket_label;
@@ -39,8 +36,6 @@ public slots:
     void choose_premium();
 
 private:
-    RecipeBook *recipe_book;
-
     QPushButton *economy_button;
     QPushButton *base_button;
     QPushButton *premium_button;
@@ -48,6 +43,36 @@ private:
     QLabel *choose_category_label;
 
     std::string chosen_category;
+};
+
+class SummaryWindow : public QWidget {
+    Q_OBJECT
+
+public:
+    SummaryWindow(QWidget *parent = nullptr);
+
+public slots:
+    void show_final_products_func();
+    void show_check_func();
+    void start_again_func();
+    static void end_program_func();
+
+private:
+    QPushButton *show_final_products_button;
+    QPushButton *show_check_button;
+    QPushButton *start_again_button;
+    QPushButton *end_program_button;
+
+    QLabel *best_total_cost_label;
+    QLabel *total_cost_number_label;
+    QLabel *in_shop_label;
+    QLabel *shop_name_label;
+
+    QTextEdit *products_text;
+
+    int total_cost = 1000;
+    std::string shop_name = "EuroSpar";
+    std::vector<std::pair<std::string, uint32_t>> products_vec;
 };
 
 void set_font_color_button(QPushButton *button,
@@ -63,4 +88,4 @@ void set_font_color_label(QLabel *label,
                           std::string const &bg_color = "");
 }  // namespace Ui
 
-#endif  // MY_BASKET_STARTWINDOW_H
+#endif  // MY_BASKET_ADDITIONAL_WINDOWS_H
