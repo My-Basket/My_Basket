@@ -86,7 +86,8 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     my_basket_label = new QLabel(StyleSettings::Titles::windows_title.c_str());
     set_font_color_label(my_basket_label, "black", 130, "bold");
     my_basket_label->setAlignment(Qt::AlignCenter);
-    my_basket_label->setMargin(50);
+    my_basket_label->setMargin(
+        StyleSettings::WindowSizes::my_basket_label_margin);
 
     description_label =
         new QLabel(StyleSettings::Titles::description_label_title.c_str());
@@ -96,13 +97,15 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     auto *label_layout = new QVBoxLayout;
     label_layout->addWidget(my_basket_label, Qt::AlignTop, Qt::AlignVCenter);
     label_layout->addWidget(description_label, Qt::AlignTop, Qt::AlignVCenter);
-    label_layout->setSpacing(5);
+    label_layout->setSpacing(
+        StyleSettings::WindowSizes::start_window_layout_spacing);
 
     auto *main_layout = new QVBoxLayout;
     main_layout->addLayout(label_layout);
     main_layout->addWidget(start_shopping_button, Qt::AlignTop,
                            Qt::AlignVCenter);
-    main_layout->setSpacing(5);
+    main_layout->setSpacing(
+        StyleSettings::WindowSizes::start_window_layout_spacing);
 
     connect(start_shopping_button, SIGNAL(clicked()), this,
             SLOT(go_to_category_window()));
