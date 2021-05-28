@@ -11,8 +11,6 @@
 
 namespace Ui {
 
-// class CategoryWindow;
-
 class SummaryWindow : public QWidget {
     Q_OBJECT
 
@@ -77,8 +75,7 @@ private:
     QPushButton *put_in_basket_button;
     QPushButton *find_recipe_button;
     QPushButton *choose_recipe_button;
-    QPushButton *check_basket_button;  //отдельным окошком список всех
-                                       //добавленных продуктов
+    QPushButton *check_basket_button;
 
     //кнопки нижней панели
     QPushButton *next_button;
@@ -107,15 +104,6 @@ private:
         std::vector<search::product> &basket,
         search::product &prod);
 };
-
-// void print_product_by_name(QTextEdit *text_field,
-//                           search::product const &product);
-// void print_product_by_name_price(QTextEdit *text_field,
-//                                 search::product const &product);
-// void print_products_vector(QTextEdit *text_field,
-//                           std::vector<search::product> const &products_vec);
-// void print_recipe(QTextEdit *text_field, search::Recipe const &recipe);
-
 }  // namespace Ui
 
 #endif  // RECIPEBOOK_H

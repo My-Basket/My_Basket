@@ -121,13 +121,13 @@ struct Titles {
 };
 
 struct Colors {
-    inline static const std::string pink_light_button = "";
-    inline static const std::string pink_medium_button = "";
-    inline static const std::string pink_hard_button = "";
-    inline static const std::string green_label = "";
-    inline static const std::string green_button = "";
-    inline static const std::string blue_light_button = "";
-    inline static const std::string blue_hard_button = "";
+    inline static const std::string pink_light_button = "#FF9899";
+    inline static const std::string pink_medium_button = "#FF7699";
+    inline static const std::string pink_hard_button = "#FF1099";
+    inline static const std::string green_label = "#359530";
+    inline static const std::string green_button = "#00CC66";
+    inline static const std::string blue_light_button = "#0066CC";
+    inline static const std::string blue_hard_button = "#172030";
     inline static const std::string black = "black";
     inline static const std::string white = "white";
 };

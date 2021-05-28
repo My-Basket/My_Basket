@@ -284,8 +284,6 @@ void RecipeBook::add_recipe_func() {
     //вектор кнопок и вектор их методов?
 }
 
-///можно ли ее вызвать по нажатию enter? чтобы было логично, как будто в обычном
-///поисковике
 void RecipeBook::find_product_func() {
     //пустой ввод
     if (product_name_line->text() == "") {
@@ -351,6 +349,8 @@ void RecipeBook::put_in_basket_func() {
     set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
     set_font_color_button(check_basket_button, "#0066CC", 18, true);
 
+    //у них никогда не выставляется состояние setEnabled -- их не нужно
+    //обновлять
     set_font_color_button(previous_button, "#00CC66", 18, true);
     set_font_color_button(next_button, "#00CC66", 18, true);
 
@@ -418,8 +418,6 @@ void RecipeBook::find_recipe_func() {
                                                        vec2);
         res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
     } else if (find_recipe_mode == NameSearchingMode) {
-        // std::cout << "\n NameSearchMode -- product-name: " <<
-        // product_name_line->text().toStdString() << '\n';
         API::recipe_to_ingredients::run_recipe_search(
             product_name_line->text().toStdString(), 10, vec2);
         res_of_request_recipes = API::recipe_to_ingredients::show_recipes();
@@ -529,24 +527,24 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     best_total_cost_label =
         new QLabel(StyleSettings::Titles::best_total_cost_label_title.c_str());
     set_font_color_label(best_total_cost_label, "black", 100);
-    best_total_cost_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    best_total_cost_label->setAlignment(Qt::AlignCenter);
     best_total_cost_label->setMargin(10);
 
     total_cost_number_label =
         new QLabel((std::to_string(total_cost) + "₽").c_str());
     set_font_color_label(total_cost_number_label, "black", 100, "bold");
-    total_cost_number_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    total_cost_number_label->setAlignment(Qt::AlignCenter);
     total_cost_number_label->setMargin(10);
 
     shop_name_label = new QLabel(shop_name.c_str());
     set_font_color_label(shop_name_label, "black", 100, "bold");
-    shop_name_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    shop_name_label->setAlignment(Qt::AlignCenter);
     shop_name_label->setMargin(10);
 
     in_shop_label =
         new QLabel(StyleSettings::Titles::in_shop_label_title.c_str());
     set_font_color_label(in_shop_label, "black", 100);
-    in_shop_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    in_shop_label->setAlignment(Qt::AlignCenter);
     in_shop_label->setMargin(10);
 
     products_text = new QTextEdit;

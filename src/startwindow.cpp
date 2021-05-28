@@ -64,7 +64,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 
     my_basket_label = new QLabel(StyleSettings::Titles::windows_title.c_str());
     set_font_color_label(my_basket_label, "black", 130, "bold");
-    my_basket_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    my_basket_label->setAlignment(Qt::AlignCenter);
     my_basket_label->setMargin(50);
 
     description_label =
@@ -72,14 +72,7 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
                        .c_str());  //ваш помощник в
                                    //выборе рецептов
     set_font_color_label(description_label, "black", 27);
-    description_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
-
-    //добавление картинки
-    //    QLabel *image_basket_label = new QLabel;
-    //    QPixmap image_basket_pixmap("../data/image_basket.jpeg");
-    //    image_basket_pixmap.scaled(50, 50);
-    //    image_basket_label->setPixmap(image_basket_pixmap);
-    //    image_basket_label->setScaledContents(true);
+    description_label->setAlignment(Qt::AlignCenter);
 
     QVBoxLayout *label_layout = new QVBoxLayout;
     label_layout->addWidget(my_basket_label, Qt::AlignTop, Qt::AlignVCenter);
@@ -91,7 +84,6 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     main_layout->addWidget(start_shopping_button, Qt::AlignTop,
                            Qt::AlignVCenter);
     main_layout->setSpacing(5);
-    // main_layout->addWidget(image_basket_label);
 
     //переход к recipe_book
     category_window = new CategoryWindow();
@@ -122,7 +114,7 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
     set_font_color_label(choose_category_label, "black", 80);
-    choose_category_label->setAlignment(/*Qt::AlignTop,*/ Qt::AlignCenter);
+    choose_category_label->setAlignment(Qt::AlignCenter);
     choose_category_label->setMargin(55);
 
     economy_button =
@@ -156,7 +148,6 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     main_layout->addWidget(go_to_searching_button, Qt::AlignTop,
                            Qt::AlignVCenter);
     main_layout->setSpacing(10);
-    // main_layout->addWidget(image_basket_label);
 
     //переход к recipe_book
     recipe_book = new RecipeBook();
