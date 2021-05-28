@@ -67,12 +67,16 @@ static void print_products_vector_with_costs(
     ///выглядит, как копипаст предыдущей функции, пофиксить
 }
 
-StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
+void set_background_image(QWidget *window,
+                          std::string const &path_to_bg_image) {
+    QBrush image_basket_background(QImage(path_to_bg_image.c_str()));
+    QPalette plt = window->palette();
     plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    window->setPalette(plt);
+}
+
+StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
+    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
 
     start_shopping_button = new QPushButton(
         StyleSettings::Titles::start_shopping_button_title.c_str());
@@ -120,11 +124,7 @@ void StartWindow::go_to_category_window() {
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
 
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
@@ -223,11 +223,7 @@ void CategoryWindow::go_to_recipe_book() {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    QBrush image_basket_background(
-        QImage(StyleSettings::Titles::path_to_bg_image.c_str()));
-    QPalette plt = this->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    this->setPalette(plt);
+    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
 
     //получение информации о лучшем магазине и лучшей стоимости
     auto calculation_info =

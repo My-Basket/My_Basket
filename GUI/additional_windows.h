@@ -86,6 +86,8 @@ void set_font_color_label(QLabel *label,
                           int font_size = 130,
                           std::string const &font = "",
                           std::string const &bg_color = "");
+
+void set_background_image(QWidget *window, std::string const &path_to_bg_image);
 }  // namespace Ui
 
 #endif  // MY_BASKET_ADDITIONAL_WINDOWS_H
