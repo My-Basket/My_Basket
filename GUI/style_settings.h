@@ -7,7 +7,6 @@
 
 namespace StyleSettings {
 
-///поставить define на языки -- ифать внутри структур, чему присваивать строки
 struct Titles {
     inline static const std::string windows_title = "My_Basket";
     inline static const std::string path_to_bg_image =
@@ -194,9 +193,6 @@ struct Enable {
     bool enabled = true;
     bool unenabled = false;
 };
-
-struct ButtonSetting {};
-struct ButtonsSettings {};
 }  // namespace StyleSettings
 
 #endif  // MY_BASKET_STYLE_SETTINGS_H

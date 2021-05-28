@@ -39,9 +39,8 @@ uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
     return f[first_str.size() - 1][second_str.size() - 1];
 }
 
-uint32_t check_in(
-    std::vector<uint32_t> &first_str,
-    std::vector<uint32_t> &second_str) {
+uint32_t check_in(std::vector<uint32_t> &first_str,
+                  std::vector<uint32_t> &second_str) {
     if (first_str.size() > second_str.size()) {
         return 0;
     }
@@ -294,7 +293,6 @@ bool search_recipe(const string &input_string,
             it--;
             top.erase(it);
         }
-
     }
     vec.resize(size);
     for (int i = 0; i < size && !top.empty(); i++) {

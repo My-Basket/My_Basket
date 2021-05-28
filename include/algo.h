@@ -23,13 +23,12 @@ const std::vector<std::string> premium_shops = {
 using search::product, search::Recipe;
 class ingredients_and_recipes {
 private:
-    static std::vector<search::product>
-        res_of_prod_request;  // NOLINT
-    static std::vector<search::product> chosen_ingredients;  // NOLINT
+    static std::vector<search::product> res_of_prod_request;  // NOLINT
+    static std::vector<search::product> chosen_ingredients;   // NOLINT
     static std::vector<search::Recipe>
 
-        recommended_recipes; // NOLINT
-    static search::Recipe chosen_recipe; // NOLINT
+        recommended_recipes;              // NOLINT
+    static search::Recipe chosen_recipe;  // NOLINT
 
     static size_t shop_mode;
 
@@ -41,9 +40,10 @@ public:
     static void discard_all();
 
     static Recipe choose_recipe(uint32_t num);
-    static std::pair<std::vector<product>, bool> run_product_search(std::string s,
-                                   uint32_t size,
-                                   std::vector<search::product> &top);
+    static std::pair<std::vector<product>, bool> run_product_search(
+        std::string s,
+        uint32_t size,
+        std::vector<search::product> &top);
 
     static std::vector<search::product> show_res_of_request();
     static std::vector<search::Recipe> run_recipes_search(
@@ -51,16 +51,16 @@ public:
         uint32_t size,
         std::vector<search::Recipe> &vec);
     static std::vector<search::Recipe> show_recipes();
-    static std::pair<std::vector<search::Recipe>, bool> run_recipe_search_by_str(const std::string &s,
-                                  uint32_t size,
-                                  std::vector<search::Recipe> &vec);
+    static std::pair<std::vector<search::Recipe>, bool>
+    run_recipe_search_by_str(const std::string &s,
+                             uint32_t size,
+                             std::vector<search::Recipe> &vec);
     static std::pair<std::pair<std::string, long long>,
                      std::vector<std::pair<std::string, uint32_t>>>
     compare_prices_of_ingredients();
 
-    friend void put_product_in_basket(
-        std::vector<search::product> &basket,
-        search::product &prod);
+    friend void put_product_in_basket(std::vector<search::product> &basket,
+                                      search::product &prod);
 };
 
 bool get_prod_top_by_name(string &input_string,

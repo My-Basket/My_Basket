@@ -358,8 +358,6 @@ void RecipeBook::find_recipe_func() {
                 basket_of_products,
                 StyleSettings::FontSizes::top_products_count, vec);
     } else if (find_recipe_mode == NameSearchingMode) {
-        // std::cout << "\n NameSearchMode -- product-name: " <<
-        // product_name_line->text().toStdString() << '\n';
         res_of_request_recipes =
             API::ingredients_and_recipes::run_recipe_search_by_str(
                 product_name_line->text().toStdString(),
