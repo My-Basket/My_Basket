@@ -3,12 +3,6 @@
 #include <algorithm>
 #include <exception>
 
-namespace {
-bool my_isalpha(char ch)
-{
-    return std::isalpha(static_cast<unsigned char>(ch));
-}
-}
 
 void to_lower_rus(int &codepoint){
     if(codepoint>=1040 && codepoint<=1071){
@@ -112,7 +106,7 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
     for(auto t: unexpected_chars){
         old_s.erase(std::remove(old_s.begin(), old_s.end(), t), old_s.end());
     }
-    old_s.erase(std::remove_if(old_s.begin(), old_s.end(), [](char t){return my_isalpha(t);}), old_s.end());
+
     std::string new_s;
     auto [codepoint, symbol_size] = code_point(old_s);
     to_lower_rus(codepoint);

@@ -26,28 +26,28 @@ bool API::get_prod_top_by_name(std::string &input_string,
     switch (API::ingredients_to_recipe::get_shop_mode()) {
         case API::Shop_Mode::ECONOMY:
             for (const auto &sh : API::Data_files::econom_shops) {
-                 flag = search::get_prod_top_by_name(
-                    input_string, sh,  size, prods);
+                flag =
+                    search::get_prod_top_by_name(input_string, sh, size, prods);
             }
-            for(const auto& t: prods){
+            for (const auto &t : prods) {
                 vec.push_back(t.product_);
             }
             return flag;
         case API::Shop_Mode::BASE:
             for (const auto &sh : API::Data_files::base_shops) {
-                flag = search::get_prod_top_by_name(
-                    input_string, sh,  size, prods);
+                flag =
+                    search::get_prod_top_by_name(input_string, sh, size, prods);
             }
-            for(const auto& t: prods){
+            for (const auto &t : prods) {
                 vec.push_back(t.product_);
             }
             return flag;
         case API::Shop_Mode::PREMIUM:
             for (const auto &sh : API::Data_files::premium_shops) {
-                flag = search::get_prod_top_by_name(
-                    input_string, sh,  size, prods);
+                flag =
+                    search::get_prod_top_by_name(input_string, sh, size, prods);
             }
-            for(const auto& t: prods){
+            for (const auto &t : prods) {
                 vec.push_back(t.product_);
             }
             return flag;
@@ -68,9 +68,9 @@ void API::ingredients_to_recipe::run_recipes_search(
     uint32_t size,
     std::vector<search::Recipe> &vec) {
     search::get_recipes(ingredients, size, vec);
-    if (&recommended_recipes != &vec) {
+
         recommended_recipes = std::move(vec);
-    }
+
 }
 std::vector<search::Recipe> API::ingredients_to_recipe::show_recipes() {
     return recommended_recipes;  //возвращает топ 10 рекомендуемых рецептов
@@ -91,11 +91,9 @@ void API::ingredients_to_recipe::choose_ingredients(uint32_t num) {
     }
     chosen_ingredients.push_back(*it);  // chosen_ingredients - корзина
 }
-void API::recipe_to_ingredients::discard_all() {
-    chosen_recipe.clear();
-    recipes_request.clear();
-}
+
 void API::ingredients_to_recipe::discard_all() {
+    chosen_recipe.clear();
     recommended_recipes.clear();
     shop_mode = 2;
     res_of_request.clear();
@@ -106,42 +104,26 @@ void API::ingredients_to_recipe::stop_searching_ingredient() {
     res_of_request.clear();
 }
 
-void API::recipe_to_ingredients::run_recipe_search(
+void API::ingredients_to_recipe::run_recipe_search(
     const std::string &s,
     uint32_t size,
     std::vector<search::Recipe> &vec) {
     search::search_recipe(s, size, vec);
-    recipes_request = std::move(vec);
-}
-
-std::vector<search::Recipe> API::recipe_to_ingredients::show_recipes() {
-    return recipes_request;
+    recommended_recipes = std::move(vec);
 }
 
 int API::ingredients_to_recipe::get_shop_mode() {
     return shop_mode;
 }
 
-void API::recipe_to_ingredients::cancel_choice() {
-    chosen_recipe.clear();
-}
-
-void API::recipe_to_ingredients::stop_searching_recipe() {
-    recipes_request.clear();
-}
-
-search::Recipe API::recipe_to_ingredients::choose_recipe(uint32_t num) {
-    return chosen_recipe = recipes_request[num];  // TODO понять, как получать номер
-}
-
-void API::get_recommended_recipes() {
-    recipe_to_ingredients::recipes_request =
-        ingredients_to_recipe::recommended_recipes;
+search::Recipe API::ingredients_to_recipe::choose_recipe(uint32_t num) {
+    return chosen_recipe =
+               recommended_recipes[num];
 }
 
 std::pair<std::pair<std::string, long long>,
           std::vector<std::pair<std::string, uint32_t>>>
-API::recipe_to_ingredients::compare_prices_of_ingredients() {
+API::ingredients_to_recipe::compare_prices_of_ingredients() {
     long long min_sum = 0;
     bool flag = true;
     size_t min_ind = 0;
