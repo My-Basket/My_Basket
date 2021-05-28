@@ -55,22 +55,20 @@ bool API::get_prod_top_by_name(std::string &input_string,
     return false;
 }
 
-bool API::ingredients_to_recipe::run_product_search(
+std::pair<std::vector<product>, bool>  API::ingredients_to_recipe::run_product_search(
     std::string s,
     uint32_t size,
     std::vector<search::product> &top) {
     bool flag = API::get_prod_top_by_name(s, top, size);
     res_of_request = std::move(top);
-    return flag;
+    return {res_of_request, flag};
 }
-void API::ingredients_to_recipe::run_recipes_search(
+std::vector<search::Recipe> API::ingredients_to_recipe::run_recipes_search(
     const std::vector<search::product> &ingredients,
     uint32_t size,
     std::vector<search::Recipe> &vec) {
     search::get_recipes(ingredients, size, vec);
-
-        recommended_recipes = std::move(vec);
-
+    return recommended_recipes = std::move(vec);
 }
 std::vector<search::Recipe> API::ingredients_to_recipe::show_recipes() {
     return recommended_recipes;  //возвращает топ 10 рекомендуемых рецептов
@@ -104,12 +102,13 @@ void API::ingredients_to_recipe::stop_searching_ingredient() {
     res_of_request.clear();
 }
 
-void API::ingredients_to_recipe::run_recipe_search(
+std::pair<std::vector<search::Recipe>, bool> API::ingredients_to_recipe::run_recipe_search_by_str(
     const std::string &s,
     uint32_t size,
     std::vector<search::Recipe> &vec) {
-    search::search_recipe(s, size, vec);
+    bool is_valid_request = search::search_recipe(s, size, vec);
     recommended_recipes = std::move(vec);
+    return {recommended_recipes, is_valid_request};
 }
 
 int API::ingredients_to_recipe::get_shop_mode() {

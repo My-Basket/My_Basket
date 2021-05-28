@@ -120,7 +120,7 @@ public:
     std::vector<search::product> const &get_ingredients() const;
 };
 
-void search_recipe(const string &input_string,
+bool search_recipe(const string &input_string,
                    uint32_t size,
                    std::vector<Recipe> &vec);
 

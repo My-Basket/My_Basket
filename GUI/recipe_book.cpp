@@ -304,10 +304,8 @@ void RecipeBook::find_product_func() {
     current_mode = FindProduct_mode;
     //запуск поиска
     res_of_request_products.clear();
-    API::ingredients_to_recipe::run_product_search(
-        product_name_line->text().toStdString(), 10, res_of_request_products);
-    res_of_request_products = API::ingredients_to_recipe::show_res_of_request();
-
+    res_of_request_products = API::ingredients_to_recipe::run_product_search(
+        product_name_line->text().toStdString(), 10, res_of_request_products).first;
     //установка полей и вывод первого продукта
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_product_title.c_str());
@@ -398,15 +396,14 @@ void RecipeBook::find_recipe_func() {
 
     std::vector<search::Recipe> vec2;
     if (find_recipe_mode == BasketSearchingMode) {
-        API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
+        res_of_request_recipes = API::ingredients_to_recipe::run_recipes_search(basket_of_products, 10,
                                                        vec2);
-        res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
     } else if (find_recipe_mode == NameSearchingMode) {
         // std::cout << "\n NameSearchMode -- product-name: " <<
         // product_name_line->text().toStdString() << '\n';
-        API::ingredients_to_recipe::run_recipe_search(
-            product_name_line->text().toStdString(), 10, vec2);
-        res_of_request_recipes = API::ingredients_to_recipe::show_recipes();
+        res_of_request_recipes = API::ingredients_to_recipe::run_recipe_search_by_str(
+            product_name_line->text().toStdString(), 10, vec2).first;
+
     }
 
     print_recipe(recipe_text, res_of_request_recipes[0]);
