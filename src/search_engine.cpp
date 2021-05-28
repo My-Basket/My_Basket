@@ -40,7 +40,7 @@ uint32_t levenshtein_algo(std::vector<uint32_t> &first_str,
 }
 
 uint32_t check_in(
-    std::vector<uint32_t> &first_str,  /// TODO change all to const
+    std::vector<uint32_t> &first_str,
     std::vector<uint32_t> &second_str) {
     if (first_str.size() > second_str.size()) {
         return 0;

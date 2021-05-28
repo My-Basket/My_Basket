@@ -214,7 +214,7 @@ void CategoryWindow::choose_premium() {
 
 void CategoryWindow::go_to_recipe_book() {
     set_font_color_button(go_to_searching_button, "#FF1099", 20, false);
-    API::ingredients_to_recipe::choose_category_shop(chosen_category);
+    API::ingredients_and_recipes::choose_category_shop(chosen_category);
 
     //переход к recipe_book
     auto recipe_book = new RecipeBook();
@@ -231,7 +231,7 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
 
     //получение информации о лучшем магазине и лучшей стоимости
     auto calculation_info =
-        API::ingredients_to_recipe::compare_prices_of_ingredients();
+        API::ingredients_and_recipes::compare_prices_of_ingredients();
     shop_name = calculation_info.first.first;
     total_cost = calculation_info.first.second;
     products_vec = calculation_info.second;
@@ -352,7 +352,7 @@ void SummaryWindow::start_again_func() {
     set_font_color_button(start_again_button, "#FF1099", 30, false);
 
     //очистка векторов
-    API::ingredients_to_recipe::discard_all();
+    API::ingredients_and_recipes::discard_all();
     CategoryWindow *category_window = new CategoryWindow();
     category_window->show();
     this->close();
