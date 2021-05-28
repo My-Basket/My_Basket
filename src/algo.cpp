@@ -1,7 +1,7 @@
 #include "algo.h"
+#include <errors.h>
 #include <iostream>
 #include "search_engine.h"
-#include <errors.h>
 
 using nlohmann::json, search::product, search::set_unit;
 std::map<const std::string, const std::string> shop_names = {
