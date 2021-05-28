@@ -301,7 +301,8 @@ void RecipeBook::find_product_func() {
     //запуск поиска
     res_of_request_products.clear();
     res_of_request_products = API::ingredients_to_recipe::run_product_search(
-                                  product_name_line->text().toStdString(), 10,
+                                  product_name_line->text().toStdString(),
+                                  StyleSettings::FontSizes::top_products_count,
                                   res_of_request_products)
                                   .first;
     //установка полей и вывод первого продукта
@@ -395,11 +396,13 @@ void RecipeBook::find_recipe_func() {
     std::vector<search::Recipe> vec2;
     if (find_recipe_mode == BasketSearchingMode) {
         res_of_request_recipes = API::ingredients_to_recipe::run_recipes_search(
-            basket_of_products, 10, vec2);
+            basket_of_products, StyleSettings::FontSizes::top_products_count,
+            vec2);
     } else if (find_recipe_mode == NameSearchingMode) {
         res_of_request_recipes =
             API::ingredients_to_recipe::run_recipe_search_by_str(
-                product_name_line->text().toStdString(), 10, vec2)
+                product_name_line->text().toStdString(),
+                StyleSettings::FontSizes::top_products_count, vec2)
                 .first;
     }
 
