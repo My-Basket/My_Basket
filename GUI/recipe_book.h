@@ -65,6 +65,8 @@ private:
     void activate_search_bar();
     void text_field_find_regime(std::string const &s);
 
+    void button_enabled(QPushButton *button, bool is_enabled);
+
     void update_buttons_enabled(bool add_product_button_enabled,
                                 bool add_recipe_button_enabled,
                                 bool find_product_button_enabled,

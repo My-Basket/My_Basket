@@ -46,6 +46,14 @@ static void print_products_vector(
     }
 }
 
+void RecipeBook::button_enabled(QPushButton *button, bool is_enabled) {
+    if (is_enabled) {
+        set_font_color_button(button, "#0066CC", 18, true);
+    } else {
+        set_font_color_button(button, "#172030", 18, false);
+    }
+}
+
 void RecipeBook::update_buttons_enabled(bool add_product_button_enabled,
                                         bool add_recipe_button_enabled,
                                         bool find_product_button_enabled,
@@ -56,47 +64,13 @@ void RecipeBook::update_buttons_enabled(bool add_product_button_enabled,
     // idk, лучше ли такая функция явного прописывания, ибо здесь нужно всегда
     // быть аккуратным с порядком поставляемых параметров, но по строкам вышло
     // выгоднее!)
-    if (add_product_button_enabled) {
-        set_font_color_button(add_product_button, "#0066CC", 18, true);
-    } else {
-        set_font_color_button(add_product_button, "#172030", 18, false);
-    }
-
-    if (add_recipe_button_enabled) {
-        set_font_color_button(add_recipe_button, "#0066CC", 18, true);
-    } else {
-        set_font_color_button(add_recipe_button, "#172030", 18, false);
-    }
-
-    if (find_product_button_enabled) {
-        set_font_color_button(find_product_button, "#0066CC", 18, true);
-    } else {
-        set_font_color_button(find_product_button, "#172030", 18, false);
-    }
-
-    if (put_in_basket_button_enabled) {
-        set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
-    } else {
-        set_font_color_button(put_in_basket_button, "#172030", 18, false);
-    }
-
-    if (find_recipe_button_enabled) {
-        set_font_color_button(find_recipe_button, "#0066CC", 18, true);
-    } else {
-        set_font_color_button(find_recipe_button, "#172030", 18, false);
-    }
-
-    if (choose_recipe_button_enabled) {
-        set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
-    } else {
-        set_font_color_button(choose_recipe_button, "#172030", 18, false);
-    }
-
-    if (check_basket_button_enabled) {
-        set_font_color_button(check_basket_button, "#0066CC", 18, true);
-    } else {
-        set_font_color_button(check_basket_button, "#172030", 18, false);
-    }
+    button_enabled(add_product_button, add_product_button_enabled);
+    button_enabled(add_recipe_button, add_recipe_button_enabled);
+    button_enabled(find_product_button, find_product_button_enabled);
+    button_enabled(put_in_basket_button, put_in_basket_button_enabled);
+    button_enabled(find_recipe_button, find_recipe_button_enabled);
+    button_enabled(choose_recipe_button, choose_recipe_button_enabled);
+    button_enabled(check_basket_button, check_basket_button_enabled);
     //обновление состояний кнопок
 
     //в нашей программе всегда доступны
@@ -203,8 +177,6 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     set_font_color_button(previous_button, "#00CC66", 18);
     previous_button->hide();
 
-    // TODO: можно ли избавиться от копипаста и вынести это в функцию с
-    // параметрами (название кнопки (1), ф-я(4))
     connect(add_product_button, SIGNAL(clicked()), this,
             SLOT(add_product_func()));
     connect(add_recipe_button, SIGNAL(clicked()), this,
@@ -253,7 +225,6 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
     set_background_image(this);
     set_minimum_window_sizes(this);
-    ///вынести в отдельную функцию -- копипаст в 4 местах -- мб наследование?
 }
 
 void RecipeBook::clear_fields() {
@@ -294,18 +265,6 @@ void RecipeBook::add_product_func() {
         StyleSettings::Titles::recipe_label_product_title.c_str());
 
     update_buttons_enabled(false, true, true, true, true, true, true);
-
-    //    add_product_button->show();
-    //    add_recipe_button->hide();
-    //    find_product_button->show();
-    //    put_in_basket_button->hide();
-    //    find_recipe_button->hide();
-    //    choose_recipe_button->hide();
-    //    check_basket_button->show();
-    //
-    //    next_button->hide();
-    //    previous_button->hide();
-
     update_buttons_showed(true, false, true, false, false, false, true, false,
                           false);
 }
@@ -316,24 +275,10 @@ void RecipeBook::add_recipe_func() {
     find_recipe_mode = NameSearchingMode;  //режим поиска по совпадению названий
 
     update_buttons_enabled(true, false, true, true, true, true, true);
-
-    //    add_product_button->hide();
-    //    add_recipe_button->show();
-    //    find_product_button->hide();
-    //    put_in_basket_button->hide();
-    //    find_recipe_button->show();
-    //    choose_recipe_button->hide();
-    //    check_basket_button->show();
-    //
-    //    next_button->hide();
-    //    previous_button->hide();
-
     update_buttons_showed(false, true, false, false, true, false, true, false,
                           false);
 }
 
-///можно ли ее вызвать по нажатию enter? чтобы было логично, как будто в обычном
-///поисковике
 void RecipeBook::find_product_func() {
     //пустой ввод
     if (product_name_line->text() == "") {
@@ -345,18 +290,6 @@ void RecipeBook::find_product_func() {
     text_field_find_regime(product_name_line->text().toStdString());
 
     update_buttons_enabled(true, true, false, true, true, true, true);
-
-    //    add_product_button->show();
-    //    add_recipe_button->hide();
-    //    find_product_button->show();
-    //    put_in_basket_button->show();
-    //    find_recipe_button->hide();
-    //    choose_recipe_button->hide();
-    //    check_basket_button->show();
-    //
-    //    next_button->show();
-    //    previous_button->show();
-
     update_buttons_showed(true, false, true, true, false, false, true, true,
                           true);
 
@@ -389,19 +322,6 @@ void RecipeBook::put_in_basket_func() {
     clear_fields_and_requests();
 
     update_buttons_enabled(true, true, true, false, true, true, true);
-
-    //    add_product_button->show();
-    //    add_recipe_button->hide();  // todo -- show, если сделаем возможность
-    //                                // несколько рецептов добавлять в корзину
-    //    find_product_button->hide();
-    //    put_in_basket_button->hide();
-    //    find_recipe_button->show();
-    //    choose_recipe_button->hide();
-    //    check_basket_button->show();
-    //
-    //    next_button->hide();
-    //    previous_button->hide();
-
     update_buttons_showed(true, false, false, false, true, false, true, false,
                           false);
 }
@@ -424,18 +344,6 @@ void RecipeBook::find_recipe_func() {
     }
 
     update_buttons_enabled(true, true, true, true, false, true, true);
-
-    //    add_product_button->show();
-    //    add_recipe_button->hide();
-    //    find_product_button->hide();
-    //    put_in_basket_button->hide();
-    //    find_recipe_button->hide();
-    //    choose_recipe_button->show();
-    //    check_basket_button->show();
-    //
-    //    next_button->show();
-    //    previous_button->show();
-
     update_buttons_showed(true, false, false, false, false, true, true, true,
                           true);
 
@@ -446,16 +354,16 @@ void RecipeBook::find_recipe_func() {
     recipe_text->clear();
     res_of_request_recipes.clear();
 
-    std::vector<search::Recipe> vec2;
+    std::vector<search::Recipe> vec;
     if (find_recipe_mode == BasketSearchingMode) {
         res_of_request_recipes = API::ingredients_to_recipe::run_recipes_search(
             basket_of_products, StyleSettings::FontSizes::top_products_count,
-            vec2);
+            vec);
     } else if (find_recipe_mode == NameSearchingMode) {
         res_of_request_recipes =
             API::ingredients_to_recipe::run_recipe_search_by_str(
                 product_name_line->text().toStdString(),
-                StyleSettings::FontSizes::top_products_count, vec2)
+                StyleSettings::FontSizes::top_products_count, vec)
                 .first;
     }
 
@@ -467,18 +375,6 @@ void RecipeBook::check_basket_func() {
     clear_fields();
 
     update_buttons_enabled(true, true, true, true, true, true, false);
-
-    //    add_product_button->show();
-    //    add_recipe_button->hide();
-    //    find_product_button->hide();
-    //    put_in_basket_button->hide();
-    //    find_recipe_button->show();
-    //    choose_recipe_button->hide();
-    //    check_basket_button->show();
-    //
-    //    next_button->hide();
-    //    previous_button->hide();
-
     update_buttons_showed(true, false, false, false, true, false, true, false,
                           false);
 
