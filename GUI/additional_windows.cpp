@@ -90,12 +90,14 @@ void button_showed(QPushButton *button, bool is_showed) {
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     start_shopping_button = new QPushButton(
         StyleSettings::Titles::start_shopping_button_title.c_str());
-    set_font_color_button(start_shopping_button,
-                          StyleSettings::Colors::pink_medium_button, 30, true);
+    set_font_color_button(
+        start_shopping_button, StyleSettings::Colors::pink_medium_button,
+        StyleSettings::FontSizes::start_shopping_button_fz, true);
     start_shopping_button->show();
 
     my_basket_label = new QLabel(StyleSettings::Titles::windows_title.c_str());
-    set_font_color_label(my_basket_label, StyleSettings::Colors::black, 130,
+    set_font_color_label(my_basket_label, StyleSettings::Colors::black,
+                         StyleSettings::FontSizes::my_basket_label_fz,
                          StyleSettings::FontStyles::bold);
     my_basket_label->setAlignment(Qt::AlignCenter);
     my_basket_label->setMargin(
@@ -103,7 +105,8 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 
     description_label =
         new QLabel(StyleSettings::Titles::description_label_title.c_str());
-    set_font_color_label(description_label, StyleSettings::Colors::black, 27);
+    set_font_color_label(description_label, StyleSettings::Colors::black,
+                         StyleSettings::FontSizes::description_label_fz);
     description_label->setAlignment(Qt::AlignCenter);
 
     auto *label_layout = new QVBoxLayout;
@@ -130,8 +133,9 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void StartWindow::go_to_category_window() {
-    set_font_color_button(start_shopping_button,
-                          StyleSettings::Colors::pink_hard_button, 30, false);
+    set_font_color_button(
+        start_shopping_button, StyleSettings::Colors::pink_hard_button,
+        StyleSettings::FontSizes::start_shopping_button_fz, false);
 
     //переход к recipe_book
     auto category_window = new CategoryWindow();
@@ -139,29 +143,49 @@ void StartWindow::go_to_category_window() {
     this->close();
 }
 
+void CategoryWindow::button_enabled(QPushButton *button, bool is_enabled) {
+    if (is_enabled) {
+        set_font_color_button(
+            button, StyleSettings::Colors::pink_medium_button,
+            StyleSettings::FontSizes::category_window_buttons_sz, true);
+    } else {
+        set_font_color_button(
+            button, StyleSettings::Colors::pink_hard_button,
+            StyleSettings::FontSizes::category_window_buttons_sz, false);
+    }
+}
+
+void CategoryWindow::update_buttons_enabled(bool economy_button_enabled,
+                                            bool base_button_enabled,
+                                            bool premium_button_enabled) {
+    button_enabled(economy_button, economy_button_enabled);
+    button_enabled(base_button, base_button_enabled);
+    button_enabled(premium_button, premium_button_enabled);
+}
+
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
     set_font_color_label(choose_category_label, StyleSettings::Colors::black,
-                         80);
+                         StyleSettings::FontSizes::choose_category_label_sz);
     choose_category_label->setAlignment(Qt::AlignCenter);
     choose_category_label->setMargin(
         StyleSettings::WindowSizes::choose_category_label_margin);
 
     economy_button =
         new QPushButton(StyleSettings::Titles::economy_button_title.c_str());
-    set_font_color_button(economy_button, "#FF7699", 20);
     economy_button->show();
 
     base_button =
         new QPushButton(StyleSettings::Titles::base_button_title.c_str());
-    set_font_color_button(base_button, "#FF7699", 20);
     base_button->show();
 
     premium_button =
         new QPushButton(StyleSettings::Titles::premium_button_title.c_str());
-    set_font_color_button(premium_button, "#FF7699", 20);
     premium_button->show();
+
+    //установка настроек кнопок категорий
+    update_buttons_enabled();
 
     go_to_searching_button =
         new QPushButton(StyleSettings::Titles::go_to_searching_button.c_str());

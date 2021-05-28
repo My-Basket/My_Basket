@@ -141,15 +141,16 @@ struct Colors {
 };
 
 struct FontSizes {
-    inline static const int my_basket_label_fz = 130;
-    inline static const int description_label_fz = 27;
     inline static const int standard_medium_button_sz = 18;
 
     // StartWindow
     inline static const int start_shopping_button_fz = 30;
+    inline static const int my_basket_label_fz = 130;
+    inline static const int description_label_fz = 27;
 
     // CategoryWindow
-    inline static const int category_window_buttons_fz = 20;
+    inline static const int choose_category_label_sz = 80;
+    inline static const int category_window_buttons_sz = 20;
 
     // SummaryWindow
     inline static const int summary_window_products_text_sz = 18;

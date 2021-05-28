@@ -44,6 +44,11 @@ private:
     QLabel *choose_category_label;
 
     std::string chosen_category;
+
+    void button_enabled(QPushButton *button, bool is_enabled);
+    void update_buttons_enabled(bool economy_button_enabled = true,
+                                bool base_button_enabled = true,
+                                bool premium_button_enabled = true);
 };
 
 class SummaryWindow : public QWidget {
