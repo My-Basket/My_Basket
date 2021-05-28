@@ -132,50 +132,43 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     //экземпляры кнопок правой панели
     add_product_button = new QPushButton(
         StyleSettings::Titles::add_product_button_title.c_str());
-    set_font_color_button(add_product_button, "#0066CC", 18);
     add_product_button->show();
 
     add_recipe_button =
         new QPushButton(StyleSettings::Titles::add_recipe_button_title.c_str());
-    set_font_color_button(add_recipe_button, "#0066CC", 18);
     add_recipe_button->show();
 
     find_product_button = new QPushButton(
         StyleSettings::Titles::find_product_button_title.c_str());
-    set_font_color_button(find_product_button, "#0066CC", 18);
     find_product_button->hide();
 
     put_in_basket_button = new QPushButton(
         StyleSettings::Titles::put_in_basket_button_title.c_str());
-    set_font_color_button(put_in_basket_button, "#0066CC", 18);
     put_in_basket_button->hide();
 
     find_recipe_button = new QPushButton(
         StyleSettings::Titles::find_recipe_button_title.c_str());
-    set_font_color_button(find_recipe_button, "#0066CC", 18);
     find_recipe_button->hide();
     find_recipe_mode = BasketSearchingMode;  //поиск по набранной корзине
 
     check_basket_button = new QPushButton(
         StyleSettings::Titles::check_basket_button_title.c_str());
-    set_font_color_button(check_basket_button, "#0066CC", 18);
     check_basket_button->show();
 
     choose_recipe_button = new QPushButton(
         StyleSettings::Titles::choose_recipe_button_title.c_str());
-    set_font_color_button(choose_recipe_button, "#0066CC", 18);
     choose_recipe_button->hide();
 
     //экземпляры кнопок нижней панели
     next_button =
         new QPushButton(StyleSettings::Titles::next_button_title.c_str());
-    set_font_color_button(next_button, "#00CC66", 18);
     next_button->hide();
 
     previous_button =
         new QPushButton(StyleSettings::Titles::previous_button_title.c_str());
-    set_font_color_button(previous_button, "#00CC66", 18);
     previous_button->hide();
+
+    update_buttons_enabled();
 
     connect(add_product_button, SIGNAL(clicked()), this,
             SLOT(add_product_func()));

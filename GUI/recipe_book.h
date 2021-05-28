@@ -67,23 +67,23 @@ private:
 
     void button_enabled(QPushButton *button, bool is_enabled);
 
-    void update_buttons_enabled(bool add_product_button_enabled,
-                                bool add_recipe_button_enabled,
-                                bool find_product_button_enabled,
-                                bool put_in_basket_button_enabled,
-                                bool find_recipe_button_enabled,
-                                bool choose_recipe_button_enabled,
-                                bool check_basket_button_enabled);
+    void update_buttons_enabled(bool add_product_button_enabled = true,
+                                bool add_recipe_button_enabled = true,
+                                bool find_product_button_enabled = true,
+                                bool put_in_basket_button_enabled = true,
+                                bool find_recipe_button_enabled = true,
+                                bool choose_recipe_button_enabled = true,
+                                bool check_basket_button_enabled = true);
 
-    void update_buttons_showed(bool add_product_button_showed,
-                               bool add_recipe_button_showed,
-                               bool find_product_button_showed,
-                               bool put_in_basket_button_showed,
-                               bool find_recipe_button_showed,
-                               bool choose_recipe_button_showed,
-                               bool check_basket_button_showed,
-                               bool next_button_showed,
-                               bool previous_button_showed);
+    void update_buttons_showed(bool add_product_button_showed = true,
+                               bool add_recipe_button_showed = true,
+                               bool find_product_button_showed = true,
+                               bool put_in_basket_button_showed = true,
+                               bool find_recipe_button_showed = true,
+                               bool choose_recipe_button_showed = true,
+                               bool check_basket_button_showed = true,
+                               bool next_button_showed = true,
+                               bool previous_button_showed = true);
 };
 }  // namespace Ui
 
