@@ -153,6 +153,7 @@ struct FontSizes {
 
     // RecipeBook
     inline static const int recipe_text_sz = 18;
+    inline static const int top_products_count = 10;
 };
 
 struct FontStyles {

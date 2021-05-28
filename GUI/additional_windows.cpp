@@ -10,6 +10,18 @@
 
 namespace Ui {
 
+void set_background_image(QWidget *window,
+                          std::string const &path_to_bg_image) {
+    QBrush image_basket_background(QImage(path_to_bg_image.c_str()));
+    QPalette plt = window->palette();
+    plt.setBrush(QPalette::Window, image_basket_background);
+    window->setPalette(plt);
+}
+
+void set_minimum_window_sizes(QWidget *window, int width, int height) {
+    window->setMinimumSize(width, height);
+}
+
 void set_font_color_button(QPushButton *button,
                            std::string const &bg_color,
                            int font_size,
@@ -67,17 +79,7 @@ static void print_products_vector_with_costs(
     ///выглядит, как копипаст предыдущей функции, пофиксить
 }
 
-void set_background_image(QWidget *window,
-                          std::string const &path_to_bg_image) {
-    QBrush image_basket_background(QImage(path_to_bg_image.c_str()));
-    QPalette plt = window->palette();
-    plt.setBrush(QPalette::Window, image_basket_background);
-    window->setPalette(plt);
-}
-
 StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
-    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
-
     start_shopping_button = new QPushButton(
         StyleSettings::Titles::start_shopping_button_title.c_str());
     set_font_color_button(start_shopping_button, "#FF7699", 30, true);
@@ -110,11 +112,11 @@ StartWindow::StartWindow(QWidget *parent) : QWidget(parent) {
     connect(start_shopping_button, SIGNAL(clicked()), this,
             SLOT(go_to_category_window()));
 
+    //параметры окна
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
-
-    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
-                         StyleSettings::WindowSizes::min_height_window);
+    set_background_image(this);
+    set_minimum_window_sizes(this);
 }
 
 void StartWindow::go_to_category_window() {
@@ -127,8 +129,6 @@ void StartWindow::go_to_category_window() {
 }
 
 CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
-    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
-
     choose_category_label =
         new QLabel(StyleSettings::Titles::choose_category_label_title.c_str());
     set_font_color_label(choose_category_label, "black", 80);
@@ -174,11 +174,11 @@ CategoryWindow::CategoryWindow(QWidget *parent) : QWidget(parent) {
     connect(go_to_searching_button, SIGNAL(clicked()), this,
             SLOT(go_to_recipe_book()));
 
+    //параметры окна
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
-
-    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
-                         StyleSettings::WindowSizes::min_height_window);
+    set_background_image(this);
+    set_minimum_window_sizes(this);
 }
 
 void CategoryWindow::choose_economy() {
@@ -227,8 +227,6 @@ void CategoryWindow::go_to_recipe_book() {
 }
 
 SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
-    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
-
     //получение информации о лучшем магазине и лучшей стоимости
     auto calculation_info =
         API::ingredients_to_recipe::compare_prices_of_ingredients();
@@ -321,11 +319,11 @@ SummaryWindow::SummaryWindow(QWidget *parent) : QWidget(parent) {
     connect(end_program_button, SIGNAL(clicked()), this,
             SLOT(end_program_func()));
 
+    //параметры окна
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
-
-    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
-                         StyleSettings::WindowSizes::min_height_window);
+    set_background_image(this);
+    set_minimum_window_sizes(this);
 }
 
 void SummaryWindow::show_final_products_func() {

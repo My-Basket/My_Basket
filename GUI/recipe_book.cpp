@@ -46,6 +46,66 @@ static void print_products_vector(
     }
 }
 
+void RecipeBook::button_enabled(QPushButton *button, bool is_enabled) {
+    if (is_enabled) {
+        set_font_color_button(button, "#0066CC", 18, true);
+    } else {
+        set_font_color_button(button, "#172030", 18, false);
+    }
+}
+
+void RecipeBook::update_buttons_enabled(bool add_product_button_enabled,
+                                        bool add_recipe_button_enabled,
+                                        bool find_product_button_enabled,
+                                        bool put_in_basket_button_enabled,
+                                        bool find_recipe_button_enabled,
+                                        bool choose_recipe_button_enabled,
+                                        bool check_basket_button_enabled) {
+    // idk, лучше ли такая функция явного прописывания, ибо здесь нужно всегда
+    // быть аккуратным с порядком поставляемых параметров, но по строкам вышло
+    // выгоднее!)
+    button_enabled(add_product_button, add_product_button_enabled);
+    button_enabled(add_recipe_button, add_recipe_button_enabled);
+    button_enabled(find_product_button, find_product_button_enabled);
+    button_enabled(put_in_basket_button, put_in_basket_button_enabled);
+    button_enabled(find_recipe_button, find_recipe_button_enabled);
+    button_enabled(choose_recipe_button, choose_recipe_button_enabled);
+    button_enabled(check_basket_button, check_basket_button_enabled);
+    //обновление состояний кнопок
+
+    //в нашей программе всегда доступны
+    set_font_color_button(next_button, "#00CC66", 18, true);
+    set_font_color_button(previous_button, "#00CC66", 18, true);
+}
+
+void button_showed(QPushButton *button, bool is_showed) {
+    if (is_showed) {
+        button->show();
+    } else {
+        button->hide();
+    }
+}
+
+void RecipeBook::update_buttons_showed(bool add_product_button_showed,
+                                       bool add_recipe_button_showed,
+                                       bool find_product_button_showed,
+                                       bool put_in_basket_button_showed,
+                                       bool find_recipe_button_showed,
+                                       bool choose_recipe_button_showed,
+                                       bool check_basket_button_showed,
+                                       bool next_button_showed,
+                                       bool previous_button_showed) {
+    button_showed(add_product_button, add_product_button_showed);
+    button_showed(add_recipe_button, add_recipe_button_showed);
+    button_showed(find_product_button, find_product_button_showed);
+    button_showed(put_in_basket_button, put_in_basket_button_showed);
+    button_showed(find_recipe_button, find_recipe_button_showed);
+    button_showed(choose_recipe_button, choose_recipe_button_showed);
+    button_showed(check_basket_button, check_basket_button_showed);
+    button_showed(next_button, next_button_showed);
+    button_showed(previous_button, previous_button_showed);
+}
+
 RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     product_name_label =
         new QLabel(StyleSettings::Titles::product_name_label_title.c_str());
@@ -72,53 +132,44 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
     //экземпляры кнопок правой панели
     add_product_button = new QPushButton(
         StyleSettings::Titles::add_product_button_title.c_str());
-    set_font_color_button(add_product_button, "#0066CC", 18);
     add_product_button->show();
 
     add_recipe_button =
         new QPushButton(StyleSettings::Titles::add_recipe_button_title.c_str());
-    set_font_color_button(add_recipe_button, "#0066CC", 18);
     add_recipe_button->show();
 
     find_product_button = new QPushButton(
         StyleSettings::Titles::find_product_button_title.c_str());
-    set_font_color_button(find_product_button, "#0066CC", 18);
     find_product_button->hide();
 
     put_in_basket_button = new QPushButton(
         StyleSettings::Titles::put_in_basket_button_title.c_str());
-    set_font_color_button(put_in_basket_button, "#0066CC", 18);
     put_in_basket_button->hide();
 
     find_recipe_button = new QPushButton(
         StyleSettings::Titles::find_recipe_button_title.c_str());
-    set_font_color_button(find_recipe_button, "#0066CC", 18);
     find_recipe_button->hide();
     find_recipe_mode = BasketSearchingMode;  //поиск по набранной корзине
 
     check_basket_button = new QPushButton(
         StyleSettings::Titles::check_basket_button_title.c_str());
-    set_font_color_button(check_basket_button, "#0066CC", 18);
     check_basket_button->show();
 
     choose_recipe_button = new QPushButton(
         StyleSettings::Titles::choose_recipe_button_title.c_str());
-    set_font_color_button(choose_recipe_button, "#0066CC", 18);
     choose_recipe_button->hide();
 
     //экземпляры кнопок нижней панели
     next_button =
         new QPushButton(StyleSettings::Titles::next_button_title.c_str());
-    set_font_color_button(next_button, "#00CC66", 18);
     next_button->hide();
 
     previous_button =
         new QPushButton(StyleSettings::Titles::previous_button_title.c_str());
-    set_font_color_button(previous_button, "#00CC66", 18);
     previous_button->hide();
 
-    // TODO: можно ли избавиться от копипаста и вынести это в функцию с
-    // параметрами (название кнопки (1), ф-я(4))
+    update_buttons_enabled();
+
     connect(add_product_button, SIGNAL(clicked()), this,
             SLOT(add_product_func()));
     connect(add_recipe_button, SIGNAL(clicked()), this,
@@ -165,12 +216,8 @@ RecipeBook::RecipeBook(QWidget *parent) : QWidget(parent) {
 
     setLayout(main_layout);
     setWindowTitle(StyleSettings::Titles::windows_title.c_str());
-
-    set_background_image(this, StyleSettings::Titles::path_to_bg_image);
-
-    this->setMinimumSize(StyleSettings::WindowSizes::min_width_window,
-                         StyleSettings::WindowSizes::min_height_window);
-    ///вынести в отдельную функцию -- копипаст в 4 местах -- мб наследование?
+    set_background_image(this);
+    set_minimum_window_sizes(this);
 }
 
 void RecipeBook::clear_fields() {
@@ -210,29 +257,9 @@ void RecipeBook::add_product_func() {
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_product_title.c_str());
 
-    ///обновление состояний всех кнопок -- мб функцию?? от параметров всех
-    ///кнопок -- enabled/ не enabled -- а это вынести в отдельную настройку
-    ///сразу
-    set_font_color_button(add_product_button, "#172030", 18, false);
-    set_font_color_button(find_product_button, "#0066CC", 18, true);
-    set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
-    set_font_color_button(find_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(check_basket_button, "#0066CC", 18, true);
-
-    set_font_color_button(next_button, "#00CC66", 18, true);
-    set_font_color_button(previous_button, "#00CC66", 18, true);
-
-    add_product_button->show();
-    add_recipe_button->hide();
-    find_product_button->show();
-    put_in_basket_button->hide();
-    find_recipe_button->hide();
-    choose_recipe_button->hide();
-    check_basket_button->show();
-
-    next_button->hide();
-    previous_button->hide();
+    update_buttons_enabled(false, true, true, true, true, true, true);
+    update_buttons_showed(true, false, true, false, false, false, true, false,
+                          false);
 }
 
 void RecipeBook::add_recipe_func() {
@@ -240,32 +267,11 @@ void RecipeBook::add_recipe_func() {
     activate_search_bar();
     find_recipe_mode = NameSearchingMode;  //режим поиска по совпадению названий
 
-    set_font_color_button(add_product_button, "#0066CC", 18, true);
-    set_font_color_button(add_recipe_button, "#172030", 18, false);
-    set_font_color_button(find_product_button, "#0066CC", 18, true);
-    set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
-    set_font_color_button(find_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(check_basket_button, "#0066CC", 18, true);
-
-    set_font_color_button(next_button, "#00CC66", 18, true);
-    set_font_color_button(previous_button, "#00CC66", 18, true);
-
-    add_product_button->hide();
-    add_recipe_button->show();
-    find_product_button->hide();
-    put_in_basket_button->hide();
-    find_recipe_button->show();
-    choose_recipe_button->hide();
-    check_basket_button->show();
-
-    next_button->hide();
-    previous_button->hide();
-    //вектор кнопок и вектор их методов?
+    update_buttons_enabled(true, false, true, true, true, true, true);
+    update_buttons_showed(false, true, false, false, true, false, true, false,
+                          false);
 }
 
-///можно ли ее вызвать по нажатию enter? чтобы было логично, как будто в обычном
-///поисковике
 void RecipeBook::find_product_func() {
     //пустой ввод
     if (product_name_line->text() == "") {
@@ -276,32 +282,16 @@ void RecipeBook::find_product_func() {
     }
     text_field_find_regime(product_name_line->text().toStdString());
 
-    set_font_color_button(add_product_button, "#0066CC", 18, true);
-    set_font_color_button(find_product_button, "#172030", 18, false);
-    set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
-    set_font_color_button(find_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(check_basket_button, "#0066CC", 18, true);
-
-    set_font_color_button(previous_button, "#00CC66", 18, true);
-    set_font_color_button(next_button, "#00CC66", 18, true);
-
-    add_product_button->show();
-    add_recipe_button->hide();
-    find_product_button->show();
-    put_in_basket_button->show();
-    find_recipe_button->hide();
-    choose_recipe_button->hide();
-    check_basket_button->show();
-
-    next_button->show();
-    previous_button->show();
+    update_buttons_enabled(true, true, false, true, true, true, true);
+    update_buttons_showed(true, false, true, true, false, false, true, true,
+                          true);
 
     current_mode = FindProduct_mode;
     //запуск поиска
     res_of_request_products.clear();
     res_of_request_products = API::ingredients_to_recipe::run_product_search(
-                                  product_name_line->text().toStdString(), 10,
+                                  product_name_line->text().toStdString(),
+                                  StyleSettings::FontSizes::top_products_count,
                                   res_of_request_products)
                                   .first;
     //установка полей и вывод первого продукта
@@ -324,27 +314,9 @@ void RecipeBook::put_in_basket_func() {
 
     clear_fields_and_requests();
 
-    set_font_color_button(add_product_button, "#0066CC", 18, true);
-    set_font_color_button(find_product_button, "#0066CC", 18, true);
-    set_font_color_button(put_in_basket_button, "#172030", 18, false);
-    set_font_color_button(find_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(check_basket_button, "#0066CC", 18, true);
-
-    set_font_color_button(previous_button, "#00CC66", 18, true);
-    set_font_color_button(next_button, "#00CC66", 18, true);
-
-    add_product_button->show();
-    add_recipe_button->hide();  // todo -- show, если сделаем возможность
-                                // несколько рецептов добавлять в корзину
-    find_product_button->hide();
-    put_in_basket_button->hide();
-    find_recipe_button->show();
-    choose_recipe_button->hide();
-    check_basket_button->show();
-
-    next_button->hide();
-    previous_button->hide();
+    update_buttons_enabled(true, true, true, false, true, true, true);
+    update_buttons_showed(true, false, false, false, true, false, true, false,
+                          false);
 }
 
 void RecipeBook::find_recipe_func() {
@@ -364,26 +336,9 @@ void RecipeBook::find_recipe_func() {
         recipe_text->setReadOnly(false);
     }
 
-    set_font_color_button(add_product_button, "#0066CC", 18, true);
-    set_font_color_button(find_product_button, "#0066CC", 18, true);
-    set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
-    set_font_color_button(find_recipe_button, "#172030", 18, false);
-    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(check_basket_button, "#0066CC", 18, true);
-
-    set_font_color_button(previous_button, "#00CC66", 18, true);
-    set_font_color_button(next_button, "#00CC66", 18, true);
-
-    add_product_button->show();
-    add_recipe_button->hide();
-    find_product_button->hide();
-    put_in_basket_button->hide();
-    find_recipe_button->hide();
-    choose_recipe_button->show();
-    check_basket_button->show();
-
-    next_button->show();
-    previous_button->show();
+    update_buttons_enabled(true, true, true, true, false, true, true);
+    update_buttons_showed(true, false, false, false, false, true, true, true,
+                          true);
 
     current_mode = FindRecipe_mode;
     recipe_label->setText(
@@ -392,14 +347,16 @@ void RecipeBook::find_recipe_func() {
     recipe_text->clear();
     res_of_request_recipes.clear();
 
-    std::vector<search::Recipe> vec2;
+    std::vector<search::Recipe> vec;
     if (find_recipe_mode == BasketSearchingMode) {
         res_of_request_recipes = API::ingredients_to_recipe::run_recipes_search(
-            basket_of_products, 10, vec2);
+            basket_of_products, StyleSettings::FontSizes::top_products_count,
+            vec);
     } else if (find_recipe_mode == NameSearchingMode) {
         res_of_request_recipes =
             API::ingredients_to_recipe::run_recipe_search_by_str(
-                product_name_line->text().toStdString(), 10, vec2)
+                product_name_line->text().toStdString(),
+                StyleSettings::FontSizes::top_products_count, vec)
                 .first;
     }
 
@@ -410,26 +367,9 @@ void RecipeBook::find_recipe_func() {
 void RecipeBook::check_basket_func() {
     clear_fields();
 
-    set_font_color_button(add_product_button, "#0066CC", 18, true);
-    set_font_color_button(find_product_button, "#0066CC", 18, true);
-    set_font_color_button(put_in_basket_button, "#0066CC", 18, true);
-    set_font_color_button(find_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(choose_recipe_button, "#0066CC", 18, true);
-    set_font_color_button(check_basket_button, "#172030", 18, false);
-
-    set_font_color_button(previous_button, "#00CC66", 18, true);
-    set_font_color_button(next_button, "#00CC66", 18, true);
-
-    add_product_button->show();
-    add_recipe_button->hide();
-    find_product_button->hide();
-    put_in_basket_button->hide();
-    find_recipe_button->show();
-    choose_recipe_button->hide();
-    check_basket_button->show();
-
-    next_button->hide();
-    previous_button->hide();
+    update_buttons_enabled(true, true, true, true, true, true, false);
+    update_buttons_showed(true, false, false, false, true, false, true, false,
+                          false);
 
     recipe_label->setText(
         StyleSettings::Titles::recipe_label_in_basket_title.c_str());
