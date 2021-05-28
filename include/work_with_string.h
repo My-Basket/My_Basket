@@ -8,8 +8,7 @@
 #include <string>
 #include <vector>
 
-using std::string, std::stringstream, std::hex, std::showbase, std::pair;
-
+using std::string, std::stringstream, std::pair;
 pair<int, int> code_point(const string &u);
 
 void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec);

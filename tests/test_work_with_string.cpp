@@ -95,3 +95,12 @@ TEST_CASE("from_str_to_codepoint, codepoint") {
     from_str_to_codepoint(s2, vec);
     CHECK(vec.size() == number_of_symbols(s2) + 1);
 }
+TEST_CASE("from codepoint to string") {
+    CHECK(utf8_encode(1087) == "п");
+    CHECK(utf8_encode(1088) == "р");
+    CHECK(utf8_encode(1080) == "и");
+    CHECK(utf8_encode(1074) == "в");
+    CHECK(utf8_encode(1077) == "е");
+    CHECK(utf8_encode(1090) == "т");
+    CHECK(utf8_encode(33) == "!");
+}

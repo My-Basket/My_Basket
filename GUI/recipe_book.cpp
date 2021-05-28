@@ -7,7 +7,7 @@
 #include <QSizePolicy>
 #include <sstream>
 #include "additional_windows.h"
-#include "algo.h"
+#include "API.h"
 #include "style_settings.h"
 
 namespace Ui {

@@ -1,6 +1,6 @@
 #ifndef MY_BASKET_FOR_STATIC_H
 #define MY_BASKET_FOR_STATIC_H
-#include "algo.h"
+#include "API.h"
 #include "search_engine.h"
 size_t API::ingredients_and_recipes::shop_mode = 2;  // NOLINT
 std::vector<search::product>

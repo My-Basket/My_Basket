@@ -1,5 +1,5 @@
-#ifndef MY_BASKET_ALGO_H
-#define MY_BASKET_ALGO_H
+#ifndef MY_BASKET_API_H
+#define MY_BASKET_API_H
 #include <fstream>
 #include <functional>
 #include <list>

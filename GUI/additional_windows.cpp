@@ -5,7 +5,7 @@
 #include <QPalette>
 #include <QSizePolicy>
 #include <iostream>
-#include "algo.h"
+#include "API.h"
 #include "style_settings.h"
 
 namespace Ui {
