@@ -3,12 +3,11 @@
 #include <algorithm>
 #include <exception>
 
-
-void to_lower_rus(int &codepoint){
-    if(codepoint>=1040 && codepoint<=1071){
-        codepoint+=32;
+void to_lower_rus(int &codepoint) {
+    if (codepoint >= 1040 && codepoint <= 1071) {
+        codepoint += 32;
     }
-    if(codepoint == 1025){
+    if (codepoint == 1025) {
         codepoint = 1105;
     }
 }
@@ -97,13 +96,14 @@ void from_str_to_codepoint(string old_s, std::vector<uint32_t> &vec) {
     std::transform(old_s.begin(), old_s.end(), old_s.begin(), ::tolower);
     std::string bad_str = "№";
     size_t index = old_s.find(bad_str);
-    if(index!=std::string::npos){
+    if (index != std::string::npos) {
         old_s.erase(index, bad_str.length());
     }
 
-    std::vector<char> unexpected_chars =
-        {' ', ',', '\n', '\t', '\b', '\\', '\"', '-', '+', '/', ';', '#', '&', '`', '=', '(', ')',  '.', '%', '@'};
-    for(auto t: unexpected_chars){
+    std::vector<char> unexpected_chars = {
+        ' ', ',', '\n', '\t', '\b', '\\', '\"', '-', '+', '/',
+        ';', '#', '&',  '`',  '=',  '(',  ')',  '.', '%', '@'};
+    for (auto t : unexpected_chars) {
         old_s.erase(std::remove(old_s.begin(), old_s.end(), t), old_s.end());
     }
 

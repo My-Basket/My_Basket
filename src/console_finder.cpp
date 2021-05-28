@@ -23,6 +23,5 @@ int main() {
     std::vector<uint32_t> first_str_codepoints;
     from_str_to_codepoint(s, first_str_codepoints);
 
-
     return 0;
 }

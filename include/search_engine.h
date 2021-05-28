@@ -57,7 +57,8 @@ public:
     [[nodiscard]] std::string get_name() const;
     [[nodiscard]] uint32_t get_price() const;
 
-    friend product get_the_cheapest(const std::string &file_name, const std::string &s);
+    friend product get_the_cheapest(const std::string &file_name,
+                                    const std::string &s);
 
     friend void get_recipes(const std::vector<product> &ingredients,
                             uint32_t size,

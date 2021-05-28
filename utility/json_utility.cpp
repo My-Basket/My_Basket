@@ -96,16 +96,22 @@ int main() {
                 } catch (...) {
                     std::cerr << "Invalid path " << path_name << std::endl;
                 }
-                name.erase(std::remove(name.begin(), name.end(), '\"'), name.end());
-                name.erase(std::remove(name.begin(), name.end(), '/'),  name.end());
+                name.erase(std::remove(name.begin(), name.end(), '\"'),
+                           name.end());
+                name.erase(std::remove(name.begin(), name.end(), '/'),
+                           name.end());
                 std::string category;
                 try {
                     category = x[path_category];
                 } catch (...) {
                     std::cerr << "Invalid path " << path_category << std::endl;
                 }
-                category.erase(std::remove(category.begin(), category.end(), '\"'), category.end());
-                category.erase(std::remove(category.begin(), category.end(), '/'), category.end());
+                category.erase(
+                    std::remove(category.begin(), category.end(), '\"'),
+                    category.end());
+                category.erase(
+                    std::remove(category.begin(), category.end(), '/'),
+                    category.end());
                 search::product p(name, category, price);
                 outfile << p;
             }

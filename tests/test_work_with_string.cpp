@@ -90,7 +90,7 @@ TEST_CASE("from_str_to_codepoint, codepoint") {
     CHECK(code_point("е").first == 1077);
     CHECK(code_point("т").first == 1090);
     CHECK(code_point("!").first == 33);
-    std::string s2 ="🎧";
+    std::string s2 = "🎧";
     vec.clear();
     from_str_to_codepoint(s2, vec);
     CHECK(vec.size() == number_of_symbols(s2) + 1);
