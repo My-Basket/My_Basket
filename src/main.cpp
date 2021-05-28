@@ -9,6 +9,7 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+
     //    std::string s = "Сода";
     //    std::vector<search::product> vec;
     //    API::ingredients_to_recipe::run_product_search(s, 5, vec);
