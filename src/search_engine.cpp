@@ -255,7 +255,7 @@ std::string Recipe::get_name() const {
     return name;
 }
 
-void search_recipe(const string &input_string,
+bool search_recipe(const string &input_string,
                    uint32_t size,
                    std::vector<Recipe> &vec) {
     std::ifstream file("../data/recipes.json");
@@ -267,6 +267,7 @@ void search_recipe(const string &input_string,
         from_str_to_codepoint(input_string, first_str_codepoints);
     } catch (const err::MyBasketError &er) {
         err_in_file().log(er);
+        return false;
     }
     std::multiset<set_unit<Recipe>> top;
 
@@ -293,12 +294,14 @@ void search_recipe(const string &input_string,
             it--;
             top.erase(it);
         }
+
     }
     vec.resize(size);
     for (int i = 0; i < size && !top.empty(); i++) {
         vec[i] = top.begin()->product_;
         top.erase(top.begin());
     }
+    return true;
 }
 
 std::pair<long long, std::vector<std::pair<std::string, uint32_t>>>
